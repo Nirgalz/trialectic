@@ -136,10 +136,10 @@
 4. **Do not conflate mobilizability, Power, action and outcome.** A mobilizable CAN does not necessarily have positive Power. Positive `Power` means the conditions to *undertake* an `Actualization` are met; it does not guarantee success.
 5. **Preserve analytical distinctions:** direct/indirect is independent of immediate/delayed; probability differs from degree of possibility; a collective Potentiality is not automatically attributable to each member.
 6. **Do not introduce new conceptual commitments through translation.** If an English expression has no clear French equivalent, flag it for review instead of silently changing the definition.
-7. **Source of truth:** the current English GitHub reference (alpha 0.4) is primary for future edits. French versions are translations, not independent divergent references.
+7. **Source of truth:** the current English GitHub reference, `reference/trialectic-method.md`, is primary for future edits; Git tags are used to identify versioned snapshots. French versions are translations, not independent divergent references.
 
 ## 4. Maintenance
 
 Update this file when the author explicitly approves a new terminological equivalence. Record changes in `DECISIONS.md` and `CHANGELOG.md` as appropriate. Keep existing author-approved pairs stable unless explicitly revised.
 
-Source: `reference/trialectic-method-alpha-0.4.md` (with the preserved alpha 0.3), `TODO.md`, and `DECISIONS.md` as of November 14, 2026.
+Source: `reference/trialectic-method.md` (originally consolidated as alpha 0.4), `TODO.md`, and `DECISIONS.md` as of November 14, 2026. Historical versions are recoverable through Git history.
