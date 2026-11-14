@@ -110,5 +110,14 @@ A NEED–CAN relation can contribute to validating an Actualization Condition, *
 
 For a **circular NEED–CAN dependency between two Objects**, the Method should **seek a third Object that can satisfy a NEED of either of the first two Objects** and thereby potentially break the cycle. Finding such an Object does not by itself establish mobilizability, actual satisfaction, or resolution; those checks remain necessary. Cases where no suitable third Object is found remain open. Related tasks: T-02, T-16, T-17, T-30.
 
+## D-20 · Distinct mobilization and satisfaction conditions
+Date: November 14, 2026 | Status: **Validated**
+
+The author explicitly approved distinguishing two types of Conditions of Actualization in the emerging NEED/CAN architecture:
+- **Mobilization condition**: a CAN must be effectively mobilizable in order to undertake an Actualization.
+- **Satisfaction condition**: a NEED must be effectively satisfied in order to undertake an Actualization.
+
+Both types may be involved in the same analysis. A NEED–CAN correspondence alone does not establish either the CAN's mobilizability or the NEED's actual satisfaction. The operational criteria and composition of these conditions into sufficient pathways remain **OPEN**. This decision supplements D-19; the original entries are retained. Related tasks: T-02, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
