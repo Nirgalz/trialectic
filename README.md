@@ -2,7 +2,7 @@
 
 **The Trialectic Method** is an interdisciplinary, contextual, systemic, and recursive analytical framework for examining **Objects**, their **NEEDs** and **CANs**, relevant Conditions of Actualization, and effects on Objects and their relationships. The Method selects an **Object as Subject**, and can examine other Objects as Secondary Subjects. Subject, Environment, and Semantics are relevant, non-symmetrical analytical perspectives rather than universal causes.
 
-The Method is **an analytical framework, not a universal ontology**. The current working reference is **alpha 0.4**, a developing framework that has **not been scientifically validated**. The previous alpha 0.3 reference remains preserved.
+The Method is **an analytical framework, not a universal ontology**. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
 
 ## How it works
 
@@ -40,8 +40,7 @@ These are **potential applications, not validated use cases**. Comparative value
 
 ## Repository documents
 
-- [Reference alpha 0.4](reference/trialectic-method-alpha-0.4.md) — current working reference; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements.
-- [Reference alpha 0.3](reference/trialectic-method-alpha-0.3.md) — preserved previous reference.
+- [Canonical reference](reference/trialectic-method.md) — current working document; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements. Version snapshots are managed with Git tags rather than numbered filenames; prior revisions can be recovered from Git history.
 - [TODO](TODO.md) — 30 research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
 - [Contribution guidelines](CONTRIBUTING.md) — how to propose changes, submit pull requests, and document decisions.
@@ -53,7 +52,7 @@ These are **potential applications, not validated use cases**. Comparative value
 - **Explicit approval:** no conceptual modification is integrated into the main reference without the author's explicit validation.
 - **Language:** English is the reference-document language; discussion may take place in French or English.
 - **Evidence:** conceptual approval is not scientific validation. Hypotheses, formalizations, and unresolved questions remain clearly distinguished.
-- **Documentation workflow:** GitHub is the sole repository for reference documents, decisions, tasks, and version history.
+- **Documentation workflow:** GitHub is the sole repository for reference documents, decisions, tasks, and version history. Keep the reference filename stable; record version snapshots through Git tags at explicit commits (tag creation is a separate action).
 
 ## License and reuse
 
