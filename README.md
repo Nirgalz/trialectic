@@ -1,16 +1,20 @@
-# Méthode trialectique
+# Trialectic Method
 
-Dépôt privé de travail et de versionnement de la Méthode trialectique.
+Private working repository and version history for the **Trialectic Method**.
 
 ## Documents
-- `referentiel/methode-trialectique-alpha-0.3.md` : référentiel de travail du 14 novembre 2026 ; les statuts VALIDÉ / FORMALISATION / OUVERT y sont distingués.
-- `TODO.md` : chantiers et priorités.
-- `DECISIONS.md` : journal des décisions, incluant D-13 sur le versionnement Git.
-- `CHANGELOG.md` : historique des versions documentaires.
-- `CONTRIBUTING.md` : procédure de validation et de commit.
+- `reference/trialectic-method-alpha-0.3.md`: working reference dated November 14, 2026, distinguishing **VALIDATED**, **FORMALIZATION**, and **OPEN** statements.
+- `TODO.md`: 29 research and development tasks.
+- `DECISIONS.md`: decision log, including D-13 on Git versioning.
+- `CHANGELOG.md`: documentary version history.
+- `CONTRIBUTING.md`: validation and commit procedure.
+- `sources/SOURCES.md`: source documents and links.
 
-## Règle fondamentale
-Aucune modification conceptuelle n'est intégrée dans la branche principale sans validation explicite de l'auteur. Les hypothèses et tests restent identifiés comme ouverts.
+## Fundamental rule
+No conceptual modification is incorporated into the main branch without the author's explicit validation. Hypotheses and tests remain identified as open.
+
+## Language policy
+**English is the language of reference documents.** Discussion may take place in French or English. Translation must preserve conceptual meaning and validation status; proposed terminology is not automatically a new conceptual decision.
 
 ## Sources
-Documents issus des versions Dropbox Paper consultées le 14 novembre 2026. Le référentiel ODT v1.0 historique est conservé séparément et reste à importer dans Git.
+Based on Dropbox Paper documents accessed on November 14, 2026. The historical ODT reference v1.0 is preserved separately and has not yet been imported into Git.

@@ -1,9 +1,10 @@
-# Règles de contribution
+# Contribution guidelines
 
-1. Discuter et expliciter la modification proposée.
-2. Distinguer proposition, formalisation et décision validée.
-3. Attendre la validation explicite de l'auteur avant de modifier les documents de référence et créer le commit correspondant.
-4. Mettre à jour le référentiel, la TODO et le journal des décisions selon les effets de la validation.
-5. Créer un commit cohérent, avec le chantier et la décision concernés.
-6. Conserver les versions historiques ; ne pas réécrire silencieusement les décisions précédentes.
-7. Ne pas supposer une synchronisation automatique entre GitHub et Dropbox Paper.
+1. Discuss and explain the proposed change.
+2. Distinguish a proposal, a formalization, and an explicitly validated decision.
+3. Wait for the author's explicit approval before changing reference documents and committing the corresponding change.
+4. Update the reference, TODO, and decision log as required by the approved change.
+5. Create a coherent commit referring to the relevant task and decision.
+6. Preserve historical versions; do not silently rewrite previous decisions.
+7. Do not assume automatic synchronization between GitHub and Dropbox Paper.
+8. Maintain reference documents in English. French or English may be used for discussion. Preserve technical distinctions when translating.

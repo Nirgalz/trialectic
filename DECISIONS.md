@@ -1,74 +1,78 @@
-# Journal des décisions — Méthode trialectique
+# Decision log — Trialectic Method
 
-Alpha 0.2 · Reconstitution initiale au 13 novembre 2026
+Alpha 0.2 · Initial reconstruction as of November 13, 2026
 
-Ce journal rassemble les décisions identifiables dans les échanges disponibles. Les dates sont données lorsqu’elles sont connues ; certains éléments antérieurs sont regroupés. Il ne constitue pas une transcription exhaustive des conversations.
+This log brings together decisions identifiable in the available discussions. Dates are provided where known; some earlier elements are grouped. This is not an exhaustive transcript.
 
-## D-01 · Fondations
-Date : Avant le 12/11/2026 | Statut : Validé
+## D-01 · Foundations
+Date: Before November 12, 2026 | Status: **Validated**
 
-Adoption de « Méthode trialectique » comme cadre d’analyse et non ontologie universelle ; Sujet situé, Puissance, Potentialité focale, Pouvoir, Actualisation, Plasticité ; Sujet / Environnement / Sémantique comme perspectives non symétriques.
+Adopted the **Trialectic Method** as an analytical framework rather than a universal ontology; the **Situated Subject**, **Potency**, **Focal Potentiality**, **Power**, **Actualization**, and **Plasticity**; **Subject / Environment / Semantics** as non-symmetrical perspectives.
 
-## D-02 · Effets et récursivité
-Date : 12/11/2026 | Statut : Validé
+## D-02 · Effects and recursion
+Date: November 12, 2026 | Status: **Validated**
 
-Distinguer direct/indirect et immédiat/différé ; distinguer probabilité et degré de possibilité ; retenir le principe de pertinence récursive.
+Distinguish direct/indirect from immediate/delayed effects; distinguish probability from degree of possibility; retain the principle of recursive relevance.
 
-## D-03 · Potentialités
-Date : 12/11/2026 | Statut : Validé, critères à éprouver
+## D-03 · Potentialities
+Date: November 12, 2026 | Status: **Validated; criteria to be tested**
 
-Distinguer origine et intrinsécité ; intégrer la contribution constitutive pertinente et l’attribution de Potentialités à un Sujet sans exiger son autonomie d’action.
+Distinguish origin from intrinsicality; incorporate relevant constitutive contribution and the attribution of Potentialities to a Subject without requiring autonomous action.
 
-## D-04 · Sémantique
-Date : 12–13/11/2026 | Statut : Concepts validés, opérationnalisation ouverte
+## D-04 · Semantics
+Date: November 12–13, 2026 | Status: **Concepts validated; operationalization open**
 
-Paysage sémantique, objet sémantique, Signification, Expression, Réseau conceptuel et principe de Pyramide sémantique ; préciser équivalences et dépendances.
+Semantic Landscape, Semantic Object, Meaning, Expression, Conceptual Network, and the principle of a Semantic Pyramid; further specify equivalences and dependencies.
 
-## D-05 · Pouvoir et Actualisation
-Date : 13/11/2026 | Statut : Validé
+## D-05 · Power and Actualization
+Date: November 13, 2026 | Status: **Validated**
 
-Le Pouvoir positif signifie que les conditions pour entreprendre l’action sont réunies, sans garantie de réussite ; Actualisation focale et Actualisation améliorative distinguées.
+Positive Power means the conditions for undertaking the action are met, without guaranteeing success; distinguish Focal Actualization and Improving Actualization.
 
-## D-06 · Priorisation
-Date : 13/11/2026 | Statut : Validé
+## D-06 · Prioritization
+Date: November 13, 2026 | Status: **Validated**
 
-Quatre dimensions : Mobilisation (Faisabilité distincte de Difficulté), Temporalité, Efficacité attendue, Conséquences élargies ; complémentarités, pondérations contextuelles et modes simple/avancé.
+Four dimensions: Mobilization (Feasibility distinct from Difficulty), Temporality, Expected Effectiveness, and Broader Consequences; complementarities, context-dependent weighting, and simple/advanced modes.
 
-## D-07 · Scénarios
-Date : 13/11/2026 | Statut : Validé
+## D-07 · Scenarios
+Date: November 13, 2026 | Status: **Validated**
 
-Scénario de résolution et planification récursive ; critères supplémentaires de cohérence interne, robustesse et adaptabilité ; principe de maîtrise de la complexité.
+Resolution Scenario and recursive planning; additional criteria of internal coherence, robustness, and adaptability; principle of complexity management.
 
-## D-08 · Évaluation des effets
-Date : 13/11/2026 | Statut : Validé
+## D-08 · Evaluation of effects
+Date: November 13, 2026 | Status: **Validated**
 
-Distinguer effets anticipés, observés et causalement attribués ; un changement observé ne prouve pas une causalité.
+Distinguish anticipated, observed, and causally attributed effects; an observed change does not establish causation.
 
-## D-09 · Recherche expérimentale
-Date : 13/11/2026 | Statut : Validé pour TODO
+## D-09 · Experimental research
+Date: November 13, 2026 | Status: **Validated for TODO**
 
-Ajouter trois chantiers : génération, comparaison des scénarios et réévaluation empirique ; rechercher les classes de problèmes où la Méthode apporte une valeur ajoutée.
+Add three workstreams: scenario generation, scenario comparison, and empirical reassessment; investigate the classes of problems for which the Method adds value.
 
-## D-10 · Applications IA
-Date : 13/11/2026 | Statut : Validé
+## D-10 · AI applications
+Date: November 13, 2026 | Status: **Validated**
 
-Retenir l’ambition d’un modèle explicite de ce que l’IA cherche à comprendre et faire évoluer pendant le dialogue ; principes de pertinence, économie conversationnelle et révision ; créer un chantier P1.
+Retain the ambition of an explicit model of what AI seeks to understand and change during dialogue; principles of relevance, conversational economy, and revision; create a P1 task.
 
-## D-11 · Gouvernance documentaire
-Date : 13/11/2026 | Statut : Validé
+## D-11 · Document governance
+Date: November 13, 2026 | Status: **Validated**
 
-À chaque validation vérifier les effets sur la TODO ; afficher TODO sur demande ; dater les états par version ; informer des changements pendant les échanges.
+At every validation, check implications for the TODO; display the TODO upon request; date states by version; report changes during discussions.
 
-## D-12 · Création des documents
-Date : 13/11/2026 | Statut : Documenté
+## D-12 · Creation of documents
+Date: November 13, 2026 | Status: **Documented**
 
-Création initiale des documents TODO et Journal des décisions ; mise à jour future à effectuer explicitement, sans synchronisation automatique garantie.
+Initial creation of the TODO and Decision Log; future updates must be performed explicitly, with no guarantee of automatic synchronization.
 
+## D-13 · Git versioning
+Date: November 14, 2026 | Status: **Validated**
 
-## D-13 · Versionnement Git
-Date : 14/11/2026 | Statut : Validé
+Use a **private** GitHub repository for Trialectic Method documents. Commit methodological changes **only after the user's explicit validation**. Prepare the import of reference documents, TODO, and decision log. Git is the primary version-history source; Dropbox Paper documents may continue to be used, but synchronization is not automatic. Related task: T-28.
 
-Adopter un dépôt GitHub **privé** pour les documents de la Méthode trialectique. N'effectuer les commits de modifications méthodologiques **qu'après validation explicite** de l'utilisateur. Préparer l'importation des référentiels, de la TODO et du journal des décisions. Le dépôt Git sera la source principale de versionnement ; les documents Dropbox Paper restent utilisables, mais leur synchronisation n'est pas automatique. Chantier lié : T-28.
+## D-14 · English working language
+Date: November 14, 2026 | Status: **Validated**
 
-## Règle d’ajout au journal
-Chaque nouvelle entrée doit indiquer date, décision, statut (proposé / validé / modifié / abandonné), justification si disponible, et référence aux chantiers concernés. Les décisions anciennes ne doivent pas être réécrites silencieusement : consigner une nouvelle entrée corrective.
+English is the working language for reference documents. The author may continue to communicate in French or English. Translate reference documents into English while preserving technical meaning, established decisions, and the distinction between validated and open material. Related task: T-28.
+
+## Rule for new entries
+Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

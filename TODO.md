@@ -1,113 +1,111 @@
-# TODO — Méthode trialectique
+# TODO — Trialectic Method
 
-Alpha 0.2 · Mise à jour : 13 novembre 2026 · 29 chantiers
+Alpha 0.2 · Updated: November 13, 2026 · 29 tasks
 
-Registre de travail. Les statuts correspondent aux derniers échanges disponibles ; ils ne prouvent pas l’achèvement des travaux. Les modifications ultérieures nécessitent une mise à jour explicite de ce fichier.
+Working register. Statuses reflect the latest available discussions; they do not establish that work has been completed. Subsequent changes require an explicit update to this file.
 
-# Règles de suivi
-1. À chaque validation : déterminer si un chantier est créé, modifié ou résolu.
-2. À la demande « TODO » : présenter les statuts et décisions disponibles.
-3. À chaque nouvelle version : établir un état daté et un historique des modifications.
-4. Pendant les échanges : signaler les changements d’état, de priorité ou de périmètre.
+# Tracking rules
+1. At each validation, determine whether a task has been created, modified, or resolved.
+2. Upon a request for “TODO”, present available statuses and decisions.
+3. At each new version, establish a dated snapshot and change history.
+4. During discussions, report changes in status, priority, or scope.
 
 # P0
-## T-01 · Consolider les critères d’attribution des Potentialités
-Statut : **À expérimenter** | Tester contribution constitutive, attribution individualisée et frontière présent/futur.
+## T-01 · Consolidate the criteria for attributing Potentialities
+Status: **To experiment** | Test constitutive contribution, individualized attribution, and the present/future boundary.
 
-## T-02 · Formaliser les Conditions du Pouvoir
-Statut : **À résoudre** | Conditions permettant d’entreprendre l’action, voies suffisantes, dépendances, incertitudes.
+## T-02 · Formalize the Conditions of Power
+Status: **To resolve** | Conditions for undertaking an action, sufficient pathways, dependencies, and uncertainties.
 
-## T-03 · Rendre le protocole d’analyse reproductible
-Statut : **À développer** | Contextualisation, données, justification et comparaison inter-analystes.
+## T-03 · Make the analysis protocol reproducible
+Status: **To develop** | Contextualization, data, justification, and inter-analyst comparisons.
 
-## T-04 · Tester comparativement l’utilité de la Méthode
-Statut : **À expérimenter** | Contrôles analyse libre, structuration classique et Méthode ; coût et qualité.
+## T-04 · Test the Method's comparative usefulness
+Status: **To experiment** | Controls using free-form analysis, conventional structuring, and the Method; cost and quality.
 
-## T-05 · Clarifier les frontières des types de Sujets
-Statut : **À résoudre** | Individus, groupes, objets techniques, systèmes et statut expérimental des objets sémantiques.
-
+## T-05 · Clarify the boundaries between Subject types
+Status: **To resolve** | Individuals, groups, technical objects, systems, and the experimental status of semantic objects.
 
 # P1
-## T-06 · Identifier concepts constitutifs et significatifs
-Statut : **À expérimenter** | Nécessité constitutive, influence significative, association.
+## T-06 · Identify constitutive and significant concepts
+Status: **To experiment** | Constitutive necessity, significant influence, and association.
 
-## T-07 · Critère indépendant d’identité de Signification
-Statut : **À résoudre** | Éviter de présupposer les résultats des tests.
+## T-07 · Establish an independent criterion for identity of Meaning
+Status: **To resolve** | Avoid presupposing test outcomes.
 
-## T-08 · Dépendances conceptuelles alternatives et conjointes
-Statut : **À résoudre** | Configurations multiples d’une Signification.
+## T-08 · Examine alternative and joint conceptual dependencies
+Status: **To resolve** | Multiple configurations of a Meaning.
 
-## T-09 · Dépendances conceptuelles circulaires
-Statut : **À résoudre** | Nécessité mutuelle et cycles.
+## T-09 · Examine circular conceptual dependencies
+Status: **To resolve** | Mutual necessity and cycles.
 
-## T-10 · Dépendances constitutives directes et indirectes
-Statut : **À résoudre** | Rôle des concepts éloignés dans la Pyramide.
+## T-10 · Examine direct and indirect constitutive dependencies
+Status: **To resolve** | Role of distant concepts in the Pyramid.
 
-## T-11 · Opérationnaliser la Pyramide sémantique
-Statut : **À expérimenter** | Caractère constitutif, importance hiérarchique et structurelle.
+## T-11 · Operationalize the Semantic Pyramid
+Status: **To experiment** | Constitutive character, hierarchical and structural importance.
 
-## T-12 · Critères d’équivalence sémantique
-Statut : **À expérimenter** | Variations expressives et conceptuelles, incompatibilités.
+## T-12 · Establish criteria for semantic equivalence
+Status: **To experiment** | Expressive and conceptual variations, incompatibilities.
 
-## T-13 · Reconstruire les Pyramides sémantiques individuelles
-Statut : **À expérimenter** | Limiter les projections de l’analyste.
+## T-13 · Reconstruct individual Semantic Pyramids
+Status: **To experiment** | Limit the analyst's projections.
 
-## T-14 · Clarifier Plasticité et Plasticité sémantique
-Statut : **À résoudre** | Transformation du paysage sémantique et de la Puissance.
+## T-14 · Clarify Plasticity and Semantic Plasticity
+Status: **To resolve** | Transformation of the Semantic Landscape and Potency.
 
-## T-15 · Préciser la contextualisation du Sujet situé
-Statut : **À résoudre** | Sélection pertinente des propriétés et relations.
+## T-15 · Specify the contextualization of the Situated Subject
+Status: **To resolve** | Relevant selection of properties and relations.
 
-## T-16 · Générer des Scénarios de résolution
-Statut : **À développer** | Diversité et pertinence sans explosion combinatoire.
+## T-16 · Generate Resolution Scenarios
+Status: **To develop** | Diversity and relevance without combinatorial explosion.
 
-## T-17 · Comparer les Scénarios de résolution
-Statut : **À développer** | Séquences, dépendances, synergies, effets cumulés, double comptage.
+## T-17 · Compare Resolution Scenarios
+Status: **To develop** | Sequences, dependencies, synergies, cumulative effects, and double counting.
 
-## T-18 · Réévaluer empiriquement les scénarios et leurs effets
-Statut : **À expérimenter** | Anticipés, observés, causalement attribués.
+## T-18 · Empirically reassess scenarios and their effects
+Status: **To experiment** | Anticipated, observed, and causally attributed effects.
 
-## T-19 · Identifier les classes de problèmes à valeur ajoutée
-Statut : **À expérimenter** | Benchmarks standardisés ; bénéfices, limites et conditions d’usage.
+## T-19 · Identify classes of problems where the Method adds value
+Status: **To experiment** | Standardized benchmarks; benefits, limitations, and conditions of use.
 
-## T-20 · Concevoir un dialogue trialectique adaptatif pour les IA
-Statut : **À développer** | Pertinence, économie conversationnelle, révision de la Potentialité focale.
-
+## T-20 · Design adaptive trialectic dialogue for AI
+Status: **To develop** | Relevance, conversational economy, and revision of Focal Potentiality.
 
 # P2
-## T-21 · Opérationnaliser pertinence récursive et maîtrise de complexité
-Statut : **À développer** | Critères d’arrêt, simplification et redéfinition focale.
+## T-21 · Operationalize recursive relevance and complexity management
+Status: **To develop** | Stopping criteria, simplification, and focal redefinition.
 
-## T-22 · Préciser les mesures complémentaires du Pouvoir
-Statut : **À résoudre** | Binaire, incertitude, perspectives de réussite.
+## T-22 · Specify complementary measures of Power
+Status: **To resolve** | Binary status, uncertainty, and prospects of success.
 
-## T-23 · Formaliser les arbitrages normatifs
-Statut : **À résoudre** | Effets sur plusieurs Sujets et compromis.
+## T-23 · Formalize normative trade-offs
+Status: **To resolve** | Effects on multiple Subjects and compromises.
 
-## T-24 · Tester les cas limites et contre-exemples
-Statut : **À expérimenter** | Échecs, faible valeur, surcharge analytique.
+## T-24 · Test edge cases and counterexamples
+Status: **To experiment** | Failures, limited value, and analytical overload.
 
-## T-25 · Comparer les approches théoriques existantes
-Statut : **À approfondir** | Capabilités, affordances, théorie des contraintes, systémique.
+## T-25 · Compare existing theoretical approaches
+Status: **To investigate further** | Capabilities, affordances, theory of constraints, and systems thinking.
 
-
-## T-29 · Évaluer les effets distributifs des Actualisations sur la Puissance et le Pouvoir
-Statut : **À résoudre** | Comment déterminer qu’une Actualisation augmente la Puissance et le Pouvoir de certains Sujets sans réduire excessivement ceux des autres ? Définir les critères de comparaison, les seuils de préjudice acceptable, les compensations éventuelles et le traitement des conflits entre Sujets.
+## T-29 · Evaluate distributive effects of Actualizations on Potency and Power
+Status: **To resolve** | How can one determine that an Actualization increases the Potency and Power of some Subjects without excessively reducing those of others? Define comparison criteria, acceptable harm thresholds, possible compensation, and the handling of conflicts between Subjects.
 
 # P3
-## T-26 · Créer outils pratiques et modes d’utilisation
-Statut : **À développer** | Grilles, modes simple et avancé, pondérations, schémas.
+## T-26 · Create practical tools and usage modes
+Status: **To develop** | Grids, simple and advanced modes, weightings, and diagrams.
 
-## T-27 · Constituer un corpus d’études de cas
-Statut : **À développer** | Résultats, limites, échecs et comparaisons versionnées.
+## T-27 · Assemble a corpus of case studies
+Status: **To develop** | Results, limitations, failures, and versioned comparisons.
 
-## T-28 · Gérer référentiel, versions et suivi TODO
-Statut : **À développer** | Historique, état daté, notifications des changements.
+## T-28 · Manage the reference, versions, and TODO tracking
+Status: **To develop** | History, dated snapshots, and change notifications. GitHub is the primary version-history source; English is the reference language.
 
-# Historique de la TODO
-- 13/11/2026 — Base consolidée de 26 chantiers.
-- 13/11/2026 — Ajout : classes de problèmes à valeur ajoutée (T-19).
-- 13/11/2026 — Ajout : dialogue trialectique adaptatif pour IA (T-20).
-- 13/11/2026 — Précision : suivi documentaire, journal et notifications (T-28).
-- 13/11/2026 — Création de ce registre documentaire, 28 chantiers ouverts.
-- 13/11/2026 — Ajout T-29 : évaluation des effets distributifs des Actualisations sur la Puissance et le Pouvoir des Sujets (P2, à résoudre).
+# TODO history
+- 2026-11-13 — Consolidated base of 26 tasks.
+- 2026-11-13 — Added problem classes with added value (T-19).
+- 2026-11-13 — Added adaptive trialectic dialogue for AI (T-20).
+- 2026-11-13 — Clarified document tracking, decision log, and notifications (T-28).
+- 2026-11-13 — Created this documentary register, 28 open tasks.
+- 2026-11-13 — Added T-29: evaluation of distributive effects of Actualizations on Subjects' Potency and Power (P2, to resolve).
+- 2026-11-14 — Adopted English for reference documents; language migration under T-28. No research task closed.

@@ -1,8 +1,13 @@
-# Historique documentaire
+# Document history
 
-## 2026-11-14 — Import initial
-- Import du référentiel alpha 0.3 depuis Dropbox Paper.
-- Import de la TODO (29 chantiers) et du journal des décisions (incluant D-13).
-- Mise en place du dépôt GitHub privé avec commits après validation explicite.
+## 2026-11-14 — English-language migration
+- Adopted English as the language of reference documents; discussion may remain bilingual.
+- Translated the reference alpha 0.3, TODO, decision log, and repository guidance.
+- Preserved the French versions in Git history. Translation does not itself validate open methodological questions.
 
-Les versions antérieures sont documentées dans les sources historiques et seront importées séparément.
+## 2026-11-14 — Initial import
+- Imported the alpha 0.3 reference from Dropbox Paper.
+- Imported the TODO (29 tasks) and decision log (including D-13).
+- Established a private GitHub repository with commits following explicit validation.
+
+Earlier versions are documented in historical sources and will be imported separately.
