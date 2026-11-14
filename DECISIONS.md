@@ -85,5 +85,30 @@ Date: November 14, 2026 | Status: **Validated**
 
 Dropbox and Dropbox Paper are no longer used in the Trialectic Method's documentation workflow. GitHub is the sole active repository for reference documents, the TODO, decisions, and version history. This supersedes the optional continued use of Dropbox Paper mentioned in D-13; the historical record remains unchanged. Related task: T-28.
 
+## D-17 · Object / Subject / Focus restructuring (under development)
+Date: November 14, 2026 | Status: **Validated decisions within an unfinished architectural restructuring**
+
+The author adopts **Object** as the general type encompassing an Individual, Group, Technical Object, System, or Semantic Object. **Subject** denotes the Object placed at the center of an analysis. The main Subject is selected in the first **Stage** (a methodological operation); secondary Subjects may be analyzed in parallel, including within an Actualization Scenario. **Focus** denotes the current attention of the Method: initially the Subject, then a selected NEED **or** CAN, then Actualization, followed by reassessment of the Subject. An Object's boundaries are proposed through its existential and structural NEEDs, its component Objects, and its actionable CANs; detailed boundary and identity criteria remain to be formalized.
+
+**CAN** denotes a Potentiality attributable to an Object; **NEED** denotes a necessity attributable to an Object. NEEDs and CANs are attributable properties that can establish relations within or between Objects, and their lists need not be exhaustive. Subject, Environment, and Semantics remain relevant perspectives on their determination without a presumption that all are equally weighted. The **Environment** is the contextualized set of Objects and relations liable to affect the Subject's NEEDs, CANs, or Actualizations. **Accessible Objects** are a subset with which the Subject can interact directly. A Semantic Pyramid is used for identifying NEEDs only when suitable for the Object; dependencies within a Semantic Object's Semantic Pyramid are conceptual and must not automatically be equated with empirical needs. Keep **Power** conceptually distinct from NEEDs and CANs.
+
+**Scope caution:** The restructuring has not yet been integrated into the maintained alpha 0.3 reference. Operational definitions, relation types, Subject/Object identity, Focus procedures, and remaining consistency questions are still open. Related tasks: T-01, T-02, T-03, T-05, T-30.
+
+## D-18 · Approved NEED definition and satisfaction states
+Date: November 14, 2026 | Status: **Validated**
+
+Author-approved French definition (preserved verbatim):
+
+> **NEED :** nécessité attribuable à un Objet, dont la satisfaction est requise pour l'existence, le maintien ou la réalisation d'un état déterminé de cet Objet. Un NEED peut être existentiel, structurel ou les deux. Sa satisfaction peut résulter d'un état existant ou impliquer l'Actualisation d'un ou plusieurs CANs
+
+A NEED exists independently of whether it is currently satisfied. Three analytical outcomes are retained: **satisfied**, **unsatisfied**, and **satisfaction indeterminate**; the last reflects uncertainty of assessment, not a third intrinsic satisfaction state. Satisfaction need not involve any identifiable CAN Actualization. A NEED is distinguished from its satisfaction and from a NEED–CAN relation; these are not interchangeable. The distinction between conceptual, actual-existence, and functioning dependencies is also accepted. Related tasks: T-01, T-02, T-30.
+
+## D-19 · NEED–CAN condition validation and circular dependency
+Date: November 14, 2026 | Status: **Validated principle; operational criteria open**
+
+A NEED–CAN relation can contribute to validating an Actualization Condition, **but only after checking that the CAN is effectively mobilizable**. Matching a NEED with a CAN must not be treated as proof that a NEED is actually satisfied or that an Actualization succeeds. A NEED relevant to an Object's Actualization may belong to another Object in its Environment.
+
+For a **circular NEED–CAN dependency between two Objects**, the Method should **seek a third Object that can satisfy a NEED of either of the first two Objects** and thereby potentially break the cycle. Finding such an Object does not by itself establish mobilizability, actual satisfaction, or resolution; those checks remain necessary. Cases where no suitable third Object is found remain open. Related tasks: T-02, T-16, T-17, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
