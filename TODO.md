@@ -12,13 +12,13 @@ Working register. Statuses reflect the latest available discussions; they do not
 
 # P0
 ## T-30 · Formalize the Object / Subject / NEED / CAN architecture
-Status: **To develop** | Consolidate the validated restructuring recorded in D-17 to D-19 into a coherent proposal before revising the alpha 0.3 reference. Specify Object boundaries; main and secondary Subjects; the Focus/Stage cycle; existential and structural NEEDs and their satisfaction states; CAN attribution; intra-/inter-Object NEED–CAN relations; mobilizability; environmental relevance; circular dependencies and third-Object interventions; impacts on Power, Plasticity, and scenarios. Open points must be clearly distinguished from validated decisions. This architecture task intersects T-01, T-02, T-03, T-05, and T-16.
+Status: **To develop** | Consolidate the validated restructuring recorded in D-17 to D-19 into a coherent proposal before revising the alpha 0.3 reference. Specify Object boundaries; main and secondary Subjects; the Focus/Stage cycle; existential and structural NEEDs and their satisfaction states; CAN attribution; intra-/inter-Object NEED–CAN relations; distinct mobilization and satisfaction conditions (D-20); environmental relevance; circular dependencies and third-Object interventions; impacts on Power, Plasticity, and scenarios. Open points must be clearly distinguished from validated decisions. This architecture task intersects T-01, T-02, T-03, T-05, and T-16.
 
 ## T-01 · Consolidate the criteria for attributing Potentialities
 Status: **To experiment** | Test constitutive contribution, individualized attribution, and the present/future boundary.
 
 ## T-02 · Formalize the Conditions of Power
-Status: **To resolve** | Conditions for undertaking an action, sufficient pathways, dependencies, and uncertainties.
+Status: **To resolve** | Formalize distinct mobilization (CAN effectively mobilizable) and satisfaction (NEED effectively satisfied) conditions validated in D-20; develop operational criteria, sufficient pathways, dependencies, and uncertainties.
 
 ## T-03 · Make the analysis protocol reproducible
 Status: **To develop** | Contextualization, data, justification, and inter-analyst comparisons.
@@ -113,3 +113,4 @@ Status: **To develop** | History, dated snapshots, and change notifications. Git
 - 2026-11-13 — Added T-29: evaluation of distributive effects of Actualizations on Subjects' Potency and Power (P2, to resolve).
 - 2026-11-14 — Adopted English for reference documents; language migration under T-28. No research task closed.
 - 2026-11-14 — Added T-30 for the validated but not yet consolidated Object/Subject/NEED/CAN restructuring (D-17–D-19). T-01 and T-02 remain open; alpha 0.3 remains unchanged.
+- 2026-11-14 — Validated distinct CAN mobilization and NEED satisfaction conditions (D-20); clarified T-02 and T-30, with statuses unchanged.
