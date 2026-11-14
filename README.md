@@ -53,7 +53,6 @@ These are **potential applications, not validated use cases**. Comparative value
 - [Reference alpha 0.3](reference/trialectic-method-alpha-0.3.md) — current working reference; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements.
 - [TODO](TODO.md) — 29 research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
-- [Changelog](CHANGELOG.md) — documentary version history.
 - [Contribution guidelines](CONTRIBUTING.md) — validation and commit procedure.
 - [French–English terminology](terminology/french-english-glossary.md) — approved core translations and additional working equivalents.
 
