@@ -24,6 +24,21 @@
 
 ### Subjects, context, and Potentialities
 
+**Alpha 0.4 terminology note:** The following are **working English/French renderings** for newly adopted concepts, not a separate approval of every bilingual pairing. **NEED** and **CAN** are preserved verbatim as the author's concept labels.
+
+| English | French |
+|---|---|
+| Object | Objet |
+| Main Subject | Sujet principal |
+| Secondary Subject | Sujet secondaire |
+| Focus | Focus |
+| Stage (methodological) | Étape |
+| NEED | NEED |
+| CAN | CAN |
+| NEED satisfaction | Satisfaction du NEED |
+| Mobilization condition | Condition de mobilisation |
+| Satisfaction condition | Condition de satisfaction |
+
 | English | French |
 |---|---|
 | Subject | Sujet |
@@ -118,13 +133,13 @@
 1. **Translate by concept, not by superficial synonym.** In this Method, `Power` does not mean general social domination; `Potency` does not mean power or authority.
 2. **Preserve capitalization** for named concepts where the reference uses it (e.g., `Potentiality`, `Power`, `Actualization`), and retain task and decision identifiers (`T-01`, `D-14`).
 3. **Preserve epistemic status.** `VALIDATED` means explicitly approved within the Method, **not empirically demonstrated**. `OPEN` denotes an unresolved criterion or hypothesis.
-4. **Do not conflate action with outcome.** Positive `Power` means the conditions to *undertake* an `Actualization` are met; it does not guarantee success.
+4. **Do not conflate mobilizability, Power, action and outcome.** A mobilizable CAN does not necessarily have positive Power. Positive `Power` means the conditions to *undertake* an `Actualization` are met; it does not guarantee success.
 5. **Preserve analytical distinctions:** direct/indirect is independent of immediate/delayed; probability differs from degree of possibility; a collective Potentiality is not automatically attributable to each member.
 6. **Do not introduce new conceptual commitments through translation.** If an English expression has no clear French equivalent, flag it for review instead of silently changing the definition.
-7. **Source of truth:** the English GitHub reference is primary for future edits. French versions are translations, not independent divergent references.
+7. **Source of truth:** the current English GitHub reference (alpha 0.4) is primary for future edits. French versions are translations, not independent divergent references.
 
 ## 4. Maintenance
 
 Update this file when the author explicitly approves a new terminological equivalence. Record changes in `DECISIONS.md` and `CHANGELOG.md` as appropriate. Keep existing author-approved pairs stable unless explicitly revised.
 
-Source: `reference/trialectic-method-alpha-0.3.md`, `TODO.md`, and `DECISIONS.md` as of November 14, 2026.
+Source: `reference/trialectic-method-alpha-0.4.md` (with the preserved alpha 0.3), `TODO.md`, and `DECISIONS.md` as of November 14, 2026.
