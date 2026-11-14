@@ -80,5 +80,10 @@ Date: November 14, 2026 | Status: **Validated**
 
 The author explicitly approved the nine English translations previously proposed for Trialectic Method, Situated Subject, Potency, Power, Focal Potentiality, Actualization, Plasticity, Resolution Scenario, and Semantic Landscape. Maintain a bilingual terminology reference in `terminology/french-english-glossary.md` for consistent English-to-French translation. Other documented equivalents remain working translations unless separately approved. Related task: T-28.
 
+## D-16 · GitHub-only documentation workflow
+Date: November 14, 2026 | Status: **Validated**
+
+Dropbox and Dropbox Paper are no longer used in the Trialectic Method's documentation workflow. GitHub is the sole active repository for reference documents, the TODO, decisions, and version history. This supersedes the optional continued use of Dropbox Paper mentioned in D-13; the historical record remains unchanged. Related task: T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
