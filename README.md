@@ -1,31 +1,21 @@
 # Trialectic Method
 
-**The Trialectic Method** is an interdisciplinary, contextual, systemic, and recursive framework for analyzing the Potentialities of a **Situated Subject**, the conditions under which they can be actualized, and the effects of their Actualization. It examines individuals, groups, technical objects, and systems through the relevant perspectives of **Subject**, **Environment**, and **Semantics**. These perspectives are neither equally weighted nor assumed to be universal causes.
+**The Trialectic Method** is an interdisciplinary, contextual, systemic, and recursive analytical framework for examining **Objects**, their **NEEDs** and **CANs**, relevant Conditions of Actualization, and effects on Objects and their relationships. The Method selects an **Object as Subject**, and can examine other Objects as Secondary Subjects. Subject, Environment, and Semantics are relevant, non-symmetrical analytical perspectives rather than universal causes.
 
-The Method is an **analytical framework, not a universal ontology**. Its current reference is **alpha 0.3**, a work in progress that has **not been scientifically validated**.
+The Method is **an analytical framework, not a universal ontology**. The current working reference is **alpha 0.4**, a developing framework that has **not been scientifically validated**. The previous alpha 0.3 reference remains preserved.
 
 ## How it works
 
-**Potency** is the set of a Subject's Potentialities at a given time. A **Focal Potentiality** is selected for analysis. **Power** is positive when at least one sufficient set of conditions allows its Actualization to be **undertaken**; this does not guarantee success. When conditions are missing—or prospects of success could be improved—the Method can explore **Resolution Scenarios** involving Improving Actualizations. Observed effects feed into reassessment.
+A methodological **Stage** determines the current **Focus**. The adopted analytical sequence is: **Subject** (Main Subject selected) → **NEED or CAN** → **Actualization** → reassessment of the **Subject**, with parallel analyses of Secondary Subjects where useful.
 
-```mermaid
-flowchart TD
-    A["Situated Subject<br/>Subject + relevant Environment"] --> B["Identify Potency<br/>and select Focal Potentiality"]
-    S["Semantics<br/>when relevant"] -. "Clarifies meanings and alternatives" .-> B
-    B --> C["Identify Conditions of Power<br/>and alternative sufficient pathways"]
-    C --> D{"Power assessment"}
-    D -->|"Negative or uncertain"| E["Identify missing conditions<br/>or missing information"]
-    D -->|"Positive"| F["Actualization can be undertaken<br/>success not guaranteed"]
-    E --> G["Explore and compare<br/>Resolution Scenarios"]
-    G --> H["Improving Actualizations<br/>when their Power permits"]
-    H --> C
-    F --> I["Actualization and its effects"]
-    I --> J["Observe and assess effects<br/>including other Subjects"]
-    J --> K["Reassess Potency, Power,<br/>Conditions and Environment"]
-    K --> B
-```
+- **Object:** an Individual, Group, Technical Object, System, or Semantic Object.
+- **NEED:** a necessity attributable to an Object for the existence, maintenance, or realization of a specified state. It may be existential, structural, or both, and may be satisfied without any identifiable CAN Actualization.
+- **CAN:** a Potentiality attributable to an Object. NEEDs and CANs can form relationships within and between Objects.
+- **Conditions:** distinguish **mobilization** of a CAN from **satisfaction** of a NEED. A **mobilizable CAN does not necessarily have positive Power**; Power is separately assessed for sufficient Conditions of Actualization.
+- **Power and Actualization:** positive Power permits an Actualization to be undertaken without guaranteeing its success. Observed effects feed back into reassessment.
+- **Dependencies:** an Object's Actualization may require a NEED of another Object. When two Objects form a circular NEED–CAN dependency, the Method examines whether a third Object may satisfy a NEED and potentially break the cycle.
 
-The diagram is a **simplified analytical workflow**, not a mandatory linear sequence. Scenarios may also be explored when Power is already positive, to improve the prospects of success. If attribution of a Potentiality is not established, its constitutive foundation must be examined rather than assuming it exists. Simulations and anticipated effects are not Actualizations.
+The exact procedures for CAN attribution, NEED identification, mobilizability, Focus transitions, sufficient pathways, and scenario comparisons remain research tasks, **not settled tests**.
 
 ## Current use
 
@@ -50,8 +40,9 @@ These are **potential applications, not validated use cases**. Comparative value
 
 ## Repository documents
 
-- [Reference alpha 0.3](reference/trialectic-method-alpha-0.3.md) — current working reference; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements.
-- [TODO](TODO.md) — 29 research and development tasks and their statuses.
+- [Reference alpha 0.4](reference/trialectic-method-alpha-0.4.md) — current working reference; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements.
+- [Reference alpha 0.3](reference/trialectic-method-alpha-0.3.md) — preserved previous reference.
+- [TODO](TODO.md) — 30 research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
 - [Contribution guidelines](CONTRIBUTING.md) — how to propose changes, submit pull requests, and document decisions.
 - [License](LICENSE) — Creative Commons Attribution 4.0 International (CC BY 4.0).
