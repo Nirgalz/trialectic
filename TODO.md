@@ -1,6 +1,6 @@
 # TODO — Trialectic Method
 
-Alpha 0.2 · Updated: November 13, 2026 · 29 tasks
+Working register · Updated: November 14, 2026 · 30 tasks
 
 Working register. Statuses reflect the latest available discussions; they do not establish that work has been completed. Subsequent changes require an explicit update to this file.
 
@@ -11,6 +11,9 @@ Working register. Statuses reflect the latest available discussions; they do not
 4. During discussions, report changes in status, priority, or scope.
 
 # P0
+## T-30 · Formalize the Object / Subject / NEED / CAN architecture
+Status: **To develop** | Consolidate the validated restructuring recorded in D-17 to D-19 into a coherent proposal before revising the alpha 0.3 reference. Specify Object boundaries; main and secondary Subjects; the Focus/Stage cycle; existential and structural NEEDs and their satisfaction states; CAN attribution; intra-/inter-Object NEED–CAN relations; mobilizability; environmental relevance; circular dependencies and third-Object interventions; impacts on Power, Plasticity, and scenarios. Open points must be clearly distinguished from validated decisions. This architecture task intersects T-01, T-02, T-03, T-05, and T-16.
+
 ## T-01 · Consolidate the criteria for attributing Potentialities
 Status: **To experiment** | Test constitutive contribution, individualized attribution, and the present/future boundary.
 
@@ -109,3 +112,4 @@ Status: **To develop** | History, dated snapshots, and change notifications. Git
 - 2026-11-13 — Created this documentary register, 28 open tasks.
 - 2026-11-13 — Added T-29: evaluation of distributive effects of Actualizations on Subjects' Potency and Power (P2, to resolve).
 - 2026-11-14 — Adopted English for reference documents; language migration under T-28. No research task closed.
+- 2026-11-14 — Added T-30 for the validated but not yet consolidated Object/Subject/NEED/CAN restructuring (D-17–D-19). T-01 and T-02 remain open; alpha 0.3 remains unchanged.
