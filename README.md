@@ -61,4 +61,4 @@ These are **potential applications, not validated use cases**. Comparative value
 - **Explicit approval:** no conceptual modification is integrated into the main reference without the author's explicit validation.
 - **Language:** English is the reference-document language; discussion may take place in French or English.
 - **Evidence:** conceptual approval is not scientific validation. Hypotheses, formalizations, and unresolved questions remain clearly distinguished.
-- **Documentation workflow:** GitHub is the sole active repository for reference documents, decisions, tasks, and version history. Dropbox and Dropbox Paper are no longer used.
+- **Documentation workflow:** GitHub is the sole repository for reference documents, decisions, tasks, and version history.
