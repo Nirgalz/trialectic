@@ -142,5 +142,14 @@ At the author's request, version-specific reference filenames are discontinued. 
 
 No tag is created by this documentation change. The existing conceptual status distinctions (**VALIDATED**, **FORMALIZATION**, **OPEN**) and research tasks remain unchanged. Only `dev` is modified, not `main`. Related task: T-28.
 
+## D-24 · Reprioritized and operationalized the 30-task research TODO
+Date: November 14, 2026 | Status: **Validated as a documentation and work-planning change; no new conceptual rules adopted**
+
+The author approved updating the TODO on `dev` in accordance with the November 14 audit against `reference/trialectic-method.md`. All 30 task IDs remain stable and all tasks remain open. The TODO now records **Type, Priority, Status, Dependencies, Scope, Closure criteria**, and preliminary experimental evidence where available. Work is organized by architecture/reproducibility, comparative and semantic research, normative questions, and tooling/governance.
+
+Key changes: T-01 now covers NEED identification and CAN attribution; T-02 focuses on distinct mobilization/satisfaction conditions and their relationship to Power; T-15 covers Subject contextualization and Environment selection; T-30 focuses on operationalizing the Object / Subject / NEED / CAN / Focus architecture. T-03, T-16, T-18, T-21 and T-24 are placed in P0 to address reproducibility, non-monotone Actualization effects and computational costs. T-04 remains open as a P1 controlled-comparison task. Existing semantic and normative tasks retain their IDs and are reframed where needed.
+
+The preliminary local pilot reported during the project discussion is **not** treated as independent scientific validation or task closure. No reference content or Git release tag was changed or created as part of this decision. Related task: T-28 (and the updated TODO as a whole).
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
