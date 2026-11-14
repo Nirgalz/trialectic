@@ -53,7 +53,8 @@ These are **potential applications, not validated use cases**. Comparative value
 - [Reference alpha 0.3](reference/trialectic-method-alpha-0.3.md) — current working reference; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements.
 - [TODO](TODO.md) — 29 research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
-- [Contribution guidelines](CONTRIBUTING.md) — validation and commit procedure.
+- [Contribution guidelines](CONTRIBUTING.md) — how to propose changes, submit pull requests, and document decisions.
+- [License](LICENSE) — Creative Commons Attribution 4.0 International (CC BY 4.0).
 - [French–English terminology](terminology/french-english-glossary.md) — approved core translations and additional working equivalents.
 
 ## Working conventions
@@ -62,3 +63,24 @@ These are **potential applications, not validated use cases**. Comparative value
 - **Language:** English is the reference-document language; discussion may take place in French or English.
 - **Evidence:** conceptual approval is not scientific validation. Hypotheses, formalizations, and unresolved questions remain clearly distinguished.
 - **Documentation workflow:** GitHub is the sole repository for reference documents, decisions, tasks, and version history.
+
+## License and reuse
+
+Unless otherwise stated, the original non-software content of this repository is
+licensed under the [Creative Commons Attribution 4.0 International license (CC BY 4.0)](LICENSE).
+You may copy, redistribute, translate, and adapt it, including for commercial
+purposes, provided you give appropriate credit, link to the license, and indicate
+changes. Adaptations do **not** have to use the same license.
+
+For attribution, identify the **Trialectic Method** and the relevant credited
+authors or contributors, link to this repository and the license where
+reasonably practicable, and state whether you made changes. Attribution does
+not imply endorsement by the authors or maintainers.
+
+The license applies to copyrightable expressions in the repository, not to
+abstract ideas or methodological principles as such. Third-party materials
+retain their own rights; future software should carry a separate software license.
+
+Independent adaptations are welcome but must not be presented as approved
+official versions without authorization. Only explicitly validated changes
+become part of the maintained reference.
