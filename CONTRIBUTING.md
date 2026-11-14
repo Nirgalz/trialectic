@@ -6,5 +6,5 @@
 4. Update the reference, TODO, and decision log as required by the approved change.
 5. Create a coherent commit referring to the relevant task and decision.
 6. Preserve historical versions; do not silently rewrite previous decisions.
-7. Do not assume automatic synchronization between GitHub and Dropbox Paper.
+7. Use GitHub as the sole active document repository and version-history system; Dropbox and Dropbox Paper are no longer part of the workflow.
 8. Maintain reference documents in English. French or English may be used for discussion. Preserve technical distinctions when translating.
