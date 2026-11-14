@@ -12,7 +12,7 @@ Working register. Statuses reflect the latest available discussions; they do not
 
 # P0
 ## T-30 · Formalize the Object / Subject / NEED / CAN architecture
-Status: **To develop** | Continue testing and operationalizing the revised architecture documented in alpha 0.4 (D-17–D-22), without changing the preserved alpha 0.3 reference. Specify Object boundaries; main and secondary Subjects; the Focus/Stage cycle; existential and structural NEEDs and their satisfaction states; CAN attribution; intra-/inter-Object NEED–CAN relations; distinct mobilization and satisfaction conditions (D-20), with mobilizability not entailing positive Power (D-21), and NEEDs of one Object acting as conditions for another (D-21); environmental relevance; circular dependencies and third-Object interventions; impacts on Power, Plasticity, and scenarios. Open points must be clearly distinguished from validated decisions. This architecture task intersects T-01, T-02, T-03, T-05, and T-16.
+Status: **To develop** | Continue testing and operationalizing the revised architecture documented in `reference/trialectic-method.md` (initially consolidated as alpha 0.4; D-17–D-22); previous version contents remain in Git history. Specify Object boundaries; main and secondary Subjects; the Focus/Stage cycle; existential and structural NEEDs and their satisfaction states; CAN attribution; intra-/inter-Object NEED–CAN relations; distinct mobilization and satisfaction conditions (D-20), with mobilizability not entailing positive Power (D-21), and NEEDs of one Object acting as conditions for another (D-21); environmental relevance; circular dependencies and third-Object interventions; impacts on Power, Plasticity, and scenarios. Open points must be clearly distinguished from validated decisions. This architecture task intersects T-01, T-02, T-03, T-05, and T-16.
 
 ## T-01 · Consolidate the criteria for attributing Potentialities
 Status: **To experiment** | Test constitutive contribution, individualized attribution, and the present/future boundary.
@@ -102,7 +102,7 @@ Status: **To develop** | Grids, simple and advanced modes, weightings, and diagr
 Status: **To develop** | Results, limitations, failures, and versioned comparisons.
 
 ## T-28 · Manage the reference, versions, and TODO tracking
-Status: **To develop** | History, dated snapshots, and change notifications. GitHub is the primary version-history source; English is the reference language.
+Status: **To develop** | History, dated snapshots, and change notifications. GitHub tags identify versions of the stable `reference/trialectic-method.md` file; English is the reference language. Define tag naming and create explicit release tags.
 
 # TODO history
 - 2026-11-13 — Consolidated base of 26 tasks.
@@ -115,3 +115,5 @@ Status: **To develop** | History, dated snapshots, and change notifications. Git
 - 2026-11-14 — Added T-30 for the validated but not yet consolidated Object/Subject/NEED/CAN restructuring (D-17–D-19). T-01 and T-02 remain open; alpha 0.3 remains unchanged.
 - 2026-11-14 — Validated distinct CAN mobilization and NEED satisfaction conditions (D-20); clarified T-02 and T-30, with statuses unchanged.
 - 2026-11-14 — Confirmed mobilizable CAN does not entail positive Power, and Object A's constitutive NEED may condition Object B's Actualization (D-21). Created alpha 0.4 as a new working reference (D-22); no task closed, alpha 0.3 preserved.
+
+- 2026-11-14 — Switched to a stable `reference/trialectic-method.md` file, removed versioned filenames from the working tree, and adopted Git tags for version snapshots. Past reference contents remain in Git history; tag creation is a separate operation.
