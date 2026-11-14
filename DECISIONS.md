@@ -74,5 +74,11 @@ Date: November 14, 2026 | Status: **Validated**
 
 English is the working language for reference documents. The author may continue to communicate in French or English. Translate reference documents into English while preserving technical meaning, established decisions, and the distinction between validated and open material. Related task: T-28.
 
+
+## D-15 · Approved English–French core terminology
+Date: November 14, 2026 | Status: **Validated**
+
+The author explicitly approved the nine English translations previously proposed for Trialectic Method, Situated Subject, Potency, Power, Focal Potentiality, Actualization, Plasticity, Resolution Scenario, and Semantic Landscape. Maintain a bilingual terminology reference in `terminology/french-english-glossary.md` for consistent English-to-French translation. Other documented equivalents remain working translations unless separately approved. Related task: T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
