@@ -135,5 +135,12 @@ Created a separate English working reference, **reference/trialectic-method-alph
 
 Related task: T-28 and T-30.
 
+## D-23 · Stable reference filename and Git tag versioning
+Date: November 14, 2026 | Status: **Validated documentation workflow**
+
+At the author's request, version-specific reference filenames are discontinued. The single maintained reference is `reference/trialectic-method.md`, initialized from the content developed as alpha 0.4. The former `reference/trialectic-method-alpha-0.3.md` and `reference/trialectic-method-alpha-0.4.md` are removed from the `dev` working tree; their committed contents remain recoverable in Git history. Git **tags**, created explicitly at the intended commits, are the future version identifiers; version numbers are not embedded in reference filenames.
+
+No tag is created by this documentation change. The existing conceptual status distinctions (**VALIDATED**, **FORMALIZATION**, **OPEN**) and research tasks remain unchanged. Only `dev` is modified, not `main`. Related task: T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
