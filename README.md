@@ -8,7 +8,6 @@ Private working repository and version history for the **Trialectic Method**.
 - `DECISIONS.md`: decision log, including D-13 on Git versioning.
 - `CHANGELOG.md`: documentary version history.
 - `CONTRIBUTING.md`: validation and commit procedure.
-- `sources/SOURCES.md`: source documents and links.
 - `terminology/french-english-glossary.md`: approved core terminology and working bilingual equivalents for translating English reference documents into French.
 
 ## Fundamental rule
