@@ -119,5 +119,21 @@ The author explicitly approved distinguishing two types of Conditions of Actuali
 
 Both types may be involved in the same analysis. A NEED–CAN correspondence alone does not establish either the CAN's mobilizability or the NEED's actual satisfaction. The operational criteria and composition of these conditions into sufficient pathways remain **OPEN**. This decision supplements D-19; the original entries are retained. Related tasks: T-02, T-30.
 
+## D-21 · CAN mobilizability and cross-Object NEEDs
+Date: November 14, 2026 | Status: **Validated**
+
+The author explicitly confirmed **a mobilizable CAN does not necessarily have positive Power**. This clarification qualifies D-19 and D-20: mobilizability cannot be equated with satisfaction of all sufficient Conditions of Power. The exact scope and test of mobilizability remain **OPEN**, and no unapproved operational equivalence should be imposed.
+
+The author also explicitly confirmed that a **NEED constitutive of Object A may simultaneously be a Condition of Actualization for Object B**. NEED attribution and the Object whose Actualization requires the condition must remain distinguishable.
+
+Related tasks: T-01, T-02, T-30.
+
+## D-22 · New alpha 0.4 working reference
+Date: November 14, 2026 | Status: **Documented; created at author's request**
+
+Created a separate English working reference, **reference/trialectic-method-alpha-0.4.md**, consolidating the full alpha 0.3 foundations with the Object / Subject / NEED / CAN / Focus restructuring and explicit November 14 clarifications (D-17–D-21). Maintained conceptual validation labels separately from editorial formalization and open operational questions. The original alpha 0.3 file was **not modified**. T-01, T-02, and T-30 remain open; publication of an alpha reference is not scientific validation.
+
+Related task: T-28 and T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
