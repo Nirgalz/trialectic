@@ -1,52 +1,49 @@
 # TODO — Trialectic Method
 
-**Working register** · Updated: November 15, 2026 · **30 open tasks** · Canonical reference: [`reference/trialectic-method.md`](reference/trialectic-method.md) · Branch: `dev`
+**Working register** · Updated: November 15, 2026 · **30 tracked task IDs (29 open work items and 1 ongoing governance process)** · Canonical reference: [`reference/trialectic-method.md`](reference/trialectic-method.md) · Branch: `dev`
 
-This is a **work plan**, not a source of new conceptual validation. Changes to task descriptions and priorities are approved as tracking decisions only; unsettled concepts remain **OPEN** in the reference. The program follows the adopted Object / Subject / NEED / CAN / Definition / Focus architecture. Keep historical task IDs stable.
+This file specifies **what remains to do**. It does **not** introduce or validate concepts: validated decisions remain in [`DECISIONS.md`](DECISIONS.md), and the canonical Method definitions remain in the reference. Historical IDs T-01–T-30 are stable even when two tasks share a research workstream; none has been closed.
 
-## Tracking rules and fields
+## Tracking rules
 
-1. At each author validation, record implications for the TODO and Decision Log. Do not silently change conceptual decisions or close tasks.
-2. **Type** identifies whether the work is conceptual, experimental, protocol, comparison, tooling or governance. **Priority** reflects the revised sequence of work, not scientific certainty.
-3. **Status** preserves earlier labels (`To develop`, `To resolve`, `To experiment`, `To investigate further`). No task is considered completed by merely documenting or simulating it.
-4. **Dependencies** guide the order of work; some tasks can progress in parallel before upstream questions are completely resolved. Distinguish task dependencies from validated conceptual principles.
-5. **Closure criterion** is a proposed measurable output, not evidence that the criterion has already been met. Independent review and explicit author approval are needed to close relevant conceptual tasks.
-6. **Preliminary evidence** may document experiments, but distinguish synthetic-world results, implementation checks, controlled LLM comparisons and independent/real-world validation. Clearly mark evidence that has not been committed to the repository.
-7. Git **tags** will identify released versions of the stable filename `reference/trialectic-method.md`; no tag is presumed created without verification.
+1. Each entry records **Type / Priority / Status / Dependencies / Scope / Closure criterion**. `Scope` describes the durable objective and principal unresolved questions, **not** the chronological history of tests.
+2. A validated principle is not proof of operational completion. Synthetic software checks, real-source documentary pilots, independent scientific review and AI-vs-baseline evaluations have different evidential roles.
+3. Keep conceptual/empirical uncertainties explicitly **OPEN**. No task is closed by this reorganization. A closure claim needs its own evidence and author decision.
+4. Dependencies guide sequencing without requiring all upstream research to be complete before useful pilots start. A shared workstream can retain separate IDs and acceptance criteria.
+5. **T-28 is continuous maintenance**; the other 29 tasks remain open. No Git tag, CI integration or empirical validation should be claimed without verification.
 
 ## Priority overview
 
-| Priority | Main objective | Tasks |
+| Priority | Purpose | Items |
 |---|---|---|
-| P0 | Object identity and Definitions, NEED/CAN identification, Power, reproducible simulation, counterexamples and computation budgets | T-30, T-01, T-02, T-05, T-15, T-03, T-16, T-18, T-21, T-24 |
-| P1 | Comparative testing, scenario comparison, case corpus, semantic research, applied AI | T-04, T-17, T-19, T-25, T-27, T-06–T-14, T-20 |
-| P2 | Supplementary Power measures, normative and distributive effects | T-22, T-23, T-29 |
-| P3 | Practical tools and Git-based documentation | T-26, T-28 |
+| **P0** | Object/NEED/CAN architecture, Power, protocol, simulation, regression and **versioned case corpus** | T-30, T-01, T-02, T-05, T-15, T-03, T-16, T-18, T-21, T-24, **T-27** |
+| **P1** | Independent comparative evaluation, Scenario interpretation, adaptive AI, theoretical and relevant semantic research | T-04, T-19 *(joint with T-04)*, T-17, T-25, T-20, T-06–T-12, T-14 |
+| **P2** | Complementary Power measures, normative/distributive analysis, **deferred** semantic reconstruction | T-13, T-22, T-23, T-29 |
+| **P3** | Practical Advanced Mode tools and continuous documentation/version governance | T-26, T-28 |
 
-**Execution note:** Newly approved T-30 principles do not close any task; the exact CAN actionable / Power relationship, 'attributable CAN' status, necessity tests and simulation propagation algorithms remain OPEN. Conceptual formalization and empirical evaluation should overlap. Do not interpret placement in P1 as a ban on early baseline measurements: they should start as soon as comparable protocols are available.
+**Workstream coordination:** T-04/T-19 share one comparative experiment with a dedicated problem-class subgroup analysis. T-07/T-12 share semantic identity/equivalence research. T-08/T-09/T-10 share a conceptual-dependency corpus. T-11 remains an **optional** semantic instrument, not a prerequisite for all Object analyses. T-13 is deferred pending demonstrated benefit. Exploratory baseline studies under T-04 may start alongside architecture and corpus development, but must not be called definitive validation.
 
+## Evaluation and test evidence — concise state of play
 
-# P0 — Conceptual architecture and reproducible simulation
+D-39–D-47 motivated a sequence of **synthetic executable prototypes**, including versioned references, recursive logic, competing effects, evidential claims and methodological evidence checks. These provide engineering regression material but **do not validate external causal claims**, nor prove that using the Method improves an AI's answers. A later five-publication D-47 documentary pilot exposed excessive conservatism (all ten claim assessments indeterminate); a follow-up experimental reading adapter represented source attribution separately from independent empirical proof. No scientific expert review, controlled AI comparison or repository CI integration has been established through those conversation-level pilots. Complete experimental narratives should not be copied repeatedly into individual tasks; the Git history and supplied test archives retain their provenance.
+
+# P0 — Foundational architecture, protocol and evaluation corpus
 
 ## T-30 · Operationalize Object identity, Definitions, branching and NEED/CAN/Focus architecture
 **Type:** Conceptual / protocol | **Priority:** P0 | **Status:** **To develop**
 
 **Dependencies:** Foundational; coordinate with T-01, T-02, T-05, T-15.
 
-**Scope:** Integrate D-47 source-method- and claim-specific methodological reviews with D-46 typed versioned claims/evidence/assessments, without confusing the satisfaction of a review criterion with the truth of a CAN/NEED claim. Distinguish provenance/relevance/independence of pieces of evidence, production quality, probative sufficiency, conflicting evidence and scoped contexts. Avoid pseudo-numeric confidence aggregation; proportion checks to risk without changing claim truth. The Python sample uses a provisional family-check registry, exact-context comparator and stakes-check planner, **none author-approved as final schema or universal policy**. Resolve canonical review IDs, real evidence-quality standards, branch/time consistency, expert validation and CI.
+**Scope:** Specify the shared Object / Subject / Environment / Focus architecture and the full lifecycle of versioned Definitions, identity, Parent/Children branching, shared constituent references, NEED/CAN origin-anchored relations, condition/pathway references, Actualization events, Scenario isolation and history (D-17, D-25–D-45). Identify the stable contracts and unresolved semantics across conceptual, logical and causal layers. Treat D-46/D-47 evidence provenance and qualification as cross-cutting interfaces, not the sole purpose of this foundational task. **OPEN:** canonical identities, conflict and revision semantics, full example schema, branch promotion, interoperability, and independent verification.
 
 **Closure criterion:** An explicitly versioned architecture specification and worked NEED- and CAN-focused examples show IDs, Definition versions, Parent/Children lineage, isolated simulations, actualization, shared references, history, qualified uncertainty and Stage transitions. All unresolved semantics and failure cases are listed; independent review confirms compliance with the validated principles.
-
-**D-47 real-source pilot 2026-11-15 (experimental, not task closure):** Evidence-layer pilot disclosed that the current code's all-criteria gate and simple empirical premise rule do not model reported mathematical proof claims or method-specific inapplicability well. Proposed future design must separate documentary report, evidential appraisal, causal sufficiency and decision use, subject to new author approval. Do not standardize current JSON/logic or claim scientific validation from the 162 passed checks.
-
-**D-47 layered reading experiment 2026-11-15 (not a validated decision):** An experimental four-register representation separates documentary publication reporting, methodological examination, independent empirical support and causal/formal establishment. Source report claims must not be treated as verified causal conclusions; a manuscript that reports a Coq proof does not mean this program reran Coq. Provisional justified non-applicability is distinct from unknown methodological criterion status. **No new JSON schema or author-approved D-48**; final identities, source evidence audit, and normative applicability/quality rules remain OPEN.
 
 ## T-01 · Formalize identification of NEEDs and contextually relevant CANs
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To experiment**
 
 **Dependencies:** T-30 (shared Object model); coordinate with T-05.
 
-**Scope:** Test D-47 method-sensitive assessment of the evidence supporting NEED/CAN identification: separate assertions about source Objects from source production quality, applicable methodological checks, and claim-specific probative adequacy. Consider measurement, experimental, statistical, simulation and formal evidence as relevant without a universal hierarchy or default inferred causal truth. Verify source provenance and contextual applicability before asserting structural or causal NEED/CAN properties. Synthetic D-47 cases are not a replacement for independent expert appraisal.
+**Scope:** Define reproducible criteria for discovering, identifying and attributing NEED and CAN relations to an origin Object (D-18, D-27, D-31, D-36–D-38), with their relevant linked Objects, roles, conditional mechanisms and contextual granularity. Distinguish existential/structural/functional NEED claims, conceptual versus functional necessity, correspondence/contribution from sufficient/necessary relationships, and incomplete discovery from impossibility. Resolve whether a separate 'attributable CAN' classification is useful. Qualify source evidence using D-46/D-47 without redefining the relation types.
 
 **Closure criterion:** Operational identification criteria support documented synthetic and held-out examples; independent reviewers distinguish conceptual/functional necessity, evidence gaps and contextually relevant CANs, including group/system examples. The need for any separate 'attributable CAN' status is explicitly resolved before closure.
 
@@ -55,7 +52,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30, T-01.
 
-**Scope:** Apply D-47 criteria to claims about actionability, Power, NEED satisfaction and causal or conditional sufficiency, separately checking the methodology of supporting information and its probative role in the specific claim. An internally valid model, precise measurement, statistical association or reproducible simulation does not establish causal truth. Preserve D-40 three-state condition evaluations as separate from methodological compliance checks, D-41 incomplete pathway coverage and D-35 temporal NEED satisfaction. Increase verification depth with decision stakes without treating risk as proof strength.
+**Scope:** Operationalize the difference among a CAN's identified action conditions, CAN actionability for a specified relationship, **complete Power** for the contemplated Actualization, NEED effective satisfaction and temporal compliance (D-27, D-31, D-33–D-35, D-40–D-43). Specify how incomplete/unknown inventories, alternative and joint pathways, contextual necessity/sufficiency and circular dependencies affect each conclusion. Preserve epistemic indeterminacy distinct from a binary property when all relevant conditions are known. Methodological evidence checks (D-46/D-47) must not be confused with Object/condition states.
 
 **Closure criterion:** A documented model with explicit counterexamples shows when actionability does or does not settle Power, separates NEED satisfaction from matching, and handles unknown and circular pathways. Statistical estimation method and its limits are specified without ungrounded numerical certainty.
 
@@ -64,7 +61,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30; coordinate with T-01.
 
-**Scope:** Test boundaries and identities of Individuals, Groups, Technical Objects, Systems and Semantic Objects using their permanent IDs, versioned Definitions and existential/structural constituent Objects. Distinguish conceptual from functional existence and Object lineage (Parent) from composition (Definition). Examine shared constituent references, history, contradictory branches and the special status of CANs optionally modeled as conceptual Objects.
+**Scope:** Test Object boundaries and persistence of identity across Individuals, Groups, Technical Objects, Systems and Semantic Objects, using stable IDs, versioned Definitions, existential and structural constituent references, shared constituents and Parent/Children lineage. Distinguish conceptual from functional existence, contextual changes preserving identity from changes requiring a branch, and optional conceptual-Object representations of CANs. Record ambiguous examples and their unresolved criteria.
 
 **Closure criterion:** Category-sensitive tests document which Definition changes preserve Object ID, which contradictory changes create descendants, and when a constituent is necessary for conceptual or functional existence; ambiguous cases and the status of semantic Objects are explicitly retained.
 
@@ -73,7 +70,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30, T-05; coordinate with T-03.
 
-**Scope:** Select the focal Subject as the Object receiving the Method's or analyst's attention; initially identify its relevant existential/structural constituent Objects within its Environment, then extend the Definition and context recursively when needed. Distinguish constituent Objects, indirectly relevant Environment and directly accessible Objects; define when to analyze Secondary Subjects, CAN Objects and shared constituents. The distinct terminological status of Situated Subject remains OPEN.
+**Scope:** Define a reproducible procedure for selecting the focal Subject (an Object), identifying initially relevant constituents, NEEDs, CANs, relations and Environment Objects, and expanding context iteratively in response to the selected Focus. Distinguish constituent, accessible and indirectly relevant Objects; specify transitions to Secondary Subjects, shared Objects and later Stages. Do not require equal emphasis on Subject, Environment and Semantics. Clarify the remaining terminological role of 'Situated Subject' without silently changing a validated definition.
 
 **Closure criterion:** Case traces justify initial identification, contextual Definition expansion and Subject/Environment choices, including transitions to shared constituents and Secondary Subjects, without conflating conceptual and functional necessity.
 
@@ -82,156 +79,155 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30, T-01, T-02, T-15 (iterative interfaces).
 
-**Scope:** Normalize the D-47 method-specific checks and their assessed compliance, distinct from D-46 claim/evidence evaluations, source and methodological provenance, applicable context and probative sufficiency. Support mixed method families, indeterminate missing methodological information and bodies of evidence with shared source roots, contradictory findings, complementary methods and context differences. Preliminary standard-library synthetic experiment passed **612/612 assertions**, including 243 exhaustive ternary criteria combinations and 24 source permutations; outcomes were byte-identical on archive extraction/rerun. **OPEN:** expert-certified source checklists, real-source auditing, nuanced transportability, causal sufficiency, normative JSON, independent replication and CI.
+**Scope:** Specify an end-to-end executable and human-auditable analysis protocol: select Subject and Focus; contextualize Objects; identify NEED/CAN relations and conditions; evaluate Power, pathways and inventory completeness; generate and compare Scenarios; register simulated/observed Actualization, state changes, uncertainty and recursive reassessment. Define inputs, versioned identities, assumptions, deterministic or explicitly qualified results, decision points and histories. Integrate D-42–D-47 logical/causal graphs and evidence assessments as protocol components. **OPEN:** implementation schemas, independent reproductions, source-auditable proof review and CI.
 
 **Closure criterion:** Independent reproductions agree on graph identities, versioned snapshots, temporary vs actualized branches, shared-reference propagation and relevant decisions; any divergent interpretations and unresolved operational definitions are documented.
-
-**Preliminary evidence (not task closure):** Preliminary local pilot reported on 2026-11-14: 20 executable assertions and 60 action-order robustness tests; NOT independent human or multi-model replication; artifacts are not yet archived in this repository.
-
-**D-47 real-source pilot 2026-11-15 (experimental, not task closure):** A documentary corpus of five published research cases, ten source notices and ten scoped/overextended claim probes was evaluated by the unchanged D-47 engine. 162/162 internal checks passed, but all ten claim verdicts were indeterminate, including all five source-aligned narrow statements. Inadequate review coverage is **not scientific accuracy**. Exact method-check conjunction, nonapplicability, source-specific claim type, temporal context and independent expert labels remain OPEN.
-
-**D-47 layered reading experiment 2026-11-15 (not a validated decision):** A reproducible adapter distinguishes source-attributed documentary reports, methodological review, independent empirical evidence and causal/formal verification, without replacing D-31 epistemic statuses. It reuses the same ten claims and five cases; 320/320 internal checks passed. Five prior manual source-report witnesses are recorded, all ten empirical statuses remain unadjudicated, and Coq was not executed. Keep context/source applicability, qualified `not_applicable`, reliable manual source extraction and versioning OPEN.
 
 ## T-16 · Generate NEED- and CAN-focused Resolution Scenarios
 **Type:** Protocol / computational | **Priority:** P0 | **Status:** **To develop**
 
 **Dependencies:** T-02, T-03; coordinate with T-18.
 
-**Scope:** Select Scenario hypotheses and verification steps under D-47 by examining actual methodological reliability and what evidence can discriminate the competing causal possibilities; do not infer a CAN's actionability from only internally consistent models or statistical associations. Synthesize conflicting and complementary evidence without arbitrary scores, track dependent sources and uncertainty, proportion work to consequences and recursive relevance. Preserve D-46 audit histories, D-45 conflict handling, D-31 necessity/sufficiency, D-35 temporal compliance and documented pathway-inventory limitations.
+**Scope:** Generate distinct, relevant Resolution Scenarios for a selected NEED or CAN: direct CAN, joint CANs, alternative pathways, enabling dependencies and third-Object intervention in cycles (D-29–D-43). Evaluate actionability and conditional sufficiency, discover potentially unrecorded relations when justified, distinguish failure to find from impossibility, and retain unresolved or conflicting effects as hypotheses or localized suspensions (D-44/45). Preserve temporal constraints, adverse feedback, version-pinned events, and D-46/47-qualified evidence without presuming exhaustive or equally likely branches.
 
 **Closure criterion:** A reproducible prototype finds and evaluates distinct one-CAN, joint-CAN and enabling-CAN pathways, reports missing conditions, and can expand beyond an incomplete initial inventory when justified. Include counterexamples for undiscovered valid relations, no-result versus context-specific infeasibility, false matching and temporal violations despite satisfied final states, without claiming continuity at unsupported temporal resolution. Retain temporary simulation histories and independent comparisons.
-
-**Preliminary evidence (not task closure):** Preliminary local monotone dependency-graph planner demonstrated scenarios and third-Object breakouts; NOT a full implementation of the revised Method.
 
 ## T-18 · Reassess Scenarios and effects with non-monotone state transitions
 **Type:** Experimental / computational | **Priority:** P0 | **Status:** **To experiment**
 
 **Dependencies:** T-16, T-02; coordinate with T-24 and T-29.
 
-**Scope:** Extend D-46 epistemic timeline with D-47 contextual methodological evidence reviews: separately track methodological criteria satisfaction and target-claim probative adequacy, retain disputed and cross-context evidence without merging inapplicable findings, and allow updates when real review results or source provenance change. Never turn a methodological-status revision into a physical Object state transition or silently change past Scenario evaluations. Investigate quality reviews over time, source retraction, temporal transportability and high-stakes contexts, beyond synthetic source labels.
+**Scope:** Build and test non-monotone Scenario reevaluation following Actualizations: favorable and unfavorable effects, delayed/temporary transitions, expirations, dependency-driven condition/pathway updates, changes to shared Objects, and isolated versioned histories (D-33–D-45). Implement explicit competing-effect diagnosis, justified priority or hypothetical branches, localized suspension, temporal NEED satisfaction/compliance and event-time ordering. Keep a knowledge/evidence revision separate from a registered simulated/observed Object transition; test time jumps, multiple conflicts and independent unaffected actions.
 
 **Closure criterion:** An independent transition oracle checks historically immutable snapshots, shared component changes, branch isolation/promotion, non-monotone and delayed effects, and both final-state and interval/continuity-specific NEED satisfaction. Report indeterminate temporal compliance when internal action effects cannot be resolved.
-
-**Preliminary evidence (not task closure):** Preliminary local test found a destructive-effect counterexample: a monotone planner falsely accepted a plan after an action destroyed a later prerequisite. This is an implementation limitation, not an established contradiction of the Method.
 
 ## T-21 · Operationalize recursive relevance and complexity management
 **Type:** Computational / experimental | **Priority:** P0 | **Status:** **To develop**
 
 **Dependencies:** T-03, T-16; coordinate with T-04.
 
-**Scope:** Operationalize recursive relevance and stopping criteria for exploring **known** dependencies and discovering **unrecorded** NEED–CAN links and Objects within appropriately expanded Definitions/Environment. Account for attention, uncertainty, evidence quality, likelihood and severity of missed consequences, combinatorial growth, competing Scenarios, historical versions and temporal monitoring cost. Report when no solution was identified **without** implying absence of any possible solution.
+**Scope:** Formalize recursive relevance and stopping criteria for known dependency exploration and discovery of unrecorded NEED–CAN links, across expanded Definitions, Subjects and Environments. Account for attention/compute limits, uncertainty, evidence quality, probability only where justified, possible severity of omitted consequences, combinatorial Scenario branching and time costs. Preserve traceable reasons for pruning; finding no solution in the explored scope never proves global impossibility.
 
 **Closure criterion:** Cost/quality analysis demonstrates safe or documented trade-offs under shared-component propagation, competing branches and recursive Subject changes, and identifies cases where pruning misses important effects.
-
-**Preliminary evidence (not task closure):** Preliminary local monotone simulations with 240 paired instances found large state-search savings from relevance pruning against unfiltered breadth-first search; a generic heuristic also solved the same solvable cases, so no specifically trialectic gain was shown.
 
 ## T-24 · Test edge cases, falsifying examples and implementation failures
 **Type:** Experimental / quality | **Priority:** P0 | **Status:** **To experiment**
 
 **Dependencies:** T-01, T-02, T-03 (iterative); coordinate with T-18.
 
-**Scope:** Build CI adversarial D-47 regression cases for (1) precise but causally irrelevant measurements, (2) experiments with defective controls, (3) association-vs-causation, (4) reproducible but empirically unvalidated simulations, (5) formal proofs from unsupported premises, (6) repeated-source publications falsely counted as independent, and (7) apparent contradiction across non-comparable contexts. Test five overlapping method families, missing and unsatisfied methodological requirements, separation of quality from probative adequacy, nonaggregation and evidence provenance, and stakes-invariant claim status. Pilot **612/612 synthetic assertions**, 243 ternary configurations checked against a separate rule and 24 provenance-order permutations, byte-for-byte reproduced after extracting ZIP. **OPEN:** expert-adjudicated real-world corpus, independently authored reference outcomes, empirical proof criteria, CI integration and D-35 conditions.
+**Scope:** Maintain adversarial, reproducible regression tests covering the **whole validated architecture** (D-25–D-47), not just the latest evidence-model pilots: Object identity/versions, NEED/CAN and Power, incomplete inventories, three-valued nested logic and cycles, temporal constraints, adverse Actualization effects, Scenario isolation, contradictory effects and localized suspension, epistemic/physical separation, evidence provenance, methodological applicability and claim overreach. Include synthetic counterexamples and held-out real cases, independent oracles/reviews, regression reports and CI. Distinguish software invariants from scientific evidence and task closure.
 
 **Closure criterion:** A versioned suite has explicit expected outputs for branch promotion, shared Objects, historical versions, actionability/Power and uncertainty, with regression reports and unresolved conceptual disagreements.
 
-**Preliminary evidence (not task closure):** Preliminary local checks passed 20 selected assertions but exposed one non-monotone planning defect; these tests are not scientific or independent validation.
+## T-27 · Assemble and maintain case-study and benchmark corpora
+**Type:** Corpus / experimental | **Priority:** P0 | **Status:** **To develop**
 
+**Dependencies:** Start early with T-03 and T-24; coordinate with T-04, T-16, T-19.
 
-# P1 — Comparative evidence, semantics, scenarios and AI
+**Scope:** Assemble a versioned, traceable corpus of **synthetic and real-world cases** used across T-03, T-04, T-16 and T-24: identified Objects and shared constituents, versioned Definitions, NEED/CAN pathways, alternate Scenarios, delayed/adverse effects, uncertainty and source provenance. Include positive, negative, no-benefit and harmful cases, comparative baseline prompts, independent expert rubrics, held-out sets and discriminating tests; do not treat the five manually annotated D-47 publications or internally generated test oracles as validated ground truth. Prepare a minimal usable benchmark early and expand iteratively.
 
-**D-47 real-source pilot 2026-11-15 (experimental, not task closure):** Five publication-based methodological families examined (pulse oximetry, vitamin C Cochrane review, ecological chocolate/Nobel analysis, Google Flu Trends, Coq formal proof). The D-47 engine declined to promote five annotated overextensions, **but also failed to recognize any of five narrow source-aligned reports as plausible**; 162 internal assertion checks passed. No raw-study replication, independently blinded expert labels or statistically meaningful AI quality benchmark. Add adversarial tests for `not_applicable` vs missing criteria, report-vs-empirical support, context transportability and overconservative evidence exclusion.
+**Closure criterion:** A versioned synthetic/real case corpus includes traceable provenance, branch/interaction histories, expert criteria or independently validated reference outcomes, and a held-out evaluation split suitable for T-04 and T-24.
 
-**D-47 layered reading experiment 2026-11-15 (not a validated decision):** Tested 320 software invariants (including 120 permutations, claim-source ID failures, label-leakage prevention, fake causal attribution and review/empirical separation). Original D-47 remains ten indeterminate; the new adapter restores five **manually annotated** source-attribution notices WITHOUT promoting empirical truth. The sample and results were reexecuted byte-identically from ZIP; this is not independent accuracy validation. Add regression cases for source-excerpt verification, uncertain applicability, scope transport and source retractions.
+# P1 — Comparative evaluation, Scenario interpretation and AI
 
 ## T-04 · Test comparative usefulness against non-trialectic analyses
 **Type:** Comparative / experimental | **Priority:** P1 | **Status:** **To experiment**
 
-**Dependencies:** T-03; initial experiments can run alongside T-16 and T-21.
+**Dependencies:** T-03 and T-27; start exploratory baselines before completion of T-16/T-21 when a comparable test protocol is available; coordinate with T-19 and T-20.
 
-**Scope:** Compare the **default trialectic Advanced Mode** against free-form and generic structured controls using matched problems, information, compute budgets and independent scoring. Measure relevant scenario diversity, accuracy of consequences and dependencies, feasibility/cost/complexity separation, uncertainty calibration and total cost of building and maintaining versioned Definitions. **Simple Mode evaluation is deferred** until usefulness is reconsidered after Method stabilization; do not include it as a presently implemented or required comparison arm.
+**Scope:** Measure whether default **Advanced Mode** actually improves problem understanding, accurate dependency/consequence reasoning, justified Scenario diversity, uncertainty treatment and user comprehension versus free-form and generic structured baselines. Use comparable tasks, information, compute budgets, independent ratings and adverse/no-gain cases, with T-27 benchmark cases. **T-19 is the problem-class subgroup analysis within this evaluation.** Begin limited pilot comparisons as soon as defensible protocols exist; do not infer superiority from self-authored tests. Simple Mode remains deferred under D-28.
 
-**Closure criterion:** Controlled and independently judged matched comparisons of the default Advanced Mode with appropriate non-trialectic baselines report effect estimates, uncertainty, errors, per-case coverage and generation/evaluation costs; no distinct Method-specific benefit is asserted without evidence.
+**Closure criterion:** A preregistered or transparently documented, reproducible and independently assessed comparison against non-trialectic baselines reports outcomes, uncertainties, limitations, error classes, negative findings and generation/evaluation costs. Include the T-19 problem-class subgroup analysis; do not claim unique benefit without evidence.
 
-**Preliminary evidence (not task closure):** Preliminary local Python simulation: 60 base worlds × four distractor levels; both a generic heuristic and relevance-pruned graph search solved all 47 solvable base worlds at each level. NO controlled LLM-with/without-Method evaluation has been run.
+## T-19 · Identify problem classes where the Method adds value
+**Type:** Comparative / experimental | **Priority:** P1 | **Status:** **To experiment**
+
+**Dependencies:** Joint workstream within T-04, using T-27 cases; subgroup design should be fixed before assessing comparative results.
+
+**Scope:** **Joint workstream under T-04 (not a second autonomous experiment).** Segment the controlled comparative results by problem class—networked dependencies, circular effects, multi-Subject conflicts, heterogeneous evidence, adverse feedback and uncertainty—to identify when Advanced Mode helps, adds no value or performs worse. Use the same test protocol, benchmark and independent ratings as T-04; retain this historical task ID and its separate subgroup-analysis deliverable.
+
+**Closure criterion:** The T-04 comparative results include explicit, reproducible subgroup findings on supported, neutral and harmful problem classes, with uncertainty and no assumption of a single best solution.
 
 ## T-17 · Compare Resolution Scenarios under interacting constraints
 **Type:** Comparative / protocol | **Priority:** P1 | **Status:** **To develop**
 
 **Dependencies:** T-16, T-18; coordinate with T-23 and T-29.
 
-**Scope:** Assess each Scenario through separate feasibility, feasibility uncertainty, complexity, cost/resources, temporality, effectiveness, success/consequence uncertainty and effects on the focal Subject and relevant Environment Objects. **[D-35]** Display per-NEED **effective satisfaction** and **temporal compliance** independently, along with adverse effects and applied exceptions: conformity must not mask observed or simulated non-satisfaction. Report the evidence/uncertainty associated with each assessment, while respecting D-34 constraint contradiction diagnostics. Compare non-monotone, delayed and cross-Object impacts; do not impose a universal best Scenario or a mandatory aggregate score. Optional selection requires explicit decision criteria.
+**Scope:** Compare generated Scenarios without collapsing feasibility, uncertainty about conditions, complexity, resource costs, temporality, expected effectiveness, successful Actualization and particular favorable/adverse effects into one score. Preserve D-35 NEED effective satisfaction versus temporal compliance, explicit exceptions, non-monotone feedback, affected Objects and source/evidence limits. Selection, when requested, is conditional on openly stated criteria, not an automatically universal optimum.
 
 **Closure criterion:** Reproducible evaluation reports for multiple Scenarios present their trade-offs, qualified probability/uncertainty, coherence and affected Objects without assuming a unique optimum; any optional ranking is labeled with the governing decision criteria and its instability.
-
-## T-19 · Identify problem classes where the Method adds value
-**Type:** Comparative / experimental | **Priority:** P1 | **Status:** **To experiment**
-
-**Dependencies:** T-04, T-27.
-
-**Scope:** Identify where **default Advanced Mode** adds value to problem understanding and multiple-Scenario exploration versus generic baselines, particularly for networked problems, interacting Subjects, circular dependencies, adverse effects and uncertain consequences. Include no-benefit and harmful cases; measure analysis quality and compute burden, not presumed ability to select one 'best' solution.
-
-**Closure criterion:** Results identify supported, unsupported and harmful use cases with replicable criteria and independent evaluation.
 
 ## T-25 · Compare relevant theoretical and algorithmic approaches
 **Type:** Theoretical / comparative | **Priority:** P1 | **Status:** **To investigate further**
 
 **Dependencies:** T-30; coordinate with T-04 and T-19.
 
-**Scope:** Compare with capabilities/affordances, theory of constraints, systems thinking, graph search, planning and dependency analysis. Distinguish truly new contributions from generic graph-relevance filtering, alternative pathway reasoning or ordinary structured prompting.
+**Scope:** Compare the Method's assumptions and operations against relevant existing frameworks (capability/affordance approaches, systems thinking, theory of constraints, graph search, planning and dependency analysis, structured prompting and evidence-appraisal methods). Identify genuine differences and overlapping techniques using primary sources, reproducible examples and observed usefulness rather than asserted originality; coordinate testable propositions with T-04/T-19.
 
 **Closure criterion:** A comparison matrix of assumptions, operations, scope, empirical performance and differences is supported by primary sources and reproducible examples; originality is not asserted without evidence.
 
-## T-27 · Assemble and maintain case-study and benchmark corpora
-**Type:** Corpus / experimental | **Priority:** P1 | **Status:** **To develop**
+## T-20 · Design adaptive trialectic dialogue for AI
+**Type:** Applied / experimental | **Priority:** P1 | **Status:** **To develop**
 
-**Dependencies:** T-03; coordinate with T-04, T-19 and T-24.
+**Dependencies:** T-03, T-15; coordinate with T-04.
 
-**Scope:** Maintain versioned synthetic and real-world case corpora with permanent Object IDs, shared constituents, historical Definitions, branching and conceptual/functional necessity. Include cases with **multiple non-dominated Scenarios**, separable feasibility/complexity/cost, probability or qualitative uncertainty of effects, and no justified uniquely best Scenario, plus held-out evaluation sets and provenance.
+**Scope:** Design an adaptive AI dialogue for the default Advanced Mode that identifies the Subject, NEED/CAN Focus, context and uncertainty, presents multiple defensible Scenarios and their trade-offs, and lets a user inspect stated assumptions, source support, missing conditions and consequences. Balance relevance and conversational economy with traceability, D-46/47 evidence distinctions and iterative Definition expansion. Evaluate usability with T-04 without pretending Simple Mode is implemented or automatically selecting one best answer.
 
-**Closure criterion:** The corpus includes documented branch history and shared-component ground truth or expert rubrics, reproducible traces and a held-out evaluation set.
+**Closure criterion:** A prototype enables users to inspect and compare distinct Scenario alternatives and trace consequences and uncertainty without fabricating observations, imposing one best Scenario or confusing temporary branches with actualized Objects.
+
+# P1 — Contextual semantic research
 
 ## T-06 · Distinguish constitutive, significant and associated concepts
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To experiment**
 
 **Dependencies:** T-30; coordinate with T-11 and T-01.
 
-**Scope:** Test meaning-essential versus meaning-significant versus associated concepts without assuming these are automatically existential or structural NEEDs of non-semantic Objects.
+**Scope:** Characterize constitutive, meaning-significant and merely associated concepts using explicit counterexamples; distinguish semantic/meaning necessity from actual existential, structural or functional NEEDs of non-semantic Objects. **Semantic program A:** coordinate identity/equivalence work T-07/T-12 and structural dependencies T-08–T-11; do not assume every Object requires a Semantic Pyramid.
 
 **Closure criterion:** Discriminating tests and counterexamples distinguish the three relations with documented uncertainty.
 
 ## T-07 · Establish an independent criterion for identity of Meaning
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To resolve**
 
-**Dependencies:** T-06; coordinate with T-12.
+**Dependencies:** T-06; work jointly with T-12.
 
-**Scope:** Characterize identity of Meaning without defining equivalence through the expected conclusion; handle expression variation and context.
+**Scope:** **Semantic program A — jointly with T-12:** develop non-circular criteria for whether a Meaning remains the same despite changes of Expression, conceptual network and context. Separate identity from degrees or scopes of equivalence; test independent positive/negative examples and avoid defining the answer by an already assumed equivalence.
 
 **Closure criterion:** Independent semantic-identity criteria discriminate relevant positive and negative cases without circular assumptions.
+
+## T-12 · Establish criteria for semantic equivalence
+**Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To experiment**
+
+**Dependencies:** T-07 (joint semantic identity/equivalence workstream), T-08 where concept-network differences matter.
+
+**Scope:** **Semantic program A — jointly with T-07:** operationalize semantic equivalence, contextual compatibility and incompatibility across expressions or conceptual networks; test the criteria derived in T-07 with blind or multi-analyst cases. Keep the two historical IDs for distinct identity and equivalence acceptance criteria, but avoid parallel duplicate corpora.
+
+**Closure criterion:** Blind or multi-analyst examples show explicit decisions and uncertainty on equivalence.
 
 ## T-08 · Examine alternative and joint conceptual dependencies
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To resolve**
 
-**Dependencies:** T-06, T-07.
+**Dependencies:** T-06, T-07; coordinated with T-09/T-10.
 
-**Scope:** Test whether a Meaning depends on alternative or jointly necessary concepts, separately from empirical NEED–CAN dependencies.
+**Scope:** **Semantic program B — coordinated with T-09/T-10:** test joint, alternative and redundant conceptual prerequisites for a specified Meaning. Use shared examples and clearly separate conceptual structural constraints from empirically measured NEED–CAN causal dependencies.
 
 **Closure criterion:** Representative cases distinguish alternative, joint and redundant conceptual prerequisites.
 
 ## T-09 · Examine circular conceptual dependencies
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To resolve**
 
-**Dependencies:** T-06, T-07; coordinate with T-08.
+**Dependencies:** T-06, T-07; coordinated with T-08/T-10.
 
-**Scope:** Investigate cycles of conceptual necessity, mutual definition and semantic identity. Do not automatically apply the third-Object intervention rule for causal NEED–CAN cycles to purely conceptual dependencies.
+**Scope:** **Semantic program B — coordinated with T-08/T-10:** examine circular conceptual necessity, mutual definitions and semantic-identity reference loops; distinguish actual constitutive circularity from a merely mutually referential description. Do not transfer causal third-Object cycle-breaking rules automatically to semantic relationships.
 
 **Closure criterion:** A typology and controlled cases distinguish genuine circular constitution from mutual reference and non-essential association.
 
 ## T-10 · Examine direct and indirect constitutive dependencies
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To resolve**
 
-**Dependencies:** T-06, T-08.
+**Dependencies:** T-06, T-08; coordinated with T-09.
 
-**Scope:** Identify direct versus mediated semantic dependencies and their importance in network representations; do not infer empirical causal links merely from semantic distance.
+**Scope:** **Semantic program B — coordinated with T-08/T-09:** evaluate direct, mediated and nested constitutive relations, their importance to Meaning and the difference between necessary versus significant indirect concepts. Do not infer physical or social causal influence from a short or long semantic-network path.
 
 **Closure criterion:** Test cases identify nested dependencies and justify whether an indirect link is constitutive or merely significant.
 
@@ -240,55 +236,36 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-06–T-10; coordinate with T-01.
 
-**Scope:** Specify when a Semantic Pyramid is relevant for identifying candidate existential/structural NEEDs; maintain the distinction between conceptual dependencies of Semantic Objects and empirical conditions of existence/functioning for other Object types. Test hierarchy and structural importance without requiring the network to be a tree.
+**Scope:** **Optional semantic instrument — coordinated with T-06–T-10:** define when a Semantic Pyramid is useful for discovering candidate NEEDs of suitably modeled Objects, and when it should *not* be used. Treat it as a structured conceptual network that need not form a literal tree. Distinguish conceptual dependency, empirical existence conditions and functional-maintenance needs, with positive/negative example cases.
 
 **Closure criterion:** A documented relevance criterion and procedure handle meaningful positive and negative use cases, including cases where a Pyramid should NOT be used.
-
-## T-12 · Establish criteria for semantic equivalence
-**Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To experiment**
-
-**Dependencies:** T-07, T-08.
-
-**Scope:** Distinguish expression variation, conceptual network variation, contextual equivalence and incompatibility.
-
-**Closure criterion:** Blind or multi-analyst examples show explicit decisions and uncertainty on equivalence.
-
-## T-13 · Reconstruct individual Semantic Pyramids
-**Type:** Protocol / experimental | **Priority:** P1 | **Status:** **To experiment**
-
-**Dependencies:** T-11, T-12.
-
-**Scope:** Investigate methods for partial reconstruction of an individual's Semantic Landscape, keeping subject statements apart from analyst projections, and specifying when reconstruction is inappropriate or too costly.
-
-**Closure criterion:** A documented evidence-based reconstruction process is applied to consented examples with recorded disagreements and limitations.
 
 ## T-14 · Clarify Plasticity and Semantic Plasticity under NEED/CAN changes
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To resolve**
 
 **Dependencies:** T-30, T-01; coordinate with T-18.
 
-**Scope:** Separate Plasticity as aptitude for CAN evolution from actual Definition changes, semantic transformation, NEED satisfaction, emergence/disappearance of CANs and branching of Object identity. A CAN may be a conceptual Object when relevant. Extending Plasticity to NEED changes remains OPEN.
+**Scope:** Distinguish Plasticity (aptitude to change CANs) from effective evolution, Definition revisions, semantic transformations, changes to NEED satisfaction and branching Object identity. Test emergence, modification, disappearance and discovery of Potentialities, including conceptual Objects when analytically useful. Whether the Plasticity concept extends to NEED transformations remains an explicit open question, not a preapproved extension.
 
 **Closure criterion:** Worked cases distinguish changes in the same Object's versioned Definition from contradictory branches and from mere discovery or uncertainty revision, without silently changing the validated Plasticity concept.
 
-## T-20 · Design adaptive trialectic dialogue for AI
-**Type:** Applied / experimental | **Priority:** P1 | **Status:** **To develop**
+# P2 — Complementary measures, normative analysis and deferred semantic application
 
-**Dependencies:** T-03, T-15; coordinate with T-04.
+## T-13 · Reconstruct individual Semantic Pyramids
+**Type:** Protocol / experimental | **Priority:** P2 | **Status:** **To experiment**
 
-**Scope:** Design AI dialogue for the **default Advanced Mode**: identify NEED/CAN Focus and relevant Subjects; expose multiple evaluated Scenarios and their impacts, distinguish feasibility uncertainty from success and consequence probabilities, enable exploration of assumptions and uncertain claims, and support Definition expansion and branch history. Do not require automated ranking or include a working Simple Mode before its usefulness is reassessed after stabilization.
+**Dependencies:** T-11, T-12; activate only after relevance/usefulness is established for this specialized application.
 
-**Closure criterion:** A prototype enables users to inspect and compare distinct Scenario alternatives and trace consequences and uncertainty without fabricating observations, imposing one best Scenario or confusing temporary branches with actualized Objects.
+**Scope:** **Deferred specialized semantic application**, pending demonstrated usefulness of T-11/T-12 in concrete dialogue or analysis. When justified, test partial evidence-based reconstruction of an individual's Semantic Landscape/Pyramids with consent and a clear separation between the person's statements and the analyst's projections; define situations where reconstruction is inappropriate or too costly. This is not a prerequisite to general architecture or first Advanced Mode benchmarks.
 
-
-# P2 — Complementary measures and normative questions
+**Closure criterion:** A documented evidence-based reconstruction process is applied to consented examples with recorded disagreements and limitations.
 
 ## T-22 · Specify complementary measures of Power without redefining it
 **Type:** Conceptual / quantitative | **Priority:** P2 | **Status:** **To resolve**
 
 **Dependencies:** T-02; coordinate with T-17.
 
-**Scope:** Retain binary Power when conditions are known, explicitly represent indeterminate assessments, and investigate statistically supported evaluation of probability of **positive Power** separately from probability of **successful Actualization**. Respect current CAN actionable terminology and specify relation to complete sufficient pathways; avoid uncalibrated numerical confidence.
+**Scope:** Retain binary Power when complete relevant conditions are known while recording uncertain *assessments* separately. Investigate probability of positive Power distinct from probability of successful Actualization, and complementary nonprobabilistic qualitative indicators. Require explicit models, statistical calibration and counterexamples; avoid converting unverified data to invented confidence percentages. Defer numerical methods until suitable data exist.
 
 **Closure criterion:** Statistical and non-statistical measures are clearly named, justified and tested with counterexamples showing distinct actionability, positive Power and outcome uncertainty.
 
@@ -297,7 +274,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-17, T-29.
 
-**Scope:** State explicit evaluation criteria for conflicts, acceptable harm, constraints on exclusion/exploitation/superiority, alternatives and compensation. Separate normative priorities from descriptive dependencies and do not assume one universal weighting.
+**Scope:** Develop transparent **normative evaluation criteria** for conflicts among Objects and Subjects, unacceptable exploitation/exclusion/superiorism, acceptable harm, compensation and alternatives. Distinguish observed distributive effects (T-29) from values and criteria used to judge them; do not presume one universally optimal balance or automatically aggregate dissimilar harms.
 
 **Closure criterion:** A comparative decision protocol identifies whose NEEDs and CANs are affected, justifies criteria and acknowledges irreducible conflicts.
 
@@ -306,85 +283,27 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-18, T-17; coordinate with T-23.
 
-**Scope:** Assess how Actualizations update Definitions of affected and shared constituent Objects, altering NEED satisfaction and CANs, including conceptual versus functional states. Compare distributive effects across Subjects and branching alternative Scenarios, including uncertainty, indirect/delayed harm and compensation.
+**Scope:** Trace **descriptive distributive consequences** of simulated/observed Actualizations across Subjects and shared or dependent Objects: NEED satisfaction, CANs, Potency, Power, indirect/delayed harms and possible compensations. Compare alternative Scenarios with contextual uncertainty, preserving time, version and provenance. Normative acceptability is evaluated separately under T-23.
 
 **Closure criterion:** Multi-Object case analyses trace effects through shared references and distinguish simulated distributional outcomes from observed ones.
 
-
-# P3 — Practical tooling and version governance
+# P3 — Practical tools and ongoing governance
 
 ## T-26 · Create practical tools and use modes
 **Type:** Tooling / design | **Priority:** P3 | **Status:** **To develop**
 
 **Dependencies:** T-03, T-16; coordinate with T-20.
 
-**Scope:** Focus on **tools for the default Advanced Mode**, including multi-Scenario exploration/comparison, Definition editors, stable IDs, Parent/Children lineage, isolated simulations, shared constituents, uncertainty presentation and NEED/CAN Focus views. **Defer Simple Mode design and evaluation** until the Method is stabilized and its usefulness reassessed; do not treat it as a current deliverable.
+**Scope:** Develop practical tools for the default Advanced Mode: transparent Definition and version editors; stable Object/NEED/CAN references; Subject/Focus selection; alternative Scenario exploration, timelines, dependency views and user-readable provenance/uncertainty. Validate alignment with T-03/T-16/T-20 before treating a prototype as normative. **Simple Mode remains deferred** and is neither implemented nor a current requirement (D-28).
 
 **Closure criterion:** Advanced Mode tools demonstrate a transparent multi-Scenario, versioned-Definition workflow with correct state separation and understandable trade-offs; any later Simple Mode is a new separately evaluated decision.
 
 ## T-28 · Maintain the reference, TODO, decisions and Git tag-based releases
-**Type:** Governance / tooling | **Priority:** P3 | **Status:** **To develop**
+**Type:** Governance / tooling | **Priority:** P3 | **Status:** **Ongoing**
 
-**Dependencies:** Ongoing; coordinate with all tasks.
+**Dependencies:** Continuous; coordinate with all tasks and decisions, especially T-03 and T-24.
 
-**Scope:** Keep `reference/trialectic-method.md` as the canonical English reference, track changes in DECISIONS.md and TODO.md, preserve validated/formalization/open distinctions, define tag naming/release procedure and create tags explicitly on intended commits when authorized. Record test artifacts/version provenance without treating draft findings as approval.
+**Scope:** **Ongoing governance process, not a one-time research hypothesis:** keep the canonical English reference in `reference/trialectic-method.md`, the validated decision history in `DECISIONS.md` and actionable work in `TODO.md`. Keep experimental results concise in TODO rather than accumulating duplicate narrative reports. Document and, when explicitly authorized, execute a Git-tag release process with verifiable commits; maintain stable IDs and accurate links. Do not claim tags, CI coverage or independent validation without verification.
 
-**Closure criterion:** A documented workflow makes every decision and release reproducible with immutable Git commit/tag references and consistent links. No tag is claimed created until verified.
+**Closure criterion:** The canonical reference, decision log and work register remain linked and consistent; release procedure and Git tags are documented and verified when executed. Continuous checks are performed at each relevant change rather than treating governance as a once-only closure.
 
-# TODO history
-
-- 2026-11-13 — Consolidated initial task register and subsequent experimental, AI, documentation and distributive-effects workstreams (T-19, T-20, T-28, T-29).
-- 2026-11-14 — Adopted English as the working reference language; GitHub became the sole active documentation repository.
-- 2026-11-14 — Added T-30 and consolidated the validated Object / Subject / NEED / CAN / Focus restructuring (D-17–D-22); no research task closed.
-- 2026-11-14 — Switched to the stable `reference/trialectic-method.md` filename and decided to use Git tags for version snapshots (D-23). Historical reference files remain available in Git history.
-- 2026-11-14 — Restructured **all 30 existing tasks** without renumbering or closing any. Extended T-01 to NEEDs and CANs; reinforced T-02; reframed T-15 and T-30; reprioritized protocol, non-monotone simulation, complexity control and counterexamples; updated semantic, scenario and normative scopes; added type, dependencies and proposed closure criteria. The local pilot's reported findings are recorded as **preliminary, not independently validated**. New conceptual definitions were not approved by this tracking change.
-
-- 2026-11-15 — Integrated author-validated T-30 decisions (D-25–D-27): permanent Object IDs; provisional versioned Definitions with constituent Object lists **and** associated properties/relations; Parent, Temporary Children and Actualised Children; stable-ID branch promotion; isolation of simulation; shared-Object propagation; conceptual/functional existence; contextually selected CANs and optional CAN conceptual Objects; actionable terminology; and statistical Power uncertainty. Updated 18 existing task descriptions and closure criteria. No task closed, no new ID created.
-
-- 2026-11-15 — Adopted **Advanced Mode as default** (D-28): generate and evaluate multiple relevant Scenarios without a mandatory best-solution selection; distinguish feasibility, complexity, cost, temporality, expected effectiveness and appropriately supported uncertainty (feasibility, success and specific effects). **Simple Mode suspended** until the Method is stabilized. Updated the existing comparative, protocol, scenario, corpus, AI and tooling tasks; no tasks closed.
-
-- 2026-11-15 — Validated **NEED–CAN-driven Scenario generation** (D-29): search the focal Subject and Environment for alternative or complementary CANs addressing unsatisfied NEEDs; keep non-actionable CANs in conditional candidate Scenarios with missing conditions documented; recursively seek support for those conditions. Preserve CAN-focused and already-satisfied-NEED paths. Refined T-16, T-02 and T-24; all tasks remain OPEN.
-
-- 2026-11-15 — D-30 validated the **three distinct scenario-pathway cases**: one CAN conditionally sufficient for NEED satisfaction, several CANs jointly necessary, and a CAN enabling another CAN's actionability without directly satisfying the NEED. The criteria of sufficiency and empirical verification remain OPEN. Updated T-16, T-02 and T-24 without closing tasks.
-
-- 2026-11-15 — D-31 validated four NEED–CAN relation levels (correspondence, contribution, conditional sufficiency and Scenario-relative necessity), distinction between within-Scenario and across-known-Scenarios necessity, five verification questions, OR/AND/enabling-path notation and four epistemic support categories. Updated T-16, T-02, T-03 and T-24; specific causal and sufficiency tests remain OPEN.
-
-- 2026-11-15 — D-32 validated **temporal satisfaction requirements** for NEEDs (including continuous compliance, not merely a final state), recursive discovery of missing NEED–CAN links by extending contextual Definitions/Environment, and the distinction between no solution identified, hypothetical candidates and contextual infeasibility. The common NEED/CAN temporal data structure is only **PROPOSED**, awaiting explicit author approval. Updated T-16, T-18, T-03, T-24 and T-21; all remain OPEN.
-
-- 2026-11-15 — D-33 **validated** the common NEED/CAN `temporal` format (`time_zone`, `requirements`, `estimates`), its five modes (point, continuous, deadline, recurring, cumulative), ISO 8601 timestamps/durations and half-open interval convention, with Scenario-specific evaluation stored separately. Detailed combination, recurrence and schema-verification semantics remain OPEN; refined T-03, T-16, T-18, T-24. All tasks remain OPEN.
-
-- 2026-11-15 — D-34 validated temporal requirement **conjunction by default**, explicit `all`/`any` composition and example JSON, justified/versioned exceptions, detection of incompatible requirements separately from Scenario non-satisfaction, three-valued aggregation, and no double-counting overlapping intervals in cumulative time. Detailed schema for exceptions/nesting, recurrence and time-zone edge cases remains OPEN. T-03, T-16, T-18 and T-24 updated; all tasks still OPEN.
-
-- 2026-11-15 — D-35 validated **separate assessments of effective NEED satisfaction and temporal compliance** per Scenario. An authorized exception may preserve compliance but does not alter the observed/simulated state, consequences or NEED itself. The accepted illustrative Scenario JSON keeps the two results, evidence/uncertainty and applied exception IDs separate from versioned Object Definitions. Updated T-03, T-16, T-17, T-18 and T-24; all tasks remain OPEN.
-
-- 2026-11-15 — D-36 revised the NEED/CAN **data model** to origin-anchored typed relational records (`ID`, `Type`, nullable `NEEDs` and `CANs` lists of **Object references**, `OriginObject`), allowing one or multiple other Object participants without a separate `TargetObject`. No AND/OR, sufficiency or causal assumptions are implied by list membership. Updated T-30, T-01, T-03 and T-16 to reconcile the former property model and test unresolved identity, recursion and cardinality semantics; all tasks remain OPEN.
-
-- 2026-11-15 — D-37 validated adding structured `relation` to origin-anchored NEED/CAN records: origin classification (NEED existential/structural/functional; CAN contributive/enabling/inhibitory/transformative), per-referenced-Object link semantics, and contextual alternative/complementary/substitutive/sequential/synergistic/antagonistic/reciprocal relationships. The user approved `relation.nature` and Object-group `relation.composition` in the example, and the design recommendation to keep distinct per-link roles; **exact per-link schema not yet validated**. This does not replace D-31 causal or sufficiency tests and is distinct from D-34 temporal composition. Updated T-30, T-01, T-02, T-03, T-16 and T-24; no tasks closed.
-
-- 2026-11-15 — D-38 validated the qualified-link `relation.links` representation with required `id`, `object_id`, `source_list` and optional `roles`, `conditions`, `mechanism`, `causality`, `evidence`, `affects`; the Object must be present in the corresponding NEEDs/CANs list, and `affects` can describe link-to-link interactions without proving causal effects. Updated T-30, T-02, T-03, T-16 and T-24. Full schema validation and graph/cycle/version semantics remain OPEN; no tasks closed.
-
-- 2026-11-15 — D-39 validated A–E on `affects` semantics: identify which action/satisfaction/CAN-availability/relation-applicability property may be affected, distinguish structural cycles from Scenario-specific blockage or functioning, recursively explore candidate external CANs that might initialize a blocked cycle, separate link relation vs triggering event vs effective/simulated change, and combine graph cycle detection with dynamic Scenario evaluation. Optional `effect_details` remains **provisional, not a machine-enforced schema**. Updated T-02, T-03, T-16, T-18, T-24 and T-30; no task closed.
-
-- 2026-11-15 — D-40 validated A–E on **condition identities and state changes**: distinguish an identifiable condition Definition from its Scenario/time-indexed three-state evaluation, combine specified conditions with `all`/`any`, reevaluate after Actualization-triggered Object state changes (or explicit versioned Definition changes), and identify conditions by owner relation + local ID + relevant Definition version. `relation.conditions`, `predicate` and `condition_composition` are **provisional JSON choices**, not a finalized schema. Updated T-02, T-03, T-16, T-18, T-24 and T-30; all tasks OPEN.
-
-- 2026-11-15 — D-41 validated A–E distinguishing completeness within identified Actualization pathways from completeness of their scoped inventory, justified coverage/version evidence, nested `all`/`any`, separate three-valued evaluation and identifiable paths. The **unified recursive expression AST** (`op`, `items`, typed `ref` leaves and coverage metadata) is **PROPOSED ONLY**, not yet approved or tested. Updated T-02, T-03, T-16, T-18, T-24 and T-30; no task closure.
-
-- 2026-11-15 — D-42 validated the **single recursive expression principle and A–C**: reusable versioned named pathways, no automatic truth values for empty `all`/`any`, and permitted circular references with explicit detection and D-39 dynamic-review requirement. Preliminary synthetic Python pilot: **413/413 assertions passed**; 90 exhaustive Boolean fixed-point checks for cyclic groups and 189 exhaustive flat/nested/open-group checks, plus a 180-node reuse chain and cycle. These are **single-author, single-environment implementation checks**, NOT independent scientific validation. Unresolved: meaningful representation of zero discovered pathways (empty group is invalid), branch-scoped IDs, temporal/causal effects, final JSON Schema and code integration in repository CI. Updated T-02, T-03, T-16, T-18, T-24, T-30; no tasks closed.
-
-- 2026-11-15 — D-43 validated A–E: documentary inventory may exist without an identified pathway or a logical expression (distinct from invalid empty Boolean groups); no discovery does not prove impossibility; logical reference and potential-causal effect graphs remain distinct and do not automatically imply each other; Scenario iteration couples condition evaluation, explicit event/Actualization, effects and reevaluation. **Synthetic D-43 test: 218/218 internal assertions passed** (27 ternary states, 4 three-step reachability cases, no-event logical cycle, potential causal cycle initiated by third CAN C, expiry/overlap and inhibition). `expression: null`/`search_status` and simulator remain proposals, not final schema/causal proof. Updated T-02, T-03, T-16, T-18, T-24, T-30; no closure.
-
-- 2026-11-15 — D-44 validated five principles: type/owner/version-qualified references connecting logical and potential causal graph layers; explicit mechanisms versus event-triggered effects; Scenario-specific Actualization histories; dependency-driven condition/pathway reevaluation; isolated branches. **190/190 synthetic tests passed**, including 27 ternary configurations across two pinned versions, effect/condition references, delayed and overlapping effects, conflicting events and branch histories. A large-time-jump expiration defect was detected and corrected before final rerun; output SHA-256 was identical across two local runs. **Unapproved policy under test:** reject contradictory same-time effect batch and mark affected property epistemically indeterminate (not a physical transition); final schema, causal verification and CI remain OPEN. Updated T-02, T-03, T-16, T-18, T-24, T-30; no task closed.
-
-- 2026-11-15 — D-45 validated A–E and additional localized-suspension rule: diagnose conflict before treatment; require justified contextual priority rather than arbitrary order; model alternative non-exhaustive hypothetical branches without invented probabilities; separate epistemic uncertainty from effective Object transitions; preserve event/evidence conflict provenance; suspend only actually conflict-dependent pathways while independent actions may continue. **Synthetic pilot 173/173 assertions passed** with 27 ternary configurations, explicit priority and negative priority tests, isolated branches, contradictory observations, simultaneous independent battery recharge, v1/v2 condition isolation, and effect expiry. Extracted archive rerun reproduced byte-identical JSON. **OPEN:** proof quality for priority and observations, simultaneous multi-property/active-overlay conflicts, formal conflict schema, D-35 compliance, CI and independent replication. Updated T-02, T-03, T-16, T-18, T-24 and T-30; no task closed.
-
-- 2026-11-15 — D-46 validated five claim/evidence methodological principles A–E: identified scope/versioned claims; separate logical validity within a stated model from empirical evidence; source relevance, reliability, traceability, independence and discriminating role; immutable revisionable assessments; checkable explanations and prioritized missing evidence. **Synthetic D-46 pilot: 898/898 assertions**, 27 ternary proof-role configurations and 720 invariance permutations for six proposed tests, reexecuted from extracted ZIP with identical SHA-256 output. Findings: composite claim references need Scenario context to avoid tested collisions; a retrospective evaluation must separate observed-at versus registered-at to exclude future evidence. **OPEN:** reviews and “falsifies” tags only stipulated in fixture, not external verification; real source dependence/quality, CI, independent replication, calibrated and causal evidence thresholds, final JSON Schema. Updated T-01, T-02, T-03, T-16, T-18, T-24, T-30; no tasks closed.
-
-- 2026-11-15 — D-47 validated A–E: evaluate evidence according to production method and the specific claim; separate applicable criteria from their three-state compliance; distinguish method quality from claim-specific probative sufficiency; assess a body of evidence without arbitrary addition or independence claims; adapt review depth to stakes but not epistemic truth. **D-47 synthetic pilot: 612/612 passing assertions**, five method families, seven adversarial cases, 243 exhaustive ternary controls (486 assertions) and 24 evidence-order permutations (48 consistency assertions), rerun from independently extracted ZIP with identical SHA-256 results. **OPEN:** real expert-audited studies, reliability/independence of underlying sources, comparability and causal identification, final JSON Schema, independent oracle/CI and defensible high-stakes review policy. Updated T-01, T-02, T-03, T-16, T-18, T-24 and T-30; no task closed.
-
-- 2026-11-15 — **D-47 real-publication experiment, no new validated decision**: five selected cases (pulse oximetry, Cochrane vitamin C, chocolate/Nobel statistics, Google Flu Trends and Coq four-colour theorem), ten source records, five narrowly reported claims and five deliberately overextended claims. Existing evaluator returned **indeterminate for all ten claims**; 162/162 internal invariants passed. Source-based manual reference annotation is NOT independent expert gold truth. The experiment reveals excessive hard-coded methodological conjunction, inability to mark criteria not applicable, and over-strict source context equality; no empirical correctness or AI-vs-baseline gain was established. Archive delivered to conversation; T-03, T-24, T-30 elaborated; no task closed.
-
-- 2026-11-15 — **D-47 experimental layered-reading representation, first step only; no new conceptual decision**: same five published-source cases, ten claims, prior manually compiled documentary notes. Prototype separates (1) reported-in-source notice, (2) method review coverage and criterion checks, (3) independently adjudicated empirical warrant, (4) causal or formally executed establishment. It passes **320/320 internal checks** (including 120 witness-order permutations) and produces five manually attributed documentary reports, five not documented in this pilot's notices, **zero empirically validated claims** and **zero independent Coq executions**. Original D-47 remains 10/10 indeterminate; no AI comparison or independent expert review was performed. Output reproduced byte-identically after ZIP extraction. T-03, T-24, T-30 expanded, no tasks closed.
-
-# Known limits of the current test evidence
-
-A local exploratory report in the conversation (November 14, 2026) describes 20 passing executable checks, 200 exploratory synthetic worlds, and 240 paired synthetic instances. Its main limitation is a **monotone simulator**, with a non-monotone counterexample discovered. A generic heuristic matched relevance-pruned graph search on the solvable pilot instances; **no Method-specific quality benefit or controlled LLM-with/without-Method advantage was demonstrated**. These pilot files have **not** been placed in this GitHub repository, and these findings are not scientific validation. Related tasks: T-03, T-04, T-16, T-18, T-21, T-24, T-27.
