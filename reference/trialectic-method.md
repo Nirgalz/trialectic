@@ -22,6 +22,8 @@ Objects include **Individuals, Groups, Technical Objects, Systems, and Semantic 
 
 One possible normative purpose is to reveal contradictions, seek alternatives, and examine how individuals may increase their Potency, Power, and Actualizations without reducing those of others. Such normative ambitions must be separated from descriptive results and empirically established effects. **[VALIDATED orientation / FORMALIZATION]**
 
+**[VALIDATED operational objective, November 15, 2026]** The Method's **default operation is Advanced Mode**: explore and present multiple relevant, diverse Resolution Scenarios for a complex problem, estimate their effects on the focal Subject and Objects in its Environment, compare feasibility, complexity, cost, temporality and expected effectiveness, and communicate uncertainty. The goal is **not** to impose a uniquely best Scenario. Explicit recommendation or selection is **optional**, dependent on declared decision criteria; it is not a mandatory methodological Stage. A possible Simple Mode is **deferred** for reassessment once the Method is stabilized, not part of the current default workflow.
+
 # 2. Objects, Subjects, Environment, Focus and Stages
 
 ## 2.1 Object and Subject
@@ -221,19 +223,26 @@ A CAN-focused analysis with negative Power may identify missing conditions, new 
 
 A candidate Improving Actualization with negative Power may be retained as a future option if missing conditions are identified. A positive focal Power does not prevent pursuit of a Scenario that improves prospects of success.
 
-For a NEED-focused cycle, possible pathways for satisfying or maintaining a NEED may involve an already satisfied state, intra-Object relations, or inter-Object CANs. **[FORMALIZATION]** Multiple CANs corresponding to one NEED, or multiple NEEDs corresponding to one CAN, motivate **Scenarios and comparison**. **[VALIDATED]** Alternative contradictory Scenarios may have **isolated temporary Object branches**; their Definitions remain independent until one is effectively Actualized. The exact operational NEED-focused Scenario protocol remains **OPEN**.
+For a NEED-focused cycle, possible pathways for satisfying or maintaining a NEED may involve an already satisfied state, intra-Object relations, or inter-Object CANs. **[FORMALIZATION]** Multiple CANs corresponding to one NEED, or multiple NEEDs corresponding to one CAN, motivate **Scenarios and comparison**. **[VALIDATED]** Alternative contradictory Scenarios may have **isolated temporary Object branches**; their Definitions remain independent until one is effectively Actualized. **[VALIDATED default objective, November 15]** Generate **multiple relevant and materially distinct** alternatives rather than targeting a single best solution. Their **generation, evaluation, and optional selection** are separate operations; selection is not compulsory. The exact operational NEED-focused Scenario protocol and diversity criteria remain **OPEN**.
 
-## 6.2 Scenario comparison
+## 6.2 Scenario evaluation and comparison
 
-**[VALIDATED]** Compare along four contextual dimensions:
-1. **Mobilization**: resources, constraints, dependencies, feasibility and difficulty, keeping feasibility distinct from difficulty.
-2. **Temporality**: delays, sequence, urgency and horizon.
-3. **Expected Effectiveness**: expected improvement in Power and prospects of success.
-4. **Broader Consequences**: effects on other CANs, NEEDs, Objects and Environments (the NEED extension is **FORMALIZATION**).
+**[VALIDATED, consolidated November 15, 2026]** Each relevant Scenario is assessed without assuming it must receive an overall score or be ranked as the best. Analyze at least the following **distinct** dimensions, according to the context:
 
-Also examine internal coherence, robustness, adaptability, complementarities, synergies, competition for resources, and major risks. Weights are context-sensitive, not universal. An aggregate score should not hide major adverse effects that cannot be compensated.
+1. **Feasibility and its uncertainty:** whether Conditions of Actualization can be met, separating this assessment from the difficulty of implementation; where defensible, estimate the **probability that feasibility conditions are met**.
+2. **Complexity:** dependencies, implementation difficulty, coordination and analytical burdens, **separately from cost and feasibility**.
+3. **Cost and resources:** financial, material, human and other relevant resource costs, not conflated with complexity.
+4. **Temporality:** implementation delays, urgency, sequencing, time horizon and persistence of consequences.
+5. **Expected effectiveness:** the anticipated improvement or result relative to the focal NEED or CAN, separately from the chance of actual success.
+6. **Consequences on Objects:** anticipated favorable and unfavorable, direct and indirect, immediate and delayed effects on the **initial Subject**, other relevant **Objects in its Environment**, their NEEDs, CANs and relations.
 
-**[FORMALIZATION]** An illustrative weighted score is Σ(weight × rating) / Σ(weights), using conventional ratings from 0 to 5. It is neither a probability nor objective truth. Calibration, double counting and ranking stability remain **OPEN**.
+**[VALIDATED uncertainty distinctions]** Keep separate (a) uncertainty about whether a Scenario is **feasible** (its conditions can be met), (b) the **probability of success** if it is undertaken, and (c) the **probability of each anticipated consequence**. Quantitative probabilities are provided **only where statistically justified**; otherwise indicate qualitative uncertainty or degree of possibility, rather than manufacturing numerical precision. These are distinct from binary Power and from uncertainty about whether Power is positive.
+
+Compare internal coherence, robustness, adaptability, complementarities, synergies, competition for resources and risks. Consequences affecting other Objects must not be hidden by an aggregate score or silently offset by gains elsewhere. Optional criteria or weights are **contextual**, not universally prescribed.
+
+**[VALIDATED operational distinction]** Scenario **generation** creates candidate alternatives, **evaluation** explains their consequences and trade-offs, and **selection** (if explicitly desired) applies stated decision criteria. The **default Advanced Mode presents multiple evaluated Scenarios without prescribing a single winner**. Even where a choice is eventually requested, any recommendation is conditional on the declared criteria, not an objectively universal optimum.
+
+**[FORMALIZATION — optional and not mandatory]** A weighted score such as Σ(weight × rating) / Σ(weights), using conventional ratings from 0 to 5, may be explored if an explicit ranking problem warrants it; it is not a probability, objective truth or a required Advanced Mode output. Calibration, double counting, ranking stability, scenario diversity and empirical evaluation remain **OPEN**.
 
 ## 6.3 Recursive analytical workflow
 
@@ -244,8 +253,8 @@ Also examine internal coherence, robustness, adaptability, complementarities, sy
 3. If the Focus is a CAN, identify its contextually relevant role, granularity and available evidence (former independent 'attributable CAN' terminology is OPEN); if a NEED, identify the required conceptual or functional state and its present satisfaction without presupposing a CAN Actualization.
 4. Identify relevant NEED–CAN correspondences, **action** and satisfaction conditions, sufficient pathways, dependencies, and missing information, taking other Objects into account.
 5. Assess Power where a particular CAN's Actualization is considered; distinguish **actionability in a specified role** from full sufficient-pathway Power, and distinguish statistical uncertainty about positive Power from success probability.
-6. Explore Improving Actualizations, alternative states, and Resolution Scenarios where useful; select Secondary Subjects for parallel analyses if dependencies warrant it.
-7. Anticipate and compare expected effects, risks, interactions, and impacts on other Objects.
+6. **Generate several relevant and materially distinct** Improving Actualizations, alternative states and Resolution Scenarios when the problem warrants alternatives; select Secondary Subjects for parallel analyses if dependencies warrant it.
+7. **Evaluate and compare** the Scenarios' feasibility and its uncertainty, complexity, cost, temporality, expected effectiveness, probabilities or qualitative possibility of consequences, risks, interactions and impacts on the focal Subject and other Objects. **Do not require selection of a single best Scenario.**
 8. Undertake selected Actualizations when their Power permits; **version the affected Object Definitions**, actualize relevant temporary branches without changing their IDs, propagate changes to shared constituent references in the effective context, and observe separately which NEEDs are satisfied, which effects occurred, and what can actually be causally attributed.
 9. Return the Focus to the Subject and reassess its NEEDs, CANs, Potency, Power, constitution, relationships and Environment; revise Focus or Scenario as needed.
 
@@ -303,7 +312,9 @@ This index is **not** a probability and does not replace binary Power. Criteria,
 
 # 10. Use modes and possible applications
 
-**[VALIDATED]** Support a guided **simple mode** explaining relevant criteria and an **advanced mode** allowing users to adjust scenarios, weights, dependencies, uncertainties and indirect effects without bypassing the Method's basic distinctions.
+**[VALIDATED, November 15, 2026]** **Advanced Mode is the current default operation.** It explores and compares multiple relevant Resolution Scenarios for complex problems, with assessed effects on the initial Subject and its Environment, uncertainty, feasibility, complexity, cost, temporality and effectiveness; users may inspect and adjust scenarios, dependencies and indirect effects. It does **not** seek to identify one universally best solution or require a final selection. The shared methodological core is not to be weakened merely to simplify presentation.
+
+**[VALIDATED current scope decision]** The previously contemplated **Simple Mode is suspended**, with its usefulness to be reconsidered **after the Method is stabilized**. No separate Simple Mode protocol, default ranking criterion or Simple Mode implementation is presumed active. If revisited later, it should preserve the same analytical rigor rather than omit material dependencies or consequences.
 
 **[POTENTIAL APPLICATIONS, NOT VALIDATED USE CASES]** Analysis of individual behavior and group dynamics; clarification of conflicts; individual support; institutions and public policy; organizational and technical design; philosophical and semantic clarification; and AI systems able to conduct adaptive trialectic dialogue.
 
@@ -316,8 +327,8 @@ The Method's comparative value, reproducibility, benefits and limitations remain
 - **T-30 — Object / Subject / NEED / CAN / Definition architecture:** implement the newly **VALIDATED** unique IDs, versioned Definitions, Parent/Temporary Children/Actualised Children, branch promotion, shared constituents, conceptual versus functional existence and contextual CANs; formalize boundary tests, actionability/Power interface, uncertainty, historical simulation isolation and full Focus/Stage protocol. **[OPEN operationalization]**
 - **T-01 — NEED and CAN identification:** test existential/structural necessity, conceptual/functional existence, contextual CAN selection and group/System CANs; decide whether a distinct 'attributable CAN' category or legacy tests A/B/C remain useful. **[OPEN operationalization]**
 - **T-02 — Conditions of Power:** specify actionable CANs, action conditions versus global sufficient pathways, NEED satisfaction, inter-Object dependency, binary Power and statistical assessment of uncertainty. **[OPEN]**
-- **T-03 — Reproducible protocol:** define contextualization, evidence recording, uncertainty, analyst agreement and parallel Subject analysis. **[OPEN]**
-- **T-04 — Comparative usefulness:** compare the Method to free-form reasoning and alternative structured approaches. **[OPEN]**
+- **T-03 — Reproducible protocol:** define contextualization, evidence recording, uncertainty, analyst agreement and parallel Subject analysis, including separate Scenario generation/evaluation and optional selection. **[OPEN]**
+- **T-04 — Comparative usefulness:** compare the **default Advanced Mode** to free-form and generic structured analyses; previously proposed Simple Mode comparisons are deferred. **[OPEN]**
 - **T-05 — Object-type boundaries:** examine Individuals, Groups, Technical Objects, Systems and experimental roles of Semantic Objects, including shared constituent Objects, ID/lineage and conceptual versus functional existence. **[OPEN]**
 
 ## 11.2 Further research (all OPEN)
@@ -386,3 +397,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 **[VALIDATED terminology]** Use **CAN actionable** in place of a distinct **CAN mobilizable** category. The relationship between an actionable CAN's conditions and full Power remains a targeted OPEN question. Statistical assessment of Power uncertainty is distinguished from probability of successful Actualization. Actualization updates affected Object Definitions and may entail harmful or non-monotone changes.
 
 **[OPEN]** Whether to formally retire 'attributable CAN' as a distinct category; calibrated assessment of uncertainty; versioned graph propagation and conflicts; precise actionability/Power logic; Object boundary tests and complete operational protocol. Nothing in this revision represents experimental or scientific validation.
+
+## November 15, 2026 — Default Advanced Mode and scenario objectives
+
+**[VALIDATED author decisions; D-28]** Advanced Mode is the **default** and explores **multiple relevant, diverse Resolution Scenarios** for a complex problem. Scenarios are compared through anticipated effects on the focal Subject and Objects in its Environment, feasibility, complexity, cost, temporality, effectiveness and appropriately represented uncertainty. Distinguish feasibility uncertainty, success probability and consequence-specific probabilities, using statistics only where supportable. Generation, evaluation and any optional selection are separate operations; the Method does not inherently choose the best solution. The **Simple Mode is deferred** until stabilization of the Method and must not be treated as an active default or a current evaluation target. Operational tests of diversity, uncertainty calibration and usefulness remain **OPEN**.
