@@ -4,6 +4,15 @@
 
 The Method is **an analytical framework, not a universal ontology**. Its **default Advanced Mode explores and compares multiple relevant Resolution Scenarios** for complex problems, rather than prescribing a uniquely best solution. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
 
+## Start here / Commencer ici
+
+The public-facing documentation is available in **English and French**. The overview introduces the framework; the practical guide offers a proposed, step-by-step way to use it. Both are educational adaptations of the [working reference](reference/trialectic-method.md), not separate authoritative specifications or evidence of scientific validation.
+
+| Language | Overview / Présentation | Practical guide / Guide pratique |
+|---|---|---|
+| English | [Overview](docs/en/overview.md) | [Practical guide](docs/en/practical-guide.md) |
+| Français | [Présentation](docs/fr/presentation.md) | [Guide pratique](docs/fr/guide-pratique.md) |
+
 ## How it works
 
 A methodological **Stage** determines the current **Focus**. The adopted analytical sequence is: **Subject** (Main Subject selected) → **NEED or CAN** → **Actualization** → reassessment of the **Subject**, with parallel analyses of Secondary Subjects where useful.
