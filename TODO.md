@@ -78,7 +78,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30, T-01, T-02, T-15 (iterative interfaces).
 
-**Scope:** Specify reproducible input schema and workflow for versioned Object Definitions, permanent IDs, Parent/Temporary Children/Actualised Children, simulation isolation and actualization promotion; record NEED/CAN contextual selection, qualitative/statistical uncertainty, state transitions, evidence, shared constituent references and Focus/Stage paths. Separate factual observations from simulation and independent analyst judgments.
+**Scope:** Define a reproducible protocol for the **default multi-Scenario Advanced Mode**, with input schema, versioned Object Definitions, stable IDs, Parent/Temporary Children/Actualised Children, simulation isolation, NEED/CAN contextual Focus, evidence and qualitative/statistical uncertainty. Trace **Scenario generation**, **Scenario evaluation** and **optional decision-based selection** separately; record consequences on the initial Subject and affected Environment Objects; compare independent analysts.
 
 **Closure criterion:** Independent reproductions agree on graph identities, versioned snapshots, temporary vs actualized branches, shared-reference propagation and relevant decisions; any divergent interpretations and unresolved operational definitions are documented.
 
@@ -89,9 +89,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-02, T-03; coordinate with T-18.
 
-**Scope:** Generate and evaluate Scenarios for one-to-many and many-to-one NEED–CAN relations, action conditions, alternatives, circular dependencies, shared constituents and multiple Subjects. Contradictory hypothetical Actualizations create distinct **temporary Objects** with unique IDs and shared parent lineage; promotion after effective Actualization preserves the branch ID. Maintain separate simulation contexts and do not identify simulated effects as effective Actualizations.
+**Scope:** In **default Advanced Mode**, generate **multiple relevant and materially distinct** NEED- or CAN-focused Resolution Scenarios using one-to-many and many-to-one NEED–CAN links, alternatives, circular dependencies, action conditions, shared Objects and Secondary Subjects. Keep Scenario **generation separate from evaluation and optional selection**. Contradictory hypothetical Actualizations create distinct temporary child Objects with permanent IDs, isolated contexts and parent lineage; effective Actualization promotes the relevant child without changing its ID.
 
-**Closure criterion:** A prototype creates isolated, traceable competing Scenario branches and verifies correct parent/child memberships before and after promotion, as well as viable and unavailable alternative paths. Include non-monotone support via T-18.
+**Closure criterion:** A prototype presents and traces multiple materially distinct Scenarios and their dependencies, identifies unsatisfiable and circular cases, and correctly handles separate simulated branches and promotion; generation is evaluated independently of scenario ranking or any mandatory 'best solution'.
 
 **Preliminary evidence (not task closure):** Preliminary local monotone dependency-graph planner demonstrated scenarios and third-Object breakouts; NOT a full implementation of the revised Method.
 
@@ -111,7 +111,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03, T-16; coordinate with T-04.
 
-**Scope:** Specify recursive relevance and stopping criteria including cost of following shared constituent references, expanding contextual Definitions, optional CAN-as-Object analysis, and temporary Scenario branching. Compare pruning, fixed-depth and exhaustive exploration; count memory, version snapshots, graph width/depth, temporal changes and missed high-impact consequences.
+**Scope:** Operationalize relevance and stopping criteria for recursive investigation and **multiple Scenario generation**: Focus relevance, marginal diversity, consequence importance, uncertainty, shared-Object links, Definition expansion and branch-combinatorics budgets. Compare safe pruning with fixed-depth and exhaustive exploration; report important effects or distinct Scenarios missed by resource limits.
 
 **Closure criterion:** Cost/quality analysis demonstrates safe or documented trade-offs under shared-component propagation, competing branches and recursive Subject changes, and identifies cases where pruning misses important effects.
 
@@ -136,9 +136,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03; initial experiments can run alongside T-16 and T-21.
 
-**Scope:** Continue four-condition matched comparisons (free-form, generic structured, trialectic simple, trialectic advanced). Include cost to construct versioned Definitions and manage branch propagation; measure quality of conceptual/functional NEED identification, selection of actionable CANs, state and history correctness, consequence coverage and human interpretability. Do not mistake generic shared-graph or state-planning improvements for unique Method value.
+**Scope:** Compare the **default trialectic Advanced Mode** against free-form and generic structured controls using matched problems, information, compute budgets and independent scoring. Measure relevant scenario diversity, accuracy of consequences and dependencies, feasibility/cost/complexity separation, uncertainty calibration and total cost of building and maintaining versioned Definitions. **Simple Mode evaluation is deferred** until usefulness is reconsidered after Method stabilization; do not include it as a presently implemented or required comparison arm.
 
-**Closure criterion:** Controlled, independently judged comparisons report both equal-budget and equal-quality results, uncertainty and task-specific trade-offs, including overhead from branch simulations and versioned Definitions.
+**Closure criterion:** Controlled and independently judged matched comparisons of the default Advanced Mode with appropriate non-trialectic baselines report effect estimates, uncertainty, errors, per-case coverage and generation/evaluation costs; no distinct Method-specific benefit is asserted without evidence.
 
 **Preliminary evidence (not task closure):** Preliminary local Python simulation: 60 base worlds × four distractor levels; both a generic heuristic and relevance-pruned graph search solved all 47 solvable base worlds at each level. NO controlled LLM-with/without-Method evaluation has been run.
 
@@ -147,16 +147,16 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-16, T-18; coordinate with T-23 and T-29.
 
-**Scope:** Compare scenarios using feasibility, difficulty, temporality, expected effectiveness and broader consequences across alternate temporary branches; account for shared constituent changes, historical versions, cross-Object NEED impact, statistical Power uncertainty, non-monotone conditions, synergies and uncompen­sable harm.
+**Scope:** Assess each relevant Scenario through **separate feasibility, uncertainty of feasibility, complexity, cost/resources, temporality, expected effectiveness, probability of success and potential consequences** on the focal Subject and other Environment Objects, including qualitative possibility when numerical probability is unjustified. Compare alternative Definitions, shared constituents, cross-Object NEED impacts, non-monotone and delayed effects, synergies and serious adverse consequences. **Do not select a universal winner or silently require ranking.** Optional selection is a distinct operation only under explicitly stated criteria.
 
-**Closure criterion:** Comparison artifacts trace competing branch Definitions and indicate which decisions remain hypothetical vs actualized, with ranking robustness and explicit effects on shared Objects.
+**Closure criterion:** Reproducible evaluation reports for multiple Scenarios present their trade-offs, qualified probability/uncertainty, coherence and affected Objects without assuming a unique optimum; any optional ranking is labeled with the governing decision criteria and its instability.
 
 ## T-19 · Identify problem classes where the Method adds value
 **Type:** Comparative / experimental | **Priority:** P1 | **Status:** **To experiment**
 
 **Dependencies:** T-04, T-27.
 
-**Scope:** Compare performance on simple vs networked problems, social/technical/semantic contexts, uncertain states, multiple interacting Subjects, circular dependencies and destructive effects. Include no-benefit and harm cases; estimate quality gain relative to cost and a generic structured control.
+**Scope:** Identify where **default Advanced Mode** adds value to problem understanding and multiple-Scenario exploration versus generic baselines, particularly for networked problems, interacting Subjects, circular dependencies, adverse effects and uncertain consequences. Include no-benefit and harmful cases; measure analysis quality and compute burden, not presumed ability to select one 'best' solution.
 
 **Closure criterion:** Results identify supported, unsupported and harmful use cases with replicable criteria and independent evaluation.
 
@@ -174,7 +174,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03; coordinate with T-04, T-19 and T-24.
 
-**Scope:** Create versioned synthetic and real-world cases with permanent IDs, Definition snapshots, shared constituents, branching, temporary vs actualized states and conceptual/functional necessity, alongside prior solvable/unsolvable and semantic cases. Preserve held-out evaluation sets and factual provenance.
+**Scope:** Maintain versioned synthetic and real-world case corpora with permanent Object IDs, shared constituents, historical Definitions, branching and conceptual/functional necessity. Include cases with **multiple non-dominated Scenarios**, separable feasibility/complexity/cost, probability or qualitative uncertainty of effects, and no justified uniquely best Scenario, plus held-out evaluation sets and provenance.
 
 **Closure criterion:** The corpus includes documented branch history and shared-component ground truth or expert rubrics, reproducible traces and a held-out evaluation set.
 
@@ -264,9 +264,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03, T-15; coordinate with T-04.
 
-**Scope:** Support adaptive dialogue focused on a NEED or CAN with focal/secondary Subjects, relevant CAN-as-conceptual-Object investigation, Definition expansion, qualified uncertainty and branch choice. Make hypothetical branches visibly distinct from actualized states; preserve conversation economy and user control.
+**Scope:** Design AI dialogue for the **default Advanced Mode**: identify NEED/CAN Focus and relevant Subjects; expose multiple evaluated Scenarios and their impacts, distinguish feasibility uncertainty from success and consequence probabilities, enable exploration of assumptions and uncertain claims, and support Definition expansion and branch history. Do not require automated ranking or include a working Simple Mode before its usefulness is reassessed after stabilization.
 
-**Closure criterion:** A prototype maintains coherent Object identities and branch statuses while helping users revise relevant Focuses and uncertainty without inventing observations.
+**Closure criterion:** A prototype enables users to inspect and compare distinct Scenario alternatives and trace consequences and uncertainty without fabricating observations, imposing one best Scenario or confusing temporary branches with actualized Objects.
 
 
 # P2 — Complementary measures and normative questions
@@ -306,9 +306,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03, T-16; coordinate with T-20.
 
-**Scope:** Create simple/advanced tools with versioned Object Definition editors, stable IDs, Parent/Temporary Children/Actualised Children visualization, isolated hypothetical branches, promotion to effective Actualization, linked shared constituents, uncertainty fields and NEED/CAN Focus views.
+**Scope:** Focus on **tools for the default Advanced Mode**, including multi-Scenario exploration/comparison, Definition editors, stable IDs, Parent/Children lineage, isolated simulations, shared constituents, uncertainty presentation and NEED/CAN Focus views. **Defer Simple Mode design and evaluation** until the Method is stabilized and its usefulness reassessed; do not treat it as a current deliverable.
 
-**Closure criterion:** Usable tools demonstrate the updated identity/version/branch workflows and prevent simulated changes from altering effective shared Objects.
+**Closure criterion:** Advanced Mode tools demonstrate a transparent multi-Scenario, versioned-Definition workflow with correct state separation and understandable trade-offs; any later Simple Mode is a new separately evaluated decision.
 
 ## T-28 · Maintain the reference, TODO, decisions and Git tag-based releases
 **Type:** Governance / tooling | **Priority:** P3 | **Status:** **To develop**
@@ -328,6 +328,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 - 2026-11-14 — Restructured **all 30 existing tasks** without renumbering or closing any. Extended T-01 to NEEDs and CANs; reinforced T-02; reframed T-15 and T-30; reprioritized protocol, non-monotone simulation, complexity control and counterexamples; updated semantic, scenario and normative scopes; added type, dependencies and proposed closure criteria. The local pilot's reported findings are recorded as **preliminary, not independently validated**. New conceptual definitions were not approved by this tracking change.
 
 - 2026-11-15 — Integrated author-validated T-30 decisions (D-25–D-27): permanent Object IDs; provisional versioned Definitions with constituent Object lists **and** associated properties/relations; Parent, Temporary Children and Actualised Children; stable-ID branch promotion; isolation of simulation; shared-Object propagation; conceptual/functional existence; contextually selected CANs and optional CAN conceptual Objects; actionable terminology; and statistical Power uncertainty. Updated 18 existing task descriptions and closure criteria. No task closed, no new ID created.
+
+- 2026-11-15 — Adopted **Advanced Mode as default** (D-28): generate and evaluate multiple relevant Scenarios without a mandatory best-solution selection; distinguish feasibility, complexity, cost, temporality, expected effectiveness and appropriately supported uncertainty (feasibility, success and specific effects). **Simple Mode suspended** until the Method is stabilized. Updated the existing comparative, protocol, scenario, corpus, AI and tooling tasks; no tasks closed.
 
 # Known limits of the current test evidence
 
