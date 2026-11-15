@@ -111,6 +111,10 @@ The adopted recursive sequence is:
 
 **[VALIDATED, November 15]** Distinguish conceptual from functional existence when identifying necessary constituents and the states required for a NEED. The Definition may include partially known NEEDs: mark lack/absence of information separately from evidence of absence of necessity. The analyst may qualify uncertainty **qualitatively** and/or **quantitatively (statistically)** where supportable; do not treat missing information as a zero probability.
 
+**[VALIDATED — November 15, 2026; D-32] Temporal satisfaction requirements:** The required state of a NEED may have an explicit **temporal requirement**: specify, where relevant, **when** it must be satisfied and **for how long**, including whether satisfaction must be maintained throughout a defined part of a Scenario. The presence of a satisfied **final state** does not establish compliance with a requirement of **continuous satisfaction throughout the Scenario**. This is a temporal specification of the NEED's required state, not a newly adopted intrinsic class of NEEDs. A Scenario's satisfaction evaluations are **context- and time-specific**, and must remain distinct from the NEED's definition and its versioned requirements.
+
+**[OPEN / PROPOSED DATA MODEL]** A single reusable representation of temporal information for NEEDs **and CANs** has been requested. The exact field structure, admissible temporal constraints and estimates, handling of intervals, relative events, recurrence, duration, uncertainty and versions remain **PROPOSED**, not yet validated.
+
 **[OPEN]** Operational criteria distinguishing a NEED from a merely favorable property; conceptual versus functional necessity across Object types; identity and granularity of required states; evidential standards, statistical calibration and the exact role of the Semantic Pyramid in non-semantic cases.
 
 ## 3.2 CAN — Potentiality of an Object
@@ -284,6 +288,15 @@ For a NEED-focused cycle, possible pathways for satisfying or maintaining a NEED
 
 **[VALIDATED role distinction and tests — D-30–D-31]** Distinguish the three pathway cases; assess the related CAN–NEED relationships through **correspondence, contribution, conditional sufficiency and Scenario-relative necessity**. For each candidate Scenario, document the mechanism, compare envisaged states with and without the CAN, specify satisfaction conditions, perform a within-Scenario necessity check, and investigate actionability and missing conditions. Label evidential support as **established within the model**, **plausible**, **refuted in context**, or **indeterminate**, without equating model support with empirical proof. The **OR / AND / enabling-dependency** representation is permitted, but does not by itself handle sequencing or non-monotone effects. **[OPEN implementation]** Actual causal tests, minimal combinations, contextual sufficiency and independent validation remain to be developed.
 
+**[VALIDATED — D-32]** When no known CAN or NEED–CAN relation resolves an unmet NEED or a missing action condition, distinguish **use of known relationships** from **exploratory discovery** of currently unrecorded or uncertain Objects, CANs and relationships. When relevant, the Method may recursively broaden the inspected Object Definitions and Environment, proposing new **hypothetical** relations to be subjected to the previously validated tests of correspondence, contribution, conditional sufficiency, Scenario-relative necessity and actionability. Apply recursive relevance and complexity constraints; the Semantic perspective can suggest candidates without proving causal validity.
+
+**[VALIDATED distinctions]** Explicitly separate:
+- **No solution identified**: nothing found in the inspected inventory; this is **not** evidence of impossibility.
+- **Hypothetical candidate**: one or more plausible or indeterminate relationships that require further verification.
+- **Known candidate pathways assessed infeasible or impossible under specified conditions**: a **context-bound** evaluation, not a universal proof that the NEED cannot be satisfied.
+
+**[VALIDATED temporal consequence]** A Scenario cannot be assessed solely by whether its final state satisfies a NEED if its temporal requirement also demands continuity or an interval of satisfaction. Time-aware evaluation should inspect the relevant transition history, and should not claim continuous compliance if its observation granularity cannot detect a possible within-action violation. **The exact temporal data format is still PROPOSED**.
+
 **[SCOPE / FORMALIZATION]** This is a validated **NEED-focused** generation route, **not** an exclusive rule that every analysis must start from an unsatisfied NEED: the approved Stage-2 Focus can also be a **CAN**, and an already satisfied NEED may warrant maintenance analysis or no intervention. Detailed input/output schema, sufficient-condition tests, stop criteria, and implementation remain **OPEN**.
 
 ## 6.2 Scenario evaluation and comparison
@@ -330,7 +343,11 @@ The exact stage-specific workflow is **OPEN**. Simulations and anticipated effec
 - The **principle of recursive relevance** supports investigating indirect effects while their possibility, magnitude and relevance to Objects and purposes justify continued analysis; rare, severe risks should not be overlooked.
 - The **principle of complexity management** permits explicit simplification or suspension where analysis is too uncertain or costly, without claiming unexamined effects do not exist.
 
-**[FORMALIZATION adapting to the November 15 architecture]** Effects may change NEED satisfaction, emergence or disappearance of CANs, Power, Plasticity, **versioned Definitions**, composition of Objects, and their Environments. They can affect both the Main Subject and Secondary Subjects; alterations should be evaluated rather than assumed beneficial.
+**[FORMALIZATION adapting to the November 15 architecture]** Effects may change NEED satisfaction, emergence or disappearance of CANs, Power, Plasticity, **versioned Definitions**, composition of Objects, and their Environments.
+
+**[VALIDATED — D-32]** A NEED's satisfaction criterion may require the specified state to hold at a particular time or over a particular interval; adequacy of a Scenario therefore depends on its time course, not exclusively its final state. If uninterrupted satisfaction is required, an intermediate violation can invalidate an otherwise acceptable final outcome. A model with insufficient temporal resolution must report uncertainty rather than claim full continuity. Detailed NEED/CAN temporal data encoding is not yet selected.
+
+**[VALIDATED — D-32]** The Method distinguishes recursively **searching known NEED–CAN dependencies** from **exploring missing or unknown ones** by appropriately expanding contextual Object Definitions and Environment, explicitly marking hypotheses and preserving uncertainty. Failing to discover a candidate is not a proof of its nonexistence or universal impossibility. They can affect both the Main Subject and Secondary Subjects; alterations should be evaluated rather than assumed beneficial.
 
 # 8. Semantics, Semantic Objects and NEED identification
 
@@ -474,3 +491,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Validated criteria for NEED–CAN sufficiency and necessity
 
 **[VALIDATED — D-31]** Distinguish correspondence, contribution, conditional sufficiency and Scenario-relative necessity, with necessity of a CAN within one Scenario kept separate from its necessity among all *identified* Scenarios. A CAN or combination is conditionally sufficient only if the required NEED state is attainable through its Actualization under **explicit context and conditions**; a CAN is necessary in a given Scenario only if removing it makes that same Scenario unable to satisfy the NEED. Five relationship checks (correspondence mechanism, contribution, sufficiency, within-Scenario necessity, actionability), **OR/AND/enabling-dependency** pathway representation and four **epistemic** evidence categories (established within model, plausible, refuted in context, indeterminate) are validated. Sufficiency does not imply actionability or observed Actualization; model-supported conclusions are not empirical proofs. Detailed causal/counterfactual tests and computational implementation remain **OPEN**.
+
+## November 15, 2026 — Temporal NEED compliance and exploration of unknown NEED–CAN relations
+
+**[VALIDATED — D-32]** Evaluate NEED satisfaction against its required state **and relevant temporal requirement**, which may demand maintaining that state during part or all of a Scenario. Final-state success alone is not enough to establish uninterrupted satisfaction. Keep the temporal specification in the NEED's Definition distinct from time-dependent Scenario observations and simulation assessments. **[VALIDATED]** When known CANs do not satisfy a NEED or missing action condition, the Method may recursively extend relevant Object Definitions/Environment to identify **hypothetical, initially unrecorded CANs and relations**, with evidential evaluation and relevance-based limits. Distinguish **no solution currently identified**, **an unverified hypothetical solution**, and **assessed infeasibility within explicitly specified conditions**. **[PROPOSED — not adopted]** A shared structured temporal field for NEEDs and CANs is under design; syntax, operators and constraints have not been approved.
