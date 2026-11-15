@@ -355,5 +355,49 @@ A contradictory Definition is distinct from an otherwise coherent NEED being **u
 
 **OPEN:** Full syntax and independent parser for nested `all`/`any` groups, rules for exceptions and overlaps, recurrent scheduling, event-relative temporal references, contradictions and satisfiability algorithms, treatment of daylight-saving and unknown or incomplete observations, simulator tests with time-indexed effects and counterexamples. Related tasks: T-03, T-16, T-18, T-24. No empirical validation or task closure is implied.
 
+## D-35 · Distinct effective NEED satisfaction and temporal compliance evaluations
+Date: November 15, 2026 | Status: **Validated principles and illustrative Scenario evaluation structure; precise validation and uncertainty schema OPEN**
+
+The author explicitly approved **all three proposals A–C** following the experimental D-34 time engine:
+
+**A. Dual evaluation (VALIDATED).** For each relevant NEED in an assessed Scenario, distinguish:
+1. **Effective satisfaction:** whether the NEED's required state is actually present in the Object at the relevant observed or simulated times.
+2. **Temporal compliance:** whether the applicable time requirements are met, after applying **only explicitly authorized and valid exceptions**.
+
+Both assessments preserve the already approved three analytical outcomes: **satisfied**, **unsatisfied** or **indeterminate**. Their statuses may differ, including when temporal compliance is satisfied under an authorized exception **while effective satisfaction is unsatisfied**. Contradictions between requirements remain separate Definition consistency diagnostics, not a fourth intrinsic NEED state.
+
+**B. Limited scope of exceptions (VALIDATED).** An authorized exception may change the applicable temporal requirements and thus the **compliance assessment**, but does **not** rewrite the physical, functional or conceptual state actually observed/simulated; erase the consequences of a harmful Actualization; change the underlying NEED; or retroactively make a factual failure into effective satisfaction. Impacts on affected Objects in the Environment remain part of the analysis. Exception validity, intentional authorization, temporal scope, justification and version history are governed by D-34.
+
+**C. Scenario-level traceability (VALIDATED).** Keep both assessments, their respective uncertainty/evidential basis and the IDs of exceptions actually applied in the **Scenario-specific evaluation**, distinct from the versioned Object Definition and its NEED/CAN `temporal` constraints. Explicitly record observed/simulated violation intervals. Changes in evaluation status are not implicit mutations of the NEED's Definition.
+
+**[VALIDATED working example]** The author also accepted the illustrative JSON form:
+
+```json
+{
+  "scenario_id": "S-001",
+  "need_id": "N-001",
+  "evaluation": {
+    "effective_satisfaction": {
+      "status": "unsatisfied",
+      "violations": [
+        {
+          "start": "2026-11-15T09:00:00+01:00",
+          "end": "2026-11-15T09:20:00+01:00"
+        }
+      ]
+    },
+    "temporal_compliance": {
+      "status": "satisfied",
+      "applied_exceptions": ["EX-001"]
+    },
+    "evidence": "established_in_model"
+  }
+}
+```
+
+This **does not** by itself establish empirical validity, independent reproducibility or a complete machine-enforced JSON Schema. The precise evidence/uncertainty shape may need to support different sources and confidence for the two evaluations.
+
+**OPEN:** Operational determination of effective satisfaction from incomplete or conflicting observations; distinct provenance/uncertainty for the two assessments; effects of changing required states; exception authorization and validity tests; aggregation across NEEDs, Objects and Scenarios without masking adverse effects; independent regression tests using the temporal engine. Related tasks: T-03, T-16, T-17, T-18, T-24.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
