@@ -159,9 +159,84 @@ These describe **link/pathway roles**, not a universal closed partition of Objec
 
 In this illustration the listed participant groupings express **asserted analysis conditions**, not experimentally established causal sufficiency or absolute necessity. `all` and `any` convey the intended grouping, but **how separate groups combine into a final condition remains OPEN** until specified. The `composition` above is a composition of *Object references in a relational record*, distinct in scope from the D-34 `temporal.composition` that combines temporal requirements.
 
-**[VALIDATED design recommendation / SCHEMA OPEN]** To express different roles toward different Objects, the relational container must permit **individually qualified links**, not just a single global `nature` list. A further structure, e.g. per-link object references with role tags, causal/evidence qualifiers, context and link identity, is an **implementation formalization to design and validate**; no exact `links` or `qualifiers` field structure has yet been approved. Do not silently assign the global `nature` classification to every participant or presume that all references in the same group have identical properties.
+**[SUPERSEDED BY D-38 — November 15, 2026]** The D-37 design recommendation was subsequently validated as the specific `relation.links` data structure, described below. Each linked Object can have a distinct role; never silently propagate the origin relationship's `nature` to every reference.
 
-**[OPEN]** Definitive machine-readable per-link schema, cross-group composition and mixed AND/OR precedence, relation evidential requirements, distinctions between structural, existential and functional statuses in difficult cases, reference/branch versioning, how alternatives are proven, temporal edge effects, and reproducibility.
+### 2.1.4 Qualified individual Object links (`relation.links`)
+
+**[VALIDATED — November 15, 2026; D-38]** The author approved proposals A–E for individually qualified links, complementing the D-36/D-37 origin-anchored record. `relation.links` is a list of **link records**, one for each explicitly qualified relation to an Object referenced in the parent's `NEEDs` or `CANs` list. The approved working fields are:
+
+| Field | Meaning | Required in each link? |
+| --- | --- | --- |
+| `id` | Distinct link identifier, allowing other links to refer to it | Yes |
+| `object_id` | ID of referenced Object | Yes |
+| `source_list` | `NEEDs` or `CANs`: list in the parent relation containing `object_id` | Yes |
+| `roles` | Zero or more context-dependent relationship qualifications, e.g. `contributive`, `enabling`, `inhibitory` | Optional |
+| `conditions` | Conditions under which the claimed role/link is relevant | Optional |
+| `mechanism` | Explained or hypothesized relationship mechanism | Optional |
+| `causality` | `direct`, `indirect` or `indeterminate` qualification, where justified | Optional |
+| `evidence` | Evidential qualification and justification; existing D-31 labels apply | Optional |
+| `affects` | IDs of **other link records affected** by this link | Optional |
+
+The first **three fields are mandatory** in any explicitly recorded link; `affects` was separately approved as an optional field (proposal C). Role fields can remain unknown when the referenced Object is identified but the nature or evidence of its relation is not yet determined. Link identifiers must distinguish different links **within a relational record**; global uniqueness of link IDs, stable identity across branching, and cross-record link addressing are still **OPEN**.
+
+**[VALIDATED referential consistency]** If `source_list` is `NEEDs`, the link's `object_id` must occur in the enclosing record's `NEEDs`; if it is `CANs`, it must occur in `CANs`. The link must not silently introduce an Object absent from the declared list. A previously unlisted Object requires **explicit expansion of the corresponding inventory** or an appropriate separate relation. Do not infer that every listed Object must already have a qualified link with all optional fields known; inventories and knowledge remain potentially incomplete.
+
+**[VALIDATED relation-of-relations]** `affects` makes it possible to describe a link that **enables, inhibits or otherwise changes** another link. It records a **candidate structural interaction**, not proved causal sufficiency, necessity, actionability or Actualization. The effect mechanism, its exact affected condition, time sequence and possible recursive/circular dependencies still need operational tests. Explicitly distinguish the *link* being affected from the linked *Object* itself.
+
+**[VALIDATED causal/evidential safeguard]** A stored link role is an analytical classification, **not proof** of contribution, conditional sufficiency, Scenario-relative necessity or positive Power. Apply D-31 tests under specified conditions, track plausible/indeterminate/refuted/model-established evidence, and keep Scenario-level outcome assessments separate from the Definition-level link metadata. Nor does a linked Object's `roles` automatically imply the same role for the parent relation.
+
+**[VALIDATED working example; hypothetical, not independently demonstrated]**
+
+```json
+{
+  "ID": "R-heat",
+  "Type": "NEED",
+  "OriginObject": "O-home",
+  "NEEDs": null,
+  "CANs": ["O-heat-pump", "O-boiler", "O-technician"],
+  "relation": {
+    "nature": ["functional"],
+    "links": [
+      {
+        "id": "L-heat-pump",
+        "object_id": "O-heat-pump",
+        "source_list": "CANs",
+        "roles": ["contributive"],
+        "conditions": ["Electricity supply available"],
+        "mechanism": "Heat production",
+        "causality": "direct",
+        "evidence": {"status": "plausible"}
+      },
+      {
+        "id": "L-boiler",
+        "object_id": "O-boiler",
+        "source_list": "CANs",
+        "roles": ["contributive"],
+        "conditions": ["Fuel supply available"],
+        "mechanism": "Heat production",
+        "causality": "direct",
+        "evidence": {"status": "plausible"}
+      },
+      {
+        "id": "L-technician",
+        "object_id": "O-technician",
+        "source_list": "CANs",
+        "roles": ["enabling"],
+        "affects": ["L-heat-pump"]
+      }
+    ],
+    "composition": [
+      {"objects": ["O-heat-pump", "O-boiler"], "operator": "any"}
+    ]
+  }
+}
+```
+
+The example combines hypothesized alternative heating pathways with an enabling relationship from a technician to the heat-pump link. The `composition` does **not** assert that either pathway is in fact sufficient, and `affects` does **not** show that the technician is necessary. Unrepresented interactions among groups and enabling links are not silently assigned a Boolean meaning.
+
+**[OPEN]** Detailed machine-enforced JSON Schema, permissible vocabulary and formal semantics of `roles` and `conditions`, `affects` graph addressing beyond a single relation, cycle detection, handling of changing effects across versions and Scenarios, evidence provenance and confidence, link ID uniqueness across the repository, duplicate references in the two inventories, and interaction between link graph and `relation.composition`. This is an approved **representation**, not a validated causal-inference engine.
+
+**[UPDATED D-38 / STILL OPEN]** Qualified link field names and mandatory/optional split are now validated, but a complete JSON Schema/parser, cross-group composition and mixed AND/OR precedence, formal conditions, link-to-link cycles, relation evidence standards, existential/structural/functional borderline tests, reference/branch versioning, empirical tests and reproducibility remain OPEN.
 
 ## 3.1 NEED — explicitly approved definition
 
@@ -767,3 +842,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Validated relation characterization (D-37)
 
 **[VALIDATED — D-37]** The D-36 NEED/CAN record gains a structured `relation` field. The accepted dimensions are: **nature relative to `OriginObject`**, **individual role of each referenced Object**, **composition of references** (alternative, complementary, substitutive, sequential, synergistic, antagonistic or reciprocal as justified), and relevant **conditionality, temporality, causality and epistemic qualification**. The approved initial example uses `relation.nature` and `relation.composition` with `objects` groups and `all`/`any` operators. Origin nature may include existential, structural, functional for NEED; contributive, enabling, inhibitory, transformative for CAN. These terms are context-dependent and not necessarily exclusive. Necessary/sufficient claims still require D-31 tests; labels and references do not prove causal outcomes. **[VALIDATED DESIGN RECOMMENDATION, OPEN SCHEMA]** Each reference must be able to carry its own role; an exact per-link data substructure is not yet approved. The `relation.composition` refers to linked Objects and is distinct from D-34 `temporal.composition` on time requirements. Keep outstanding grouping, versions, identity and uncertainty questions OPEN.
+
+## November 15, 2026 — Validated qualified individual links (D-38)
+
+**[VALIDATED — D-38]** The NEED/CAN relational record's `relation.links` array now holds individually qualified links with **mandatory** `id`, `object_id` and `source_list` (`NEEDs`/`CANs`), plus **optional** `roles`, `conditions`, `mechanism`, `causality`, `evidence` and `affects`. A link `object_id` must be present in the enclosing record's corresponding source list; missing references require deliberate inventory extension or explicit separate relations. `affects` references other link IDs and permits describing enabling/inhibiting interactions between links without proving an effect. A role label is never a substitute for D-31 necessity/sufficiency tests. **[OPEN]** Link-graph recursion/cycles, cross-record addresses, complete schema, composition interactions, versions and independent reproducibility.
