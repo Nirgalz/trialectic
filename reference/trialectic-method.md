@@ -34,7 +34,7 @@ One possible normative purpose is to reveal contradictions, seek alternatives, a
 - **Secondary Subject [VALIDATED]**: another Object selected for a parallel or embedded application of the Method, for example to examine its role in an Actualization Scenario.
 - **Situated Subject [FORMALIZATION retaining the validated contextual insight]**: the selected Subject considered with the relevant elements and relationships of its Environment. Its precise place as a separate named concept under the revised terminology remains **OPEN**.
 
-An Object has a **permanent, unique ID** and an evolving, versioned **Definition** (a provisional technical name). The Definition comprises a **list of constituent Objects plus associated properties and relations** describing its NEEDs, CANs, interactions and available knowledge; NEEDs and CANs do not automatically become independent conceptual Objects. An Object may have other Objects as existential or structural constituents, and its Definition may include partially known properties and explicit uncertainty. **[VALIDATED, November 15]**
+An Object has a **permanent, unique ID** and an evolving, versioned **Definition** (a provisional technical name). The Definition comprises a **list of constituent Objects plus associated properties and relations** describing its NEEDs, CANs, interactions and available knowledge. **[UPDATED — D-36, November 15]** NEED and CAN entries are now modeled as typed, origin-anchored **relational records connecting Objects**, rather than only as stand-alone Object properties. The older statement that NEED/CAN records are merely properties and CANs are only optionally represented through conceptual Objects is **superseded as a data-representation rule**. This change does not itself imply that the record is an independently instantiated Object, or that every Object referenced by a NEED/CAN relation inherits a NEED/CAN status globally. An Object may have other Objects as existential or structural constituents, and its Definition may include partially known properties and explicit uncertainty. **[VALIDATED, November 15]**
 
 The earlier three-part boundary proposal (existential/structural NEEDs, constituent Objects, actionable CANs) remains historical context; the current operational architecture is the **Definition** described below. Exact boundary tests and category-specific identity criteria remain **OPEN**.
 
@@ -92,6 +92,31 @@ The adopted recursive sequence is:
 
 # 3. NEEDs and CANs — attributable properties and relations
 
+### 2.1.2 Origin-anchored NEED and CAN relational records
+
+**[VALIDATED — November 15, 2026; D-36, reformulation]** The author defines a NEED or CAN as a **relation between Objects**, with an explicit origin Object and one or more other Objects referred to through `NEEDs` and `CANs`. The latest agreed minimal working structure is:
+
+```json
+{
+  "ID": "R-001",
+  "Type": "NEED",
+  "NEEDs": ["O-002", "O-003"],
+  "CANs": ["O-004"],
+  "OriginObject": "O-001"
+}
+```
+
+- `ID`: identifier of the relational record (precise persistence/identity guarantees still to be specified).
+- `Type`: `NEED` or `CAN`, describing the relation's type.
+- `OriginObject`: reference to the Object from which the NEED or CAN originates.
+- `NEEDs`: nullable list of **Object references**, used for more granular specification, particularly of a parent NEED.
+- `CANs`: nullable list of **Object references**, used for more granular specification of the parent NEED or CAN.
+- `NEEDs` and `CANs` are **not necessarily themselves lists of instantiated NEED/CAN relational records**, but lists of Objects as explicitly specified by the author. These are role-labeled links and do not automatically change the referenced Objects' global types.
+- A single referenced Object across the two lists yields one target participant; multiple references yield several target participants. **No mandatory separate `TargetObject` field** is required, because the participants are already represented by `NEEDs` and `CANs`.
+- The relation can be modeled, descriptively, as an **origin-anchored multi-participant relation / directed hyperrelation** rather than obligatorily a binary relation. This mathematical characterization is a formalization, not a separately adopted ontology.
+
+**[NOT YET SPECIFIED]** The logical significance of one versus many referenced Objects (joint necessity vs alternatives vs mere participation), semantics when both lists contain Objects, identity and recursion of parent/child relation records, whether duplicate Objects can occur across roles, behavior when both lists are null or empty, cycle handling, preservation/versioning of relation IDs and `OriginObject` during Object branching, and interaction with the D-33 temporal data model are **OPEN**. Do **not** assume that a `CANs` link proves actionability or NEED satisfaction, or that membership in a `NEEDs` list establishes logical necessity. Earlier conceptual definitions of NEED (necessity) and CAN (Potentiality) remain in force unless explicitly revised.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -107,7 +132,7 @@ The adopted recursive sequence is:
 - Distinguish a **NEED**, its **satisfaction state**, and a **NEED–CAN relation**; they are not interchangeable.
 - Satisfaction of a NEED does **not** always require any identifiable Actualization of a CAN. An existing state may suffice.
 - For analysis, record **satisfied**, **unsatisfied**, or **satisfaction indeterminate**. The third outcome marks missing or inconclusive information about satisfaction, not a third intrinsic state of the NEED.
-- NEEDs are properties attributable to Objects, although their satisfaction may involve relationships with other Objects.
+- **[UPDATED representation — D-36]** NEEDs remain attributable to the Object identified by `OriginObject`, but their current **data representation is a typed relational record** connected to one or more referenced Objects. This replaces the earlier representation-only description as free-standing Object properties; their conceptual status as necessities and separate satisfaction state is retained.
 
 **[VALIDATED, November 15]** Distinguish conceptual from functional existence when identifying necessary constituents and the states required for a NEED. The Definition may include partially known NEEDs: mark lack/absence of information separately from evidence of absence of necessity. The analyst may qualify uncertainty **qualitatively** and/or **quantitatively (statistically)** where supportable; do not treat missing information as a zero probability.
 
@@ -119,8 +144,8 @@ The adopted recursive sequence is:
 
 ## 3.2 CAN — Potentiality of an Object
 
-- **CAN [VALIDATED, terminology updated]**: a Potentiality of an Object, selected and described according to the **relevance and granularity of the analysis**. A CAN may depend on other Objects for its Actualization; independent autonomous action is not always required. A CAN **may itself be represented as a conceptual Object with its own NEEDs, but only where that representation is relevant**.
-- An Object's **CANs** form a contextually selected, potentially **non-exhaustive** inventory. A CAN may correspond to one or more NEEDs of the same Object or of other Objects. A CAN is not equivalent to a NEED or to Power.
+- **CAN [VALIDATED terminology; REPRESENTATION UPDATED D-36]**: a Potentiality originating from an Object, selected and described according to the **relevance and granularity of the analysis**. A CAN may depend on other Objects for its Actualization; independent autonomous action is not always required. **Current data representation:** `Type: CAN` relational record, with `OriginObject` and nullable `NEEDs` / `CANs` lists of Object references. The prior optional conceptual-Object representation is not the current default schema.
+- An Object's **CANs** form a contextually selected, potentially **non-exhaustive** inventory of relational records originating from that Object. A CAN may correspond to NEEDs of the same Object or of others; **a link in `CANs` alone does not establish correspondence, sufficiency or actionability** without D-31 verification. A CAN is not equivalent to a NEED or to Power.
 - **Actionable CAN [VALIDATED, November 15]**: a CAN whose **conditions of action are met**. A distinct classification of *mobilizable CAN* is no longer used in the current terminology. The relationship between action conditions in a specific contribution and full sufficient Conditions of Power of the considered Actualization requires careful specification in T-02.
 - For **Groups and Systems**, distinguish CANs of constituent Objects from CANs of the Group/System that require Actualizations by multiple constituent Objects. Those CANs are not automatically identical.
 - **Potency [VALIDATED earlier definition; FORMALIZATION under the new lexicon]**: the set of an Object's attributable CANs at time T. The earlier term **Puissance / Potency** remains traceable; whether it should be retained as a named concept or replaced by “CANs” has **not** been separately decided.
@@ -688,3 +713,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Validated distinction between effective NEED satisfaction and temporal compliance
 
 **[VALIDATED — D-35]** Evaluate separately whether a NEED's required state is effectively present and whether the applicable temporal requirements are met. A justified, time-scoped and versioned exception can alter **temporal compliance**, but never retroactively changes the Object's observed/simulated states, consequences or the NEED itself. Preserve separate three-valued results, uncertainty/evidence, exception IDs and violations in the **Scenario evaluation**, keeping requirements in the versioned Definition. The illustrative `effective_satisfaction` / `temporal_compliance` JSON is adopted as a working example, not yet a complete implementation schema. **[OPEN]** Independent evidence, partial observations, exception authorization workflow and time-indexed multi-Object regression tests.
+
+## November 15, 2026 — Relational NEED/CAN structure
+
+**[VALIDATED — D-36]** NEED/CAN data are now typed origin-anchored relational records containing `ID`, `Type` (`NEED`/`CAN`), `NEEDs` (nullable list of Object references), `CANs` (nullable list of Object references), and `OriginObject`. The second Object participant is recovered from the lists; there may be one or multiple participants, so `TargetObject` is unnecessary. Both lists support finer granularity without asserting AND/OR/satisfaction semantics. This is an update to representation, preserving validated conceptual NEED/CAN distinctions and D-31 relation tests. **[OPEN]** Multiple-participant logic, list co-presence, no-participant cases, relation ID lineage/versioning and nested decomposition semantics.
