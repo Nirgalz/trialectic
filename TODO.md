@@ -1,8 +1,8 @@
 # TODO — Trialectic Method
 
-**Working register** · Updated: November 14, 2026 · **30 open tasks** · Canonical reference: [`reference/trialectic-method.md`](reference/trialectic-method.md) · Branch: `dev`
+**Working register** · Updated: November 15, 2026 · **30 open tasks** · Canonical reference: [`reference/trialectic-method.md`](reference/trialectic-method.md) · Branch: `dev`
 
-This is a **work plan**, not a source of new conceptual validation. Changes to task descriptions and priorities are approved as tracking decisions only; unsettled concepts remain **OPEN** in the reference. The program follows the adopted Object / Subject / NEED / CAN / Focus architecture. Keep historical task IDs stable.
+This is a **work plan**, not a source of new conceptual validation. Changes to task descriptions and priorities are approved as tracking decisions only; unsettled concepts remain **OPEN** in the reference. The program follows the adopted Object / Subject / NEED / CAN / Definition / Focus architecture. Keep historical task IDs stable.
 
 ## Tracking rules and fields
 
@@ -18,69 +18,69 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 | Priority | Main objective | Tasks |
 |---|---|---|
-| P0 | Architecture, attribution, Power, reproducible simulation, counterexamples and computation budgets | T-30, T-01, T-02, T-05, T-15, T-03, T-16, T-18, T-21, T-24 |
+| P0 | Object identity and Definitions, NEED/CAN identification, Power, reproducible simulation, counterexamples and computation budgets | T-30, T-01, T-02, T-05, T-15, T-03, T-16, T-18, T-21, T-24 |
 | P1 | Comparative testing, scenario comparison, case corpus, semantic research, applied AI | T-04, T-17, T-19, T-25, T-27, T-06–T-14, T-20 |
 | P2 | Supplementary Power measures, normative and distributive effects | T-22, T-23, T-29 |
 | P3 | Practical tools and Git-based documentation | T-26, T-28 |
 
-**Execution note:** Conceptual formalization and empirical evaluation should overlap. Do not interpret placement in P1 as a ban on early baseline measurements: they should start as soon as comparable protocols are available.
+**Execution note:** Newly approved T-30 principles do not close any task; the exact CAN actionable / Power relationship, 'attributable CAN' status, necessity tests and simulation propagation algorithms remain OPEN. Conceptual formalization and empirical evaluation should overlap. Do not interpret placement in P1 as a ban on early baseline measurements: they should start as soon as comparable protocols are available.
 
 
 # P0 — Conceptual architecture and reproducible simulation
 
-## T-30 · Operationalize the Object / Subject / NEED / CAN architecture
+## T-30 · Operationalize Object identity, Definitions, branching and NEED/CAN/Focus architecture
 **Type:** Conceptual / protocol | **Priority:** P0 | **Status:** **To develop**
 
 **Dependencies:** Foundational; coordinate with T-01, T-02, T-05, T-15.
 
-**Scope:** Specify the five Object categories, Main and Secondary Subjects, Object boundaries and identity through change, Focus/Stage transitions (Subject → NEED or CAN → Actualization → Subject), partial inventories, intra-/inter-Object relations, Environment and accessible Objects. Preserve approved NEED definition, non-exclusive existential/structural categories, Power distinct from CAN mobilizability, and the limited use of Semantic Pyramids. Treat unsettled procedures as OPEN rather than validated.
+**Scope:** Formalize the now validated permanent Object ID, provisional 'Definition' as a versioned list of constituent Object references **plus** associated properties and NEED/CAN relations, Parent (null or parent Object), Temporary Children and Actualised Children. Distinguish normal Definition updates from contradictory branches; model temporary simulation branches, promotion at effective Actualization (same ID), historical snapshots, shared-Object propagation and simulation isolation. Include conceptual vs functional existence, the contextual necessity test and relevant Semantic Pyramids, focal Subject selection, the NEED-or-CAN Focus/Stage cycle and unresolved actionability–Power relations. Do not silently finalize identity/necessity tests, CAN 'attribution' category or statistical calibration.
 
-**Closure criterion:** A versioned architectural specification defines the objects, relations, assumptions, and open issues; at least one worked NEED-focused and CAN-focused trace shows each Stage and Subject transition without contradicting validated concepts.
+**Closure criterion:** An explicitly versioned architecture specification and worked NEED- and CAN-focused examples show IDs, Definition versions, Parent/Children lineage, isolated simulations, actualization, shared references, history, qualified uncertainty and Stage transitions. All unresolved semantics and failure cases are listed; independent review confirms compliance with the validated principles.
 
-## T-01 · Formalize attribution and identification of NEEDs and CANs
+## T-01 · Formalize identification of NEEDs and contextually relevant CANs
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To experiment**
 
 **Dependencies:** T-30 (shared Object model); coordinate with T-05.
 
-**Scope:** Define independent tests for NEED necessity (existential, structural, or both), required state and evidence; separate need existence, satisfaction and epistemic uncertainty. Test CAN attribution by relevant current constitutive foundation, specificity and group/individual attribution; retain provisional tests A/B/C as hypotheses. Separate present CANs, developmental CANs, and external Conditions of Power.
+**Scope:** Specify the necessity test 'Without this constituent Object, can the Subject still exist?' while distinguishing conceptual vs functional existence, existential vs structural status, and Semantic-Pyramid assistance only where relevant. Develop how partially known NEEDs/CANs and absence of evidence vs evidence of absence are represented qualitatively and/or statistically. Select CANs and granularity by Focus context; distinguish Group/System CANs requiring Actualizations by multiple constituent Objects. A CAN may be modeled as a conceptual Object with its own NEEDs only when relevant. The author has questioned whether 'attributable CAN' should remain a separate category: keep that decision OPEN; legacy A/B/C tests remain hypotheses.
 
-**Closure criterion:** Operational criteria and explicit counterexamples distinguish NEED from a beneficial property, and attributable CAN from hypothetical future acquisition; independent reviewers can apply them to a held-out case set and disagreements are documented.
+**Closure criterion:** Operational identification criteria support documented synthetic and held-out examples; independent reviewers distinguish conceptual/functional necessity, evidence gaps and contextually relevant CANs, including group/system examples. The need for any separate 'attributable CAN' status is explicitly resolved before closure.
 
-## T-02 · Formalize Conditions of Actualization and Power
+## T-02 · Define CAN actionability, NEED satisfaction and complete Power conditions
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To resolve**
 
 **Dependencies:** T-30, T-01.
 
-**Scope:** Specify mobilization conditions (CAN effectively mobilizable) versus satisfaction conditions (NEED actually satisfied), cross-Object ownership of NEEDs, sufficient alternative pathways, uncertain conditions and negative Power. Preserve the validated rule that a mobilizable CAN does NOT necessarily have positive Power. Define valid NEED–CAN correspondences without conflating correspondence, mobilizability, satisfaction, Power and successful Actualization.
+**Scope:** Use the current terminology **CAN actionable** (conditions of action fulfilled), not a distinct 'mobilizable CAN' category. Specify actionability for a defined contribution versus the sufficient Conditions of Power for the considered broader Actualization; preserve historical D-20/D-21 distinctions without assuming synonymy. Include required NEED satisfaction, shared constituent Objects, alternative pathways and cross-Object dependencies. Distinguish binary Power/epistemic indeterminacy from a statistically supported probability of positive Power, and from probability of Actualization success.
 
-**Closure criterion:** An explicit condition-evaluation procedure produces consistent Power assessments on positive, negative, unknown and circular-dependency cases, including a mobilizable-CAN/negative-Power counterexample and a NEED owned by another Object.
+**Closure criterion:** A documented model with explicit counterexamples shows when actionability does or does not settle Power, separates NEED satisfaction from matching, and handles unknown and circular pathways. Statistical estimation method and its limits are specified without ungrounded numerical certainty.
 
 ## T-05 · Clarify boundaries and identities of Object types
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To resolve**
 
 **Dependencies:** T-30; coordinate with T-01.
 
-**Scope:** Distinguish Individuals, Groups, Technical Objects, Systems and Semantic Objects; address parts, composition, existential/structural NEEDs, actionable CANs and persistence of Object identity under change. Preserve experimental status of Semantic Objects as autonomous Subjects; do not conflate individual and collective CAN attribution.
+**Scope:** Test boundaries and identities of Individuals, Groups, Technical Objects, Systems and Semantic Objects using their permanent IDs, versioned Definitions and existential/structural constituent Objects. Distinguish conceptual from functional existence and Object lineage (Parent) from composition (Definition). Examine shared constituent references, history, contradictory branches and the special status of CANs optionally modeled as conceptual Objects.
 
-**Closure criterion:** Category-specific boundary tests and counterexamples delimit each Object type and specify unresolved ambiguous cases rather than assigning a type by default.
+**Closure criterion:** Category-sensitive tests document which Definition changes preserve Object ID, which contradictory changes create descendants, and when a constituent is necessary for conceptual or functional existence; ambiguous cases and the status of semantic Objects are explicitly retained.
 
 ## T-15 · Formalize Subject contextualization and Environment selection
 **Type:** Conceptual / protocol | **Priority:** P0 | **Status:** **To resolve**
 
 **Dependencies:** T-30, T-05; coordinate with T-03.
 
-**Scope:** Specify selection of the Main Subject, scope of its Environment (relevant direct and indirect effects), directly accessible Objects, relevant properties and relations for a NEED or CAN Focus, and when to analyze Secondary Subjects. Reconsider the separate terminological status of Situated Subject without presuming it has been discontinued.
+**Scope:** Select the focal Subject as the Object receiving the Method's or analyst's attention; initially identify its relevant existential/structural constituent Objects within its Environment, then extend the Definition and context recursively when needed. Distinguish constituent Objects, indirectly relevant Environment and directly accessible Objects; define when to analyze Secondary Subjects, CAN Objects and shared constituents. The distinct terminological status of Situated Subject remains OPEN.
 
-**Closure criterion:** A repeatable contextualization checklist yields traceable inclusion/exclusion justifications and consistent Subject/Environment selections on representative cases.
+**Closure criterion:** Case traces justify initial identification, contextual Definition expansion and Subject/Environment choices, including transitions to shared constituents and Secondary Subjects, without conflating conceptual and functional necessity.
 
 ## T-03 · Make the analysis protocol reproducible
 **Type:** Protocol / experimental | **Priority:** P0 | **Status:** **To develop**
 
 **Dependencies:** T-30, T-01, T-02, T-15 (iterative interfaces).
 
-**Scope:** Provide input schema, Stage/Focus traces, data provenance, evidence for NEED/CAN attribution, uncertain or missing relations, state transitions, selection of Secondary Subjects and analyst decision logs. Compare independent analysts and/or models on common cases; distinguish agreement in judgments from textual similarity.
+**Scope:** Specify reproducible input schema and workflow for versioned Object Definitions, permanent IDs, Parent/Temporary Children/Actualised Children, simulation isolation and actualization promotion; record NEED/CAN contextual selection, qualitative/statistical uncertainty, state transitions, evidence, shared constituent references and Focus/Stage paths. Separate factual observations from simulation and independent analyst judgments.
 
-**Closure criterion:** A documented protocol, case rubric and independent replicate study quantify agreement and clearly state unresolved discrepancies. Pilot-only executable checks do not satisfy the independent-reproducibility criterion.
+**Closure criterion:** Independent reproductions agree on graph identities, versioned snapshots, temporary vs actualized branches, shared-reference propagation and relevant decisions; any divergent interpretations and unresolved operational definitions are documented.
 
 **Preliminary evidence (not task closure):** Preliminary local pilot reported on 2026-11-14: 20 executable assertions and 60 action-order robustness tests; NOT independent human or multi-model replication; artifacts are not yet archived in this repository.
 
@@ -89,9 +89,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-02, T-03; coordinate with T-18.
 
-**Scope:** Generate multiple relevant scenarios using NEED–CAN links, alternative sufficient pathways, Secondary Subjects, circular dependencies and possible third-Object intervention. Support sequences, parallel and conditional Actualizations, resource requirements and both satisfied and unsatisfied NEED Focuses; avoid combinatorial explosion.
+**Scope:** Generate and evaluate Scenarios for one-to-many and many-to-one NEED–CAN relations, action conditions, alternatives, circular dependencies, shared constituents and multiple Subjects. Contradictory hypothetical Actualizations create distinct **temporary Objects** with unique IDs and shared parent lineage; promotion after effective Actualization preserves the branch ID. Maintain separate simulation contexts and do not identify simulated effects as effective Actualizations.
 
-**Closure criterion:** Prototype outputs a traceable set of valid and materially distinct Scenarios on a held-out corpus, correctly reports unsatisfiable dependencies and identifies missing conditions. Negative and destructive effects are handled through T-18.
+**Closure criterion:** A prototype creates isolated, traceable competing Scenario branches and verifies correct parent/child memberships before and after promotion, as well as viable and unavailable alternative paths. Include non-monotone support via T-18.
 
 **Preliminary evidence (not task closure):** Preliminary local monotone dependency-graph planner demonstrated scenarios and third-Object breakouts; NOT a full implementation of the revised Method.
 
@@ -100,9 +100,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-16, T-02; coordinate with T-24 and T-29.
 
-**Scope:** Represent Actualizations that may satisfy OR invalidate NEEDs, create or remove CANs, change conditions, consume resources, affect multiple Objects, and produce direct/indirect or immediate/delayed effects. Reassess Power, environments and alternative paths after each transition. Distinguish predicted, observed and causally attributed changes, and empirical reassessment from simulation.
+**Scope:** Model effective Actualizations as updates to the **versioned Definitions** of affected Objects, including shared constituent references across multiple Definitions, and loss or gain of NEED satisfaction, CANs or Conditions. Treat contradictions as new branches, simulation branches as isolated, and completed Actualization as promotion of the relevant branch without ID change. Distinguish conceptual/functional states, observed and causally attributed changes, and statistically uncertain forecasts.
 
-**Closure criterion:** A simulator passes reversible/non-monotone counterexamples and a reproducible comparison against an independent state-transition oracle; realistic evaluation plans keep observational claims separate.
+**Closure criterion:** An independent state-transition oracle verifies normal version updates, shared-reference propagation, isolated and promoted branches, non-monotone effects, historical snapshot immutability and correct handling of incompatible effective observations.
 
 **Preliminary evidence (not task closure):** Preliminary local test found a destructive-effect counterexample: a monotone planner falsely accepted a plan after an action destroyed a later prerequisite. This is an implementation limitation, not an established contradiction of the Method.
 
@@ -111,9 +111,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03, T-16; coordinate with T-04.
 
-**Scope:** Specify explicit exploration/stop criteria based on Focus relevance, possible impact, uncertainty, resource budgets and the cost of Secondary-Subject recursion. Measure growth with Objects, links, branching, depth, circularity and distractors; compare adaptive, fixed-depth and exhaustive search. Record missed high-impact effects.
+**Scope:** Specify recursive relevance and stopping criteria including cost of following shared constituent references, expanding contextual Definitions, optional CAN-as-Object analysis, and temporary Scenario branching. Compare pruning, fixed-depth and exhaustive exploration; count memory, version snapshots, graph width/depth, temporal changes and missed high-impact consequences.
 
-**Closure criterion:** A documented stopping policy exhibits measurable cost/coverage trade-offs and reports cases where pruning loses a critical dependency.
+**Closure criterion:** Cost/quality analysis demonstrates safe or documented trade-offs under shared-component propagation, competing branches and recursive Subject changes, and identifies cases where pruning misses important effects.
 
 **Preliminary evidence (not task closure):** Preliminary local monotone simulations with 240 paired instances found large state-search savings from relevance pruning against unfiltered breadth-first search; a generic heuristic also solved the same solvable cases, so no specifically trialectic gain was shown.
 
@@ -122,9 +122,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-01, T-02, T-03 (iterative); coordinate with T-18.
 
-**Scope:** Build and maintain adversarial cases: already-satisfied NEEDs, mobilizable CAN/negative Power, cross-Object NEEDs, multiple sufficiency pathways, unbreakable circular dependencies, semantic versus empirical necessity, changing Object boundaries, non-monotone effects, contradictory evidence and analytic overload. Record conceptual contradictions separately from model or code defects.
+**Scope:** Extend adversarial cases to unique and persistent IDs, no accidental ID changes during promotion, Parent/Children consistency, references to common Objects, versioned historical immutability, isolation of temporary branches, conflicting effective observations and missing necessity evidence. Retain CAN actionable versus Power counterexamples, conceptual vs functional existence, false NEED–CAN matches, contradictions and non-monotone effects; distinguish conceptual failures from code defects.
 
-**Closure criterion:** A versioned counterexample suite reports expected behaviors, confirmed failures, regressions and unresolved issues; critical cases are run after each reference or simulator change.
+**Closure criterion:** A versioned suite has explicit expected outputs for branch promotion, shared Objects, historical versions, actionability/Power and uncertainty, with regression reports and unresolved conceptual disagreements.
 
 **Preliminary evidence (not task closure):** Preliminary local checks passed 20 selected assertions but exposed one non-monotone planning defect; these tests are not scientific or independent validation.
 
@@ -136,9 +136,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03; initial experiments can run alongside T-16 and T-21.
 
-**Scope:** Compare matched problems under free-form analysis, generic structured analysis, trialectic simple mode and trialectic advanced mode. Fix model/data, control information and compute budgets, anonymize outputs where possible, assess correctness, relevant coverage, scenario feasibility, critical errors and total costs including initial Object/NEED/CAN elicitation; compare both equal-budget and equal-quality targets.
+**Scope:** Continue four-condition matched comparisons (free-form, generic structured, trialectic simple, trialectic advanced). Include cost to construct versioned Definitions and manage branch propagation; measure quality of conceptual/functional NEED identification, selection of actionable CANs, state and history correctness, consequence coverage and human interpretability. Do not mistake generic shared-graph or state-planning improvements for unique Method value.
 
-**Closure criterion:** A pre-registered matched evaluation on held-out tasks reports effects and uncertainty, failure modes, per-problem results, and independent judging. Do not infer an original contribution solely from graph-search speed.
+**Closure criterion:** Controlled, independently judged comparisons report both equal-budget and equal-quality results, uncertainty and task-specific trade-offs, including overhead from branch simulations and versioned Definitions.
 
 **Preliminary evidence (not task closure):** Preliminary local Python simulation: 60 base worlds × four distractor levels; both a generic heuristic and relevance-pruned graph search solved all 47 solvable base worlds at each level. NO controlled LLM-with/without-Method evaluation has been run.
 
@@ -147,9 +147,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-16, T-18; coordinate with T-23 and T-29.
 
-**Scope:** Compare feasibility versus difficulty, temporality, expected effectiveness and broader consequences; test sequences, simultaneous actions, dependencies, resource competition, synergies, alternatives, robustness, compensations, and double counting. Reassess rankings when a Scenario changes the NEEDs, CANs or conditions of other Objects.
+**Scope:** Compare scenarios using feasibility, difficulty, temporality, expected effectiveness and broader consequences across alternate temporary branches; account for shared constituent changes, historical versions, cross-Object NEED impact, statistical Power uncertainty, non-monotone conditions, synergies and uncompen­sable harm.
 
-**Closure criterion:** A reproducible multicriteria comparison justifies rankings and tradeoffs, detects incoherent plans and reports instability under reasonable assumptions.
+**Closure criterion:** Comparison artifacts trace competing branch Definitions and indicate which decisions remain hypothetical vs actualized, with ranking robustness and explicit effects on shared Objects.
 
 ## T-19 · Identify problem classes where the Method adds value
 **Type:** Comparative / experimental | **Priority:** P1 | **Status:** **To experiment**
@@ -174,9 +174,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03; coordinate with T-04, T-19 and T-24.
 
-**Scope:** Build versioned synthetic and real-world cases across Object categories and Focus types, including solvable/unsolvable, harmful-side-effect and adversarial cases. Separate training/development from held-out evaluation; maintain consent/privacy safeguards and ground truth or expert-rubric provenance.
+**Scope:** Create versioned synthetic and real-world cases with permanent IDs, Definition snapshots, shared constituents, branching, temporary vs actualized states and conceptual/functional necessity, alongside prior solvable/unsolvable and semantic cases. Preserve held-out evaluation sets and factual provenance.
 
-**Closure criterion:** A diverse, documented, versioned corpus has an independent holdout, case provenance, ground-truth or scoring rubrics, and documented known limitations.
+**Closure criterion:** The corpus includes documented branch history and shared-component ground truth or expert rubrics, reproducible traces and a held-out evaluation set.
 
 ## T-06 · Distinguish constitutive, significant and associated concepts
 **Type:** Conceptual / experimental | **Priority:** P1 | **Status:** **To experiment**
@@ -255,18 +255,18 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30, T-01; coordinate with T-18.
 
-**Scope:** Separate Plasticity (aptitude to change CANs) from actual changes, semantic transformations and potential changes of NEEDs or Object identity. Treat any extension of the validated Plasticity definition to NEEDs as OPEN until approved.
+**Scope:** Separate Plasticity as aptitude for CAN evolution from actual Definition changes, semantic transformation, NEED satisfaction, emergence/disappearance of CANs and branching of Object identity. A CAN may be a conceptual Object when relevant. Extending Plasticity to NEED changes remains OPEN.
 
-**Closure criterion:** Examples and counterexamples delimit which transformations affect CANs, NEED satisfaction, attribution, Semantic Landscape and the Object's identity without silently redefining Plasticity.
+**Closure criterion:** Worked cases distinguish changes in the same Object's versioned Definition from contradictory branches and from mere discovery or uncertainty revision, without silently changing the validated Plasticity concept.
 
 ## T-20 · Design adaptive trialectic dialogue for AI
 **Type:** Applied / experimental | **Priority:** P1 | **Status:** **To develop**
 
 **Dependencies:** T-03, T-15; coordinate with T-04.
 
-**Scope:** Support clarification and revision of a NEED or CAN Focus, Main/Secondary Subjects, uncertainty and missing evidence; assess conversational economy, usefulness and user control without treating exploratory claims as validated diagnoses.
+**Scope:** Support adaptive dialogue focused on a NEED or CAN with focal/secondary Subjects, relevant CAN-as-conceptual-Object investigation, Definition expansion, qualified uncertainty and branch choice. Make hypothetical branches visibly distinct from actualized states; preserve conversation economy and user control.
 
-**Closure criterion:** A runnable dialogue prototype and matched conversation tests measure correctness, cognitive burden, cost and utility, with explicit user controls.
+**Closure criterion:** A prototype maintains coherent Object identities and branch statuses while helping users revise relevant Focuses and uncertainty without inventing observations.
 
 
 # P2 — Complementary measures and normative questions
@@ -276,9 +276,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-02; coordinate with T-17.
 
-**Scope:** Retain binary positive/negative Power and separate uncertain assessment; evaluate optional measures of readiness, difficulty, prospects of success or resource cost. Never replace Power with CAN mobilizability or collapse a NEED's satisfaction into an aggregate score.
+**Scope:** Retain binary Power when conditions are known, explicitly represent indeterminate assessments, and investigate statistically supported evaluation of probability of **positive Power** separately from probability of **successful Actualization**. Respect current CAN actionable terminology and specify relation to complete sufficient pathways; avoid uncalibrated numerical confidence.
 
-**Closure criterion:** Any proposed scale is defined, calibrated, demonstrably not equivalent to probability or binary Power, and tested against counterexamples.
+**Closure criterion:** Statistical and non-statistical measures are clearly named, justified and tested with counterexamples showing distinct actionability, positive Power and outcome uncertainty.
 
 ## T-23 · Formalize normative trade-offs among Objects and Subjects
 **Type:** Normative / conceptual | **Priority:** P2 | **Status:** **To resolve**
@@ -294,9 +294,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-18, T-17; coordinate with T-23.
 
-**Scope:** Evaluate how Actualizations change NEED satisfaction and attributed CANs for different Objects, in addition to Potency and Power; examine indirect and delayed harm, inequality, acceptable harm thresholds, mitigation and possible compensation without assuming benefits for one Object offset every loss to another.
+**Scope:** Assess how Actualizations update Definitions of affected and shared constituent Objects, altering NEED satisfaction and CANs, including conceptual versus functional states. Compare distributive effects across Subjects and branching alternative Scenarios, including uncertainty, indirect/delayed harm and compensation.
 
-**Closure criterion:** Multi-Object case analyses trace distributive effects, identify uncertainty and show how different explicit normative criteria affect judgments.
+**Closure criterion:** Multi-Object case analyses trace effects through shared references and distinguish simulated distributional outcomes from observed ones.
 
 
 # P3 — Practical tooling and version governance
@@ -306,9 +306,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-03, T-16; coordinate with T-20.
 
-**Scope:** Create usable simple/advanced analysis templates, data schemas, diagrams, decision aids, error checking and accessible output formats based on the stable canonical reference.
+**Scope:** Create simple/advanced tools with versioned Object Definition editors, stable IDs, Parent/Temporary Children/Actualised Children visualization, isolated hypothetical branches, promotion to effective Actualization, linked shared constituents, uncertainty fields and NEED/CAN Focus views.
 
-**Closure criterion:** Working tools demonstrate both NEED- and CAN-focused analyses on representative cases and document limitations.
+**Closure criterion:** Usable tools demonstrate the updated identity/version/branch workflows and prevent simulated changes from altering effective shared Objects.
 
 ## T-28 · Maintain the reference, TODO, decisions and Git tag-based releases
 **Type:** Governance / tooling | **Priority:** P3 | **Status:** **To develop**
@@ -326,6 +326,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 - 2026-11-14 — Added T-30 and consolidated the validated Object / Subject / NEED / CAN / Focus restructuring (D-17–D-22); no research task closed.
 - 2026-11-14 — Switched to the stable `reference/trialectic-method.md` filename and decided to use Git tags for version snapshots (D-23). Historical reference files remain available in Git history.
 - 2026-11-14 — Restructured **all 30 existing tasks** without renumbering or closing any. Extended T-01 to NEEDs and CANs; reinforced T-02; reframed T-15 and T-30; reprioritized protocol, non-monotone simulation, complexity control and counterexamples; updated semantic, scenario and normative scopes; added type, dependencies and proposed closure criteria. The local pilot's reported findings are recorded as **preliminary, not independently validated**. New conceptual definitions were not approved by this tracking change.
+
+- 2026-11-15 — Integrated author-validated T-30 decisions (D-25–D-27): permanent Object IDs; provisional versioned Definitions with constituent Object lists **and** associated properties/relations; Parent, Temporary Children and Actualised Children; stable-ID branch promotion; isolation of simulation; shared-Object propagation; conceptual/functional existence; contextually selected CANs and optional CAN conceptual Objects; actionable terminology; and statistical Power uncertainty. Updated 18 existing task descriptions and closure criteria. No task closed, no new ID created.
 
 # Known limits of the current test evidence
 
