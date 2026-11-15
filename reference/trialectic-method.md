@@ -238,6 +238,52 @@ The example combines hypothesized alternative heating pathways with an enabling 
 
 **[UPDATED D-38 / STILL OPEN]** Qualified link field names and mandatory/optional split are now validated, but a complete JSON Schema/parser, cross-group composition and mixed AND/OR precedence, formal conditions, link-to-link cycles, relation evidence standards, existential/structural/functional borderline tests, reference/branch versioning, empirical tests and reproducibility remain OPEN.
 
+### 2.1.5 Link-to-link effects and circular dependencies
+
+**[VALIDATED — November 15, 2026; D-39 principles A–E]** Extend the interpretation of D-38 `relation.links[].affects` while retaining its **optional list of referenced link IDs**. The presence of an `affects` edge expresses an asserted or hypothesized structural relationship, not an effective cause or observed state transition.
+
+**A. Affected aspect.** Qualify, where relevant, **what** one link may change about another: its linked CAN's **action conditions**, its contribution to **NEED satisfaction conditions**, the **availability/emergence/change/disappearance of a CAN or Potentiality**, or the **validity/applicability** of the linked relationship. These aspects may be improved, inhibited or transformed. They are contextual analytical distinctions, not new mutually exclusive intrinsic CAN types. Other affected Objects and adverse effects must not be erased.
+
+**B. Structural cycles versus actual blockage.** Cyclic `affects` references are **not** inherently invalid, contradictory or impossible. Depending on the specified Object states, timing, conditions and effects, distinguish a **currently blocked** cycle (missing prerequisite conditions, with no known feasible initiation path), an **already initiated or self-sustaining** cycle, an **externally initiable** cycle, and a potentially **antagonistic or unstable** cycle. The cycle's operational classification belongs to its assessed **Scenario** and may change with time and contextual definitions. "No route identified" is not "proved impossible."
+
+**C. Recursive search for initiating CANs.** For a cycle that currently appears blocked, recursively inspect the CANs of relevant Objects in the cycle and Environment for an **independently actionable candidate** that could supply a missing condition or transform the dependency. Discovering such a CAN or a plausible relation **does not** by itself establish sufficient Power, actual NEED satisfaction, timely Actualization or successful resolution. Preserve unknown candidate searches, explicit conditions and recursive relevance/stopping limits.
+
+**D. Three-part distinction.** Keep separate:
+1. the **Definition-level relation** (potential `affects` link and mechanism);
+2. the **triggering event/conditions** that might activate an effect; and
+3. **observed or simulated state transitions** and consequences within an isolated Scenario and temporal history.
+Do not let predicted or observed status automatically rewrite the parent relation's historical Definition, or equate a link being present with its claimed effect being realized.
+
+**[PROVISIONAL IMPLEMENTATION FORM; not a finalized schema]** The author accepted considering optional `effect_details` as a way to qualify an existing `affects` edge; its exact fields, enums, cardinality, reference scope and verification rules are **NOT YET VALIDATED**. Example nested in a qualified link record:
+
+```json
+{
+  "id": "L-C",
+  "object_id": "O-external-power",
+  "source_list": "CANs",
+  "roles": ["enabling"],
+  "affects": ["L-A"],
+  "effect_details": [
+    {
+      "target_link_id": "L-A",
+      "effect": "satisfies_action_condition",
+      "condition_id": "C-A-startup",
+      "trigger": {
+        "event": "actualization_of_can",
+        "can_id": "R-C"
+      },
+      "evidence": {"status": "plausible"}
+    }
+  ]
+}
+```
+
+`object_id` references an Object, `can_id` is illustratively the ID of a CAN **relational record**, and `target_link_id` is a link reference: these must not be conflated. The triggering Actualization, its temporal conditions and the resulting effective or simulated modifications belong in Scenario evidence/evaluations, not in the static relation label. This illustrative `effect_details` entry is *not* an additional required D-38 link field. Unknown conditions remain unknown rather than silently satisfied.
+
+**E. Two-stage cycle analysis.** **Detect** graph cycles using directed `affects` edges (e.g. strongly connected components), then **evaluate** each cycle dynamically within the considered Scenario: initial state; actionability of possible first actions; trigger and effect chronology; positive/negative and non-monotone transformations; environmental alternatives; evidential uncertainty; D-33/D-34 time constraints; and D-35 separate effective NEED satisfaction versus temporal compliance. Structural graph cycles must not be labeled blocking merely because they are cycles. Any proposed third-CAN initiation is conditional until assessed.
+
+**[OPEN]** Machine-enforced `effect_details` shape and compatibility; link ID scope across different NEED/CAN records; condition-ID attribution and versioning; cyclic dependency resolution with delayed, inhibitory or non-monotone effects; alternative source conditions and competing Scenarios; algorithmic complexity and recursion limits; reproducible examples and independent validation. This does not close T-02, T-03, T-16, T-18, T-24 or T-30.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -846,3 +892,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Validated qualified individual links (D-38)
 
 **[VALIDATED — D-38]** The NEED/CAN relational record's `relation.links` array now holds individually qualified links with **mandatory** `id`, `object_id` and `source_list` (`NEEDs`/`CANs`), plus **optional** `roles`, `conditions`, `mechanism`, `causality`, `evidence` and `affects`. A link `object_id` must be present in the enclosing record's corresponding source list; missing references require deliberate inventory extension or explicit separate relations. `affects` references other link IDs and permits describing enabling/inhibiting interactions between links without proving an effect. A role label is never a substitute for D-31 necessity/sufficiency tests. **[OPEN]** Link-graph recursion/cycles, cross-record addresses, complete schema, composition interactions, versions and independent reproducibility.
+
+## November 15, 2026 — Validated effect/cycle semantics (D-39)
+
+**[VALIDATED — D-39]** `affects` link-to-link edges now have explicit analytical scope for which condition or relation aspect they may change (CAN action condition, NEED satisfaction, CAN availability/Plasticity, or relation applicability). Distinguish structural dependency cycles from their Scenario-specific functional/blocking effects, and recursively consider external CANs able to initiate blocked pathways without claiming automatic sufficiency. Separate the potential link, its triggering event/conditions and the observed or simulated state transition. Detect structural cycles first, then analyze their dynamics, temporal effects and evidential uncertainty. **[PROVISIONAL]** An optional `effect_details` format illustrates target link, affected condition, CAN Actualization trigger and evidence; exact schema is OPEN. Retain D-31–D-35 safeguards and the 30 open tasks.
