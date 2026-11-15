@@ -432,6 +432,40 @@ In this test, group coverage was `complete`, `incomplete` or `indeterminate`; op
 
 **[LIMITS]** Test outcomes are internally reproducible in one environment and use synthetic predicates. An oracle implemented by the same author is a useful cross-check but **not independently replicated evidence**. The prototype does not execute CAN Actualizations, D-39 non-monotone causal events, or D-35 temporal-compliance evaluations. A structurally valid recursive expression is not proof of a complete causal pathway or positive Power. The exact JSON Schema, cross-branch/version scope and valid "no known path" state remain OPEN; relevant tasks remain open.
 
+### 2.1.9 Documentary empty inventories and distinct logical/causal graphs (D-43)
+
+**[VALIDATED — November 15, 2026; D-43 A–E]** The user explicitly approved the five principles separating **(1) the documentary state of knowledge of pathways**, **(2) recursive logical references** and **(3) hypothesized/observed causal dependencies and Actualization effects**.
+
+**A. Valid inventory with no known pathway.** An inventory may be meaningfully represented before a pathway has been identified, **without** constructing `{"op":"any","items":[]}`, which D-42 treats as a diagnostically invalid/undefined logical group. Preserve independently the inventory's *knowledge/search status*, its coverage within a stated scope, and any logical expression that can actually be evaluated. **[PROVISIONAL JSON]** A documentary `expression: null` and `search_status: "not_searched"|"searched_no_match"` are examples, **not a newly finalized schema**.
+
+**B. Absence of known pathways is not impossibility.** If an inventory contains no discovered pathways, absent a substantiated exclusion proof within the specified scope, report the overall possible actionability as **indeterminate**, not as a globally `unsatisfied` CAN. A claim that no pathways exist requires separate contextual assumptions, versioned evidence and an independently reviewable argument. A label such as `coverage: "complete"` or an empty expression alone does not constitute such a proof. Keep a "searched without a match" outcome distinct from "no pathway exists under these assumptions."
+
+**C. Two graph types.** The **logical graph** links named, versioned expressions/conditions/pathways through D-42 references, including permitted detected cycles; it determines **evaluations of the specified conditions**. The **potential-causal graph** relates CAN Actualizations, triggers, state changes, conditions and other links through D-39 qualified `affects` and proposed `effect_details` semantics; it determines **what might change after an event**. A logical cycle does not imply a causal cycle and vice versa.
+
+**D. No automatic graph translation.** A logical `satisfied` evaluation does **not** produce an event, mutate an Object state or establish Actualization. A potential causal link does **not** itself prove necessary/sufficient action conditions or enable a CAN. Any asserted relationship between the two graph types needs explicit conditions, mechanisms, epistemic qualification and D-31 tests. Keep D-35 effective NEED satisfaction distinct from both CAN pathway evaluation and temporal compliance.
+
+**E. Coupled Scenario protocol.** Evaluate time-indexed Object states (D-40); evaluate relevant recursive pathways (D-41/D-42); identify possibly actionable CANs for the modeled role; consider/execute **explicitly simulated or actually observed** events and their qualified time-delayed, inhibiting or enabling effects (D-39); then recompute changed condition/predicate and pathway evaluations, documenting version, uncertainty and recursion limits. **Do not merge** the Definition, the evaluation of a possible path, the hypothesized causal mechanism and the Actualization history.
+
+**[PROVISIONAL DOCUMENTARY INVENTORY EXAMPLE — not a Boolean group or finalized schema]**
+
+```json
+{
+  "id": "I-energy",
+  "kind": "inventory",
+  "scope": {"relation_id": "R-energy"},
+  "coverage": "incomplete",
+  "search_status": "searched_no_match",
+  "expression": null,
+  "evidence": {"status": "indeterminate"}
+}
+```
+
+The field names, exhaustive negative findings, allowed search-status vocabulary, proof checking, owners and cross-branch version references remain **OPEN**. The single recursive `all`/`any` expression **principle** remains VALIDATED (D-42); this inventory envelope does not introduce a new truth operator.
+
+**[TESTED SYNTHETICALLY, NOT EMPIRICALLY]** A reproducible pilot with the archived D-42 logical evaluator plus a separate, event-driven toy state-transition simulator passed **218/218 assertions**, including **27** combinations of three-valued battery/external-source/technician states and **4** limited brute-force reachability cases. The logical-only cycle is detected with **zero Actualizations**, even with a statically `satisfied` expression. The separate potential-causal graph includes the cycle `L-A ↔ L-B` though the relevant actionability expressions are **acyclic**; three scenario branches show an initially blocked pathway, an initially charged battery, and an independently actionable **third CAN C** enabling C → A → B through explicit modeled events and subsequent reevaluation. Negative inhibition, temporary expiry, overlapping supply intervals, missing effect rules and unknown states were also tested. Synthetic assertions are not independently verified real-world mechanisms; the simulator is not the final D-39 event/temporal engine or a D-35 compliance evaluator.
+
+**[OPEN]** Audit standard for exhaustive negative evidence; preservation of distinctions between documentary inventory, logical graph and potential causal graph; reproducible formal event/condition linking; variant/branch definitions; time/delay semantics; causal inference and counterfactual validation; CI integration and third-party reproduction. Related open work: T-02, T-03, T-16, T-18, T-24 and T-30.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -1059,3 +1093,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — D-42 validated recursive expressions and first synthetic tests
 
 **[VALIDATED]** One recursive logical structure with explicitly versioned reusable pathway references; empty AND/OR groups do not receive automatic truth values; cyclic references are representable but must be detected and analyzed dynamically under D-39 rather than evaluated by naïve recursive expansion. **[TESTED, LIMITED]** A synthetic Python evaluator completed 413 assertions, 90 exhaustive cyclic Boolean checks and 189 exhaustive open/nested group checks; no external empirical validity is claimed. Open: an explicit representation of zero discovered paths, typed cross-branch reference schema, negative/delayed causal cycles, and independent reproduction.
+
+## November 15, 2026 — Empty documentary inventories and distinct logical/causal graphs (D-43)
+
+**[VALIDATED A–E]** Represent an inventory without any identified pathway without constructing an invalid empty `all`/`any` expression, and never equate unsuccessful discovery with impossibility. Require separately justified, scoped negative evidence for a closed-world claim. Distinguish recursive logical reference graphs from potential causal dependency graphs; neither implies the other without justified mechanisms/conditions. Couple them only through a Scenario's traceable condition evaluation, explicit CAN Actualization event, state/Definition effects and subsequent reevaluation. **[PROVISIONAL]** JSON with `expression: null` / `search_status` and the separate causal simulator remain to be normalized. Synthetic D-43 prototype: 218/218 checks passed; no task closed.
