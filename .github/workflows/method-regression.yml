@@ -1,0 +1,28 @@
+name: Trialectic method regression
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-regression:
+    name: Deterministic regression (provisional reference model)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile test modules
+        run: python -m compileall -q tests
+      - name: Run golden and property-based regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
