@@ -364,13 +364,13 @@ Here `relation.condition_composition` combines **conditions** rather than the **
 
 **[VALIDATED semantic rules for evaluation relative to modeled scope]** A specified and defensibly complete pathway evaluated as satisfied provides an identified possible route; if a known necessary condition fails, that pathway can be unsatisfied even if further necessary conditions remain undiscovered. If all **known** conditions of an incompletely specified pathway pass, that pathway remains indeterminate. A complete and justified inventory whose pathways all fail can be unsatisfied (in the scoped evaluation). An **incomplete inventory** for which all known pathways fail is **indeterminate globally**, not proof the CAN cannot be made actionable by some unexamined path. A confirmed satisfying pathway within an open inventory may still make the evaluated inventory satisfied **for that modeled route**, subject to the established sufficiency/actionability checks. Unknown inferences must never silently become false.
 
-**[PROPOSED — NOT YET AUTHOR-VALIDATED RECURSIVE EXPRESSION FORMAT]** The following **single recursive syntax for Boolean composition** avoids separate incompatible mini-languages for pathway conditions and pathway inventories:
+**[STRUCTURAL PRINCIPLE VALIDATED — November 15, 2026; D-42 / SERIALIZATION STILL PROVISIONAL]** The author validated **one recursive Boolean-expression structure** for the composition of condition/pathway expressions, with reusable **explicitly versioned** pathway references, non-truth-valued empty groups and permitted but safely detected cyclic references. The example **JSON field names and exact representation** below remain proposed, not a normative schema:
 
 - A **reference leaf** is `{"ref":{"kind":"condition","id":"C-command"}}` (or, where allowed, `kind:"pathway"` and a pathway identifier).
 - A **group** is `{"op":"all"|"any","items":[<expression>,...]}`. The `items` entries may themselves be leaves or arbitrarily nested groups. Logical grouping is explicit; no inferred operator precedence.
 - **Metadata** on a named group, such as `id`, `kind:"pathway"|"inventory"`, `coverage:"complete"|"incomplete"|"indeterminate"`, `scope`, `version` and `evidence`, is separate from `op` and does not create a new truth operator.
 - Under incomplete/indeterminate coverage, an `all` expression with a known false conjunct may still be **unsatisfied**, otherwise it is **indeterminate** even if all identified members are true; an `any` expression with a confirmed true member may still be **satisfied**, otherwise it is **indeterminate** even if all identified members are false.
-- The exact typed reference format, reusable pathway definitions, version-pinning, presence/absence of a mandatory wrapper and complete JSON Schema are still under review. Empty groups, cycles and invalid references must be handled explicitly rather than silently interpreted.
+- **[D-42 VALIDATED]** Named pathway references must be reusable rather than duplicating expressions, with **explicit identity and Definition version**. Empty `all`/`any` groups must be **flagged as incomplete/invalid**, not assigned Boolean true/false identities. Cyclic references may be **stored**, but must be **detected**, never evaluated by naïve unrestricted recursive descent, and routed to D-39's context-specific dynamic analysis. **[OPEN]** Exact compound reference field names, representation of zero known pathways without an empty Boolean group, cycles' logical fixed-point semantics, a final JSON Schema, and proof/validation of causality or complete Power.
 
 **[ILLUSTRATIVE D-41 PROPOSAL ONLY]** `C-command`, `C-battery`, and `C-external` below are separately defined condition IDs scoped to an owning CAN relation; their evaluated statuses are Scenario/time-specific, **not** stored as fixed truths in the expression:
 
@@ -406,7 +406,31 @@ Here `relation.condition_composition` combines **conditions** rather than the **
 }
 ```
 
-**[OPEN]** Final JSON Schema of expression nodes, completeness provenance and falsification, empty inventories, cross-record references/version ownership, cyclic path references, interaction of D-37 **Object-reference relation composition** and D-34 **temporal requirement composition**, semantics of existential AND/OR conditions, independent test coverage and complexity. D-40 `relation.conditions` / `predicate` fields remain provisional as well.
+**[OPEN AFTER D-42]** Final JSON Schema of expression nodes, completeness provenance and falsification, representation of open inventories with no known pathways, cross-record references/version ownership, dynamic treatment of cyclic path references (D-39), interaction with D-37 **Object-reference relation composition** and D-34 **temporal requirement composition**, and semantic/causal interpretation of AND/OR. D-40 `relation.conditions` / `predicate` field layout remains provisional.
+
+### 2.1.8 Evaluation of versioned recursive references and cycles (D-42)
+
+**[VALIDATED — D-42, November 15, 2026]** The author approved all three further rules:
+1. **Reusable paths**: another group can refer to a named pathway by identifier **and version**, instead of copying its body. Exact scoped serialization remains a technical proposal.
+2. **Empty groups**: `all`/`any` with `items: []` must not silently evaluate to true/false. A model validator must explicitly identify an incomplete or invalid expression. **[OPEN]** An inventory with **zero known pathways** still needs a separate, meaningful representation that is not an empty Boolean group.
+3. **Circular references**: named pathways may reference each other cyclically. Detect these graphs (e.g. by strongly connected components) without naïve recursion. A static value derived from Boolean reference equations never proves a feasible causal Actualization; actual blocking, enabling, inhibition and chronology require D-39 dynamic Scenario analysis.
+
+**[ENGINEERING EXPERIMENT — NOT A SCIENTIFIC VALIDATION]** Synthetic D-42 prototype evaluated **413 assertions**, including **90** comparisons to a separate brute-force Boolean fixed-point oracle for circular reference equations and **189** comparisons to exhaustive truth-table completions of nested/open AND/OR groups. All passed for the specified fixtures (27 three-state shared-reference configurations, six primary Scenario snapshots, 180-node chain and 180-node cycle). The prototype tested the **provisional serialization** using named groups and typed leaves of the shape:
+
+```json
+{
+  "ref": {
+    "kind": "pathway",
+    "relation_id": "R-A",
+    "id": "P-battery",
+    "version": "v2"
+  }
+}
+```
+
+In this test, group coverage was `complete`, `incomplete` or `indeterminate`; open-world coverage was handled conservatively under D-41. For **positive** Boolean `all`/`any` recursive equations, it used a **three-valued information fixed-point iteration**, initialized to `indeterminate`, rather than recursively expanding named references. Every cycle remains flagged for **D-39 dynamic review**, even if a static condition equation is `satisfied`.
+
+**[LIMITS]** Test outcomes are internally reproducible in one environment and use synthetic predicates. An oracle implemented by the same author is a useful cross-check but **not independently replicated evidence**. The prototype does not execute CAN Actualizations, D-39 non-monotone causal events, or D-35 temporal-compliance evaluations. A structurally valid recursive expression is not proof of a complete causal pathway or positive Power. The exact JSON Schema, cross-branch/version scope and valid "no known path" state remain OPEN; relevant tasks remain open.
 
 ## 3.1 NEED — explicitly approved definition
 
@@ -1031,3 +1055,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Validated completeness distinctions and nested pathways (D-41)
 
 **[VALIDATED — D-41]** Separate completeness of conditions within an identified Actualization pathway from completeness of the whole contextually relevant inventory of pathways, each justified and version-scoped. Permit nested Boolean groupings and three-state evaluation of individual pathways versus the whole inventory, without mistaking an incomplete inventory for a globally negative CAN assessment. Introduce identifiable pathways with evidence/coverage metadata. **[PROPOSED, NOT VALIDATED]** A unified recursive expression language with `op: all|any`, nested `items` and typed reference leaves; exact serialization and treatment of empty groups/cycles remain OPEN.
+
+## November 15, 2026 — D-42 validated recursive expressions and first synthetic tests
+
+**[VALIDATED]** One recursive logical structure with explicitly versioned reusable pathway references; empty AND/OR groups do not receive automatic truth values; cyclic references are representable but must be detected and analyzed dynamically under D-39 rather than evaluated by naïve recursive expansion. **[TESTED, LIMITED]** A synthetic Python evaluator completed 413 assertions, 90 exhaustive cyclic Boolean checks and 189 exhaustive open/nested group checks; no external empirical validity is claimed. Open: an explicit representation of zero discovered paths, typed cross-branch reference schema, negative/delayed causal cycles, and independent reproduction.
