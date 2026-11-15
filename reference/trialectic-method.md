@@ -506,6 +506,56 @@ A potential effect would refer to this CAN (and optionally its source/target lin
 
 **[LIMITS / OPEN]** The test uses synthetic Boolean predicates and direct same-property effect mappings, a minute-resolution clock, and author-generated fixtures. It does not establish real causal mechanisms, completeness of CAN conditions, general indirect effects, Definition mutations during simulation, cross-branch reference schemas, independent replication or full D-33–D-35 NEED/time assessments. Sample `source_can`, `state_effect`, `affected_condition`, event and typed-reference fields remain **illustrative**. The related TODOs stay open.
 
+### 2.1.11 Diagnosing and handling competing effects (D-45)
+
+**[VALIDATED — November 15, 2026; D-45 proposals A–E and localized-suspension rule]** When two effects, observed accounts or modeled rules assign incompatible consequences to the same relevant Object property/time/context, do **not** silently choose an effect by recording order. First identify the **kind of contradiction**, sources, versions, causal assumptions and applicable evidence. An apparent conflict may have a justified contextual ordering or priority; conflicting evidence may instead concern **knowledge of a state**, not actual competing physical changes.
+
+**A. Diagnose** opposing causal predictions, incompatible observations/evidence, under-specified model interaction rules, and apparent conflicts resolved by a justified mechanism. Preserve targets, timestamps, source CAN/Event/Link IDs and evidence. D-39 hypothesized `affects` relationships are not independently validated causes.
+
+**B. Resolution, if justified.** Investigate explicit and context-specific priorities, physical interaction mechanisms and temporal ordering **before** suspending or branching. A rule is admissible only if its applicability and evidence are sufficiently justified. A list order or ungrounded winner is not a mechanism. The required external evidential quality is **OPEN**; `established_in_model` is not equivalent to `empirically established`.
+
+**C. Hypothetical branch outcomes.** Where compatible alternative hypotheses can be articulated, create separate Scenarios with explicit assumed outcomes and source-conflict provenance; **never** infer they are exhaustive or equally probable. Do not replace one shared observed historical event with alternative invented observations. Child Scenarios have independent states and subsequent histories; preserve shared versioned Definitions.
+
+**D. Physical state versus epistemic status.** An indeterminate assessment represents **uncertain knowledge**, not a new physical property. Do not encode an unresolved contradiction as a physical `null` *transition* or log it as a successful Actualization. A simulator may preserve the last committed state separately from a **knowledge overlay** marked indeterminate, with the caveat that the last determined value need not represent the unknown current real state. Condition and pathway evaluations use the knowledge-qualified view when the evidence is conflicted.
+
+**E. Historicize diagnosis and treatment.** Record each conflict and its versioned target, provenance, sources, hypothesis/rule, applied handling and downstream assessment changes, without deleting earlier uncertainty when later evidence appears. Exact record layout is NOT approved.
+
+**F. Localized suspension (additional VALIDATED rule).** If no justified resolution rule is available, suspend only those action/state transitions and dependent assessments requiring the contested property; continue independent parts of the Scenario. A second sufficient, confirmed alternative path may remain satisfied even when another required property is epistemically unknown, according to D-41/42's scoped three-valued logic. Exhaustiveness of paths and complete Power still require separate evidence.
+
+**[PROVISIONAL STRUCTURE, not a finalized JSON Schema]** Example of an explanatory conflict object:
+
+```json
+{
+  "conflict_id": "S0:K-001",
+  "scenario_id": "S0",
+  "at": "2026-11-15T15:02:00+01:00",
+  "target": {
+    "object_ref": {"kind": "object", "id": "O-external", "version": "v1"},
+    "property": "available"
+  },
+  "sources": [
+    {"effect_id": "H-C", "actualization_event_id": "S0:E-001", "proposed_value": true},
+    {"effect_id": "H-E", "actualization_event_id": "S0:E-002", "proposed_value": false}
+  ],
+  "diagnosis": "unresolved_effect_conflict",
+  "strategy": "branch",
+  "hypotheses_exhaustive": false,
+  "physical_transition": false
+}
+```
+
+The fields are illustrative, and no final conflict taxonomy, evidence schema or priority proof standard is hereby adopted. An event may be a **simulated** Actualization; a conflict of observational evidence should refer instead to **evidence IDs**, not fictitious Actualizations.
+
+**[PRELIMINARY SYNTHETIC D-45 EVIDENCE — 173/173 checks passed]** Using the D-42 recursive evaluator and D-44 fictitious CAN/Object Definition catalog, a Python test compared 27 ternary input sets and four strategies:
+- an **explicitly recorded, scoped, versioned priority** picked H-C over H-E, independent of event order; six mismatched/unjustified rule variants did not select a winner;
+- **branching** produced isolated alternative `available=false`/`available=true` hypotheses; no claim of exhaustion or probability, and later A Actualization/temporary effect expiry were confined to one child;
+- **conflicting evidence** caused an epistemic unknown evaluation but no physical state change or Actualization; earlier evidence and revisions were retained;
+- **localized suspension** left the external-source condition unresolved but permitted unrelated CAN D and, in a separate synchronous-event fixture, battery recharging by B to proceed; a confirmed battery pathway could still satisfy A. A v2 start condition testing `connected` remained insulated from the v1 availability conflict.
+
+The suite also verified time advancement over delayed effect expiry, immutable versioned shared Definitions, and identical JSON outputs on a rerun from the extracted reproducibility ZIP. **These synthetic checks do not prove external priority mechanisms or factual resolution of contrary observations.** The prototype accepted a nonempty `evidence_id` when closing an uncertainty, but **did not independently verify that evidence**; this is an explicitly outstanding safety requirement, not a validated evidence policy.
+
+**[OPEN]** justified priority criteria; formal partial-order and concurrent event semantics; proof-based resolution of contradicting observations; multiple simultaneous conflicts and existing active temporary overlays; branch search/explosion and causal completeness; cross-branch version merge, D-33–D-35 temporal constraints, schema normalization, repository CI and independent reproduction. T-02, T-03, T-16, T-18, T-24 and T-30 remain open.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -1141,3 +1191,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Typed cross-graph references and event-trace verification (D-44)
 
 **[VALIDATED A–E]** Type/version/owner-qualified references link potential causal rules to conditions and links without equating either layer to actual causality; observed/simulated Actualizations are separate traceable events; Object state changes cause time-indexed condition and pathway reassessment; branches and Definition versions remain isolated. **[SYNTHETIC TEST ONLY]** 190/190 assertions passed (27 three-state cases compared across v1/v2), with an initial delayed-expiry bug found and corrected before rerun. **[OPEN]** The pilot's simultaneous-conflict handling (reject incompatible effects, mark property indeterminate) is not yet author-approved; final typed JSON Schema, CI and D-35 temporal completeness remain unresolved.
+
+## November 15, 2026 — D-45 competing-effect policies and localized suspension
+
+**[VALIDATED]** Diagnose the conflict's origin, examine justified applicable priorities, permit isolated non-exhaustive hypothetical branches, represent epistemic uncertainty without inventing physical transitions, preserve provenance and history, and suspend **only conflict-dependent analyses/actions**. **[SYNTHETIC TEST]** 173/173 local assertions passed over four policies and 27 ternary configurations; source evidence and assumed priority are not externally verified. **[PROVISIONAL]** Priority/evidence standards and conflict JSON field names remain open. Related TODOs not closed.
