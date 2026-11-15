@@ -28,12 +28,6 @@ A methodological **Stage** determines the current **Focus**. The adopted analyti
 
 The exact procedures for contextual NEED/CAN identification, actionability/Power, Focus transitions, sufficient pathways, branch propagation and scenario comparisons remain research tasks, **not settled tests**.
 
-## Default operation: Advanced Mode
-
-**[Author-validated objective, November 15, 2026]** Advanced Mode is the **default**. It generates **multiple pertinent Resolution Scenarios** and evaluates each Scenario's anticipated effects on the initial Subject and other Objects in its Environment, **feasibility, complexity, cost, temporality, expected effectiveness and uncertainty**. Distinguish uncertainty about feasibility, probability of successful Actualization, and probabilities of particular anticipated effects. Do not invent numerical probabilities where evidence does not support them. Scenario generation, evaluation and **optional** selection are separate operations; the Method does **not** inherently choose a single best solution.
-
-**Simple Mode is suspended**; its usefulness will be reconsidered **after the Method is stabilized**. It is not a current operating mode or required implementation.
-
 ## Current development
 
 The Method is currently being **developed, formalized, and critically examined** through:
