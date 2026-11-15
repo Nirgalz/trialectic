@@ -151,5 +151,40 @@ Key changes: T-01 now covers NEED identification and CAN attribution; T-02 focus
 
 The preliminary local pilot reported during the project discussion is **not** treated as independent scientific validation or task closure. No reference content or Git release tag was changed or created as part of this decision. Related task: T-28 (and the updated TODO as a whole).
 
+## D-25 · Object Definition, permanent identity and constitutive necessity
+Date: November 15, 2026 | Status: **Validated principles; operational criteria OPEN**
+
+The author validated a unique, permanent **ID** for every Object and a versioned, evolving **Definition** (the name remains provisional). The Definition is **not only a list of constituent Objects**: it consists of constituent Object references **plus associated properties and relations**, including relevant NEEDs, CANs, their interactions, partial knowledge and uncertainty. Ordinary modifications of the Definition do not require a new Object ID.
+
+A Subject is an Object at the center of the attention of the **Method or analyst**. Objects are initially identified in the focal Subject's Environment, prioritizing the Subject's existential and structural constituent Objects. The Definition can expand contextually and recursively, including reassessment when an Object is Actualized. A proposed test of constituent necessity is: **without that Object, can the Subject still exist?** Distinguish **conceptual existence** from **functional existence** when applying the test. A Semantic Pyramid can help assess constitutive necessity **when relevant**; conceptual necessity is not automatically an empirical necessity.
+
+Partially known NEEDs and CANs may be represented in a Definition with **qualitative uncertainty** (missing/insufficient information, evidence of non-necessity) and/or **quantitative/statistical uncertainty** where supportable. The distinctions among no evidence, incomplete evidence and evidence of absence must be preserved. Group/System CANs must be distinguished from constituent-Object CANs and may involve coordinated Actualizations of multiple constituents.
+
+**OPEN:** Operational thresholds and category-specific existence/necessity tests, representation and calibration of uncertainties, how a focal Subject is initially chosen, and detailed Object-identity tests. Related tasks: T-30, T-01, T-05, T-15, T-03.
+
+## D-26 · Parent/Children branching, shared constituents and historical Definitions
+Date: November 15, 2026 | Status: **Validated principles and branching rules; implementation OPEN**
+
+Each Object has a **Parent** reference (`null` or the Object from which it branches), a **Temporary Children** list, and an **Actualised Children** list. Parent is a **lineage** relation and is distinct from the constituent-Object relations of the Definition.
+
+Contradictory Actualizations affecting one Object create distinct child Objects with different IDs and Definitions while retaining the original Object as the reference parent. This applies to **simulated alternative Scenarios** and to **effective Actualizations**. The approved contradiction criterion is mutually incompatible states of the same Object property **within the same reference context**; mere change over time need not be contradictory. A simulated branch is **temporary**; at effective Actualization it is moved from the parent's Temporary Children to Actualised Children **without changing its ID**. Simulations and their side effects remain isolated from effective states until Actualization. An effective change propagates across current Definitions referring to shared constituent Objects.
+
+Historical Definition versions must retain their past contents and the relevant **versions** of constituent Objects. Thus modifying a current shared Object must not retroactively alter historical Definitions. All effects on relevant NEEDs, CANs and Conditions require reassessment where applicable. The original Object and initial Definition remain traceable. Keeping a simulated Object does not establish an independently existing physical entity.
+
+**OPEN:** Precise branch-ID allocation and namespaces, simultaneous contradictory effective observations, conflict handling across simulations with shared constituents, physical instance semantics, and snapshot/transaction algorithms. Related tasks: T-30, T-05, T-03, T-16, T-18, T-24, T-21.
+
+## D-27 · CAN actionability, optional conceptual-Object representation and uncertain Power
+Date: November 15, 2026 | Status: **Validated terminology and distinctions; precise conditions OPEN**
+
+A CAN is selected and described with context-relevant granularity; **a CAN may be modeled as a conceptual Object with its own NEEDs only when useful**, not universally. The author questioned whether a distinct category of **"attributable CAN"** remains useful: its formal retirement is **OPEN**, and earlier constitutive-contribution criteria are preserved as research material without forcing an additional present classification.
+
+The preferred term is **CAN actionable**: its relevant **conditions of action are fulfilled**. A separately classified **"CAN mobilizable"** is no longer needed. The author retained the distinction between **CAN actionability for a specified relationship/contribution** and **the complete sufficient Conditions of Power** for the considered Actualization; the exact scope and logical interface remain OPEN, especially when both refer to identical conditions. Earlier D-20/D-21 wording remains in the historical log and is not silently rewritten.
+
+NEED–CAN correspondence, NEED satisfaction, CAN actionability, full Power and completed Actualization remain distinct analytical checks. When several CANs correspond to a NEED, or several NEEDs to a CAN, create and evaluate relevant Scenarios; evaluate effects when A's NEED conditions B's Actualization. An already satisfied NEED can be examined for **maintenance, possible transformations, or no required intervention** rather than forcing an Actualization.
+
+With uncertainty, the author allows **statistical evaluation of Power**, while distinguishing `P(Power positive | available information)` from `P(successful Actualization | available information)`. Do not impose ungrounded numerical estimates. An effective Actualization updates the **Definitions of affected Objects**.
+
+**OPEN:** Operational actionability/Power distinction, statistical estimators/calibration, whether 'attributable CAN' remains a status, and CAN-as-Object criteria where representation is helpful. Related tasks: T-02, T-01, T-16, T-18, T-22, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
