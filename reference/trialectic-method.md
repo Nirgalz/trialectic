@@ -143,7 +143,18 @@ The perspectives of **Subject, Environment, and Semantics** may be used to deter
 - `recurring`: an obligation repeating according to `recurrence`.
 - `cumulative`: a minimum accumulated duration `min_duration` during a given `window`.
 
-Modes may coexist in an entity's requirements; **the exact logical semantics for overlaps, combinations and exceptions remain OPEN**. Mode names and these key identifiers are approved as a working data representation; complete machine-enforced schemas for each mode are not yet settled.
+**[VALIDATED — November 15, 2026; D-34]** Modes may coexist within a NEED or CAN. **All listed requirements apply conjunctively by default** unless an explicit alternative composition is given. The approved composition operators are `all` (every referenced requirement must be satisfied) and `any` (at least one referenced requirement must be satisfied). `composition` can refer to individual requirements by stable `id` through its `requirements` array. **If no `composition` is supplied, the listed requirements are combined using `all`.** Logical grouping/nesting is conceptually permitted, but its full machine-readable recursive representation, validation and handling of conflicts remain OPEN. An empty or incomplete list of recorded requirements must not be treated as proof that no additional requirements exist.
+
+**[VALIDATED — D-34]** Explicitly distinguish **authorized exceptions** from violations observed in a Scenario. An exception must be intentional, justified, scoped to a specific period and constraint, and represented in version history. Observed non-compliance does not retroactively create an exception; the exception must not silently bypass other applicable constraints. An operational exception object/schema and its precedence with overlapping requirements remain OPEN.
+
+**[VALIDATED — D-34]** Check for **incompatible requirements applying to the same state, Object and context over overlapping times**; report an inconsistency of the specified requirements separately from a Scenario failing to satisfy a coherent requirement, and from an indeterminate assessment. Do not promote a Definition inconsistency to a fourth intrinsic NEED satisfaction state.
+
+**[VALIDATED — D-34]** For a group of assessed requirements, aggregate the three analytical outcomes as follows:
+- `all`: **satisfied** if all assessed requirements are satisfied; **unsatisfied** if at least one is unsatisfied; **indeterminate** if none is unsatisfied but at least one is indeterminate.
+- `any`: **satisfied** if at least one is satisfied; **unsatisfied** if all are unsatisfied; **indeterminate** if none is satisfied but at least one is indeterminate.
+A report of structurally contradictory requirements remains a **separate consistency diagnostic**, not a new intrinsic satisfaction state. Unknown information is not silently counted as false or as true.
+
+**[VALIDATED — D-34]** For `cumulative` requirements, overlapping satisfied subintervals are counted **only once** when computing total duration. The exact time-domain semantics of recurrence, exceptions, overlapping groups, within-action changes and uncertainty still require tests.
 
 **[VALIDATED conventions]** Use ISO 8601 date-times including explicit UTC offsets, and ISO 8601 duration strings (e.g. `PT30M` and `PT2H`). Model intervals as **start-inclusive, end-exclusive**. Distinguish an **absent/unknown** duration from a **zero** duration; empty arrays do not prove that no unrecorded requirement exists. When relevant, represent durations as ranges (e.g. `min` and `max`), without treating estimates as certain outcomes.
 
@@ -219,7 +230,45 @@ Illustrative **CAN**:
 }
 ```
 
-**[SCOPE / OPEN]** These examples document the **approved format**, not a final JSON Schema or a complete run-time model. In particular: robust definitions for recurring schedules, relative event references, time-zone daylight-saving transitions, combinations of `requirements`, ambiguous boundaries, provenance and uncertainty of estimates, cross-Scenario evaluation links, and within-action monitoring resolution remain to be designed/tested. `temporal` does not by itself establish CAN actionability or positive Power.
+**[VALIDATED — D-34] Example of combined constraints:** the proposed `composition` structure was accepted:
+
+```json
+{
+  "temporal": {
+    "time_zone": "Europe/Paris",
+    "requirements": [
+      {
+        "id": "R1",
+        "target": "satisfaction",
+        "mode": "continuous",
+        "window": {
+          "start": "2026-11-15T08:00:00+01:00",
+          "end": "2026-11-15T12:00:00+01:00"
+        }
+      },
+      {
+        "id": "R2",
+        "target": "satisfaction",
+        "mode": "cumulative",
+        "window": {
+          "start": "2026-11-15T08:00:00+01:00",
+          "end": "2026-11-15T18:00:00+01:00"
+        },
+        "min_duration": "PT8H"
+      }
+    ],
+    "composition": {
+      "operator": "all",
+      "requirements": ["R1", "R2"]
+    },
+    "estimates": []
+  }
+}
+```
+
+In this example, a ten-minute interruption between 08:00 and 12:00 breaches `R1`, regardless of whether the eight-hour cumulative minimum of `R2` is met. The combination is **unsatisfied** if `R1` is unsatisfied. The `composition` field is optional: its absence means an implicit conjunction of recorded requirements. The distinction between **requirements as part of an Object's versioned Definition** and **evaluated time-indexed Scenario outcomes** remains mandatory.
+
+**[SCOPE / OPEN]** These examples document the **approved format**, not a final JSON Schema or a complete run-time model. In particular: robust definitions for recurring schedules and their exceptions, relative event references, time-zone daylight-saving transitions, recursive/nested `composition` representation and validation, consistency-check algorithms, ambiguous boundaries, provenance and uncertainty of estimates, cross-Scenario evaluation links, and within-action monitoring resolution remain to be designed/tested. `temporal` does not by itself establish CAN actionability or positive Power.
 
 ## 3.3 Intrinsicality, specificity and origin
 
@@ -591,3 +640,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Approved common temporal representation
 
 **[VALIDATED — D-33]** A NEED or CAN may carry a common `temporal` object with `time_zone`, `requirements` and `estimates`. Five temporal constraint modes are approved in the working JSON representation: `point`, `continuous`, `deadline`, `recurring`, `cumulative`. ISO 8601 dates/durations, explicit UTC offsets, start-inclusive/end-exclusive intervals and an explicit distinction between absent versus zero duration are approved conventions. Scenario-specific satisfaction and time-indexed observations stay **outside** the versioned NEED/CAN requirement metadata. Exact rules for overlapping requirements, relative event times, recurrence and schema enforcement are **OPEN**; the illustrative JSON format is approved, not a completed or independently tested implementation.
+
+## November 15, 2026 — Approved combination semantics for temporal requirements
+
+**[VALIDATED — D-34]** For NEEDs and CANs, temporally applicable `requirements` are **conjunctive by default**. The approved `composition` field can explicitly combine identified requirements with `all` and `any`; absent `composition`, assume `all` for the documented requirements, without treating an incomplete inventory as exhaustive. Exceptions must be intentional, time-scoped, justified and versioned, and must not arise retroactively from observed violations. Identify contradictory requirements for the same Object/state/context/time separately from negative or indeterminate satisfaction. Three-valued aggregation is fixed: `all` satisfies iff all components satisfy and fails iff any component fails; `any` satisfies iff any component satisfies and fails iff all components fail; otherwise the result is indeterminate. Overlapping satisfaction intervals count once for cumulative duration. The author explicitly accepted the illustrated JSON `composition` structure. **[OPEN]** Exceptions schema, nesting serialization and precedence, recurring calendars, formal contradiction solver, daylight-saving and fine-grained temporal testing.
