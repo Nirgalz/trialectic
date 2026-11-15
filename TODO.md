@@ -37,6 +37,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Closure criterion:** An explicitly versioned architecture specification and worked NEED- and CAN-focused examples show IDs, Definition versions, Parent/Children lineage, isolated simulations, actualization, shared references, history, qualified uncertainty and Stage transitions. All unresolved semantics and failure cases are listed; independent review confirms compliance with the validated principles.
 
+**D-47 real-source pilot 2026-11-15 (experimental, not task closure):** Evidence-layer pilot disclosed that the current code's all-criteria gate and simple empirical premise rule do not model reported mathematical proof claims or method-specific inapplicability well. Proposed future design must separate documentary report, evidential appraisal, causal sufficiency and decision use, subject to new author approval. Do not standardize current JSON/logic or claim scientific validation from the 162 passed checks. See `reference/D47-real-sources-pilot.md`.
+
 ## T-01 · Formalize identification of NEEDs and contextually relevant CANs
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To experiment**
 
@@ -84,6 +86,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Preliminary evidence (not task closure):** Preliminary local pilot reported on 2026-11-14: 20 executable assertions and 60 action-order robustness tests; NOT independent human or multi-model replication; artifacts are not yet archived in this repository.
 
+**D-47 real-source pilot 2026-11-15 (experimental, not task closure):** A documentary corpus of five published research cases, ten source notices and ten scoped/overextended claim probes was evaluated by the unchanged D-47 engine. 162/162 internal checks passed, but all ten claim verdicts were indeterminate, including all five source-aligned narrow statements. Inadequate review coverage is **not scientific accuracy**. Exact method-check conjunction, nonapplicability, source-specific claim type, temporal context and independent expert labels remain OPEN. See `reference/D47-real-sources-pilot.md`.
+
 ## T-16 · Generate NEED- and CAN-focused Resolution Scenarios
 **Type:** Protocol / computational | **Priority:** P0 | **Status:** **To develop**
 
@@ -130,6 +134,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 
 # P1 — Comparative evidence, semantics, scenarios and AI
+
+**D-47 real-source pilot 2026-11-15 (experimental, not task closure):** Five publication-based methodological families examined (pulse oximetry, vitamin C Cochrane review, ecological chocolate/Nobel analysis, Google Flu Trends, Coq formal proof). The D-47 engine declined to promote five annotated overextensions, **but also failed to recognize any of five narrow source-aligned reports as plausible**; 162 internal assertion checks passed. No raw-study replication, independently blinded expert labels or statistically meaningful AI quality benchmark. Add adversarial tests for `not_applicable` vs missing criteria, report-vs-empirical support, context transportability and overconservative evidence exclusion. See `reference/D47-real-sources-pilot.md`.
 
 ## T-04 · Test comparative usefulness against non-trialectic analyses
 **Type:** Comparative / experimental | **Priority:** P1 | **Status:** **To experiment**
@@ -368,6 +374,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 - 2026-11-15 — D-46 validated five claim/evidence methodological principles A–E: identified scope/versioned claims; separate logical validity within a stated model from empirical evidence; source relevance, reliability, traceability, independence and discriminating role; immutable revisionable assessments; checkable explanations and prioritized missing evidence. **Synthetic D-46 pilot: 898/898 assertions**, 27 ternary proof-role configurations and 720 invariance permutations for six proposed tests, reexecuted from extracted ZIP with identical SHA-256 output. Findings: composite claim references need Scenario context to avoid tested collisions; a retrospective evaluation must separate observed-at versus registered-at to exclude future evidence. **OPEN:** reviews and “falsifies” tags only stipulated in fixture, not external verification; real source dependence/quality, CI, independent replication, calibrated and causal evidence thresholds, final JSON Schema. Updated T-01, T-02, T-03, T-16, T-18, T-24, T-30; no tasks closed.
 
 - 2026-11-15 — D-47 validated A–E: evaluate evidence according to production method and the specific claim; separate applicable criteria from their three-state compliance; distinguish method quality from claim-specific probative sufficiency; assess a body of evidence without arbitrary addition or independence claims; adapt review depth to stakes but not epistemic truth. **D-47 synthetic pilot: 612/612 passing assertions**, five method families, seven adversarial cases, 243 exhaustive ternary controls (486 assertions) and 24 evidence-order permutations (48 consistency assertions), rerun from independently extracted ZIP with identical SHA-256 results. **OPEN:** real expert-audited studies, reliability/independence of underlying sources, comparability and causal identification, final JSON Schema, independent oracle/CI and defensible high-stakes review policy. Updated T-01, T-02, T-03, T-16, T-18, T-24 and T-30; no task closed.
+
+- 2026-11-15 — **D-47 real-publication experiment, no new validated decision**: five selected cases (pulse oximetry, Cochrane vitamin C, chocolate/Nobel statistics, Google Flu Trends and Coq four-colour theorem), ten source records, five narrowly reported claims and five deliberately overextended claims. Existing evaluator returned **indeterminate for all ten claims**; 162/162 internal invariants passed. Source-based manual reference annotation is NOT independent expert gold truth. The experiment reveals excessive hard-coded methodological conjunction, inability to mark criteria not applicable, and over-strict source context equality; no empirical correctness or AI-vs-baseline gain was established. Archive delivered to conversation; reproducible documentary note added at `reference/D47-real-sources-pilot.md`. T-03, T-24, T-30 elaborated; no task closed.
 
 # Known limits of the current test evidence
 
