@@ -272,5 +272,27 @@ The author also validated distinguishing three information states: **(a) no suit
 
 **OPEN:** Shared temporal schema; semantics and granularity of continuity/interval requirements; temporal effects and within-action events; discovering unknown relations reproducibly; preventing unbounded exploration; evaluating evidence and contextual impossibility; comparative validation. No task is closed or scientific effectiveness established. Related tasks: T-01, T-03, T-16, T-18, T-21, T-24, T-30.
 
+## D-33 · Validated common temporal data representation for NEEDs and CANs
+Date: November 15, 2026 | Status: **Validated format, five modes and separation of Scenario evaluations; detailed operational semantics OPEN**
+
+The author explicitly validated the proposed common time-related data format, the five modalities, and the strict separation of required constraints from Scenario-specific assessed states.
+
+**[VALIDATED]** A NEED or CAN may use the same `temporal` structure. Its `requirements` capture time constraints (e.g. when a NEED must be satisfied, when a CAN must begin), and its `estimates` capture estimated CAN execution time, delay of effects and persistence of effects. A `time_zone` identifier supports the local civil-time context. Reusing the structure does **not** equate a NEED's required satisfaction state with a CAN's action conditions or outcome.
+
+**[VALIDATED]** Five reusable constraint modes are supported by the working data representation:
+- `point`: specified instant (`at`).
+- `continuous`: required satisfaction throughout an interval (`window`).
+- `deadline`: compliance no later than a stated deadline (`deadline`).
+- `recurring`: repeated requirement (`recurrence`).
+- `cumulative`: minimum accumulated duration (`min_duration`) within a `window`.
+
+Multiple constraints may apply to the same NEED or CAN; the **precise logical combination rules remain OPEN**, rather than assuming unapproved semantics for conflicting, overlapping or nested constraints.
+
+**[VALIDATED representation conventions]** Use ISO 8601 offset-aware timestamps; durations use ISO 8601 (such as `PT30M`); time intervals are **inclusive at the start and exclusive at the end**; lack of a recorded or known duration must be distinguished from a known **zero** duration. Estimated durations can be expressed as ranges (`min`/`max`). A NEED's temporal requirements are recorded with its versioned Definition, rather than being silently rewritten when the NEED becomes temporarily satisfied or unsatisfied.
+
+**[VALIDATED separate Scenario evaluation]** Actual or simulated time-indexed satisfaction status and violations of a NEED, and evaluation evidence, belong to a **Scenario-specific assessment separate from the NEED/CAN `temporal` metadata**. Continuous satisfaction cannot be inferred from final-state success alone, nor asserted with inadequate temporal observations. The examples and illustrative JSON structure in `reference/trialectic-method.md` are accepted as the working format, **not** yet a complete and independently validated machine-enforced JSON Schema.
+
+**[OPEN]** Precise semantics of constraints used together; recurring scheduling and exceptions; cumulative duration aggregation; relative-event temporal references; time-zone daylight-saving changes, event ordering and interval edges; provenance and uncertainty of estimates; temporal resolution within actions; schema validation and multi-Object simulator testing. Related tasks: T-03, T-16, T-18, T-24.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
