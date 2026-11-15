@@ -202,5 +202,22 @@ The author decided to **set aside Simple Mode for now**. Its usefulness will be 
 
 **OPEN:** Quantitative calibration and empirical evaluation of feasibility/success/consequence uncertainty, measuring Scenario diversity and coverage, selecting an appropriate number of alternatives, standardized cost/complexity measures, and criteria for optional selection when requested. The approved operational goal is not an empirical proof of effectiveness. Related tasks: T-03, T-04, T-16, T-17, T-19, T-20, T-21, T-26, T-27.
 
+## D-29 · Recursive NEED–CAN comparison and candidate Scenario construction
+Date: November 15, 2026 | Status: **Validated procedural principles; implementation and empirical tests OPEN**
+
+The author approved a concrete **NEED-focused** route for generating multiple Resolution Scenarios:
+
+1. Compare each relevant **non-satisfied NEED** against contextually relevant **CANs of the focal Subject and Objects in its Environment**.
+2. Identify **alternative CANs**, which may independently offer candidate approaches to a NEED, and **complementary CANs**, which may need to be combined, sequenced or coordinated. Combine relevant NEED–CAN links into candidate Scenarios, without presuming any one correspondence proves sufficiency.
+3. Inspect the **conditions of action** and any relevant supporting **NEEDs** for each participating CAN. Where these are not met, recursively search for other Objects, NEEDs and CANs that could satisfy or enable the missing conditions, including pathways through circular dependencies.
+4. **Include a CAN in a candidate Scenario even if it is not currently actionable**, provided the **missing conditions are explicitly documented**. Such inclusion is conditional: it does not imply positive Power, satisfaction, guaranteed success or an effective Actualization.
+5. **Evaluate the resulting Scenarios separately** for actionability, Power, NEED satisfaction, dependencies, consequences on the Subject and Environment Objects, feasibility, uncertainty and other contextually relevant criteria. Reassess hypothetical versions of affected Definitions while respecting isolated simulations, recursive relevance and cost limits.
+
+The author expressly approved distinguishing **(a) a NEED–CAN correspondence**, **(b) complementary relations supporting a candidate pathway**, and **(c) an evaluated Scenario**. A correspondence is not an Actualization; an evaluated Scenario is not necessarily viable. **Scenario generation, evaluation, and optional selection remain distinct operations** in default Advanced Mode.
+
+This decision does **not** override the already validated **CAN-focused** Stage-2 option, nor require an Actualization for a NEED already satisfied by an existing state.
+
+**OPEN:** Exact matching and evidential criteria for correspondence, determining independent or joint sufficiency of combinations, path deduplication and diversity, circular-dependency handling, termination rules, representation of missing conditions, and independent reproducibility and controlled comparative testing. Related tasks: T-16, T-02, T-03, T-17, T-21, T-24, T-27, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
