@@ -268,6 +268,44 @@ Illustrative **CAN**:
 
 In this example, a ten-minute interruption between 08:00 and 12:00 breaches `R1`, regardless of whether the eight-hour cumulative minimum of `R2` is met. The combination is **unsatisfied** if `R1` is unsatisfied. The `composition` field is optional: its absence means an implicit conjunction of recorded requirements. The distinction between **requirements as part of an Object's versioned Definition** and **evaluated time-indexed Scenario outcomes** remains mandatory.
 
+### 3.2.2 Distinct NEED evaluations: effective satisfaction and temporal compliance
+
+**[VALIDATED — November 15, 2026; D-35]** For each relevant NEED and Scenario, distinguish two **separately evaluated** questions:
+
+1. **Effective satisfaction**: is the NEED's required material, functional, conceptual or other state **actually present** at the times considered, regardless of whether an exception authorizes non-compliance with a time requirement?
+2. **Temporal compliance**: does the Scenario meet the **applicable temporal requirements**, taking into account only those **exceptions that have been explicitly authorized, justified, scoped and versioned**?
+
+**[VALIDATED]** An exception modifies which **temporal requirements apply for compliance assessment**, not the factual/simulated state of the Object, its consequences or the existence/identity of the NEED itself. In particular, a compliant Scenario can include an interval during which effective satisfaction is **unsatisfied**; never silently relabel that interval as effectively satisfied. An authorized exception is **not** evidence that an interrupted supply, pollution, or other adverse effect did not occur. This holds for NEEDs of the Main Subject and affected Objects of its Environment.
+
+**[VALIDATED]** Each evaluation uses the existing three **analytical** statuses (`satisfied`, `unsatisfied`, `indeterminate`), with its own evidence and uncertainty as appropriate. Versioned Object Definitions record temporal constraints; **Scenario-specific evaluation** records effective satisfaction, temporal compliance and the IDs of exceptions actually applied. A temporal constraint inconsistency remains a separate Definition diagnostic, not a fourth intrinsic NEED state. Effective satisfaction and temporal compliance must never be collapsed into one status.
+
+Example of the **approved working Scenario evaluation structure**; these illustrative outcomes are **established only within the stated hypothetical model**:
+
+```json
+{
+  "scenario_id": "S-001",
+  "need_id": "N-001",
+  "evaluation": {
+    "effective_satisfaction": {
+      "status": "unsatisfied",
+      "violations": [
+        {
+          "start": "2026-11-15T09:00:00+01:00",
+          "end": "2026-11-15T09:20:00+01:00"
+        }
+      ]
+    },
+    "temporal_compliance": {
+      "status": "satisfied",
+      "applied_exceptions": ["EX-001"]
+    },
+    "evidence": "established_in_model"
+  }
+}
+```
+
+**[OPEN]** A full machine-validatable Scenario evaluation schema; distinct provenance and epistemic uncertainty for each sub-assessment; how to evaluate effective satisfaction when the NEED's required state itself evolves; incomplete observation intervals; authorized exception provenance/authority, validity and conflict checks; cross-Object impacts and empirical testing. A status of `satisfied` in `temporal_compliance` must be read as **conformity**, not actual fulfillment during exempt intervals.
+
 **[SCOPE / OPEN]** These examples document the **approved format**, not a final JSON Schema or a complete run-time model. In particular: robust definitions for recurring schedules and their exceptions, relative event references, time-zone daylight-saving transitions, recursive/nested `composition` representation and validation, consistency-check algorithms, ambiguous boundaries, provenance and uncertainty of estimates, cross-Scenario evaluation links, and within-action monitoring resolution remain to be designed/tested. `temporal` does not by itself establish CAN actionability or positive Power.
 
 ## 3.3 Intrinsicality, specificity and origin
@@ -450,6 +488,8 @@ For a NEED-focused cycle, possible pathways for satisfying or maintaining a NEED
 4. **Temporality:** implementation delays, urgency, sequencing, time horizon and persistence of consequences.
 5. **Expected effectiveness:** the anticipated improvement or result relative to the focal NEED or CAN, separately from the chance of actual success.
 6. **Consequences on Objects:** anticipated favorable and unfavorable, direct and indirect, immediate and delayed effects on the **initial Subject**, other relevant **Objects in its Environment**, their NEEDs, CANs and relations.
+
+**[VALIDATED — D-35]** For each NEED affected by a Scenario, **assess effective satisfaction separately from compliance with applicable temporal requirements**, including authorized exceptions. Record actual/simulated violations and their effects even if temporal compliance is reported as satisfied under an exception. Persist both evaluations and their uncertainty/evidence with the Scenario, not as silent changes to the Object's versioned NEED Definition.
 
 **[VALIDATED uncertainty distinctions]** Keep separate (a) uncertainty about whether a Scenario is **feasible** (its conditions can be met), (b) the **probability of success** if it is undertaken, and (c) the **probability of each anticipated consequence**. Quantitative probabilities are provided **only where statistically justified**; otherwise indicate qualitative uncertainty or degree of possibility, rather than manufacturing numerical precision. These are distinct from binary Power and from uncertainty about whether Power is positive.
 
@@ -644,3 +684,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Approved combination semantics for temporal requirements
 
 **[VALIDATED — D-34]** For NEEDs and CANs, temporally applicable `requirements` are **conjunctive by default**. The approved `composition` field can explicitly combine identified requirements with `all` and `any`; absent `composition`, assume `all` for the documented requirements, without treating an incomplete inventory as exhaustive. Exceptions must be intentional, time-scoped, justified and versioned, and must not arise retroactively from observed violations. Identify contradictory requirements for the same Object/state/context/time separately from negative or indeterminate satisfaction. Three-valued aggregation is fixed: `all` satisfies iff all components satisfy and fails iff any component fails; `any` satisfies iff any component satisfies and fails iff all components fail; otherwise the result is indeterminate. Overlapping satisfaction intervals count once for cumulative duration. The author explicitly accepted the illustrated JSON `composition` structure. **[OPEN]** Exceptions schema, nesting serialization and precedence, recurring calendars, formal contradiction solver, daylight-saving and fine-grained temporal testing.
+
+## November 15, 2026 — Validated distinction between effective NEED satisfaction and temporal compliance
+
+**[VALIDATED — D-35]** Evaluate separately whether a NEED's required state is effectively present and whether the applicable temporal requirements are met. A justified, time-scoped and versioned exception can alter **temporal compliance**, but never retroactively changes the Object's observed/simulated states, consequences or the NEED itself. Preserve separate three-valued results, uncertainty/evidence, exception IDs and violations in the **Scenario evaluation**, keeping requirements in the versioned Definition. The illustrative `effective_satisfaction` / `temporal_compliance` JSON is adopted as a working example, not yet a complete implementation schema. **[OPEN]** Independent evidence, partial observations, exception authorization workflow and time-indexed multi-Object regression tests.
