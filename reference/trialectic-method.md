@@ -556,6 +556,56 @@ The suite also verified time advancement over delayed effect expiry, immutable v
 
 **[OPEN]** justified priority criteria; formal partial-order and concurrent event semantics; proof-based resolution of contradicting observations; multiple simultaneous conflicts and existing active temporary overlays; branch search/explosion and causal completeness; cross-branch version merge, D-33–D-35 temporal constraints, schema normalization, repository CI and independent reproduction. T-02, T-03, T-16, T-18, T-24 and T-30 remain open.
 
+### 2.1.12 Claim-centered evidence qualification, revision and user-checkable justifications (D-46)
+
+**[VALIDATED — November 15, 2026; D-46 A–E]** The author validated five complementary principles regarding **what authorizes the Method and an assisting AI to justify a claim**. Preserve D-31's previously approved epistemic qualifications—**established within the considered model**, **plausible**, **refuted in the considered context** and **indeterminate**—while distinguishing *logical derivation relative to assumptions* from *real-world evidential support*. This does not introduce a fifth degree of intrinsic truth in an Object, NEED or CAN.
+
+**A. Claim, evidence, assessment.** Identify and contextually scope consequential **claims** about Object properties, NEEDs, CANs, conditions, causal mechanisms, pathway/inventory completeness or Scenarios. Preserve distinct references to the **claim being tested**, each **item of supporting/contradicting/informative evidence**, and the **assessment made at a given time**. Qualified claims may depend on versioned Object/relation/condition/pathway Definitions and Scenario/time.
+
+**B. Model-internal derivation versus empirical warrant.** A result following a rule and stated premises may be labeled `established_in_model`, but this **must not** automatically count as empirical confirmation. Record separately (i) which model assumptions/rules permit the inference, (ii) what empirical observations or other probative elements, if any, support the premises and conclusion, and (iii) the scope/time limits. Missing a premise is not itself a refutation of its conclusion. Numerical confidence probabilities may be used only if independently justified and calibrated.
+
+**C. Evidence quality and provenance.** Consider for the particular claim: **relevance**, **reliability**, **traceability**, **independence** and **discriminating power** against alternative hypotheses. Preserve provenance and collection method, context, limitations and whether evidence supports, contradicts or merely informs the claim. Multiple reports sourced from the same underlying measurement or source should **not be counted as independent confirmations**. Source format or a declared review label alone is not proof of trustworthiness; different evidence methods require context-specific standards, not one universal ladder.
+
+**D. Revisable, historized assessments.** New observations, contradictory evidence, revised assumptions or changed Definition versions may lead to a **new, dated assessment** while earlier versions and their then-available evidence remain intact. The mere presence of a new source—even an apparently authoritative one—must not automatically resolve a conflict (D-45); review pertinence and discriminating relevance. Distinguish change of knowledge from Actualization-induced Object state changes (D-40/D-44/D-45).
+
+**E. Inspectable user-facing justifications.** When communicating important claims, provide a checkable explanation of *the stated claim, its scope and assumptions; model inference; relevant source IDs and contradictory sources; limitations; epistemic status; and missing potentially discriminating checks*. These **external justifications** do not expose hidden internal reasoning, and no arbitrary score or certainty should be invented. Minimize unnecessary information and protect unrelated data.
+
+**[PROVISIONAL JSON EXAMPLE — NOT A FINAL SCHEMA]**
+
+```json
+{
+  "claim_ref": {
+    "kind": "claim",
+    "scenario_id": "S-alpha",
+    "id": "CL-external-effect",
+    "version": "v1"
+  },
+  "assessment_at": "2026-11-15T15:07:00+01:00",
+  "model_validity": "established_in_model",
+  "empirical_status": "indeterminate",
+  "supporting_evidence": ["EV-001"],
+  "contradicting_evidence": ["EV-002"],
+  "assumptions": ["AS-001"],
+  "limitations": ["causal_mechanism_not_empirically_established"]
+}
+```
+
+This example demonstrates **simultaneous model derivation and empirical uncertainty**, not a redefinition of D-31 or proof of a true causal effect. Exact IDs, qualifiers, statuses, threshold rules, model-proof formalism and scenario/time semantics remain OPEN.
+
+**[SYNTHETIC TEST — 898/898 assertions passed, November 15, 2026]** A locally reproducible standard-library Python prototype:
+- Declared five synthetic claims, two differently versioned logical/condition claims, one causal claim reused in another Scenario, model derivation rules and contextual evidence;
+- detected and grouped three documentary items with a **common underlying source** as one dependence cluster, versus two declared distinct origin clusters (not proof of statistical independence);
+- preserved D-31's `established_in_model` while leaving the claim's empirical assessment `indeterminate`; version v1's premises did not silently satisfy v2;
+- evaluated **27** combinations of absent / insufficiently discriminating / qualified fixture support, contradiction and purported falsifier; a non-discriminating addition did not erase a contested claim, and a qualified opposing source made a one-sided contextual synthetic refutation indeterminate;
+- preserved immutable historical assessments and used distinct ISO 8601 **observation time** versus **registration time** so a retrospective assessment could not use future-recorded evidence;
+- rejected incorrectly scoped/unversioned claims, missing/derived-from-invalid sources, observations outside the claim's time window and inconsistent provenance chronology;
+- selected qualitatively **non-dominated** hypothetical checks by the pairs of hypotheses they could discriminate and an explicitly given low/medium/high burden, without inventing probabilities. The selected check was invariant over **720 permutations** of six candidates; incomparable admissible checks were retained;
+- verified against a D-45 Scenario fixture that assessing evidence does **not** mutate simulated Object state, event history or Definition versions.
+
+The ZIP was extracted and the script rerun; output JSON was byte-identical (SHA-256 `4bb788e652670c205f55216ad7ba40a04e07669823ce4d06eec871e9e4fe6fc6`). These checks are **self-authored synthetic engineering tests**: source reviews including the label `checked_in_fixture` and the `falsifies` indicator are **stipulated**, not an independent assessment of real-world truth or source reliability. Counting source origins from explicit provenance does not prove actual independence; 720 permutations check order invariance rather than 720 independent experiments.
+
+**[OPEN]** Provenance beyond declared inputs, source-specific methodological standards, missing/correlated evidence, falsification versus contradictions with uncertain observation quality, source retraction and post-hoc version changes, calibrated epistemic or quantitative confidence, values of information with unverified predictions, privacy of source disclosures, real-world empirical trials, final JSON Schema and repository CI/integrated independent replication. T-01, T-02, T-03, T-16, T-18, T-24, T-30 remain OPEN.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -1195,3 +1245,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — D-45 competing-effect policies and localized suspension
 
 **[VALIDATED]** Diagnose the conflict's origin, examine justified applicable priorities, permit isolated non-exhaustive hypothetical branches, represent epistemic uncertainty without inventing physical transitions, preserve provenance and history, and suspend **only conflict-dependent analyses/actions**. **[SYNTHETIC TEST]** 173/173 local assertions passed over four policies and 27 ternary configurations; source evidence and assumed priority are not externally verified. **[PROVISIONAL]** Priority/evidence standards and conflict JSON field names remain open. Related TODOs not closed.
+
+## November 15, 2026 — D-46 epistemic claim/evidence/revision model
+
+**[VALIDATED A–E]** Treat claims, evidence and assessments as distinct; separate model-internal validity from empirical warrant and scope; assess provenance, relevance, reliability, traceability, independence and discriminating power; preserve versioned/time-indexed assessment history; make important conclusions' verifiable justifications and remaining tests inspectable. **[SYNTHETIC TEST ONLY]** 898/898 assertions, including 27 ternary evidence combinations and 720 permutations of check ordering, passed with byte-identical results after ZIP re-extraction. **[OPEN]** Source quality flags and even synthetic falsification labels are unverified and no general confidence ranking, factual claim verification or final JSON Schema is authorized.
