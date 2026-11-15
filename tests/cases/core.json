@@ -1,0 +1,228 @@
+{
+  "schema": "trialectic-regression-fixtures-v0-experimental",
+  "purpose": "Expected conclusions taken only from narrow validated decision consequences, not a final implementation schema",
+  "cases": [
+    {
+      "id": "MT-01",
+      "decisions": [
+        "D-27",
+        "D-40",
+        "D-41"
+      ],
+      "operation": "can",
+      "input": {
+        "action_conditions": [
+          "unsatisfied"
+        ],
+        "pathway_completeness": "complete"
+      },
+      "expected": {
+        "action_pathway": "unsatisfied",
+        "power": "indeterminate"
+      }
+    },
+    {
+      "id": "MT-02",
+      "decisions": [
+        "D-31"
+      ],
+      "operation": "relation",
+      "input": {
+        "explicit": [
+          "correspondence"
+        ]
+      },
+      "expected": {
+        "correspondence": true,
+        "contribution": false,
+        "conditional_sufficiency": false,
+        "scenario_necessity": false
+      }
+    },
+    {
+      "id": "MT-03",
+      "decisions": [
+        "D-40"
+      ],
+      "operation": "group",
+      "input": {
+        "op": "any",
+        "members": [
+          "satisfied",
+          "indeterminate"
+        ]
+      },
+      "expected": "satisfied"
+    },
+    {
+      "id": "MT-04",
+      "decisions": [
+        "D-41",
+        "D-43"
+      ],
+      "operation": "inventory",
+      "input": {
+        "pathways": [
+          "unsatisfied",
+          "unsatisfied"
+        ],
+        "completeness": "incomplete"
+      },
+      "expected": "indeterminate"
+    },
+    {
+      "id": "MT-05",
+      "decisions": [
+        "D-25",
+        "D-26",
+        "D-40",
+        "D-44"
+      ],
+      "operation": "fork",
+      "input": {
+        "parent": "S0",
+        "child": "S1",
+        "object_id": "O1",
+        "version": "v1",
+        "initial": false,
+        "child_new": true
+      },
+      "expected": {
+        "parent_state": false,
+        "child_state": true,
+        "parent_version": "v1",
+        "child_version": "v1",
+        "parent_events": [],
+        "child_events": [
+          "EV-1"
+        ]
+      }
+    },
+    {
+      "id": "MT-06",
+      "decisions": [
+        "D-39",
+        "D-40",
+        "D-43"
+      ],
+      "operation": "reevaluation",
+      "input": {
+        "object_id": "O1",
+        "version": "v1",
+        "initial": false,
+        "new_state": true
+      },
+      "expected": {
+        "before": "unsatisfied",
+        "after": "satisfied",
+        "events": [
+          "EV-2"
+        ],
+        "definition_version": "v1"
+      }
+    },
+    {
+      "id": "MT-07",
+      "decisions": [
+        "D-33",
+        "D-34",
+        "D-35"
+      ],
+      "operation": "temporal",
+      "input": {
+        "observations": [
+          [
+            0,
+            "satisfied"
+          ],
+          [
+            5,
+            "unsatisfied"
+          ],
+          [
+            10,
+            "satisfied"
+          ]
+        ]
+      },
+      "expected": {
+        "effective_at_end": "satisfied",
+        "temporal_compliance": "unsatisfied"
+      }
+    },
+    {
+      "id": "MT-08",
+      "decisions": [
+        "D-40",
+        "D-45",
+        "D-46"
+      ],
+      "operation": "evidence_conflict",
+      "input": {
+        "object_id": "O1",
+        "version": "v1",
+        "property": "available",
+        "physical": true
+      },
+      "expected": {
+        "physical": true,
+        "epistemic_condition": "indeterminate",
+        "events": []
+      }
+    },
+    {
+      "id": "MT-09",
+      "decisions": [
+        "D-44",
+        "D-45"
+      ],
+      "operation": "local_suspension",
+      "input": {
+        "object_id": "O1",
+        "version": "v1",
+        "contested_property": "available",
+        "independent_property": "lamp_on"
+      },
+      "expected": {
+        "dependent_event": "suspended",
+        "independent_event": "applied",
+        "physical_available": true,
+        "physical_lamp_on": true,
+        "events": [
+          "EV-independent"
+        ]
+      }
+    },
+    {
+      "id": "MT-10",
+      "decisions": [
+        "D-31",
+        "D-45",
+        "D-46",
+        "D-47"
+      ],
+      "operation": "claim",
+      "input": {
+        "claim_id": "CL1",
+        "model_status": "established_in_model",
+        "empirical_status": "indeterminate",
+        "reports": [
+          {
+            "id": "P1",
+            "root": "D0"
+          },
+          {
+            "id": "P2",
+            "root": "D0"
+          }
+        ]
+      },
+      "expected": {
+        "model_status": "established_in_model",
+        "empirical_status": "indeterminate",
+        "declared_origin_count": 1,
+        "events": []
+      }
+    }
+  ]
+}
