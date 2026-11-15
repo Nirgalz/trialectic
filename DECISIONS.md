@@ -186,5 +186,21 @@ With uncertainty, the author allows **statistical evaluation of Power**, while d
 
 **OPEN:** Operational actionability/Power distinction, statistical estimators/calibration, whether 'attributable CAN' remains a status, and CAN-as-Object criteria where representation is helpful. Related tasks: T-02, T-01, T-16, T-18, T-22, T-30.
 
+## D-28 · Default Advanced Mode, multi-Scenario exploration and suspension of Simple Mode
+Date: November 15, 2026 | Status: **Validated operational objective and scope**
+
+The author adopted **Advanced Mode as the default functioning** of the Trialectic Method. For complex problems, the Method seeks to **generate and present multiple relevant Resolution Scenarios** with anticipated effects on the **initial/focal Subject** and Objects in its **Environment**, and to make their trade-offs and limits interpretable. Its goal is **not to choose one universally best solution**.
+
+The author explicitly validated these distinct evaluation dimensions and safeguards:
+- **Feasibility**, **complexity**, **cost/resources**, **temporality**, and **expected effectiveness** are evaluated separately, rather than conflated.
+- Distinguish (a) uncertainty / probability that the **conditions for feasibility** are met, (b) **probability of successful Actualization**, and (c) probabilities of **individual anticipated consequences**. Use statistical probabilities **only when justifiable**; otherwise describe qualitative uncertainty or degree of possibility without inventing percentages.
+- Evaluate relevant favorable and unfavorable consequences on other Objects, including important indirect effects, without masking serious harm in a single aggregate score.
+- Maintain the **same methodological rigor** even if presentation or interaction is simplified. The analysis need not select a winning Scenario.
+- Separate **Scenario generation**, **Scenario evaluation**, and **optional selection**. If selection is ever requested, a recommendation is **conditional on explicitly stated criteria**, not an objective universal optimum.
+
+The author decided to **set aside Simple Mode for now**. Its usefulness will be **reconsidered after the Method is stabilized**. Simple Mode is therefore **not a current operating mode, default, implementation commitment, or required experimental arm**. Earlier documentation considering both modes is historical; it is superseded by this scope decision, not erased.
+
+**OPEN:** Quantitative calibration and empirical evaluation of feasibility/success/consequence uncertainty, measuring Scenario diversity and coverage, selecting an appropriate number of alternatives, standardized cost/complexity measures, and criteria for optional selection when requested. The approved operational goal is not an empirical proof of effectiveness. Related tasks: T-03, T-04, T-16, T-17, T-19, T-20, T-21, T-26, T-27.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
