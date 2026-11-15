@@ -115,7 +115,53 @@ The adopted recursive sequence is:
 - A single referenced Object across the two lists yields one target participant; multiple references yield several target participants. **No mandatory separate `TargetObject` field** is required, because the participants are already represented by `NEEDs` and `CANs`.
 - The relation can be modeled, descriptively, as an **origin-anchored multi-participant relation / directed hyperrelation** rather than obligatorily a binary relation. This mathematical characterization is a formalization, not a separately adopted ontology.
 
-**[NOT YET SPECIFIED]** The logical significance of one versus many referenced Objects (joint necessity vs alternatives vs mere participation), semantics when both lists contain Objects, identity and recursion of parent/child relation records, whether duplicate Objects can occur across roles, behavior when both lists are null or empty, cycle handling, preservation/versioning of relation IDs and `OriginObject` during Object branching, and interaction with the D-33 temporal data model are **OPEN**. Do **not** assume that a `CANs` link proves actionability or NEED satisfaction, or that membership in a `NEEDs` list establishes logical necessity. Earlier conceptual definitions of NEED (necessity) and CAN (Potentiality) remain in force unless explicitly revised.
+**[UPDATED BY D-37]** The new `relation` field permits explicitly describing the parent/origin nature and logical composition of links, rather than inferring their meaning from list membership. **[STILL OPEN]** Exact grouping semantics when both lists contain Objects, identity and recursion of parent/child relation records, whether duplicate Objects can occur across roles, behavior when both lists are null or empty, cycle handling, preservation/versioning of relation IDs and `OriginObject` during branching, and integration with D-33 temporal metadata. Do **not** assume that a `CANs` link proves actionability or NEED satisfaction, or that membership in a `NEEDs` list establishes logical necessity. Earlier conceptual NEED and CAN definitions remain in force unless explicitly revised.
+
+### 2.1.3 Characterizing relationships with `relation`
+
+**[VALIDATED — November 15, 2026; D-37]** Add a `relation` field to the D-36 NEED/CAN relational record. The field is a **structured container**, not one exclusive label. Distinguish **(a)** the nature of the relation to `OriginObject`, **(b)** the role of each referenced Object or link, and **(c)** logical composition of references. These facets cannot be inferred from membership in `NEEDs` or `CANs` alone. `OriginObject` remains the existing origin link; do **not** use the unrelated Object-lineage `Parent` field as a synonym.
+
+**[VALIDATED — nature relative to origin, contextual and possibly non-exclusive]**
+- **NEED-oriented**: `existential` (necessary for an explicitly specified mode of existence), `structural` (necessary for a specified organization/configuration), `functional` (necessary for functioning/maintenance of a specified state). A NEED may be both existential and structural, and these labels do not determine its current effective satisfaction.
+- **CAN-oriented**: `contributive` (favors an outcome without by itself proving sufficiency), `enabling` (can help satisfy another CAN's action condition), `inhibitory` (may restrict action/outcomes), `transformative` (may alter an Object's constitution, NEEDs or CANs). Roles are context-dependent, and a CAN may have multiple roles.
+- **Not additional intrinsic labels**: necessary and sufficient in a Scenario remain **D-31 tested claims** under stated conditions; they are not unconditional global tags.
+
+**[VALIDATED — relations among referenced Objects or contributions, context-sensitive]**
+- `alternative`: distinct possible pathways, without automatically assuming equal effect or individual sufficiency.
+- `complementary`: joint contribution; this does not prove that every participant is individually necessary.
+- `substitutive`: a participant can replace another for a specified function/role; distinct from perfect interchangeability or an unspecified alternative.
+- `sequential`: a contextually required or considered order of contributions.
+- `synergistic`: joint effect differs from the separate contributions (mechanism and outcome require evaluation).
+- `antagonistic`: one contribution conflicts with, inhibits or limits another.
+- `reciprocal`: mutually dependent contributions or relations.
+These describe **link/pathway roles**, not a universal closed partition of Objects or CANs.
+
+**[VALIDATED — additional qualifications of relationships]** Record, where relevant, **conditionality**, **temporality**, **direct or indirect causality**, and **epistemic evidence/status**. Keep the pre-existing distinctions in D-31 (model-established vs plausible vs refuted in context vs indeterminate), D-33–D-35 (time requirements, evaluations and exceptions), and anticipated vs observed/causally attributed effects. A semantic similarity is not causal proof.
+
+**[VALIDATED — initial `relation` JSON representation from the author's approval]** The `relation` container can include `nature` and `composition`, with groups of referenced Objects and an `operator`. For example:
+
+```json
+{
+  "ID": "R-001",
+  "Type": "NEED",
+  "OriginObject": "O-001",
+  "NEEDs": ["O-002", "O-003"],
+  "CANs": ["O-004", "O-005"],
+  "relation": {
+    "nature": ["existential", "structural"],
+    "composition": [
+      {"objects": ["O-002", "O-003"], "operator": "all"},
+      {"objects": ["O-004", "O-005"], "operator": "any"}
+    ]
+  }
+}
+```
+
+In this illustration the listed participant groupings express **asserted analysis conditions**, not experimentally established causal sufficiency or absolute necessity. `all` and `any` convey the intended grouping, but **how separate groups combine into a final condition remains OPEN** until specified. The `composition` above is a composition of *Object references in a relational record*, distinct in scope from the D-34 `temporal.composition` that combines temporal requirements.
+
+**[VALIDATED design recommendation / SCHEMA OPEN]** To express different roles toward different Objects, the relational container must permit **individually qualified links**, not just a single global `nature` list. A further structure, e.g. per-link object references with role tags, causal/evidence qualifiers, context and link identity, is an **implementation formalization to design and validate**; no exact `links` or `qualifiers` field structure has yet been approved. Do not silently assign the global `nature` classification to every participant or presume that all references in the same group have identical properties.
+
+**[OPEN]** Definitive machine-readable per-link schema, cross-group composition and mixed AND/OR precedence, relation evidential requirements, distinctions between structural, existential and functional statuses in difficult cases, reference/branch versioning, how alternatives are proven, temporal edge effects, and reproducibility.
 
 ## 3.1 NEED — explicitly approved definition
 
@@ -366,8 +412,8 @@ The earlier 'attributable CAN' category has been **questioned by the author as p
 
 ## 4.1 Relational principles
 
-**[VALIDATED]**
-- NEEDs and CANs are **attributable properties** of Objects; their relationships can be **intra-Object** or **inter-Object**, and reciprocal dependencies are possible.
+**[VALIDATED — REPRESENTATION UPDATED D-36–D-37]**
+- NEEDs and CANs are attributed via **origin-anchored, typed relational records** connecting one or several Objects; their relevant relations can be **intra-Object** or **inter-Object**, and reciprocal dependencies are possible. The record's new structured `relation` field separates the origin relationship, each Object link's role, and the logical combination of linked Objects.
 - A NEED of Object A may correspond to a CAN of A or of another Object B.
 - A CAN of A may correspond to a NEED of A or B.
 - A NEED that must be satisfied for an Actualization relevant to **Object B** may be a NEED attributed to **Object A in B's Environment**. The owner of a NEED need not be the Object whose Actualization depends on it.
@@ -717,3 +763,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Relational NEED/CAN structure
 
 **[VALIDATED — D-36]** NEED/CAN data are now typed origin-anchored relational records containing `ID`, `Type` (`NEED`/`CAN`), `NEEDs` (nullable list of Object references), `CANs` (nullable list of Object references), and `OriginObject`. The second Object participant is recovered from the lists; there may be one or multiple participants, so `TargetObject` is unnecessary. Both lists support finer granularity without asserting AND/OR/satisfaction semantics. This is an update to representation, preserving validated conceptual NEED/CAN distinctions and D-31 relation tests. **[OPEN]** Multiple-participant logic, list co-presence, no-participant cases, relation ID lineage/versioning and nested decomposition semantics.
+
+## November 15, 2026 — Validated relation characterization (D-37)
+
+**[VALIDATED — D-37]** The D-36 NEED/CAN record gains a structured `relation` field. The accepted dimensions are: **nature relative to `OriginObject`**, **individual role of each referenced Object**, **composition of references** (alternative, complementary, substitutive, sequential, synergistic, antagonistic or reciprocal as justified), and relevant **conditionality, temporality, causality and epistemic qualification**. The approved initial example uses `relation.nature` and `relation.composition` with `objects` groups and `all`/`any` operators. Origin nature may include existential, structural, functional for NEED; contributive, enabling, inhibitory, transformative for CAN. These terms are context-dependent and not necessarily exclusive. Necessary/sufficient claims still require D-31 tests; labels and references do not prove causal outcomes. **[VALIDATED DESIGN RECOMMENDATION, OPEN SCHEMA]** Each reference must be able to carry its own role; an exact per-link data substructure is not yet approved. The `relation.composition` refers to linked Objects and is distinct from D-34 `temporal.composition` on time requirements. Keep outstanding grouping, versions, identity and uncertainty questions OPEN.
