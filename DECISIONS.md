@@ -702,5 +702,40 @@ The author explicitly validated (1) **the principle of a single recursive logica
 
 **OPEN:** final JSON Schema, identities/versions across branches and owning relations, treatment of no-known-path inventory without an invalid empty group, positive recursive Boolean fixed-point semantics versus dynamic causal reachability, truth-status/evidence provenance, time-indexed and non-monotone effects, integrity of references, cyclic graphs crossing records and independently validated tests. Related tasks: T-02, T-03, T-16, T-18, T-24, T-30.
 
+## D-43 · Empty pathway inventories and separation of logical references from causal dependencies
+Date: November 15, 2026 | Status: **Five principles A–E VALIDATED; serialization and causal simulator PROVISIONAL / OPEN; synthetic test performed**
+
+The author explicitly validated **all five proposals A–E** following D-42, and requested executable tests. D-43 extends the two distinct completeness levels of D-41 and the approved recursive-expression principles of D-42; it does **not** replace the epistemic/causal safeguards of D-31 or Scenario requirements D-33–D-40.
+
+**A. Inventory without identified pathways (VALIDATED).** A documentary **inventory** must be representable even when no pathway has been identified and therefore no logical expression exists to evaluate. This is different from an ill-formed `{"op":"any","items":[]}` group, which remains **invalid / diagnostically incomplete** under D-42. The proposed JSON fields `expression: null`, `coverage`, and `search_status` illustrate the concept; **these exact fields and values are not yet approved as a normative schema**. The status of the search (not undertaken / undertaken with no matching candidate / negative result with a justified scope) is distinct from whether the CAN is actionable.
+
+**B. No discovery does not establish impossibility (VALIDATED).** An inventory with no pathways currently found must **not** silently imply an impossible CAN, `unsatisfied` actionability or a closed world. If a negative result claims **exhaustiveness**, it requires a separately identified **scoped demonstration** with assumptions, version, method and evidence; the absence of an expression is not the demonstration. An impossibility conclusion, if justified, is limited to that specified context/model unless otherwise proven. Missing knowledge and evidence of absence are distinct.
+
+**C. Distinct logical-reference and potential-causal graphs (VALIDATED).** Maintain two analytically separate graph types: (i) the **logical-reference graph**, formed by versioned references among recursive condition/pathway expressions (D-42); and (ii) the **graph of potential causal dependencies**, recording claimed effects of CAN Actualizations/events on Object states, conditions or other link applicability (D-39, including `affects`/experimental `effect_details`). A cycle in either graph does not automatically imply a cycle in the other.
+
+**D. No automatic translation from logic to causality or vice versa (VALIDATED).** A logical reference **does not create** a causal effect or actual event. A potential causal influence **does not automatically become** a logically necessary/sufficient condition of an Actualization pathway. Such assertions require separately qualified mechanisms, conditions, evidence and D-31 checks. A logical expression evaluating to `satisfied` is **not** itself an Actualization and cannot be logged as one.
+
+**E. Coupled analysis, separate representations (VALIDATED).** A Scenario may **(1)** evaluate current Object states and scoped conditions, **(2)** evaluate recursive logical pathways (including unknowns), **(3)** identify CANs actionable in the assessed role, **(4)** consider or actually simulate CAN Actualization events with their triggers/delays/effects, and **(5)** reevaluate affected states, conditions and pathways, recursively within D-39 relevance and D-33–D-35 temporal constraints. Keep versioned Definitions, logical values, possible effects, and recorded/simulated transitions **distinct and traceable**. Neither logical truth nor a causal arrow guarantees the actual success of an action or satisfaction of a NEED.
+
+**[PROVISIONAL example: documentary inventory without known pathways]**
+
+```json
+{
+  "id": "I-energy",
+  "kind": "inventory",
+  "scope": {"relation_id": "R-energy"},
+  "coverage": "incomplete",
+  "search_status": "searched_no_match",
+  "expression": null,
+  "evidence": {"status": "indeterminate"}
+}
+```
+
+The representation of a formally demonstrated **no-path-in-scope** case, distinction between unknown `coverage` and exhaustive negative evidence, and precisely when an inventory can be reported `unsatisfied` remain OPEN. The expression grammar `all`/`any` stays one approved *structural principle* (D-42), not a general model of causal events.
+
+**[SYNTHETIC ENGINEERING TEST — Nov 15, 2026; not independent empirical validation]** An executable Python pilot, using the archived D-42 logical evaluator and a separate event/state-transition simulator, passed **218 of 218 assertions**. It included **27** three-state initial-condition combinations, four limited three-event reachability cases checked against a separately implemented exhaustive search, invalid and unproven empty-inventory cases, one cyclic logical graph with **zero causal events**, and one **acyclic logical graph with a cyclic potential-causal graph**. Its causal-cycle Scenarios distinguish no feasible initiating action in the modeled initial state, an initial charged-battery route, and a third-CAN C enabling the sequence **C → A → B** through explicit simulated events. Tests also cover unknown trigger status, temporary source expiry, overlapping durations, negative inhibition, and action without declared state-effect rules. Files are supplied in a reproducibility archive; **the test program has not been added to repository CI**. The synthetic effect assignments are assumptions, not externally verified causal laws. No TODO is closed.
+
+**OPEN:** finalized documentary `inventory` and `search_status` schema, scoped completeness-proof criteria and independent validation, versioned identifiers crossing branches/relations, formal event/effect specification, temporal composition and D-35 compliance, non-monotone/general negative causal cycles, preservation of provenance, reproducible CI integration and external replication. Related tasks: T-02, T-03, T-16, T-18, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
