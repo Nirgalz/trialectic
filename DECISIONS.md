@@ -464,5 +464,81 @@ These are **asserted groupings**, not in themselves proof of satisfaction, causa
 
 **OPEN:** per-link record shape and IDs; multi-group Boolean logic and precedence; semantics when one Object is referenced in both lists; existential/structural/functional classification operational tests; context-sensitivity, relation versioning/branching, negative effects and conflicts, empirical evidence standards and independent reproduction. This decision elaborates D-36 and D-31 without claiming that every listed relation is empirically established. Related tasks: T-30, T-01, T-02, T-03, T-16, T-24.
 
+## D-38 · Individually qualified Object links in NEED/CAN relations
+Date: November 15, 2026 | Status: **Validated proposed link structure and safeguards; full graph semantics and implementation OPEN**
+
+The author explicitly validated **all five proposals A–E** for the NEED/CAN relational data model, elaborating D-36 and D-37:
+
+**A. Qualified-link list (VALIDATED).** Add `relation.links` to the origin-anchored NEED/CAN record. Each qualified link describes a relationship to a referenced Object that appears in one of the parent record's `NEEDs` or `CANs` lists. This is distinct from global `relation.nature` (toward `OriginObject`) and from `relation.composition` (logical groupings of multiple Objects).
+
+**B. Working field structure (VALIDATED).** Each explicitly recorded link has **three required fields**:
+- `id`: identifier of the link record;
+- `object_id`: identifier of the linked Object;
+- `source_list`: `NEEDs` or `CANs`, specifying which list of the parent relation contains the Object.
+
+The optional fields are:
+- `roles`: one or several contextual roles, e.g. `contributive`, `enabling`, `inhibitory`; omission can represent an unresolved qualification;
+- `conditions`: relevant applicability/action conditions;
+- `mechanism`: explanation or hypothesized mechanism;
+- `causality`: direct, indirect or indeterminate characterization where justifiable;
+- `evidence`: epistemic status and supporting justification, consistent with D-31.
+
+**C. Link-to-link effects (VALIDATED).** Permit optional `affects` containing IDs of **other links** that the current link may enable, inhibit or otherwise modify. This supports relationships among relationships, not merely Objects linked independently. An `affects` assertion alone does not prove which exact condition was affected, causality, feasibility, necessity or sufficiency. Recursive chains, cycles, cross-record addressing and version-specific references remain to be designed and tested.
+
+**D. Referential coherence (VALIDATED).** Every link's `object_id` must be present in the enclosing parent relation's inventory named by `source_list`: if `source_list` is `NEEDs`, the Object must appear in `NEEDs`; likewise for `CANs`. Introducing an unlisted Object requires **explicit expansion of the inventory** or an appropriate additional relation. This rule does **not** imply that every inventoried Object already has fully known link qualifications, or that the inventory is exhaustive. Link IDs should distinguish the links that are individually referred to; the full scope and persistence of uniqueness remain OPEN.
+
+**E. Causal and logical safeguard (VALIDATED).** Labels such as `contributive`, `enabling`, and `inhibitory`, including `affects` edges and `all`/`any` groupings, are **classifications and proposed analysis claims**, not proof of the NEED's satisfaction, causal contribution, a CAN's actionability, Power, conditional sufficiency, Scenario-relative necessity or completed Actualization. Preserve D-31 checks and evidential qualifications.
+
+**Validated working example (hypothetical):**
+
+```json
+{
+  "ID": "R-heat",
+  "Type": "NEED",
+  "OriginObject": "O-home",
+  "NEEDs": null,
+  "CANs": ["O-heat-pump", "O-boiler", "O-technician"],
+  "relation": {
+    "nature": ["functional"],
+    "links": [
+      {
+        "id": "L-heat-pump",
+        "object_id": "O-heat-pump",
+        "source_list": "CANs",
+        "roles": ["contributive"],
+        "conditions": ["Electricity supply available"],
+        "mechanism": "Heat production",
+        "causality": "direct",
+        "evidence": {"status": "plausible"}
+      },
+      {
+        "id": "L-boiler",
+        "object_id": "O-boiler",
+        "source_list": "CANs",
+        "roles": ["contributive"],
+        "conditions": ["Fuel supply available"],
+        "mechanism": "Heat production",
+        "causality": "direct",
+        "evidence": {"status": "plausible"}
+      },
+      {
+        "id": "L-technician",
+        "object_id": "O-technician",
+        "source_list": "CANs",
+        "roles": ["enabling"],
+        "affects": ["L-heat-pump"]
+      }
+    ],
+    "composition": [
+      {"objects": ["O-heat-pump", "O-boiler"], "operator": "any"}
+    ]
+  }
+}
+```
+
+The illustration assigns **hypothetical** alternative pathways to two heating Objects and an enabling link from a technician to the heat-pump link. Its grouping does **not** establish that either heater alone is sufficient, nor does the enabling label prove that the technician is necessary.
+
+**OPEN:** Complete JSON Schema and field typing/validation, link uniqueness across relational records, cross-record link IDs, nullable and incomplete lists, precise temporal/contextual `conditions` syntax, links with different roles in different Scenarios, graph cycles, interaction with D-33 temporal metadata and D-34 temporal composition, relation IDs/branch versions and independent falsification tests. Related tasks: T-30, T-02, T-03, T-16, T-24.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
