@@ -2,7 +2,7 @@
 
 **The Trialectic Method** is an interdisciplinary, contextual, systemic, and recursive analytical framework for examining **Objects**, their **NEEDs** and **CANs**, relevant Conditions of Actualization, and effects on Objects and their relationships. The Method selects an **Object as Subject**, and can examine other Objects as Secondary Subjects. Subject, Environment, and Semantics are relevant, non-symmetrical analytical perspectives rather than universal causes.
 
-The Method is **an analytical framework, not a universal ontology**. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
+The Method is **an analytical framework, not a universal ontology**. Its **default Advanced Mode explores and compares multiple relevant Resolution Scenarios** for complex problems, rather than prescribing a uniquely best solution. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
 
 ## How it works
 
@@ -10,19 +10,27 @@ A methodological **Stage** determines the current **Focus**. The adopted analyti
 
 - **Object:** an Individual, Group, Technical Object, System, or Semantic Object.
 - **NEED:** a necessity attributable to an Object for the existence, maintenance, or realization of a specified state. It may be existential, structural, or both, and may be satisfied without any identifiable CAN Actualization.
-- **CAN:** a Potentiality attributable to an Object. NEEDs and CANs can form relationships within and between Objects.
-- **Conditions:** distinguish **mobilization** of a CAN from **satisfaction** of a NEED. A **mobilizable CAN does not necessarily have positive Power**; Power is separately assessed for sufficient Conditions of Actualization.
+- **CAN:** a contextually relevant Potentiality of an Object; a CAN may itself be represented as a conceptual Object only when relevant. NEEDs and CANs can form relationships within and between Objects.
+- **Conditions:** distinguish the **actionability** of a CAN for a specified contribution from **satisfaction** of a NEED and full **Power** for the considered Actualization. The exact actionability/Power boundary remains open; a separate 'mobilizable CAN' category is historical.
 - **Power and Actualization:** positive Power permits an Actualization to be undertaken without guaranteeing its success. Observed effects feed back into reassessment.
 - **Dependencies:** an Object's Actualization may require a NEED of another Object. When two Objects form a circular NEED–CAN dependency, the Method examines whether a third Object may satisfy a NEED and potentially break the cycle.
 
-The exact procedures for CAN attribution, NEED identification, mobilizability, Focus transitions, sufficient pathways, and scenario comparisons remain research tasks, **not settled tests**.
+- **Object identity and Definition:** an Object has a stable unique ID and a versioned Definition of constituent Objects **plus** relevant properties and relationships. Temporary and Actualised Children track contradictory Scenario branches; historical Definition versions remain recoverable.
 
-## Current use
+The exact procedures for contextual NEED/CAN identification, actionability/Power, Focus transitions, sufficient pathways, branch propagation and scenario comparisons remain research tasks, **not settled tests**.
+
+## Default operation: Advanced Mode
+
+**[Author-validated objective, November 15, 2026]** Advanced Mode is the **default**. It generates **multiple pertinent Resolution Scenarios** and evaluates each Scenario's anticipated effects on the initial Subject and other Objects in its Environment, **feasibility, complexity, cost, temporality, expected effectiveness and uncertainty**. Distinguish uncertainty about feasibility, probability of successful Actualization, and probabilities of particular anticipated effects. Do not invent numerical probabilities where evidence does not support them. Scenario generation, evaluation and **optional** selection are separate operations; the Method does **not** inherently choose a single best solution.
+
+**Simple Mode is suspended**; its usefulness will be reconsidered **after the Method is stabilized**. It is not a current operating mode or required implementation.
+
+## Current development
 
 The Method is currently being **developed, formalized, and critically examined** through:
 - Conceptual clarification and documentation of definitions, distinctions, and decisions.
-- Construction of a reproducible analytical protocol, including criteria for attributing Potentialities and assessing Power.
-- Exploration of Resolution Scenarios, recursive effects, semantic dependencies, and illustrative cases.
+- Construction of a reproducible analytical protocol, including contextual NEED/CAN identification, actionability, assessment of Power and separate Scenario generation/evaluation.
+- Exploration and comparison of multiple Resolution Scenarios, recursive effects, semantic dependencies, and illustrative cases.
 - Preparation of comparative and empirical tests to determine when the framework provides useful results.
 
 These are **development and research activities**, not demonstrated practical effectiveness.
