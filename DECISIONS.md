@@ -591,5 +591,78 @@ Here `can_id` refers to a hypothetical CAN relational record, `object_id` to an 
 
 **OPEN:** definitive and typed `effect_details` representation, identifying and versioning condition IDs and references, scope of link IDs across relational records, semantics of effects that target conditions vs links vs CAN availability, chronology and time zones (D-33/D-34), conflict/cascade and non-monotone evaluation, cycles combining inhibiting and enabling edges, Scenario-specific consistency checks, recursion termination and independent reproducibility. Related tasks: T-02, T-03, T-16, T-18, T-24, T-30.
 
+## D-40 · Identifiable conditions, time-indexed evaluations and Actualization-triggered state changes
+Date: November 15, 2026 | Status: **Five conceptual and data-design principles A–E VALIDATED; example JSON field layout and formal schema PROVISIONAL / OPEN**
+
+Following the D-39 cycle experiment, the author explicitly **validated proposals A–E** on conditions. The Method shall separate **the Definition of a condition**, **its evaluation in a particular Scenario at a time or over a time interval**, and **events/Actualizations that change the relevant Object state or Definition**. A condition is an **identifiable, contextual requirement** relevant to a CAN's actionability, a NEED's satisfaction, or a relationship's applicability. It need **not** itself be an independent Object.
+
+**A. Conditions as identifiable requirements (VALIDATED).** A condition may be specified in or associated with the appropriate NEED/CAN relational record or an individually qualified link, with a stable identifier, target/purpose, a predicate over the state of one or more Objects and, where relevant, composition and temporal constraints. Keep distinct the **requirement** and its **referenced Object(s)**; stating a predicate is not proof that the predicate holds. The previously validated `relation.links[].conditions` field can refer to defined conditions using their identifiers. Exact storage position and machine-readable predicate syntax remain open.
+
+**B. Definition versus evaluated state (VALIDATED).** Do **not** store an unqualified current truth/status as the immutable property of the condition's Definition. Derive an evaluated satisfaction state using available **observed or simulated Object properties** and context in the relevant **Scenario**, at a specified time or interval, then record that derived assessment with traceability. Historical evaluations remain pinned to their corresponding Object/relationship/condition Definition versions; Scenario results do not silently rewrite Defintions.
+
+**C. Three-state evaluation and composition (VALIDATED).** Condition evaluations support `satisfied`, `unsatisfied` and `indeterminate`, with evidence/uncertainty recorded separately. Use previously validated three-valued conjunction/disjunction (`all` / `any`) for explicitly specified combinations: `all` is unsatisfied if any evaluated member is unsatisfied, satisfied if all are satisfied, otherwise indeterminate; `any` is satisfied if any member is satisfied, unsatisfied if all members are unsatisfied, otherwise indeterminate. **Absence of a recorded requirement does not prove it is nonexistent**, and unknown is not false or zero probability. Even if the known required action conditions are satisfied, the method must not silently infer complete Power, sufficiency for a NEED or effective Actualization from the limited scope of that evaluation.
+
+**D. Actualizations modify states or Definitions; then conditions are reevaluated (VALIDATED).** An effective or simulated Actualization changes the state of one or more Objects, and may exceptionally entail an explicitly versioned **change of Definition** (including the Definition of a condition). The changed states must be used to **reevaluate the affected conditions**; a triggering CAN's Actualization does not usually rewrite the predicate/Definition of the affected condition itself. Record the event, changes, chronology, cause/uncertainty and assessment in the relevant Scenario, preserving D-33/34 temporal conventions, D-35 satisfaction-versus-compliance and the D-39 link/trigger/effect distinction. Never silently overwrite historical Definitions.
+
+**E. Condition identity scoped to its owning relation and versioned references (VALIDATED).** Each condition has a stable identifier **in the scope of its owning NEED/CAN relational record**: a pair such as `R-A / C-external` identifies the owning relation and its condition. Use the associated Definition version (or equivalent version reference) for historical evaluations and Scenario comparisons. This avoids requiring a new globally autonomous condition Object, while permitting `affects` / experimental `effect_details` to target a condition unambiguously **when ownership and version are specified**. Further cross-record/branch link and condition reference formats remain OPEN.
+
+**[APPROVED AS PROVISIONAL WORKING EXAMPLE, NOT AS FINAL JSON SCHEMA]**
+
+```json
+{
+  "ID": "R-A",
+  "Type": "CAN",
+  "OriginObject": "O-generator",
+  "NEEDs": null,
+  "CANs": ["O-battery", "O-external-source"],
+  "relation": {
+    "conditions": [
+      {
+        "id": "C-battery",
+        "target": "actionability",
+        "predicate": {
+          "object_id": "O-battery",
+          "property": "charged",
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "C-external",
+        "target": "actionability",
+        "predicate": {
+          "object_id": "O-external-source",
+          "property": "available",
+          "operator": "equals",
+          "value": true
+        }
+      }
+    ],
+    "condition_composition": {
+      "operator": "any",
+      "condition_ids": ["C-battery", "C-external"]
+    },
+    "links": [
+      {
+        "id": "L-battery",
+        "object_id": "O-battery",
+        "source_list": "CANs",
+        "conditions": ["C-battery"]
+      },
+      {
+        "id": "L-external",
+        "object_id": "O-external-source",
+        "source_list": "CANs",
+        "conditions": ["C-external"]
+      }
+    ]
+  }
+}
+```
+
+The example means that either specified alternative condition can make this **particular modeled startup action condition** satisfied. This is not evidence of real-world feasibility or of an exhaustive condition inventory, CAN actionability for every role, positive overall Power or a successful start. Its `relation.condition_composition` is distinct from D-37 Object-link `relation.composition` and D-34 `temporal.composition`.
+
+**OPEN:** Final format for condition definitions (`relation.conditions`, `predicate`, `condition_composition`, property paths, object versions, abstract/qualitative predicates), evaluations and evidence provenance; interaction of unknown/incomplete condition inventories with three-valued operators; temporal predicates and effects of changing Definitions; version-pinned cross-record link/condition references, cycles and non-monotone updates; materializing/caching derived statuses; independent falsification and reproduction. The recently reported D-39 synthetic experiment is preliminary evidence for pursuing these tests, **not empirical validation or closure of any task**. Related tasks: T-02, T-03, T-16, T-18, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
