@@ -51,7 +51,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-30, T-01.
 
-**Scope:** Use the current terminology **CAN actionable** (conditions of action fulfilled), not a distinct 'mobilizable CAN' category. Specify actionability for a defined contribution versus the sufficient Conditions of Power for the considered broader Actualization; preserve historical D-20/D-21 distinctions without assuming synonymy. Include required NEED satisfaction, shared constituent Objects, alternative pathways and cross-Object dependencies. Distinguish binary Power/epistemic indeterminacy from a statistically supported probability of positive Power, and from probability of Actualization success.
+**Scope:** Formalize **CAN actionable** (conditions of action fulfilled for a specified contribution) separately from complete sufficient **Power** conditions of the considered Actualization. Specify how a CAN with **unmet conditions** remains a **conditional Scenario candidate**, with missing NEEDs, CANs or other conditions documented and recursively examined; do not conflate potential correspondence or conditional inclusion with positive Power. Keep NEED satisfaction, cross-Object links, alternative and jointly required pathways, binary Power and epistemic/statistical uncertainty distinct; earlier mobilizable-CAN terminology is historical.
 
 **Closure criterion:** A documented model with explicit counterexamples shows when actionability does or does not settle Power, separates NEED satisfaction from matching, and handles unknown and circular pathways. Statistical estimation method and its limits are specified without ungrounded numerical certainty.
 
@@ -89,9 +89,9 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-02, T-03; coordinate with T-18.
 
-**Scope:** In **default Advanced Mode**, generate **multiple relevant and materially distinct** NEED- or CAN-focused Resolution Scenarios using one-to-many and many-to-one NEED–CAN links, alternatives, circular dependencies, action conditions, shared Objects and Secondary Subjects. Keep Scenario **generation separate from evaluation and optional selection**. Contradictory hypothetical Actualizations create distinct temporary child Objects with permanent IDs, isolated contexts and parent lineage; effective Actualization promotes the relevant child without changing its ID.
+**Scope:** In default **Advanced Mode**, for each **non-satisfied NEED Focus** compare CANs of the focal Subject and Environment Objects, identify **alternative and complementary** candidates, and create distinct Resolution Scenarios using their NEED–CAN links. Include currently **non-actionable CANs as conditional candidates with explicitly documented missing conditions**. Recursively identify supporting NEEDs, other CANs, action conditions, third-Object alternatives and cycles; keep correspondence, complementarity, candidate, evaluated Scenario, actionability, Power and Actualization distinct. Consider already satisfied NEEDs and CAN-focused analyses without forcing a new intervention. Preserve the distinction between scenario **generation**, **evaluation** and optional selection. Simulated contradictory Actualizations create isolated temporary branches whose promoted IDs remain stable.
 
-**Closure criterion:** A prototype presents and traces multiple materially distinct Scenarios and their dependencies, identifies unsatisfiable and circular cases, and correctly handles separate simulated branches and promotion; generation is evaluated independently of scenario ranking or any mandatory 'best solution'.
+**Closure criterion:** A traceable prototype generates **multiple materially distinct alternatives and combinations** from the same non-satisfied NEED, records candidate NEED–CAN matches, missing action conditions and recursive supporting paths, handles cycles and unreachable dependencies, and evaluates alternatives separately without automatically rejecting conditional CANs or declaring hypothetical steps actualized. Include a CAN-focused and already-satisfied NEED counterexample.
 
 **Preliminary evidence (not task closure):** Preliminary local monotone dependency-graph planner demonstrated scenarios and third-Object breakouts; NOT a full implementation of the revised Method.
 
@@ -122,7 +122,7 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 
 **Dependencies:** T-01, T-02, T-03 (iterative); coordinate with T-18.
 
-**Scope:** Extend adversarial cases to unique and persistent IDs, no accidental ID changes during promotion, Parent/Children consistency, references to common Objects, versioned historical immutability, isolation of temporary branches, conflicting effective observations and missing necessity evidence. Retain CAN actionable versus Power counterexamples, conceptual vs functional existence, false NEED–CAN matches, contradictions and non-monotone effects; distinguish conceptual failures from code defects.
+**Scope:** Include tests for **non-satisfied NEED → Subject/Environment CAN comparison → alternative and complementary combinations → documented missing conditions → recursive supporting scenarios**. Adversarial cases must include a non-actionable CAN that becomes actionable after a supporting Actualization, a CAN whose conditions cannot be satisfied, alternative versus jointly necessary CANs, misleading correspondence, a satisfied NEED needing no action, and CAN-focused analysis. Also retain stable IDs, Parent/Children consistency, shared-Object Definition histories, isolation of temporary branches, conflicting observations, actionability-versus-Power and non-monotone outcomes.
 
 **Closure criterion:** A versioned suite has explicit expected outputs for branch promotion, shared Objects, historical versions, actionability/Power and uncertainty, with regression reports and unresolved conceptual disagreements.
 
@@ -330,6 +330,8 @@ This is a **work plan**, not a source of new conceptual validation. Changes to t
 - 2026-11-15 — Integrated author-validated T-30 decisions (D-25–D-27): permanent Object IDs; provisional versioned Definitions with constituent Object lists **and** associated properties/relations; Parent, Temporary Children and Actualised Children; stable-ID branch promotion; isolation of simulation; shared-Object propagation; conceptual/functional existence; contextually selected CANs and optional CAN conceptual Objects; actionable terminology; and statistical Power uncertainty. Updated 18 existing task descriptions and closure criteria. No task closed, no new ID created.
 
 - 2026-11-15 — Adopted **Advanced Mode as default** (D-28): generate and evaluate multiple relevant Scenarios without a mandatory best-solution selection; distinguish feasibility, complexity, cost, temporality, expected effectiveness and appropriately supported uncertainty (feasibility, success and specific effects). **Simple Mode suspended** until the Method is stabilized. Updated the existing comparative, protocol, scenario, corpus, AI and tooling tasks; no tasks closed.
+
+- 2026-11-15 — Validated **NEED–CAN-driven Scenario generation** (D-29): search the focal Subject and Environment for alternative or complementary CANs addressing unsatisfied NEEDs; keep non-actionable CANs in conditional candidate Scenarios with missing conditions documented; recursively seek support for those conditions. Preserve CAN-focused and already-satisfied-NEED paths. Refined T-16, T-02 and T-24; all tasks remain OPEN.
 
 # Known limits of the current test evidence
 
