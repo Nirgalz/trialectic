@@ -219,5 +219,18 @@ This decision does **not** override the already validated **CAN-focused** Stage-
 
 **OPEN:** Exact matching and evidential criteria for correspondence, determining independent or joint sufficiency of combinations, path deduplication and diversity, circular-dependency handling, termination rules, representation of missing conditions, and independent reproducibility and controlled comparative testing. Related tasks: T-16, T-02, T-03, T-17, T-21, T-24, T-27, T-30.
 
+## D-30 · Three distinct NEED–CAN pathway cases for Scenario generation
+Date: November 15, 2026 | Status: **Validated conceptual distinction; operational tests OPEN**
+
+The author explicitly validated distinguishing **three cases** in the construction of NEED-focused Resolution Scenarios:
+
+1. **Single-CAN satisfaction pathway:** one CAN may suffice to satisfy the focal NEED **under specified conditions**. This is a candidate sufficiency relationship; identifying the CAN does not by itself prove actionability, positive Power, effective Actualization or observed NEED satisfaction.
+2. **Joint-CAN satisfaction pathway:** multiple CANs must contribute together (possibly sequentially, in parallel or under conditions) to satisfy the focal NEED; no single contributor is assumed sufficient by itself.
+3. **Enabling-CAN pathway:** one CAN does **not directly satisfy** the focal NEED, but helps meet a missing condition of action of another CAN, potentially making that other CAN **actionable**. The relevant missing conditions must be identified and may be examined recursively.
+
+**[FORMALIZATION, not separately adopted as an exclusive taxonomy]** These cases classify **roles or relations within an identified pathway**, not three fixed, mutually exclusive kinds of CAN; a CAN can fulfill different roles in different Scenarios, and a compound Scenario can combine joint and enabling dependencies. The shorthand names above are working English labels, not new definitive bilingual terminology.
+
+**OPEN:** Criteria and evidence for sufficiency of a single CAN, joint necessity and minimal combinations, causality and indirect enabling effects; treatment of partially known and conditionally actionable CANs; overlap between roles, branching costs and duplicate pathways; tests on held-out cases. This updates the T-16 generation protocol without declaring it complete or scientifically validated. Related tasks: T-16, T-02, T-24, T-03, T-17.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
