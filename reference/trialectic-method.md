@@ -113,7 +113,7 @@ The adopted recursive sequence is:
 
 **[VALIDATED — November 15, 2026; D-32] Temporal satisfaction requirements:** The required state of a NEED may have an explicit **temporal requirement**: specify, where relevant, **when** it must be satisfied and **for how long**, including whether satisfaction must be maintained throughout a defined part of a Scenario. The presence of a satisfied **final state** does not establish compliance with a requirement of **continuous satisfaction throughout the Scenario**. This is a temporal specification of the NEED's required state, not a newly adopted intrinsic class of NEEDs. A Scenario's satisfaction evaluations are **context- and time-specific**, and must remain distinct from the NEED's definition and its versioned requirements.
 
-**[OPEN / PROPOSED DATA MODEL]** A single reusable representation of temporal information for NEEDs **and CANs** has been requested. The exact field structure, admissible temporal constraints and estimates, handling of intervals, relative events, recurrence, duration, uncertainty and versions remain **PROPOSED**, not yet validated.
+**[VALIDATED — November 15, 2026; D-33]** NEEDs and CANs may both use a common structured `temporal` field, with separate `requirements` (temporal constraints) and `estimates` (estimated action/effect times and durations). The temporal requirement of a NEED is part of its versioned Definition; Scenario-specific satisfaction and time-indexed observations belong to a **separate Scenario evaluation**, not to the `temporal` requirements themselves. See §3.2.1 for the approved format and conventions. **[OPEN]** Full schema validation and semantics for combining/recurring/relative constraints remain to be operationalized.
 
 **[OPEN]** Operational criteria distinguishing a NEED from a merely favorable property; conceptual versus functional necessity across Object types; identity and granularity of required states; evidential standards, statistical calibration and the exact role of the Semantic Pyramid in non-semantic cases.
 
@@ -128,6 +128,98 @@ The adopted recursive sequence is:
 - **Plasticity [VALIDATED]**: an Object's aptitude for its Potentialities to emerge, change, or disappear; this is distinct from a change actually observed. How to extend the concept to changes of NEEDs in the revised architecture remains **OPEN**.
 
 The perspectives of **Subject, Environment, and Semantics** may be used to determine and analyze NEEDs and CANs; their relevance and weight depend on the case. The exact operations corresponding to each perspective remain **OPEN**. **[VALIDATED principle / OPEN operationalization]**
+
+### 3.2.1 Common temporal data format for NEEDs and CANs
+
+**[VALIDATED — November 15, 2026; D-33]** A NEED and a CAN can each have a common structured `temporal` field. This **does not** introduce new ontological categories of NEED or CAN. The field distinguishes:
+- `requirements`: **when** satisfaction or action is required, including mandatory times, deadlines, continuity, recurrence and cumulative-duration constraints.
+- `estimates`: estimated **execution duration**, **delay until effects**, and **duration of effects** (where relevant).
+- `time_zone`: an IANA time-zone identifier for interpreting the relevant civil time; timestamp values should also carry their **explicit UTC offset**.
+
+**[VALIDATED modes and working field identifiers]** A `requirements` entry uses a `target` and one of these `mode` values:
+- `point`: a required state at a given `at` instant.
+- `continuous`: a required state throughout a `window` interval.
+- `deadline`: a required state or action by `deadline`.
+- `recurring`: an obligation repeating according to `recurrence`.
+- `cumulative`: a minimum accumulated duration `min_duration` during a given `window`.
+
+Modes may coexist in an entity's requirements; **the exact logical semantics for overlaps, combinations and exceptions remain OPEN**. Mode names and these key identifiers are approved as a working data representation; complete machine-enforced schemas for each mode are not yet settled.
+
+**[VALIDATED conventions]** Use ISO 8601 date-times including explicit UTC offsets, and ISO 8601 duration strings (e.g. `PT30M` and `PT2H`). Model intervals as **start-inclusive, end-exclusive**. Distinguish an **absent/unknown** duration from a **zero** duration; empty arrays do not prove that no unrecorded requirement exists. When relevant, represent durations as ranges (e.g. `min` and `max`), without treating estimates as certain outcomes.
+
+Illustrative **NEED**:
+
+```json
+{
+  "id": "N-001",
+  "required_state": {"property": "air_quality_acceptable", "value": true},
+  "temporal": {
+    "time_zone": "Europe/Paris",
+    "requirements": [
+      {
+        "target": "satisfaction",
+        "mode": "continuous",
+        "window": {
+          "start": "2026-11-15T08:00:00+01:00",
+          "end": "2026-11-15T18:00:00+01:00"
+        }
+      }
+    ],
+    "estimates": []
+  }
+}
+```
+
+Illustrative **CAN**:
+
+```json
+{
+  "id": "C-001",
+  "description": "Install an air filter",
+  "temporal": {
+    "time_zone": "Europe/Paris",
+    "requirements": [
+      {
+        "target": "action_start",
+        "mode": "deadline",
+        "deadline": "2026-11-15T09:00:00+01:00"
+      }
+    ],
+    "estimates": [
+      {
+        "target": "execution",
+        "duration": {"min": "PT15M", "max": "PT30M"}
+      },
+      {
+        "target": "effect",
+        "start_delay": {"min": "PT0M", "max": "PT5M"},
+        "duration": {"min": "PT6H", "max": "PT8H"}
+      }
+    ]
+  }
+}
+```
+
+**[VALIDATED separation]** For each Scenario, retain **evaluations and observations separately** from the NEED/CAN Definition, so changing the assessed status does not silently rewrite a NEED's requirements. Example (illustrative evaluation, not an Actualization of the original Object):
+
+```json
+{
+  "scenario_id": "S-002",
+  "need_id": "N-001",
+  "evaluation": {
+    "status": "unsatisfied",
+    "violations": [
+      {
+        "start": "2026-11-15T10:00:00+01:00",
+        "end": "2026-11-15T10:20:00+01:00"
+      }
+    ],
+    "evidence": "established_in_model"
+  }
+}
+```
+
+**[SCOPE / OPEN]** These examples document the **approved format**, not a final JSON Schema or a complete run-time model. In particular: robust definitions for recurring schedules, relative event references, time-zone daylight-saving transitions, combinations of `requirements`, ambiguous boundaries, provenance and uncertainty of estimates, cross-Scenario evaluation links, and within-action monitoring resolution remain to be designed/tested. `temporal` does not by itself establish CAN actionability or positive Power.
 
 ## 3.3 Intrinsicality, specificity and origin
 
@@ -494,4 +586,8 @@ Initial Object identification is relative to the focal Subject and its existenti
 
 ## November 15, 2026 — Temporal NEED compliance and exploration of unknown NEED–CAN relations
 
-**[VALIDATED — D-32]** Evaluate NEED satisfaction against its required state **and relevant temporal requirement**, which may demand maintaining that state during part or all of a Scenario. Final-state success alone is not enough to establish uninterrupted satisfaction. Keep the temporal specification in the NEED's Definition distinct from time-dependent Scenario observations and simulation assessments. **[VALIDATED]** When known CANs do not satisfy a NEED or missing action condition, the Method may recursively extend relevant Object Definitions/Environment to identify **hypothetical, initially unrecorded CANs and relations**, with evidential evaluation and relevance-based limits. Distinguish **no solution currently identified**, **an unverified hypothetical solution**, and **assessed infeasibility within explicitly specified conditions**. **[PROPOSED — not adopted]** A shared structured temporal field for NEEDs and CANs is under design; syntax, operators and constraints have not been approved.
+**[VALIDATED — D-32]** Evaluate NEED satisfaction against its required state **and relevant temporal requirement**, which may demand maintaining that state during part or all of a Scenario. Final-state success alone is not enough to establish uninterrupted satisfaction. Keep the temporal specification in the NEED's Definition distinct from time-dependent Scenario observations and simulation assessments. **[VALIDATED]** When known CANs do not satisfy a NEED or missing action condition, the Method may recursively extend relevant Object Definitions/Environment to identify **hypothetical, initially unrecorded CANs and relations**, with evidential evaluation and relevance-based limits. Distinguish **no solution currently identified**, **an unverified hypothetical solution**, and **assessed infeasibility within explicitly specified conditions**. **[SUPERSEDED by validated D-33]** The shared `temporal` / `requirements` / `estimates` structure and five modes were subsequently approved; detailed composition semantics and validation rules remain open.
+
+## November 15, 2026 — Approved common temporal representation
+
+**[VALIDATED — D-33]** A NEED or CAN may carry a common `temporal` object with `time_zone`, `requirements` and `estimates`. Five temporal constraint modes are approved in the working JSON representation: `point`, `continuous`, `deadline`, `recurring`, `cumulative`. ISO 8601 dates/durations, explicit UTC offsets, start-inclusive/end-exclusive intervals and an explicit distinction between absent versus zero duration are approved conventions. Scenario-specific satisfaction and time-indexed observations stay **outside** the versioned NEED/CAN requirement metadata. Exact rules for overlapping requirements, relative event times, recurrence and schema enforcement are **OPEN**; the illustrative JSON format is approved, not a completed or independently tested implementation.
