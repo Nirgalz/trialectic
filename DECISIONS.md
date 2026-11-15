@@ -294,5 +294,66 @@ Multiple constraints may apply to the same NEED or CAN; the **precise logical co
 
 **[OPEN]** Precise semantics of constraints used together; recurring scheduling and exceptions; cumulative duration aggregation; relative-event temporal references; time-zone daylight-saving changes, event ordering and interval edges; provenance and uncertainty of estimates; temporal resolution within actions; schema validation and multi-Object simulator testing. Related tasks: T-03, T-16, T-18, T-24.
 
+## D-34 · Combining temporal constraints, authorized exceptions and three-valued evaluation
+Date: November 15, 2026 | Status: **Validated temporal combination rules and illustrated JSON; detailed schema/algorithm tests OPEN**
+
+The author explicitly validated rules A–E and the proposed JSON representation (section 6 of the discussion), building upon the common NEED/CAN `temporal` format approved by D-33.
+
+**A. Default conjunction (VALIDATED).** When a NEED or CAN has multiple applicable temporal requirements, **all** must be satisfied unless explicitly authorized alternative satisfaction conditions are represented. Satisfying a cumulative-duration requirement cannot compensate for an interruption that violates a separately mandated continuous requirement.
+
+**B. Explicit alternatives and composition (VALIDATED).** Use `all` for requirements that must all be satisfied and `any` when satisfying at least one requirement is enough. The optional `composition` field contains an `operator` and a `requirements` array referencing requirement IDs; without `composition`, apply `all` by default to the documented requirements. This does not make an incomplete list exhaustive. Complex logical groupings are conceptually allowed, but exact nested object serialization, reference validation, and precedence remain OPEN. Alternative requirements within one NEED/CAN must not be confused with distinct Resolution Scenarios.
+
+**C. Authorized exceptions (VALIDATED).** Exceptions to requirements must be **explicitly allowed**, **time-scoped**, **justified**, and retained in the **versioned history**. They must not be inferred from an observed interruption, silently retroactively legalized, or allowed to bypass unrelated applicable constraints. Detailed exception object structure, authority, amendments and overlapping-rule precedence remain OPEN.
+
+**D. Contradictions (VALIDATED).** Identify requirements that demand mutually incompatible states for the **same Object/property/context and overlapping time**. Distinguish:
+- compatible constraints (can be assessed together);
+- mutually incompatible requirements (a **Definition/constraint inconsistency** to be investigated);
+- compatibility indeterminate owing to missing information.
+A contradictory Definition is distinct from an otherwise coherent NEED being **unsatisfied in a Scenario**. Contradiction/consistency diagnostics do not establish a fourth intrinsic NEED-satisfaction state.
+
+**E. Three-valued aggregation (VALIDATED).**
+- `all`: **satisfied** if every requirement is satisfied; **unsatisfied** if any is unsatisfied; otherwise **indeterminate** when at least one is indeterminate.
+- `any`: **satisfied** if any requirement is satisfied; **unsatisfied** if every requirement is unsatisfied; otherwise **indeterminate** when at least one is indeterminate.
+- Structural contradictions are flagged separately and must not silently be absorbed into the three-valued satisfaction result.
+- When computing cumulative satisfaction time, **overlapping satisfied intervals must be counted only once**.
+
+**Section 6, approved JSON example (VALIDATED).** The following `temporal` structure adds an optional `composition` field to D-33; this is a **working example**, not a complete JSON Schema:
+
+```json
+{
+  "temporal": {
+    "time_zone": "Europe/Paris",
+    "requirements": [
+      {
+        "id": "R1",
+        "target": "satisfaction",
+        "mode": "continuous",
+        "window": {
+          "start": "2026-11-15T08:00:00+01:00",
+          "end": "2026-11-15T12:00:00+01:00"
+        }
+      },
+      {
+        "id": "R2",
+        "target": "satisfaction",
+        "mode": "cumulative",
+        "window": {
+          "start": "2026-11-15T08:00:00+01:00",
+          "end": "2026-11-15T18:00:00+01:00"
+        },
+        "min_duration": "PT8H"
+      }
+    ],
+    "composition": {
+      "operator": "all",
+      "requirements": ["R1", "R2"]
+    },
+    "estimates": []
+  }
+}
+```
+
+**OPEN:** Full syntax and independent parser for nested `all`/`any` groups, rules for exceptions and overlaps, recurrent scheduling, event-relative temporal references, contradictions and satisfiability algorithms, treatment of daylight-saving and unknown or incomplete observations, simulator tests with time-indexed effects and counterexamples. Related tasks: T-03, T-16, T-18, T-24. No empirical validation or task closure is implied.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
