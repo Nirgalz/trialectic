@@ -257,5 +257,20 @@ These labels concern the **analyst's knowledge**, not intrinsic NEED or CAN stat
 
 **OPEN:** Evidence and causal-inference criteria for contribution; counterfactual removal tests in changing environments; precise sufficiency and joint necessity tests; alternative-path completeness; statistical calibration; minimal sets and path equivalence; time and non-monotone dynamics; independent reproducibility. This decision elaborates D-29 and D-30 without closing T-16 or claiming scientific validation. Related tasks: T-16, T-02, T-03, T-24, T-17, T-21.
 
+## D-32 · Temporal satisfaction requirements and recursive discovery of unknown NEED–CAN relations
+Date: November 15, 2026 | Status: **Validated principles; shared temporal data format PROPOSED, not validated**
+
+The author validated that the **required state of a NEED can include an explicit temporal requirement** specifying when and for how long the state must be satisfied. The Method must evaluate **conditional sufficiency** relative to that temporal requirement, including cases where uninterrupted satisfaction is required over part or all of a Scenario. A final state satisfying a NEED does **not** establish that it remained satisfied throughout the Scenario. The time-related properties of a NEED's Definition and the state/satisfaction observed or simulated in particular Scenarios must not be conflated. A simulator assessing continuity must not falsely claim continuous compliance when violations might occur between its observation points.
+
+The author approved two complementary operations:
+1. **Exploitation of known relationships:** search documented relevant NEEDs, CANs, actionable conditions and dependencies.
+2. **Exploration of missing relationships:** when known candidates do not suffice, recursively broaden relevant Object Definitions and the contextual Environment to identify additional possibly existing Objects, CANs or initially unknown relations. Any proposed relation must be identified as **hypothetical** and subjected to the D-31 checks of correspondence, contribution, conditional sufficiency, Scenario-relative necessity and actionability. Semantic associations alone are not empirical causal evidence. Apply recursive relevance and complexity limits.
+
+The author also validated distinguishing three information states: **(a) no suitable Scenario currently identified**, **(b) a hypothetical or unverified candidate**, and **(c) assessed infeasibility/impossibility of examined pathways under explicitly specified conditions**. Neither incomplete inventories nor the failure to identify a solution prove that NEED satisfaction is universally impossible. Discovery of a previously unidentified CAN must remain distinct from **development/emergence of a new CAN** under Plasticity.
+
+**[PROPOSED DATA MODEL — NOT VALIDATED]** The author requested a reusable temporal data format attachable to both a NEED and a CAN. A common structured field for temporal requirements and estimated action/effect timing has been proposed for discussion. Its JSON field names, constraint modes (instant, continuous, deadline, periodic, cumulative), interval conventions, evidence metadata and evaluation schema have **not** yet been explicitly approved. The approved conceptual temporal rule does **not** imply approval of these implementation choices.
+
+**OPEN:** Shared temporal schema; semantics and granularity of continuity/interval requirements; temporal effects and within-action events; discovering unknown relations reproducibly; preventing unbounded exploration; evaluating evidence and contextual impossibility; comparative validation. No task is closed or scientific effectiveness established. Related tasks: T-01, T-03, T-16, T-18, T-21, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
