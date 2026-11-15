@@ -356,6 +356,58 @@ Here `relation.condition_composition` combines **conditions** rather than the **
 
 **[OPEN]** Machine-readable predicate and condition schema, validation of heterogeneous Object properties, exact ownership and state property versioning, incomplete-inventory effects on aggregate actionability, temporal condition windows and effect delays, how persistent/temporary effects change conditions, graph/circular-reference stability, contradictory observations and provenance, caching, and independent comparison with D-39 synthetic tests. No empirical validation or TODO closure is implied.
 
+### 2.1.7 Pathway completeness, inventory completeness and nested conditions (D-41)
+
+**[VALIDATED — November 15, 2026; D-41]** Distinguish **(i) internal completeness of the conditions identified for a specified Actualization pathway**, and **(ii) completeness of the inventory of contextually relevant pathways to a CAN**. A set of fully specified known pathways does not imply all possible relevant pathways have been discovered. Completeness is specific to **scope, version, assumptions and evidence**, not an absolute intrinsic global CAN label.
+
+**[VALIDATED]** Provide identifiable pathways with a composable set of conditions, individually assessed **coverage** and supporting evidence, and a separately assessed **inventory coverage**. Allow explicit **nested `all`/`any` groups** for conditions within a pathway and pathways within an inventory. An expression tree's logical correctness is not by itself D-31 causal sufficiency, true actionability/Power, or effective Actualization. The three epistemic uncertainties remain distinct: an **unknown Object property/condition evaluation**, an **unknown unlisted necessary condition of an identified pathway**, and an **unknown additional pathway**.
+
+**[VALIDATED semantic rules for evaluation relative to modeled scope]** A specified and defensibly complete pathway evaluated as satisfied provides an identified possible route; if a known necessary condition fails, that pathway can be unsatisfied even if further necessary conditions remain undiscovered. If all **known** conditions of an incompletely specified pathway pass, that pathway remains indeterminate. A complete and justified inventory whose pathways all fail can be unsatisfied (in the scoped evaluation). An **incomplete inventory** for which all known pathways fail is **indeterminate globally**, not proof the CAN cannot be made actionable by some unexamined path. A confirmed satisfying pathway within an open inventory may still make the evaluated inventory satisfied **for that modeled route**, subject to the established sufficiency/actionability checks. Unknown inferences must never silently become false.
+
+**[PROPOSED — NOT YET AUTHOR-VALIDATED RECURSIVE EXPRESSION FORMAT]** The following **single recursive syntax for Boolean composition** avoids separate incompatible mini-languages for pathway conditions and pathway inventories:
+
+- A **reference leaf** is `{"ref":{"kind":"condition","id":"C-command"}}` (or, where allowed, `kind:"pathway"` and a pathway identifier).
+- A **group** is `{"op":"all"|"any","items":[<expression>,...]}`. The `items` entries may themselves be leaves or arbitrarily nested groups. Logical grouping is explicit; no inferred operator precedence.
+- **Metadata** on a named group, such as `id`, `kind:"pathway"|"inventory"`, `coverage:"complete"|"incomplete"|"indeterminate"`, `scope`, `version` and `evidence`, is separate from `op` and does not create a new truth operator.
+- Under incomplete/indeterminate coverage, an `all` expression with a known false conjunct may still be **unsatisfied**, otherwise it is **indeterminate** even if all identified members are true; an `any` expression with a confirmed true member may still be **satisfied**, otherwise it is **indeterminate** even if all identified members are false.
+- The exact typed reference format, reusable pathway definitions, version-pinning, presence/absence of a mandatory wrapper and complete JSON Schema are still under review. Empty groups, cycles and invalid references must be handled explicitly rather than silently interpreted.
+
+**[ILLUSTRATIVE D-41 PROPOSAL ONLY]** `C-command`, `C-battery`, and `C-external` below are separately defined condition IDs scoped to an owning CAN relation; their evaluated statuses are Scenario/time-specific, **not** stored as fixed truths in the expression:
+
+```json
+{
+  "id": "I-start",
+  "kind": "inventory",
+  "coverage": "incomplete",
+  "scope": "R-A starting in scenario context",
+  "op": "any",
+  "items": [
+    {
+      "id": "P-battery",
+      "kind": "pathway",
+      "coverage": "complete",
+      "op": "all",
+      "items": [
+        {"ref": {"kind": "condition", "id": "C-command"}},
+        {"ref": {"kind": "condition", "id": "C-battery"}}
+      ]
+    },
+    {
+      "id": "P-external",
+      "kind": "pathway",
+      "coverage": "complete",
+      "op": "all",
+      "items": [
+        {"ref": {"kind": "condition", "id": "C-command"}},
+        {"ref": {"kind": "condition", "id": "C-external"}}
+      ]
+    }
+  ]
+}
+```
+
+**[OPEN]** Final JSON Schema of expression nodes, completeness provenance and falsification, empty inventories, cross-record references/version ownership, cyclic path references, interaction of D-37 **Object-reference relation composition** and D-34 **temporal requirement composition**, semantics of existential AND/OR conditions, independent test coverage and complexity. D-40 `relation.conditions` / `predicate` fields remain provisional as well.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -975,3 +1027,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Identified conditions and state-based evaluation (D-40)
 
 **[VALIDATED — D-40]** Conditions are contextual identifiable requirements attached to NEED/CAN relations or qualified links; they are not necessarily independent Objects. A condition Definition (predicate, purpose, and possible composition/time restrictions) is separate from its **three-state**, evidence-qualified **Scenario/time evaluation**. Actualizations change Object states, and sometimes explicitly versioned Definitions; then evaluate affected conditions rather than changing their requirements implicitly. Reference conditions by owner NEED/CAN relation ID and local condition ID, with Definition-version context for historical/Scenario assessments. `all`/`any` condition grouping reuses the validated three-valued logic, without assuming a complete inventory. **[PROVISIONAL]** `relation.conditions`, `predicate`, `condition_composition`, and links pointing to condition IDs are illustrative; the exact schema and independent validation remain OPEN.
+
+## November 15, 2026 — Validated completeness distinctions and nested pathways (D-41)
+
+**[VALIDATED — D-41]** Separate completeness of conditions within an identified Actualization pathway from completeness of the whole contextually relevant inventory of pathways, each justified and version-scoped. Permit nested Boolean groupings and three-state evaluation of individual pathways versus the whole inventory, without mistaking an incomplete inventory for a globally negative CAN assessment. Introduce identifiable pathways with evidence/coverage metadata. **[PROPOSED, NOT VALIDATED]** A unified recursive expression language with `op: all|any`, nested `items` and typed reference leaves; exact serialization and treatment of empty groups/cycles remain OPEN.
