@@ -399,5 +399,23 @@ This **does not** by itself establish empirical validity, independent reproducib
 
 **OPEN:** Operational determination of effective satisfaction from incomplete or conflicting observations; distinct provenance/uncertainty for the two assessments; effects of changing required states; exception authorization and validity tests; aggregation across NEEDs, Objects and Scenarios without masking adverse effects; independent regression tests using the temporal engine. Related tasks: T-03, T-16, T-17, T-18, T-24.
 
+## D-36 · NEED and CAN as origin-anchored relations connecting one or more Objects
+Date: November 15, 2026 | Status: **Validated data-structure and participant-cardinality clarification; operational and logical semantics OPEN**
+
+The author reformulated the representation of a NEED and a CAN: rather than only a property of an Object or necessarily a separately instantiated conceptual Object, **each NEED/CAN is represented as a typed relation between Objects**, with the following directly specified relational record fields:
+- `ID` — identifier of the NEED/CAN relational record;
+- `Type` — `NEED` or `CAN`;
+- `NEEDs` — nullable list of **Objects** (Object references) that can be used to refine granularity and specify the parent NEED;
+- `CANs` — nullable list of **Objects** (Object references) used to refine the parent NEED or CAN;
+- `OriginObject` — the Object from which the particular NEED or CAN originates.
+
+The author further clarified that the 'second Object' in the relation is **identified directly in the `NEEDs` or `CANs` list(s)**. When only one Object occurs across the lists, the relation has a single other Object participant; when multiple Objects occur, the relation has **multiple other Object participants**. **A separate mandatory `TargetObject` field is therefore unnecessary.** Both lists may be present; their detailed semantics remain to be formalized. Describing the resulting data structure as an origin-anchored multi-party relation (directed hyperrelation) is a **technical interpretation**, not a separately approved ontological thesis.
+
+The referenced entries in the lists are **Objects**, not automatically sub-records of type NEED/CAN or Objects whose global type becomes NEED or CAN. The `Type` field identifies the **relation record**. The Object-oriented and versioned Definitions of D-26/T-30 remain relevant, but prior representations in which NEEDs and CANs appeared merely as Object properties or a CAN was only optionally a conceptual Object must be **reconciled with this newly validated default relational structure**. Prior conceptual NEED (necessity), CAN (Potentiality), actionability, Power, temporal and Scenario-satisfaction distinctions have not been replaced.
+
+**No unapproved inference:** The presence of several referenced Objects does not establish joint necessity (`AND`), alternative sufficiency (`OR`), contribution, actual NEED satisfaction, CAN actionability or a causal relation without further analysis. The relation record may support progressively more granular descriptions and recursive exploration, but the rules for composing those refinements are not yet fixed.
+
+**OPEN:** Exact meaning and combination of `NEEDs` and `CANs` when both contain Object references; whether all list members are requirements, alternatives or other relations; meaning of null and empty lists, including when no participant is currently named; whether duplicates may occur; recursive nesting and parent/child relation identity; versioning of relational records, preservation of origin and target references under branch Actualization; interaction with shared Objects and temporal metadata; need for additional attributes. Related tasks: T-30, T-01, T-02, T-03, T-16, T-24.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
