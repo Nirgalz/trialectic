@@ -417,5 +417,52 @@ The referenced entries in the lists are **Objects**, not automatically sub-recor
 
 **OPEN:** Exact meaning and combination of `NEEDs` and `CANs` when both contain Object references; whether all list members are requirements, alternatives or other relations; meaning of null and empty lists, including when no participant is currently named; whether duplicates may occur; recursive nesting and parent/child relation identity; versioning of relational records, preservation of origin and target references under branch Actualization; interaction with shared Objects and temporal metadata; need for additional attributes. Related tasks: T-30, T-01, T-02, T-03, T-16, T-24.
 
+## D-37 · Structured NEED/CAN relation: origin type, referenced-Object roles and composition
+Date: November 15, 2026 | Status: **Validated relation dimensions, category catalogue, basic JSON representation and per-link design principle; detailed per-link schema and empirical checks OPEN**
+
+Following D-36, the author explicitly validated all five parts of the proposal for a **structured `relation` field** on the NEED/CAN origin-anchored relational record. A single exclusive relation label is insufficient: the data model must distinguish (i) **nature of the relation relative to `OriginObject`**, (ii) **roles toward individual Objects referenced in `NEEDs` or `CANs`**, and (iii) **logical grouping/composition** of those references. `OriginObject` remains the relevant origin field; do not confuse it with the pre-existing Object lineage `Parent`.
+
+**1. Validated relation nature relative to origin.** Contextually applicable classifications may coexist:
+- **NEED**: **existential** (necessary to existence in an explicitly stated sense), **structural** (necessary to a defined organization/configuration), **functional** (necessary to functioning or maintenance of a specified state).
+- **CAN**: **contributive** (potential beneficial contribution), **enabling** (can help meet another CAN's action condition), **inhibitory** (may impede actions or their conditions), **transformative** (may change Object constitution, NEEDs or CANs).
+These are descriptions of a specific analyzed relationship, not unconditional global properties. Necessity and sufficiency, in the distinct senses tested in D-31, are not fixed independent relation categories.
+
+**2. Validated catalogue of contextual relationships between multiple referenced Objects/contributions.**
+- **Alternative**: different possible paths to the stated outcome, without assuming each is independently sufficient.
+- **Complementary**: participating or jointly contributing Objects; not an automatic proof of individual necessity.
+- **Substitutive**: one Object can replace another for a specified role; stronger and more specific than unspecified alternatives, but not necessarily perfect interchangeability.
+- **Sequential**: contributions are ordered in the relevant pathway.
+- **Synergistic**: a combined contribution or effect cannot be represented as a simple sum of isolated effects, and requires investigation.
+- **Antagonistic**: interactions conflict, inhibit or limit one another.
+- **Reciprocal**: mutual dependencies or contributions.
+Multiple labels may apply in specific contexts, and their mechanism must be assessed rather than asserted from similarity alone.
+
+**3. Validated additional relation qualifiers.** Where relevant record **conditionality**, **temporality**, **direct or indirect causality**, and **epistemic evidence/status**. Retain D-31 distinctions (established **within a model**, plausible, refuted within the studied context, indeterminate), without confusing qualitative labels with statistically founded likelihood. Keep D-33–D-35 time requirements, exceptions, effective satisfaction, compliance and Scenario evaluations separate where applicable.
+
+**4. Validated initial `relation` JSON format.** The author accepted the extension to the D-36 record, with `relation.nature` (multiple compatible values) and `relation.composition` containing Object groups and `all`/`any` operators:
+
+```json
+{
+  "ID": "R-001",
+  "Type": "NEED",
+  "OriginObject": "O-001",
+  "NEEDs": ["O-002", "O-003"],
+  "CANs": ["O-004", "O-005"],
+  "relation": {
+    "nature": ["existential", "structural"],
+    "composition": [
+      {"objects": ["O-002", "O-003"], "operator": "all"},
+      {"objects": ["O-004", "O-005"], "operator": "any"}
+    ]
+  }
+}
+```
+
+These are **asserted groupings**, not in themselves proof of satisfaction, causality, Power or absolute necessity. The logical interaction between **different composition groups** still requires specification. The `relation.composition` for **Object-reference links** is separate from the previously validated D-34 `temporal.composition` of **temporal requirements**.
+
+**5. Validated design recommendation: qualified links.** The `relation` field must be capable of describing each linked Object's **own role**, because one CAN could be enabling for another CAN, contributive for a NEED, and inhibitory for a different Object at the same time. The `nature` field for the origin relationship must not silently propagate to every reference. **The precise machine-readable substructure for per-link attributes is NOT yet validated**; names like `links` or `qualifiers` would remain proposals until specified and approved.
+
+**OPEN:** per-link record shape and IDs; multi-group Boolean logic and precedence; semantics when one Object is referenced in both lists; existential/structural/functional classification operational tests; context-sensitivity, relation versioning/branching, negative effects and conflicts, empirical evidence standards and independent reproduction. This decision elaborates D-36 and D-31 without claiming that every listed relation is empirically established. Related tasks: T-30, T-01, T-02, T-03, T-16, T-24.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
