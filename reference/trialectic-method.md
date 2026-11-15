@@ -166,7 +166,16 @@ The earlier 'attributable CAN' category has been **questioned by the author as p
 - The existence of a possible NEED–CAN match does not prove that the CAN is **actionable**, that a NEED is actually satisfied, that overall Power is positive, or that an Actualization will succeed.
 - **[VALIDATED, November 15]** Where multiple CANs may satisfy one NEED, or one CAN contributes to multiple NEEDs, create and compare relevant Scenarios. When A's NEED is involved in B's Actualization, evaluate consequences for both and other affected Objects.
 
-**[OPEN]** Identity, direction, multiplicity, timing, strength, and evidential criteria of a valid NEED–CAN correspondence; whether and how a NEED can be addressed by multiple CANs or by non-CAN states.
+**[VALIDATED — November 15, 2026; T-16]** For a **non-satisfied NEED**, compare it with relevant **CANs of the focal Subject and Objects in its Environment**. Identify potential **correspondences** and **complementarities** for generating candidate Resolution Scenarios. Distinguish:
+- **Alternative CANs**: different CANs may be candidate paths for the same NEED, without presuming they are each sufficient.
+- **Complementary CANs**: satisfaction of a NEED may require the coordinated or sequential contribution of multiple CANs.
+- **Correspondence**: a CAN appears relevant to a NEED; this does **not** yet establish that its action conditions are met or that the NEED will be satisfied.
+- **Complementarity**: one or more NEED–CAN relations support constructing a candidate pathway; the necessary conditions must still be examined.
+- **Evaluated Scenario**: a candidate pathway whose conditions, dependencies, consequences and uncertainty have been examined; 'evaluated' does **not** mean feasible, successful or actualized.
+
+A candidate CAN is **not excluded merely because it is not currently actionable**. Retain it as a conditional candidate and **document the missing action conditions**; these may themselves require other NEEDs to be satisfied and other CANs to be considered. NEED satisfaction may also result from an **already existing state**, without an identifiable CAN Actualization.
+
+**[OPEN]** Operational tests for correspondence versus causal contribution; alternative and joint sufficiency, granularity and evidence; duplicate/path-equivalence detection; scenario explosion and when a recursive search should stop.
 
 ## 4.2 Action conditions, NEED satisfaction and Power
 
@@ -177,7 +186,7 @@ The earlier 'attributable CAN' category has been **questioned by the author as p
 - The Method distinguishes **actionability for a given contribution/relationship** from whether the **complete sufficient pathway for the considered Actualization** has all its Conditions of Power satisfied.
 - The formerly distinct label **mobilizable CAN** is not maintained as a separate CAN category. Earlier D-20/D-21 statements about mobilizability remain in the historical decision record; they must be interpreted under this later terminology, not silently deleted.
 
-**[FORMALIZATION / OPEN under T-02]** Precisely delimit the action conditions of a CAN from a sufficient pathway for an identified Actualization. An actionable CAN in one relationship must **not** automatically settle Power for a broader Actualization with other necessary conditions. Conversely, when 'actionable' and 'positive Power' refer to exactly the **same** full set of action conditions, they may be operationally equivalent; whether this occurs and how it should be expressed must be explicitly tested, not assumed.
+**[VALIDATED — November 15]** A candidate CAN with unmet action conditions can be included in a **conditional Resolution Scenario**, provided the unmet conditions are explicitly documented; identifying the CAN alone does not make it actionable or prove Power positive. **[FORMALIZATION / OPEN under T-02]** Precisely delimit the action conditions of a CAN from a sufficient pathway for an identified Actualization. An actionable CAN in one relationship must **not** automatically settle Power for a broader Actualization with other necessary conditions. Conversely, when 'actionable' and 'positive Power' refer to exactly the **same** full set of action conditions, they may be operationally equivalent; whether this occurs and how it should be expressed must be explicitly tested, not assumed.
 
 Keep analytically separate: CAN identification; NEED–CAN correspondence; actionability in the specified role; actual NEED satisfaction; assessment of complete Power; effective Actualization; observed and causally attributed effects. Unknown evidence is not proof of nonexistence.
 
@@ -225,6 +234,20 @@ A candidate Improving Actualization with negative Power may be retained as a fut
 
 For a NEED-focused cycle, possible pathways for satisfying or maintaining a NEED may involve an already satisfied state, intra-Object relations, or inter-Object CANs. **[FORMALIZATION]** Multiple CANs corresponding to one NEED, or multiple NEEDs corresponding to one CAN, motivate **Scenarios and comparison**. **[VALIDATED]** Alternative contradictory Scenarios may have **isolated temporary Object branches**; their Definitions remain independent until one is effectively Actualized. **[VALIDATED default objective, November 15]** Generate **multiple relevant and materially distinct** alternatives rather than targeting a single best solution. Their **generation, evaluation, and optional selection** are separate operations; selection is not compulsory. The exact operational NEED-focused Scenario protocol and diversity criteria remain **OPEN**.
 
+### 6.1.1 NEED-focused generation and recursive resolution
+
+**[VALIDATED procedural principles — November 15, 2026]** For a selected **non-satisfied NEED**, apply the following candidate-generation operations within the current contextual Environment:
+
+1. **Compare** that NEED with contextually relevant CANs of the focal Subject **and of Objects in its Environment**; retain plausible matches with explicit uncertainty.
+2. **Identify alternative versus complementary CANs**: one CAN may be a candidate path, or several CANs may need to be coordinated, sequenced or combined; different CANs may also contribute to several NEEDs.
+3. **Form candidate Scenarios** from relevant NEED–CAN correspondences and complementary combinations, explicitly identifying which conditions are known, satisfied, missing or uncertain.
+4. **Inspect the action conditions and relevant NEEDs** of each participating CAN. When a necessary condition is missing, recursively look for other relevant CANs and Objects that could satisfy it or make the CAN actionable, including potential solutions to circular dependencies.
+5. **Keep non-actionable CANs as conditional candidates** when they may become actionable through additional steps, and **document their missing conditions**. Never represent a candidate or simulated step as an effective Actualization.
+6. **Evaluate** the resulting candidate Scenarios separately: assess actionability, complete Power, possible NEED satisfaction, dependencies, anticipated effects on the focal Subject and Environment Objects, and uncertainties; do not impose a best-Scenario selection.
+7. **Reassess** relevant Object Definitions, NEEDs and CANs in each isolated hypothetical branch as anticipated changes are explored, using recursive relevance and complexity limits.
+
+**[SCOPE / FORMALIZATION]** This is a validated **NEED-focused** generation route, **not** an exclusive rule that every analysis must start from an unsatisfied NEED: the approved Stage-2 Focus can also be a **CAN**, and an already satisfied NEED may warrant maintenance analysis or no intervention. Detailed input/output schema, sufficient-condition tests, stop criteria, and implementation remain **OPEN**.
+
 ## 6.2 Scenario evaluation and comparison
 
 **[VALIDATED, consolidated November 15, 2026]** Each relevant Scenario is assessed without assuming it must receive an overall score or be ranked as the best. Analyze at least the following **distinct** dimensions, according to the context:
@@ -253,7 +276,7 @@ Compare internal coherence, robustness, adaptability, complementarities, synergi
 3. If the Focus is a CAN, identify its contextually relevant role, granularity and available evidence (former independent 'attributable CAN' terminology is OPEN); if a NEED, identify the required conceptual or functional state and its present satisfaction without presupposing a CAN Actualization.
 4. Identify relevant NEED–CAN correspondences, **action** and satisfaction conditions, sufficient pathways, dependencies, and missing information, taking other Objects into account.
 5. Assess Power where a particular CAN's Actualization is considered; distinguish **actionability in a specified role** from full sufficient-pathway Power, and distinguish statistical uncertainty about positive Power from success probability.
-6. **Generate several relevant and materially distinct** Improving Actualizations, alternative states and Resolution Scenarios when the problem warrants alternatives; select Secondary Subjects for parallel analyses if dependencies warrant it.
+6. **Generate several relevant and materially distinct** Improving Actualizations, alternative states and Resolution Scenarios when the problem warrants alternatives. For a **non-satisfied NEED Focus**, search for alternative and complementary CANs of the focal Subject and Environment Objects; retain conditionally non-actionable CANs while documenting missing conditions, and recursively search for pathways that may satisfy them. Select Secondary Subjects for parallel analyses if dependencies warrant it.
 7. **Evaluate and compare** the Scenarios' feasibility and its uncertainty, complexity, cost, temporality, expected effectiveness, probabilities or qualitative possibility of consequences, risks, interactions and impacts on the focal Subject and other Objects. **Do not require selection of a single best Scenario.**
 8. Undertake selected Actualizations when their Power permits; **version the affected Object Definitions**, actualize relevant temporary branches without changing their IDs, propagate changes to shared constituent references in the effective context, and observe separately which NEEDs are satisfied, which effects occurred, and what can actually be causally attributed.
 9. Return the Focus to the Subject and reassess its NEEDs, CANs, Potency, Power, constitution, relationships and Environment; revise Focus or Scenario as needed.
@@ -401,3 +424,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Default Advanced Mode and scenario objectives
 
 **[VALIDATED author decisions; D-28]** Advanced Mode is the **default** and explores **multiple relevant, diverse Resolution Scenarios** for a complex problem. Scenarios are compared through anticipated effects on the focal Subject and Objects in its Environment, feasibility, complexity, cost, temporality, effectiveness and appropriately represented uncertainty. Distinguish feasibility uncertainty, success probability and consequence-specific probabilities, using statistics only where supportable. Generation, evaluation and any optional selection are separate operations; the Method does not inherently choose the best solution. The **Simple Mode is deferred** until stabilization of the Method and must not be treated as an active default or a current evaluation target. Operational tests of diversity, uncertainty calibration and usefulness remain **OPEN**.
+
+## November 15, 2026 — NEED–CAN-based candidate Scenario generation
+
+**[VALIDATED author decisions; D-29]** Starting from a **non-satisfied NEED**, compare CANs of the focal Subject and its Environment; distinguish alternatives from complementary combinations; build candidate Resolution Scenarios from relevant NEED–CAN relations; recursively identify and investigate action conditions, supporting NEEDs and CANs; and evaluate complete scenarios separately. CANs whose action conditions are currently unmet **remain conditional candidates** if the missing conditions are documented and may themselves be addressed through recursive analysis. Preserve the distinctions between correspondence, complementarity, evaluated Scenario, actionability, Power and Actualization. This route does not supersede CAN-focused analysis or the principle that a satisfied NEED may require no new Actualization. Detailed algorithms and validation tests remain **OPEN**.
