@@ -24,7 +24,7 @@
 
 ### Subjects, context, and Potentialities
 
-**Alpha 0.4 terminology note:** The following are **working English/French renderings** for newly adopted concepts, not a separate approval of every bilingual pairing. **NEED** and **CAN** are preserved verbatim as the author's concept labels.
+**Current terminology note (November 15, 2026):** The following are **working English/French renderings** for adopted concepts, **not** separate author approvals of every bilingual pairing. **NEED** and **CAN** remain verbatim concept labels. **Definition** is a validated concept with a **provisional name**. Earlier 'CAN mobilizable' terminology is historical, not the current separate CAN category.
 
 | English | French |
 |---|---|
@@ -35,8 +35,21 @@
 | Stage (methodological) | Étape |
 | NEED | NEED |
 | CAN | CAN |
+| Definition (provisional term) | Définition (nom provisoire) |
+| Definition version | Version de Définition |
+| Constituent Object | Objet constitutif |
+| Shared Object | Objet commun |
+| Parent | Parent |
+| Temporary Children | Temporary Children (ramifications temporaires) |
+| Actualised Children | Actualised Children (ramifications actualisées) |
+| Temporary branch | Ramification temporaire |
+| Actualized branch | Ramification actualisée |
+| Conceptual existence | Existence conceptuelle |
+| Functional existence | Existence fonctionnelle |
+| Actionable CAN | CAN actionable |
+| Action condition | Condition d'action |
 | NEED satisfaction | Satisfaction du NEED |
-| Mobilization condition | Condition de mobilisation |
+| Mobilization condition (historical) | Condition de mobilisation (historique) |
 | Satisfaction condition | Condition de satisfaction |
 
 | English | French |
@@ -133,8 +146,8 @@
 1. **Translate by concept, not by superficial synonym.** In this Method, `Power` does not mean general social domination; `Potency` does not mean power or authority.
 2. **Preserve capitalization** for named concepts where the reference uses it (e.g., `Potentiality`, `Power`, `Actualization`), and retain task and decision identifiers (`T-01`, `D-14`).
 3. **Preserve epistemic status.** `VALIDATED` means explicitly approved within the Method, **not empirically demonstrated**. `OPEN` denotes an unresolved criterion or hypothesis.
-4. **Do not conflate mobilizability, Power, action and outcome.** A mobilizable CAN does not necessarily have positive Power. Positive `Power` means the conditions to *undertake* an `Actualization` are met; it does not guarantee success.
-5. **Preserve analytical distinctions:** direct/indirect is independent of immediate/delayed; probability differs from degree of possibility; a collective Potentiality is not automatically attributable to each member.
+4. **Use the current actionability terminology.** An **actionable CAN** has met the relevant conditions of action; a separate **mobilizable CAN** category is historical. Actionability for a specified contribution must not automatically be equated with complete sufficient **Power** for a broader Actualization; exact logical criteria remain OPEN. Positive Power permits undertaking the considered Actualization, but does not guarantee success.
+5. **Preserve analytical distinctions:** direct/indirect is independent of immediate/delayed; probability differs from degree of possibility; a collective CAN is not automatically a CAN of every member; **conceptual existence** differs from **functional existence**; `P(Power positive | information)` differs from `P(successful Actualization | information)`. In the current model, an Object's **Definition** contains constituent-Object references **plus** associated properties and relations.
 6. **Do not introduce new conceptual commitments through translation.** If an English expression has no clear French equivalent, flag it for review instead of silently changing the definition.
 7. **Source of truth:** the current English GitHub reference, `reference/trialectic-method.md`, is primary for future edits; Git tags are used to identify versioned snapshots. French versions are translations, not independent divergent references.
 
@@ -142,4 +155,4 @@
 
 Update this file when the author explicitly approves a new terminological equivalence. Record changes in `DECISIONS.md` and `CHANGELOG.md` as appropriate. Keep existing author-approved pairs stable unless explicitly revised.
 
-Source: `reference/trialectic-method.md` (originally consolidated as alpha 0.4), `TODO.md`, and `DECISIONS.md` as of November 14, 2026. Historical versions are recoverable through Git history.
+Source: `reference/trialectic-method.md` (originally consolidated as alpha 0.4), `TODO.md`, and `DECISIONS.md` as of November 15, 2026 (D-25–D-27). Historical versions are recoverable through Git history.
