@@ -466,6 +466,46 @@ The field names, exhaustive negative findings, allowed search-status vocabulary,
 
 **[OPEN]** Audit standard for exhaustive negative evidence; preservation of distinctions between documentary inventory, logical graph and potential causal graph; reproducible formal event/condition linking; variant/branch definitions; time/delay semantics; causal inference and counterfactual validation; CI integration and third-party reproduction. Related open work: T-02, T-03, T-16, T-18, T-24 and T-30.
 
+### 2.1.10 Cross-graph typed references, Actualization events and Scenario history (D-44)
+
+**[VALIDATED — November 15, 2026; D-44 A–E]** The five principles below specify **how distinct logical and causal layers interface**. They do **not** imply any final implementation schema or promote a hypothesized causal effect to a proven one.
+
+**A. Typed, versioned and situated references.** Cross-graph references must distinguish the identities of an Object, NEED/CAN relational record, Condition, Link, and where relevant a named pathway, with an explicit owner for locally scoped records and the relevant **Definition version**. Evaluated states and derived statuses belong to a **Scenario and time/interval**. Resolve references exactly; do not silently substitute a newer version or a similarly named record from a different owner. Branch qualification remains to formalize.
+
+**B. Declared causal mechanism versus effect.** An `affects` / provisional `effect_details` statement can describe a source CAN/event, source link and target link, affected Object property/condition, possible mechanism, trigger, evidence and temporal parameters, without producing any Actualization. Linking the causal description to a condition requires an **explicit reference and evidential justification**, not automatic equivalence of graph edges or causal sufficiency.
+
+**C. Scenario event history.** An actually observed or explicitly **simulated** CAN Actualization is a distinct identifiable, time-indexed event pinned to its CAN Definition, Scenario, and epistemic provenance; its documented effects may be absent, delayed, incomplete, adverse or temporary. Records of effects and state changes must link back to corresponding trigger events. Simulated results are not historical observations and must not be written to the real-world Object Definition automatically.
+
+**D. Reevaluate from changed Object states.** For each registered state change, find dependent condition predicates, recalculate their Scenario/time-specific satisfaction and then recalculate any logically dependent pathway/inventory expressions. Retain original and derived evaluations and timestamps. Property-to-condition dependency indexes are an implementation accelerator, **not a new causal claim**. Contradictory effects must be reported, not silently resolved by list ordering; the correct conflict semantics remain OPEN.
+
+**E. Branch isolation.** Different Scenarios retain independent states, event histories, Definition version pins and derived evaluations; distinct values under common Definitions need not conflict. A Scenario using `v2` for a CAN cannot silently action a `v1` reference. Actualization and Definition-version promotion/merges across branches require explicit actions and separate rules. D-31 conditional sufficiency and complete Power and D-35 actual NEED satisfaction/time compliance remain distinct from pathway satisfaction.
+
+**[PROVISIONAL CROSS-GRAPH SERIALIZATION, not a normative JSON Schema]** The following illustrates one directly traceable event:
+
+```json
+{
+  "event_id": "S-auxiliary:E-0001",
+  "scenario_id": "S-auxiliary",
+  "kind": "simulated_actualization",
+  "at": "2026-11-15T15:00:00+01:00",
+  "can_ref": {
+    "kind": "can",
+    "relation_id": "R-C",
+    "id": "R-C",
+    "version": "v1"
+  },
+  "mode": "simulated"
+}
+```
+
+A potential effect would refer to this CAN (and optionally its source/target link refs), a versioned target condition and Object property and, if simulated as taking effect, link the **effect event** to `event_id` before reevaluation. The exact field names for referential integrity across branches and event histories are **OPEN**.
+
+**[PRELIMINARY SYNTHETIC TEST EVIDENCE — D-44]** A Python pilot using the unchanged D-42 recursive logic engine with an independent layer for proposed causal-effect scheduling passed **190/190 assertions**, including **27** combinations of three ternary Object properties checked against explicit v1/v2 Boolean formula expectations. In a synthetic generator example, CAN C explicitly simulated at t=0 caused temporary power **only after 2 minutes**, enabling A then B; the source expired at t=5 but B had recharged the battery. Distinct branches maintained v1/v2 condition pins and isolated logs; wrong owners/versions, modified effect definitions and missing identifiers were rejected. Tested simultaneously opposed effects, overlapping delays and expiry, and a direct time jump past a temporary effect's expiry. A scheduling bug found in an initial prototype was corrected, and two program runs yielded identical output hashes.
+
+**[OPEN ENGINEERING CHOICE]** The pilot **rejected a contradictory simultaneous effect batch**, marked the affected property **epistemically indeterminate**, and logged the uncertainty as distinct from an effective physical change. **This conflict policy is not yet validated by the author**; alternatives include suspending the Scenario or branching into candidate event orders, and its interaction with time/observational evidence needs investigation.
+
+**[LIMITS / OPEN]** The test uses synthetic Boolean predicates and direct same-property effect mappings, a minute-resolution clock, and author-generated fixtures. It does not establish real causal mechanisms, completeness of CAN conditions, general indirect effects, Definition mutations during simulation, cross-branch reference schemas, independent replication or full D-33–D-35 NEED/time assessments. Sample `source_can`, `state_effect`, `affected_condition`, event and typed-reference fields remain **illustrative**. The related TODOs stay open.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
@@ -1097,3 +1137,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Empty documentary inventories and distinct logical/causal graphs (D-43)
 
 **[VALIDATED A–E]** Represent an inventory without any identified pathway without constructing an invalid empty `all`/`any` expression, and never equate unsuccessful discovery with impossibility. Require separately justified, scoped negative evidence for a closed-world claim. Distinguish recursive logical reference graphs from potential causal dependency graphs; neither implies the other without justified mechanisms/conditions. Couple them only through a Scenario's traceable condition evaluation, explicit CAN Actualization event, state/Definition effects and subsequent reevaluation. **[PROVISIONAL]** JSON with `expression: null` / `search_status` and the separate causal simulator remain to be normalized. Synthetic D-43 prototype: 218/218 checks passed; no task closed.
+
+## November 15, 2026 — Typed cross-graph references and event-trace verification (D-44)
+
+**[VALIDATED A–E]** Type/version/owner-qualified references link potential causal rules to conditions and links without equating either layer to actual causality; observed/simulated Actualizations are separate traceable events; Object state changes cause time-indexed condition and pathway reassessment; branches and Definition versions remain isolated. **[SYNTHETIC TEST ONLY]** 190/190 assertions passed (27 three-state cases compared across v1/v2), with an initial delayed-expiry bug found and corrected before rerun. **[OPEN]** The pilot's simultaneous-conflict handling (reject incompatible effects, mark property indeterminate) is not yet author-approved; final typed JSON Schema, CI and D-35 temporal completeness remain unresolved.
