@@ -180,7 +180,38 @@ The earlier 'attributable CAN' category has been **questioned by the author as p
 
 A candidate CAN is **not excluded merely because it is not currently actionable**. Retain it as a conditional candidate and **document the missing action conditions**; these may themselves require other NEEDs to be satisfied and other CANs to be considered. NEED satisfaction may also result from an **already existing state**, without an identifiable CAN Actualization.
 
-**[OPEN]** Operational tests for correspondence versus causal contribution; alternative and joint sufficiency, granularity and evidence; duplicate/path-equivalence detection; scenario explosion and when a recursive search should stop.
+### 4.1.1 Correspondence, contribution, sufficiency and necessity
+
+**[VALIDATED — November 15, 2026; D-31]** Four distinct, context-sensitive NEED–CAN relations must be kept separate:
+
+1. **Correspondence:** a CAN has a relevant and explainable relationship to the NEED under consideration. This establishes a **candidate match**, not a demonstrated causal effect.
+2. **Contribution:** Actualization of the CAN can **favorably modify** the conditions of satisfaction of that NEED, under identified assumptions. A contribution need not be sufficient or necessary.
+3. **Conditional sufficiency:** a CAN, or an identified set of CANs, is **sufficient for satisfying a NEED when its envisaged Actualization permits the required NEED state to be reached in an explicitly specified context and under explicitly specified conditions**. Conditional sufficiency is **not** a claim that the CAN is presently actionable, that Power is positive, or that an Actualization has occurred.
+4. **Scenario-relative necessity:** a CAN is **necessary for a particular Scenario** if, in its absence, that Scenario cannot satisfy the NEED in question. Do not silently replace the removed CAN with a new alternative while conducting this test; explicitly model a different Scenario instead.
+
+**[VALIDATED]** Distinguish necessity **within a specified Scenario** from necessity **across all identified relevant Scenarios**. An Object/CAN may be necessary in one Scenario and dispensable in another. Necessity across the currently identified paths is **not** absolute necessity across all possible unknown paths. This is not a statement about whether the CAN is intrinsically necessary for the Object's existence.
+
+**[VALIDATED]** For verifying a NEED–CAN relationship, document and inspect five questions:
+1. Is there an explainable **correspondence**, including the supposed mechanism, rather than merely linguistic similarity?
+2. Could the CAN **contribute causally** to satisfaction? Compare states **with and without its envisaged Actualization**, holding the other relevant assumptions explicit.
+3. Is this CAN, or the considered combination, **conditionally sufficient** for the target NEED state under specified conditions, period and context?
+4. Is this CAN **necessary to the specified Scenario**? Re-evaluate the same pathway without it, instead of silently substituting another CAN.
+5. Is the CAN **actionable** in the specified role? Record satisfied, missing and uncertain action conditions; investigate unresolved dependencies recursively.
+
+The **actionability check** does not replace the sufficiency/necessity checks: the first concerns undertaking the action; the others concern satisfaction of the specified NEED.
+
+**[VALIDATED analytical representation]** Alternative Scenario pathways can be represented by logical **OR**; CANs jointly required by a Scenario can be represented by **AND**; an enabling CAN can be represented as a **dependency supplying an action condition** of another CAN. These operators express candidate pathway relations, **not** proof of empirical outcomes. Timing, changing Definitions, non-monotone effects and interactions must also be considered.
+
+**[VALIDATED epistemic qualifications]** Record a defensible evidential qualification of an assessed relation:
+- **Established within the considered model**: follows under the model's explicit assumptions; not necessarily empirically established.
+- **Plausible**: a relevant mechanism has been identified, but supporting evidence is insufficient for a conclusion.
+- **Refuted in the considered context**: evidence contradicts the proposed relation in that context.
+- **Indeterminate**: the available evidence does not permit a conclusion.
+
+These labels describe **the analyst's state of knowledge about the relation**, not intrinsic NEED/CAN states. Use statistical probabilities only with justified evidence and calibration; avoid implying numeric certainty from these qualitative labels.
+
+**[OPEN]** Exact causal and counterfactual evidence standards; modeling joint and alternative sufficiency; limits of same-Scenario removal tests when non-monotone effects occur; uncertainty calibration; computational criteria for minimal sets and OR/AND/dependency graphs; duplicate-path detection, recursion limits and independent reproducibility.
+
 
 ## 4.2 Action conditions, NEED satisfaction and Power
 
@@ -251,7 +282,7 @@ For a NEED-focused cycle, possible pathways for satisfying or maintaining a NEED
 6. **Evaluate** the resulting candidate Scenarios separately: assess actionability, complete Power, possible NEED satisfaction, dependencies, anticipated effects on the focal Subject and Environment Objects, and uncertainties; do not impose a best-Scenario selection.
 7. **Reassess** relevant Object Definitions, NEEDs and CANs in each isolated hypothetical branch as anticipated changes are explored, using recursive relevance and complexity limits.
 
-**[VALIDATED role distinction]** The three cases above must be distinguished during Scenario construction. **[OPEN implementation]** Test contextual sufficiency, joint necessity, action-condition enabling and overlap when the same CAN participates in several dependencies. Avoid inferring effective satisfaction merely from the existence of a candidate pathway.
+**[VALIDATED role distinction and tests — D-30–D-31]** Distinguish the three pathway cases; assess the related CAN–NEED relationships through **correspondence, contribution, conditional sufficiency and Scenario-relative necessity**. For each candidate Scenario, document the mechanism, compare envisaged states with and without the CAN, specify satisfaction conditions, perform a within-Scenario necessity check, and investigate actionability and missing conditions. Label evidential support as **established within the model**, **plausible**, **refuted in context**, or **indeterminate**, without equating model support with empirical proof. The **OR / AND / enabling-dependency** representation is permitted, but does not by itself handle sequencing or non-monotone effects. **[OPEN implementation]** Actual causal tests, minimal combinations, contextual sufficiency and independent validation remain to be developed.
 
 **[SCOPE / FORMALIZATION]** This is a validated **NEED-focused** generation route, **not** an exclusive rule that every analysis must start from an unsatisfied NEED: the approved Stage-2 Focus can also be a **CAN**, and an already satisfied NEED may warrant maintenance analysis or no intervention. Detailed input/output schema, sufficient-condition tests, stop criteria, and implementation remain **OPEN**.
 
@@ -439,3 +470,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — Three distinct NEED–CAN pathway roles
 
 **[VALIDATED author distinction; D-30]** Scenario generation must distinguish: **(1)** a single CAN that can satisfy a NEED under relevant conditions, **(2)** a combination of several CANs jointly needed for satisfaction, and **(3)** a CAN that does not satisfy the focal NEED directly but may make another CAN actionable. The third case introduces an explicit recursive enabling dependency with missing conditions recorded. **[FORMALIZATION]** These describe relationships and roles in Scenarios, not necessarily exclusive kinds of Objects or CANs. Their exact determination, empirical evidence, and sufficiency tests are **OPEN**.
+
+## November 15, 2026 — Validated criteria for NEED–CAN sufficiency and necessity
+
+**[VALIDATED — D-31]** Distinguish correspondence, contribution, conditional sufficiency and Scenario-relative necessity, with necessity of a CAN within one Scenario kept separate from its necessity among all *identified* Scenarios. A CAN or combination is conditionally sufficient only if the required NEED state is attainable through its Actualization under **explicit context and conditions**; a CAN is necessary in a given Scenario only if removing it makes that same Scenario unable to satisfy the NEED. Five relationship checks (correspondence mechanism, contribution, sufficiency, within-Scenario necessity, actionability), **OR/AND/enabling-dependency** pathway representation and four **epistemic** evidence categories (established within model, plausible, refuted in context, indeterminate) are validated. Sufficiency does not imply actionability or observed Actualization; model-supported conclusions are not empirical proofs. Detailed causal/counterfactual tests and computational implementation remain **OPEN**.
