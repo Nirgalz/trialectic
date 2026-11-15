@@ -540,5 +540,56 @@ The illustration assigns **hypothetical** alternative pathways to two heating Ob
 
 **OPEN:** Complete JSON Schema and field typing/validation, link uniqueness across relational records, cross-record link IDs, nullable and incomplete lists, precise temporal/contextual `conditions` syntax, links with different roles in different Scenarios, graph cycles, interaction with D-33 temporal metadata and D-34 temporal composition, relation IDs/branch versions and independent falsification tests. Related tasks: T-30, T-02, T-03, T-16, T-24.
 
+## D-39 · Semantics of link-to-link effects and dynamically evaluated circular dependencies
+Date: November 15, 2026 | Status: **Five analytical and design principles A–E VALIDATED; illustrative `effect_details` structure and full algorithmic semantics OPEN**
+
+The author explicitly approved **all five proposals A–E** following D-38. The Method now separates the existence of a link-to-link relationship from its possible triggering conditions and its observed or simulated effects, and distinguishes a structural dependency cycle from its operational consequences in a Scenario.
+
+**A. Qualify what a link affects (VALIDATED).** The existing optional `relation.links[].affects` field continues to reference the IDs of other links. The influence must be capable of **separate, explicit qualification**, as appropriate, by which aspect it changes: **action conditions** of a CAN, **conditions of NEED satisfaction**, **availability/emergence/modification/loss of a Potentiality/CAN**, or **contextual validity/applicability of the relationship itself**. Effects may be favorable, unfavorable or transformative. These are **affected aspects**, not necessarily four new exclusive relation types. Preserve the D-31 requirement for mechanism, conditions and supporting evidence.
+
+**B. Structure versus effective blockage (VALIDATED).** An oriented graph of `affects` relationships can contain circular dependencies without implying a logical contradiction, impossibility or functional blockage. Distinguish: (i) a **blocking cycle** in the examined context when all necessary prior conditions are missing and no actionable known initiation path exists, (ii) an **already initiated/sustaining cycle** with relevant initially satisfied conditions, (iii) a **third-party-initiable cycle** if an external CAN can supply a missing initial condition, and (iv) a **potentially antagonistic cycle** whose enabling/inhibitory effects can interact dynamically. These are **Scenario-specific evaluations**, not immutable global cycle categories. Absence of a known pathway is not proof of absolute impossibility.
+
+**C. Recursive exploration for potential cycle initiation (VALIDATED).** When an identified cycle appears to prevent an Actualization, recursively explore relevant CANs and Objects within or beyond the cycle that could satisfy a missing action or satisfaction condition, change the Environment or alter relevant dependencies. A third CAN can sometimes **initiate** a self-maintaining loop without eliminating the loop's underlying structure. Do not claim resolution merely because a candidate CAN has been found: test its own actionability, causal mechanism, timing, downstream effects and uncertainty in the relevant Scenario, in accordance with D-31–D-35 and existing recursive relevance limits.
+
+**D. Distinguish relation, trigger and effect (VALIDATED).** Represent separately:
+1. a link and its potential relationship to another link (`affects`);
+2. the **trigger/event and conditions** under which the relationship might produce an effect;
+3. the **actual or simulated state transition/effects**, recorded in the relevant Scenario, with chronology and evidence, **not** silently written back as historical facts into the versioned Object Definition.
+The author approved the **principle** and the potential addition of optional detailed metadata such as `effect_details` as an **initial operational illustration to test**, **not a finalized, machine-enforced schema**.
+
+**[PROVISIONAL implementation example; field names and types still to test]**
+
+```json
+{
+  "id": "L-C",
+  "object_id": "O-external-power",
+  "source_list": "CANs",
+  "roles": ["enabling"],
+  "affects": ["L-A"],
+  "effect_details": [
+    {
+      "target_link_id": "L-A",
+      "effect": "satisfies_action_condition",
+      "condition_id": "C-A-startup",
+      "trigger": {
+        "event": "actualization_of_can",
+        "can_id": "R-C"
+      },
+      "evidence": {
+        "status": "plausible"
+      }
+    }
+  ]
+}
+```
+
+Here `can_id` refers to a hypothetical CAN relational record, `object_id` to an Object, and `target_link_id` to another link. The effect occurs only if the required trigger and conditions actually occur in a Scenario; its inclusion in the relation record does not make it an effective Actualization. The reference scopes, types, provenance and time logic remain to be specified.
+
+**E. Detect cycles structurally; evaluate their dynamics (VALIDATED).** Construct a directed dependency/effect graph from the relevant `affects` edges and detect circular structures (e.g. using **strongly connected components**). Then **evaluate separately**, for each contextual Scenario, initial state, actions that are actually feasible, effect triggers, temporal sequence, non-monotone inhibition, alternative pathways, evolving Object Definitions and evidential gaps. A structural cycle is **not** by itself evidence of a blocking cycle, impossibility or an Actualization.
+
+**[Illustrative thought experiment]** A generator may need a starter battery before its first start, while the generator is required to recharge that battery. If the battery is discharged, the considered startup pathway is blocked; an **independently actionable external supply** might make an initial start possible, enabling subsequent recharging. This is a hypothetical mechanism to check under stated technical assumptions, not proof that every such system behaves in this manner.
+
+**OPEN:** definitive and typed `effect_details` representation, identifying and versioning condition IDs and references, scope of link IDs across relational records, semantics of effects that target conditions vs links vs CAN availability, chronology and time zones (D-33/D-34), conflict/cascade and non-monotone evaluation, cycles combining inhibiting and enabling edges, Scenario-specific consistency checks, recursion termination and independent reproducibility. Related tasks: T-02, T-03, T-16, T-18, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
