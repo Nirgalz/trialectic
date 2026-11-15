@@ -232,5 +232,30 @@ The author explicitly validated distinguishing **three cases** in the constructi
 
 **OPEN:** Criteria and evidence for sufficiency of a single CAN, joint necessity and minimal combinations, causality and indirect enabling effects; treatment of partially known and conditionally actionable CANs; overlap between roles, branching costs and duplicate pathways; tests on held-out cases. This updates the T-16 generation protocol without declaring it complete or scientifically validated. Related tasks: T-16, T-02, T-24, T-03, T-17.
 
+## D-31 · Correspondence, contribution, conditional sufficiency and relative necessity of NEED–CAN relations
+Date: November 15, 2026 | Status: **Validated conceptual criteria and verification framework; operational proof and implementation OPEN**
+
+The author explicitly validated the distinction among **four context-dependent NEED–CAN relations**:
+1. **Correspondence:** a CAN bears a relevant, explainable relationship to a NEED. Mere similarity in terminology is not adequate causal evidence.
+2. **Contribution:** Actualization of a CAN can favorably modify conditions for satisfying the NEED, under the stated context. Contribution by itself implies neither necessity nor sufficiency.
+3. **Conditional sufficiency:** **A CAN, or an identified set of CANs, is sufficient for satisfying a NEED when its Actualization makes it possible to reach the required state of that NEED in an explicitly specified context and under explicitly specified conditions.** This does not establish present actionability, positive Power, successful implementation, or observed NEED satisfaction.
+4. **Scenario-relative necessity:** **A CAN is necessary for a particular Scenario when its absence prevents that same Scenario from satisfying the NEED concerned.** The test must not silently substitute a different CAN or another Scenario while removing the candidate.
+
+The author validated **two levels of necessity**: necessity **within a specified Scenario** and necessity **across the currently identified relevant Scenarios**. Neither establishes absolute necessity across all possible but unidentified pathways. This analytical necessity is distinct from the conceptual or functional existential necessity of an Object.
+
+The author validated a **five-question verification framework** for each assessed NEED–CAN relation: (i) justify correspondence and mechanism; (ii) compare plausible contribution **with and without** the CAN's envisaged Actualization; (iii) verify conditional sufficiency for the required state under a stated period/context/conditions; (iv) examine necessity by removal **within the same Scenario**; and (v) assess actionability and document/recurse on missing conditions. Sufficiency and necessity concern satisfaction of a NEED, while actionability concerns conditions for undertaking an Actualization; keep those tests separate.
+
+The author also validated a working representation using **OR** for alternative pathways, **AND** for jointly necessary CANs, and **enabling dependencies** where one CAN helps satisfy another CAN's missing action condition. These relations do not alone represent time-dependent, non-monotone or destructive effects; those still require reassessment of relevant Object Definitions and conditions.
+
+Finally, the author validated **four epistemic qualifications** of a relation:
+- **Established within the considered model**: follows from explicit assumptions of the model; *not* necessarily empirically established.
+- **Plausible**: explanatory mechanism identified but evidence insufficient for confirmation.
+- **Refuted in the considered context**: available evidence contradicts the relation in that context.
+- **Indeterminate**: information is insufficient to conclude.
+
+These labels concern the **analyst's knowledge**, not intrinsic NEED or CAN states. Quantitative statistical probabilities may supplement them only when evidence justifies such estimates. An assessed relation must not be presented as empirically established solely because it follows from a model.
+
+**OPEN:** Evidence and causal-inference criteria for contribution; counterfactual removal tests in changing environments; precise sufficiency and joint necessity tests; alternative-path completeness; statistical calibration; minimal sets and path equivalence; time and non-monotone dynamics; independent reproducibility. This decision elaborates D-29 and D-30 without closing T-16 or claiming scientific validation. Related tasks: T-16, T-02, T-03, T-24, T-17, T-21.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
