@@ -83,6 +83,9 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 **Closure criterion:** Independent reproductions agree on graph identities, versioned snapshots, temporary vs actualized branches, shared-reference propagation and relevant decisions; any divergent interpretations and unresolved operational definitions are documented.
 
+**Implementation progress (2026-11-15; NOT task closure):** A preliminary test-only Python reference model and ten decision-linked JSON cases have been committed in `tests/`; a GitHub Actions workflow executes the deterministic suite on `dev`. This is not yet a production analysis engine or a fully independently reproduced protocol.
+
+
 ## T-16 · Generate NEED- and CAN-focused Resolution Scenarios
 **Type:** Protocol / computational | **Priority:** P0 | **Status:** **To develop**
 
@@ -119,6 +122,9 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 **Closure criterion:** A versioned suite has explicit expected outputs for branch promotion, shared Objects, historical versions, actionability/Power and uncertainty, with regression reports and unresolved conceptual disagreements.
 
+**Implementation progress (2026-11-15; NOT task closure):** `tests/test_core.py` includes golden-case, truth-table, ordering-invariance, versioned-reference, branch-isolation, temporal and epistemic/physical non-regression checks. `tests/test_traceability.py` checks that case decision references exist. GitHub Actions is configured; source text changes are NOT automatically semantically interpreted, and live-AI tests remain OPEN.
+
+
 ## T-27 · Assemble and maintain case-study and benchmark corpora
 **Type:** Corpus / experimental | **Priority:** P0 | **Status:** **To develop**
 
@@ -127,6 +133,9 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 **Scope:** Assemble a versioned, traceable corpus of **synthetic and real-world cases** used across T-03, T-04, T-16 and T-24: identified Objects and shared constituents, versioned Definitions, NEED/CAN pathways, alternate Scenarios, delayed/adverse effects, uncertainty and source provenance. Include positive, negative, no-benefit and harmful cases, comparative baseline prompts, independent expert rubrics, held-out sets and discriminating tests; do not treat the five manually annotated D-47 publications or internally generated test oracles as validated ground truth. Prepare a minimal usable benchmark early and expand iteratively.
 
 **Closure criterion:** A versioned synthetic/real case corpus includes traceable provenance, branch/interaction histories, expert criteria or independently validated reference outcomes, and a held-out evaluation split suitable for T-04 and T-24.
+
+**Implementation progress (2026-11-15; NOT task closure):** `tests/cases/core.json` provides ten minimal synthetic golden cases MT-01–MT-10 with decision links and expectations recorded separately from the test-only reference model. A case corpus with independent ground truth, real-world cases, held-out splits and AI comparison remains OPEN.
+
 
 # P1 — Comparative evaluation, Scenario interpretation and AI
 
