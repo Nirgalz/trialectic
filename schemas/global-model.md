@@ -1,4 +1,4 @@
-# Normative Analysis and Scenario data contracts v2
+# Normative Analysis and Scenario data contracts v2.0 / v2.1
 
 **Status: adopted under the author's instruction to validate the global model and
 Scenario Results, November 16, 2026 (D-77/D-78).** The new serialization choices
@@ -14,7 +14,7 @@ layout or that structural validity proves analytical/empirical truth.
 | One complete Analysis exchange document | [analysis.json](model/analysis.json) | `urn:trialectic:schema:analysis:normative-v2` |
 | One NEED, CAN or Scenario evaluation | [power-evaluation.json](model/power-evaluation.json) | `urn:trialectic:schema:power-evaluation:normative-v2` |
 
-Both use Draft 2020-12. The global document declares `schema_version: "2.0.0"`.
+Both use Draft 2020-12. The global Analysis document accepts `schema_version: "2.0.0"` (unchanged historical contract) and `"2.1.0"` (D-83 identity/attribution extension). The PowerEvaluation six-field contract is unchanged. Old v2.0 records are accepted without inferring an established attribution.
 PowerEvaluation retains exactly its six fields and is selected by its schema URI,
 without adding a seventh version field. Version 2.0.0 is the sole supported exchange profile.
 
@@ -74,6 +74,20 @@ evaluation metadata retain their prior approved permissiveness. D-34 temporal
 recursive condition/pathway expressions. Multiple Object groups have no inferred
 cross-group operator. The property-predicate operator vocabulary is a bounded
 transport vocabulary, not a universal theory of Conditions.
+
+### D-83 identity and attribution extension — v2.1.0
+
+**Normative transport choices adopted for this implementation; conceptual rules are author-validated in D-83.** This is a backward-compatible extension of the v2 domain record families with explicit version discrimination:
+
+- `Object.concept_kind`, when present, is exactly one of `NEED` or `CAN`, **never both**. It identifies the Object's established conceptual kind, not the category `semantic_object`. Ordinary Objects omit the field. It is immutable per permanent Object ID, even when Definitions evolve; this cross-analysis obligation needs semantic validation.
+- A not-yet-established identification remains a `claim` and can have a separate `claimAssessment`, without assigning the hypothesis as the Object's validated `concept_kind`.
+- `Object.requalification`, when used, records `previous_object_id` (different from the new Object ID), `reason` (`correction` or `transformation`), nonempty `justification` and a `claim_id` documenting the transition. The old Object and its history remain; cross-document predecessor resolution is a semantic obligation.
+- `Relation.attribution` distinguishes the represented NEED/CAN Object from the contextual claim that it belongs to `origin_object`. It has required `status` (`established_in_model`, `refuted_in_context`, `indeterminate`), `scope`, `justification` and `claim_id`. This is **not** a new CAN subtype and does not establish satisfaction, actionability, Power, Actualization or empirical truth.
+- In v2.1 every encoded NEED/CAN relation must contain `attribution`; the separately represented NEED/CAN Object must have the matching `concept_kind`, checked semantically. A CAN can itself be the `origin_object` of a relation representing one of its own NEEDs.
+- Old v2.0 records cannot contain `concept_kind`, `requalification` or `attribution`, preventing a document from falsely claiming the old version while using new fields. Their unqualified relations are **not** silently promoted to established possession or Puissance.
+- Established Puissance for a bearer Object may enumerate only CANs with an explicit `established_in_model` attribution and matching `concept_kind` within the considered model; the status is epistemic, not a substitute for real-world evidence.
+
+**Validation boundary:** the Draft 2020-12 schema verifies local types, version gates and required fields. `tools/validate_semantics.py` adds limited reference-resolution, owner/type consistency, claim links and cross-document identity-change checks. Neither constitutes exhaustive semantic, causal, temporal or empirical validation. Compatibility with historical unannotated Documents requires review, not an inference of attribution.
 
 ### Semantic obligations remain distinct from local shape
 
