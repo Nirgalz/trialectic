@@ -42,9 +42,10 @@ def validate_semantics(document, previous_documents=()):
             issue("duplicate_relation", f"relations[{index}]", key)
         relations[key] = relation
     for index, claim in enumerate(document.get("claims", [])):
-        if claim["id"] in claims:
-            issue("duplicate_claim", f"claims[{index}]", claim["id"])
-        claims.add(claim["id"])
+        claim_key = (claim["id"], claim["version"])
+        if claim_key in claims:
+            issue("duplicate_claim_version", f"claims[{index}]", claim_key)
+        claims.add(claim_key)
 
     history_objects = {}
     for previous in previous_documents:
@@ -71,9 +72,10 @@ def validate_semantics(document, previous_documents=()):
                   and kind is not None):
                 issue("requalification_without_identity_change",
                       f"objects[{index}]", obj["id"])
-            if requal["claim_id"] not in claims:
+            if (requal["claim_id"], requal["claim_version"]) not in claims:
                 issue("requalification_claim_unresolved",
-                      f"objects[{index}]", requal["claim_id"])
+                      f"objects[{index}]",
+                      requal["claim_id"] + "@" + requal["claim_version"])
 
     def known_ref(ref, where):
         oid, version = ref["id"], ref["version"]
@@ -122,9 +124,9 @@ def validate_semantics(document, previous_documents=()):
                 issue("unregistered_bearer_relation", where, relation["id"])
         attribution = relation.get("attribution")
         if attribution is not None:
-            if attribution["claim_id"] not in claims:
+            if (attribution["claim_id"], attribution["claim_version"]) not in claims:
                 issue("attribution_claim_unresolved", where,
-                      attribution["claim_id"])
+                      attribution["claim_id"] + "@" + attribution["claim_version"])
         if document["schema_version"] == "2.1.0" and attribution is None:
             issue("unqualified_v21_relation", where, relation["id"])
         for index_link, link in enumerate(relation["relation"]["links"]):
@@ -156,9 +158,9 @@ def validate_semantics(document, previous_documents=()):
                       f"power_assessments[{index}]", oid + "@" + version)
 
     for index, assessment in enumerate(document.get("claim_assessments", [])):
-        if assessment["claim_id"] not in claims:
+        if (assessment["claim_id"], assessment["claim_version"]) not in claims:
             issue("unresolved_claim_assessment", f"claim_assessments[{index}]",
-                  assessment["claim_id"])
+                  assessment["claim_id"] + "@" + assessment["claim_version"])
     return issues
 
 
