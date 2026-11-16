@@ -114,6 +114,37 @@
       "represented_object": {
         "$ref": "#/$defs/objectRef",
         "description": "D-75: NEED/CAN Object represented by this distinct relation record, not the bearer."
+      },
+      "attribution": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "D-83: scoped epistemic assessment of attribution, separate from conceptual identity, actionability and satisfaction.",
+        "properties": {
+          "status": {
+            "enum": [
+              "established_in_model",
+              "refuted_in_context",
+              "indeterminate"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "justification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_id": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "required": [
+          "status",
+          "scope",
+          "justification",
+          "claim_id"
+        ]
       }
     },
     "required": [
