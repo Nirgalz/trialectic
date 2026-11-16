@@ -1029,6 +1029,21 @@ Lorsqu'une exigence indispensable est insatisfaite ou indéterminée, cette info
 
 **Tests and limits:** Synthetic, hand-authored discriminating cases and v2-projection checks are maintained at [tests/cases/t01-identification-v1.json](../tests/cases/t01-identification-v1.json), with executable tests in [tests/test_t01_identification.py](../tests/test_t01_identification.py). Passing these checks shows only stated structural/invariant properties, not correctness of causal assertions or inter-analyst reproducibility. T-01's closure criteria in [TODO.md](../TODO.md) remain in force.
 
+## 3.6 Immutable conceptual identification and contextual attribution (D-83)
+
+**[VALIDATED BY AUTHOR — conceptual principles]**
+
+- A NEED and a CAN are Objects with distinct identities; a CAN can have its own NEEDs. **Identification** of an Object as NEED or CAN is independent of any **attribution** to another Object.
+- The conceptual identities NEED and CAN are **mutually exclusive and immutable for one Object ID**: contextual changes do not turn the same Object from NEED into CAN or vice versa.
+- Until the identification is sufficiently justified, it is an **hypothesis recorded and epistemically qualified in claims and assessments**, not a definitive NEED/CAN identity. This is uncertainty concerning an assertion, not a new kind of NEED/CAN.
+- Attribution is a separate, context-dependent relation: an identified CAN does **not** automatically belong to the Puissance of a given bearer Object. The present constitutive grounding of the CAN's attribution must be justified independently of the satisfaction of its NEEDs, actionability, Power and Actualization (T-01-G/H/K).
+- The Puissance of an Object contains the CANs whose attribution is established within the relevant model/context. Hypothetical, refuted or indeterminate attributions must not silently enter that inventory.
+- Requalification between NEED and CAN requires a new Object ID with historical traceability and reassessment of affected analyses. Distinguish correcting mistaken *knowledge* from transforming the Object; normal changes of its Definition, NEEDs and relations do not alter its immutable conceptual identity.
+
+**[IMPLEMENTATION — versioned exchange profile]** `schemas/global-model.md` describes how v2 transport may express an immutable `concept_kind` on an Object and an independent contextual attribution assessment on a relation. In pre-extension documents, the absence of these annotations must not be taken as proof of an established attribution. The established/rejected/indeterminate determination and any cross-document requalification history require semantic checks separate from JSON Schema.
+
+**[OPEN]** Operational identification criteria, evidence sufficiency thresholds, semantic engine, cross-analysis identity registry, full historical migration and blind/empirical tests. T-01/T-02/T-24/T-27/T-30 remain open.
+
 # 4. NEED–CAN relations and dependencies
 
 ## 4.1 Relational principles
