@@ -90,6 +90,10 @@ class IdentityAttributionV21(unittest.TestCase):
         doc["relations"][0]["represented_object"]["version"] = "v404"
         self.assertIn("unresolved_definition_version",
                       [i["code"] for i in self.errors(doc)])
+        doc = copy.deepcopy(self.document)
+        doc["relations"][0]["attribution"]["claim_version"] = "v404"
+        self.assertIn("attribution_claim_unresolved",
+                      [i["code"] for i in self.errors(doc)])
 
     def test_identity_cannot_change_under_the_same_object_id(self):
         historical = copy.deepcopy(self.document)
