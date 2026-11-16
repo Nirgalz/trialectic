@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "synthetic fixture for author-validated integrated PowerEvaluation conceptual data model (D-64); detailed nested field formats, numerical hypotheses and test adapter restrictions are provisional and not a final JSON Schema",
+  "status": "synthetic illustration of the author-validated conceptual PowerEvaluation model (D-64), validation layers (D-65), and boundary-level typed schema (D-66–D-68); internal Results serialization, degree hypotheses and fixture-specific semantic rules remain provisional",
   "decisions": [
     "D-35",
     "D-49",
@@ -17,7 +17,11 @@
     "D-61",
     "D-62",
     "D-63",
-    "D-64"
+    "D-64",
+    "D-65",
+    "D-66",
+    "D-67",
+    "D-68"
   ],
   "objects": {
     "O-CAR": {
