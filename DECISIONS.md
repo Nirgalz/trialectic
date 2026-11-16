@@ -852,5 +852,18 @@ A NEED **may be partially satisfied**. Quantify the degree of satisfaction **onl
 
 Related tasks: T-02, T-03, T-30.
 
+## D-50 · NEED/CAN Object identity, contextual possession and weighted NEED dependencies
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- A **NEED is an Object with its own unique ID**, and a **CAN is also an Object with its own unique ID**.
+- Attribution/possession is **contextual to the containing Object's list**: if NEED Object N appears in Object O's `NEEDs` list, O possesses NEED N. A `relation.links[].object_id` pointing to N identifies this NEED Object directly; no additional `need_id` is needed merely for that link. Do not globally conflate the possessing Object O with NEED Object N.
+- Add **optional `weight`** to `relation.links` for dependency relations **NEED → NEED** and **CAN → NEED**. It describes relative importance of a linked NEED within that particular dependency, not an intrinsic universal priority of the NEED Object.
+- Where a parent NEED's dependencies have valid comparable quantitative global satisfaction degrees and known nonnegative weights with positive total, the **working weighted-mean aggregation formalization** uses `sum(w_i*d_i)/sum(w_i)`; evaluate dependent NEEDs independently and recurse when needed. The arithmetic rule is a satisfaction-degree aggregation, not proof of full satisfaction or necessity. A CAN's dependency weights do **not** automatically define a CAN satisfaction percentage or probability of Actualization.
+- Preserve the separation among **relative weight, logical necessity, NEED satisfaction, epistemic uncertainty, CAN actionability and Power**.
+
+**OPEN:** numeric conventions and defaults for absent weights, missing/noncomparable degrees, zero sums, recursive cycles, thresholds for indispensable NEEDs, the operational meaning of weighted CAN→NEED dependencies, versioned link examples and final machine-enforced JSON Schema. The proposal to add an extra `need_id` for links is unnecessary given the clarified Object identities.
+
+Related tasks: T-01, T-02, T-03, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
