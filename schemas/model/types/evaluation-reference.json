@@ -1,0 +1,5 @@
+{
+  "powerAssessment": {
+    "$ref": "urn:trialectic:schema:power-evaluation:normative-v2"
+  }
+}

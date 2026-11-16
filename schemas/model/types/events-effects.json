@@ -1,0 +1,246 @@
+{
+  "event": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "scenario_id": {
+        "$ref": "#/$defs/id"
+      },
+      "kind": {
+        "enum": [
+          "simulated_actualization",
+          "effective_actualization",
+          "observation",
+          "knowledge_revision",
+          "definition_revision"
+        ]
+      },
+      "at": {
+        "$ref": "#/$defs/time"
+      },
+      "source_can": {
+        "$ref": "#/$defs/relationRef"
+      },
+      "state_changes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/stateChange"
+        }
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "notes": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "scenario_id",
+      "kind",
+      "at",
+      "state_changes"
+    ],
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "kind": {
+              "enum": [
+                "observation",
+                "knowledge_revision",
+                "definition_revision"
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "then": {
+          "properties": {
+            "state_changes": {
+              "maxItems": 0
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "kind": {
+              "enum": [
+                "simulated_actualization",
+                "effective_actualization"
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "then": {
+          "required": [
+            "source_can"
+          ]
+        }
+      }
+    ]
+  },
+  "stateChange": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "property": {
+        "type": "string",
+        "minLength": 1
+      },
+      "before": {},
+      "after": {},
+      "at": {
+        "$ref": "#/$defs/time"
+      }
+    },
+    "required": [
+      "object",
+      "property",
+      "after"
+    ]
+  },
+  "effect": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "scenario_id": {
+        "$ref": "#/$defs/id"
+      },
+      "event_id": {
+        "$ref": "#/$defs/id"
+      },
+      "target_object": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "description": {
+        "type": "string",
+        "minLength": 1
+      },
+      "causality": {
+        "enum": [
+          "direct",
+          "indirect",
+          "indeterminate"
+        ]
+      },
+      "timing": {
+        "enum": [
+          "immediate",
+          "delayed",
+          "indeterminate"
+        ]
+      },
+      "evidence_status": {
+        "enum": [
+          "anticipated",
+          "simulated",
+          "observed",
+          "causally_attributed"
+        ]
+      },
+      "magnitude": {
+        "$ref": "#/$defs/measure"
+      },
+      "value": {
+        "enum": [
+          "favorable",
+          "unfavorable",
+          "neutral",
+          "contested",
+          "indeterminate"
+        ]
+      },
+      "possibility": {
+        "type": "string"
+      },
+      "probability": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "probability_basis": {
+        "type": "string",
+        "minLength": 1
+      },
+      "claim_id": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "required": [
+      "id",
+      "scenario_id",
+      "target_object",
+      "description",
+      "causality",
+      "timing",
+      "evidence_status"
+    ],
+    "allOf": [
+      {
+        "if": {
+          "required": [
+            "probability"
+          ]
+        },
+        "then": {
+          "required": [
+            "probability_basis"
+          ]
+        }
+      }
+    ]
+  },
+  "measure": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "value": {
+        "type": "number"
+      },
+      "unit": {
+        "type": "string",
+        "minLength": 1
+      },
+      "method": {
+        "type": "string",
+        "minLength": 1
+      },
+      "justification": {
+        "type": "string",
+        "minLength": 1
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "required": [
+      "value",
+      "unit",
+      "method",
+      "justification"
+    ]
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "claim": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      },
+      "statement": {
+        "type": "string",
+        "minLength": 1
+      },
+      "scenario_id": {
+        "$ref": "#/$defs/id"
+      },
+      "scope": {
+        "type": "string"
+      },
+      "assumption_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "required": [
+      "id",
+      "version",
+      "statement"
+    ]
+  },
+  "evidence": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "source": {
+        "type": "string",
+        "minLength": 1
+      },
+      "root_id": {
+        "$ref": "#/$defs/id"
+      },
+      "method": {
+        "enum": [
+          "observation",
+          "measurement",
+          "experiment",
+          "statistical_study",
+          "simulation",
+          "formal_derivation",
+          "documentary",
+          "other",
+          "unknown"
+        ]
+      },
+      "observed_at": {
+        "$ref": "#/$defs/time"
+      },
+      "recorded_at": {
+        "$ref": "#/$defs/time"
+      },
+      "context": {
+        "type": "string"
+      },
+      "limitations": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "provenance": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "source",
+      "root_id",
+      "method",
+      "recorded_at"
+    ]
+  },
+  "evidenceReview": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "evidence_id": {
+        "$ref": "#/$defs/id"
+      },
+      "claim_id": {
+        "$ref": "#/$defs/id"
+      },
+      "at": {
+        "$ref": "#/$defs/time"
+      },
+      "criteria": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "criterion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "$ref": "#/$defs/status"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "criterion",
+            "status"
+          ]
+        }
+      },
+      "claim_adequacy": {
+        "$ref": "#/$defs/status"
+      },
+      "notes": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "evidence_id",
+      "claim_id",
+      "at",
+      "criteria",
+      "claim_adequacy"
+    ]
+  },
+  "claimAssessment": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "claim_id": {
+        "$ref": "#/$defs/id"
+      },
+      "claim_version": {
+        "$ref": "#/$defs/version"
+      },
+      "scenario_id": {
+        "$ref": "#/$defs/id"
+      },
+      "at": {
+        "$ref": "#/$defs/time"
+      },
+      "model_status": {
+        "enum": [
+          "established_in_model",
+          "not_derived",
+          "indeterminate"
+        ]
+      },
+      "empirical_status": {
+        "enum": [
+          "plausible",
+          "refuted_in_context",
+          "indeterminate"
+        ]
+      },
+      "supporting_evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "contradicting_evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "informative_evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "limitations": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "id",
+      "claim_id",
+      "claim_version",
+      "at",
+      "model_status",
+      "empirical_status",
+      "supporting_evidence_ids",
+      "contradicting_evidence_ids",
+      "informative_evidence_ids"
+    ]
+  }
+}

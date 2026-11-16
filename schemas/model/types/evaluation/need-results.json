@@ -1,0 +1,273 @@
+{
+  "needResults": {
+    "type": "object",
+    "required": [
+      "effective_satisfaction",
+      "temporal_compliance",
+      "candidate_cans"
+    ],
+    "not": {
+      "anyOf": [
+        {
+          "required": [
+            "actualizability"
+          ]
+        },
+        {
+          "required": [
+            "prerequisites"
+          ]
+        },
+        {
+          "required": [
+            "potential_contributions"
+          ]
+        },
+        {
+          "required": [
+            "actualization_assessments"
+          ]
+        },
+        {
+          "required": [
+            "scenario_assessment"
+          ]
+        },
+        {
+          "required": [
+            "effects"
+          ]
+        },
+        {
+          "required": [
+            "comparisons"
+          ]
+        }
+      ]
+    },
+    "properties": {
+      "effective_satisfaction": {
+        "$ref": "#/$defs/needEffectiveSatisfaction"
+      },
+      "temporal_compliance": {
+        "$ref": "#/$defs/needTemporalCompliance"
+      },
+      "candidate_cans": {
+        "$ref": "#/$defs/needCandidateCANs"
+      }
+    }
+  },
+  "needEffectiveSatisfaction": {
+    "type": "object",
+    "description": "D-69: NEED actual satisfaction status and explanatory evidence, separate from temporal compliance. Additional nested metadata is not closed by this decision.",
+    "required": [
+      "status",
+      "justification"
+    ],
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "satisfied",
+          "unsatisfied",
+          "indeterminate"
+        ]
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "degree": {
+        "type": "object",
+        "required": [
+          "value",
+          "measure",
+          "basis"
+        ],
+        "description": "Optional pertinent justified measure. No universal numeric range; do not conflate degree with probability.",
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "measure": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "basis": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "uncertainty": {
+        "type": "object"
+      }
+    }
+  },
+  "needTemporalCompliance": {
+    "type": "object",
+    "description": "D-70: distinguish temporal requirement applicability from the three-state compliance result; exceptions affect compliance requirements, not effective NEED satisfaction. Extra nested metadata remains undecided.",
+    "required": [
+      "applicability",
+      "justification"
+    ],
+    "properties": {
+      "applicability": {
+        "type": "string",
+        "enum": [
+          "applicable",
+          "not_applicable",
+          "indeterminate"
+        ]
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "satisfied",
+          "unsatisfied",
+          "indeterminate"
+        ]
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "applied_exceptions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "uncertainty": {
+        "type": "object"
+      }
+    },
+    "oneOf": [
+      {
+        "properties": {
+          "applicability": {
+            "const": "applicable"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      {
+        "properties": {
+          "applicability": {
+            "const": "not_applicable"
+          }
+        },
+        "not": {
+          "required": [
+            "status"
+          ]
+        }
+      },
+      {
+        "properties": {
+          "applicability": {
+            "const": "indeterminate"
+          },
+          "status": {
+            "const": "indeterminate"
+          }
+        }
+      }
+    ]
+  },
+  "needCandidateCANs": {
+    "type": "object",
+    "description": "D-71: candidate CAN correspondences and scope-qualified search coverage. Presence does not demonstrate contribution, sufficiency or Power.",
+    "required": [
+      "identified",
+      "search_status",
+      "coverage",
+      "scope",
+      "justification"
+    ],
+    "properties": {
+      "identified": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/needCandidateCANEntry"
+        }
+      },
+      "search_status": {
+        "type": "string",
+        "enum": [
+          "not_searched",
+          "searched"
+        ]
+      },
+      "coverage": {
+        "type": "string",
+        "enum": [
+          "complete",
+          "incomplete",
+          "indeterminate"
+        ]
+      },
+      "scope": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "uncertainty": {
+        "type": "object"
+      }
+    },
+    "not": {
+      "properties": {
+        "search_status": {
+          "const": "not_searched"
+        },
+        "coverage": {
+          "const": "complete"
+        }
+      },
+      "required": [
+        "search_status",
+        "coverage"
+      ]
+    }
+  },
+  "needCandidateCANEntry": {
+    "type": "object",
+    "required": [
+      "object_id",
+      "justification"
+    ],
+    "description": "D-71: reference to CAN Object and rationale for correspondence; causal adequacy is not implied.",
+    "properties": {
+      "object_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    }
+  }
+}

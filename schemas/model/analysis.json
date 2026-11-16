@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trialectic:schema:analysis:normative-v2",
+  "title": "Trialectic Analysis v2 — normative exchange profile (D-77/D-78)",
+  "description": "Versioned global structural contract. All inherited transport fields and enums are adopted for this profile under D-77, subject to documented semantic limits. Scenario Results follow D-78. See global-model.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "analysis_id": {
+      "$ref": "#/$defs/id"
+    },
+    "main_subject": {
+      "$ref": "#/$defs/objectRef"
+    },
+    "secondary_subjects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/objectRef"
+      }
+    },
+    "focus": {
+      "$ref": "#/$defs/focus"
+    },
+    "environment": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/objectRef"
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object"
+      }
+    },
+    "definitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/definition"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/condition"
+      }
+    },
+    "pathways": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pathway"
+      }
+    },
+    "inventories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inventory"
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scenario"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "condition_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conditionAssessment"
+      }
+    },
+    "power_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/powerAssessment"
+      }
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/effect"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "evidence_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "evidence_reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceReview"
+      }
+    },
+    "claim_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claimAssessment"
+      }
+    },
+    "legacy_assessments": {
+      "type": "object",
+      "description": "Historical source assessments, never presented as normative evaluations."
+    },
+    "migration_provenance": {
+      "type": "object",
+      "description": "Original document and explicit supplement plan; history is never overwritten."
+    }
+  },
+  "required": [
+    "schema_version",
+    "analysis_id",
+    "main_subject",
+    "objects",
+    "definitions",
+    "relations",
+    "conditions",
+    "pathways",
+    "inventories",
+    "scenarios",
+    "events",
+    "condition_assessments",
+    "power_assessments",
+    "effects",
+    "claims",
+    "evidence_items",
+    "evidence_reviews",
+    "claim_assessments",
+    "focus",
+    "secondary_subjects",
+    "environment"
+  ],
+  "$comment": "This is a normative exchange profile, not a claim of physical identity, complete causal inference, external evidence verification or empirical validation. Historical v0 and normalized-v1 remain unchanged."
+}

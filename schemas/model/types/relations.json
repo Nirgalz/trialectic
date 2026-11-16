@@ -1,0 +1,200 @@
+{
+  "relation": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      },
+      "type": {
+        "enum": [
+          "NEED",
+          "CAN"
+        ]
+      },
+      "origin_object": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "NEEDs": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/objectRef"
+            }
+          }
+        ]
+      },
+      "CANs": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/objectRef"
+            }
+          }
+        ]
+      },
+      "relation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "nature": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "existential",
+                "structural",
+                "functional",
+                "contributive",
+                "enabling",
+                "inhibitory",
+                "transformative"
+              ]
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            }
+          },
+          "composition": {
+            "type": "array",
+            "description": "D-37 Object groups. No implied operator between groups.",
+            "items": {
+              "type": "object",
+              "required": [
+                "objects",
+                "operator"
+              ],
+              "properties": {
+                "objects": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "operator": {
+                  "enum": [
+                    "all",
+                    "any"
+                  ]
+                }
+              }
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nature",
+          "links"
+        ]
+      },
+      "temporal": {
+        "$ref": "#/$defs/temporal"
+      },
+      "required_state": {
+        "type": "object"
+      },
+      "description": {
+        "type": "string"
+      },
+      "represented_object": {
+        "$ref": "#/$defs/objectRef",
+        "description": "D-75: NEED/CAN Object represented by this distinct relation record, not the bearer."
+      }
+    },
+    "required": [
+      "id",
+      "version",
+      "type",
+      "represented_object",
+      "origin_object",
+      "NEEDs",
+      "CANs",
+      "relation"
+    ]
+  },
+  "link": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "object_id": {
+        "$ref": "#/$defs/id"
+      },
+      "source_list": {
+        "enum": [
+          "NEEDs",
+          "CANs"
+        ]
+      },
+      "roles": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "contributive",
+            "enabling",
+            "inhibitory",
+            "transformative",
+            "alternative",
+            "complementary",
+            "substitutive",
+            "sequential",
+            "synergistic",
+            "antagonistic",
+            "reciprocal"
+          ]
+        }
+      },
+      "conditions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/typedRef"
+        }
+      },
+      "mechanism": {
+        "type": "string"
+      },
+      "causality": {
+        "enum": [
+          "direct",
+          "indirect",
+          "indeterminate"
+        ]
+      },
+      "evidence_claim_id": {
+        "$ref": "#/$defs/id"
+      },
+      "affects": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "weight": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "required": [
+      "id",
+      "object_id",
+      "source_list"
+    ]
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "canResults": {
+    "type": "object",
+    "required": [
+      "actualizability",
+      "prerequisites",
+      "potential_contributions"
+    ],
+    "not": {
+      "anyOf": [
+        {
+          "required": [
+            "effective_satisfaction"
+          ]
+        },
+        {
+          "required": [
+            "temporal_compliance"
+          ]
+        },
+        {
+          "required": [
+            "candidate_cans"
+          ]
+        },
+        {
+          "required": [
+            "actualization_assessments"
+          ]
+        },
+        {
+          "required": [
+            "scenario_assessment"
+          ]
+        },
+        {
+          "required": [
+            "effects"
+          ]
+        },
+        {
+          "required": [
+            "comparisons"
+          ]
+        }
+      ]
+    },
+    "properties": {
+      "actualizability": {
+        "$ref": "#/$defs/canActualizability"
+      },
+      "prerequisites": {
+        "$ref": "#/$defs/canPrerequisites"
+      },
+      "potential_contributions": {
+        "$ref": "#/$defs/canPotentialContributions"
+      }
+    }
+  },
+  "canActualizability": {
+    "type": "object",
+    "description": "D-72: contextual possibility of contemplated CAN Actualization, not successful actualization, satisfied prerequisite NEEDs or success probability.",
+    "required": [
+      "status",
+      "justification"
+    ],
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "actualizable",
+          "partially_actualizable",
+          "not_actualizable",
+          "indeterminate"
+        ]
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "degree": {
+        "type": "object",
+        "description": "Optional justified numeric measure; no universal bounds, automatic status inference or probability interpretation.",
+        "required": [
+          "value",
+          "measure",
+          "basis"
+        ],
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "measure": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "basis": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "uncertainty": {
+        "type": "object"
+      }
+    }
+  },
+  "canPrerequisites": {
+    "type": "object",
+    "description": "D-73: inventories of contextual CAN preconditions and separately scoped completeness of pathways. No implicit all/any logic and no causal or completeness proof.",
+    "required": [
+      "needs",
+      "cans",
+      "conditions",
+      "pathways",
+      "inventory_coverage",
+      "scope",
+      "justification"
+    ],
+    "properties": {
+      "needs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/prerequisiteObjectRef"
+        }
+      },
+      "cans": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/prerequisiteObjectRef"
+        }
+      },
+      "conditions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/prerequisiteConditionRef"
+        }
+      },
+      "pathways": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/prerequisitePathwayRef"
+        }
+      },
+      "inventory_coverage": {
+        "$ref": "#/$defs/coverageStatus"
+      },
+      "scope": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "uncertainty": {
+        "type": "object"
+      }
+    }
+  },
+  "prerequisiteObjectRef": {
+    "type": "object",
+    "description": "D-73: NEED/CAN Object reference, optional separate analytical PowerEvaluation link; actual type/existence/compatibility checked semantically.",
+    "required": [
+      "object_id"
+    ],
+    "properties": {
+      "object_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "evaluation_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    }
+  },
+  "prerequisiteConditionRef": {
+    "type": "object",
+    "description": "D-73: scoped Condition reference, not an Object; status if present is a separate contextual evaluation.",
+    "required": [
+      "owner_relation_id",
+      "condition_id"
+    ],
+    "properties": {
+      "owner_relation_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "condition_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "satisfied",
+          "unsatisfied",
+          "indeterminate"
+        ]
+      }
+    }
+  },
+  "prerequisitePathwayRef": {
+    "type": "object",
+    "description": "D-73: reference to a versioned pathway Definition, with coverage of its known conditions rather than overall pathway inventory completeness.",
+    "required": [
+      "pathway_id",
+      "definition_version",
+      "coverage"
+    ],
+    "properties": {
+      "pathway_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "definition_version": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "coverage": {
+        "$ref": "#/$defs/coverageStatus"
+      }
+    }
+  },
+  "canPotentialContributions": {
+    "type": "object",
+    "description": "D-74: scoped inventory of potentially favorable CAN-to-NEED correspondences; none is a proved contribution, sufficiency or effective satisfaction.",
+    "required": [
+      "needs",
+      "search_status",
+      "coverage",
+      "scope",
+      "justification"
+    ],
+    "properties": {
+      "needs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/canPotentialNeedEntry"
+        }
+      },
+      "search_status": {
+        "type": "string",
+        "enum": [
+          "not_searched",
+          "searched"
+        ]
+      },
+      "coverage": {
+        "$ref": "#/$defs/coverageStatus"
+      },
+      "scope": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "uncertainty": {
+        "type": "object"
+      }
+    },
+    "not": {
+      "properties": {
+        "search_status": {
+          "const": "not_searched"
+        },
+        "coverage": {
+          "const": "complete"
+        }
+      },
+      "required": [
+        "search_status",
+        "coverage"
+      ]
+    }
+  },
+  "canPotentialNeedEntry": {
+    "type": "object",
+    "description": "A candidate contextual correspondence of CAN Actualization or resulting state to one NEED; object identity and causal meaning require separate semantic checking.",
+    "required": [
+      "object_id",
+      "relationship",
+      "justification"
+    ],
+    "properties": {
+      "object_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "relationship": {
+        "const": "candidate"
+      },
+      "justification": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    }
+  }
+}

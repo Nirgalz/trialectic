@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trialectic:schema:power-evaluation:normative-v2",
+  "title": "PowerEvaluation v2 — normative local contract including Scenario Results (D-78)",
+  "description": "D-78 formalizes Scenario Results. NEED/CAN assertions are unchanged from normative-v1. Local conformance is not reference integrity, causal or empirical validity. See global-model.md.",
+  "type": "object",
+  "required": [
+    "ID",
+    "Subject",
+    "Focus",
+    "Context",
+    "Dependencies",
+    "Results"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "ID": {
+      "$comment": "D-57 requires presence and semantic uniqueness; JSON type/format remains OPEN. Any JSON value passes local validation."
+    },
+    "Results": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "NEED"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/needResults"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "CAN"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/canResults"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Scenario"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/scenarioResults"
+          }
+        }
+      }
+    }
+  ],
+  "$comment": "D-77/D-78 implement the author request to validate the global model and Scenario Results. This version tightens Scenario sections intentionally; normative-v1 remains available for historical data."
+}

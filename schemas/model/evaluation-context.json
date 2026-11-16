@@ -1,0 +1,111 @@
+{
+  "Subject": {
+    "type": "object",
+    "required": [
+      "object_id"
+    ],
+    "properties": {
+      "object_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    }
+  },
+  "Focus": {
+    "type": "object",
+    "required": [
+      "type"
+    ],
+    "description": "D-67 approves case-sensitive type and type-specific reference presence. ID syntax/types and additional nested metadata remain OPEN.",
+    "oneOf": [
+      {
+        "properties": {
+          "type": {
+            "const": "NEED"
+          }
+        },
+        "required": [
+          "object_id"
+        ],
+        "not": {
+          "required": [
+            "scenario_id"
+          ]
+        }
+      },
+      {
+        "properties": {
+          "type": {
+            "const": "CAN"
+          }
+        },
+        "required": [
+          "object_id"
+        ],
+        "not": {
+          "required": [
+            "scenario_id"
+          ]
+        }
+      },
+      {
+        "properties": {
+          "type": {
+            "const": "Scenario"
+          }
+        },
+        "required": [
+          "scenario_id"
+        ],
+        "not": {
+          "required": [
+            "object_id"
+          ]
+        }
+      }
+    ],
+    "$comment": "D-67 approves key presence and exclusion, not reference value types. Do not infer identifier type from fixtures."
+  },
+  "Context": {
+    "type": "object",
+    "required": [
+      "definition_versions"
+    ],
+    "properties": {
+      "scenario_id": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "definition_versions": {
+        "type": "object",
+        "minProperties": 1,
+        "propertyNames": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "additionalProperties": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "provenance": {
+        "type": "object",
+        "properties": {
+          "revises": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    }
+  },
+  "Dependencies": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "required": [
+        "evaluation_id"
+      ],
+      "properties": {
+        "evaluation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    }
+  }
+}

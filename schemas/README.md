@@ -1,8 +1,15 @@
-# PowerEvaluation schemas — phased structural validation
+# Trialectic schemas
 
-## Current normative global and Scenario profile — v2
+Use **2.0.0** for new analyses and evaluations. Edit the shared [model sources](model/README.md) to maintain the published JSON Schemas.
 
-D-77/D-78 adopt [Analysis v2](trialectic.schema.json) and [PowerEvaluation v2](power-evaluation.v2.schema.json). See the [complete contract](global-model.md) for exact fields, migration, offline validation and remaining semantic limits. Scenario nested fields are now specified. The v1 descriptions below document the retained historical compatibility profile.
+| Document | Published schema | Offline command |
+| --- | --- | --- |
+| Complete Analysis | [Analysis](trialectic.schema.json) | `python tools/validate_analysis.py document.json` |
+| One NEED, CAN or Scenario assessment | [PowerEvaluation](power-evaluation.v2.schema.json) | `python tools/validate_analysis.py document.json --evaluation` |
+
+See the [field and migration guide](global-model.md). The unversioned [PowerEvaluation filename](power-evaluation.schema.json) is reserved for historical v1 consumers. Both evaluation profiles are assembled from one source model. Old Scenario sections require explicit v2 content before use in current analyses.
+
+## Historical v1 field reference
 
 The **author-validated model** is described in [`reference/power-evaluation.md`](../reference/power-evaluation.md) (D-57–D-74). JSON Schema Draft **2020-12** was approved in D-66; the Focus discriminator/reference contract in D-67.
 

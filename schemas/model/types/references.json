@@ -1,0 +1,81 @@
+{
+  "id": {
+    "type": "string",
+    "pattern": "^[A-Za-z][A-Za-z0-9._:-]*$",
+    "minLength": 1
+  },
+  "version": {
+    "type": "string",
+    "minLength": 1
+  },
+  "time": {
+    "type": "string",
+    "format": "date-time",
+    "description": "Must include explicit UTC offset; full ISO 8601 and IANA checks are outside basic JSON Schema."
+  },
+  "objectRef": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      }
+    },
+    "required": [
+      "id",
+      "version"
+    ]
+  },
+  "relationRef": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      }
+    },
+    "required": [
+      "id",
+      "version"
+    ]
+  },
+  "typedRef": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "kind": {
+        "enum": [
+          "object",
+          "relation",
+          "condition",
+          "pathway",
+          "temporal_requirement",
+          "link"
+        ]
+      },
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "owner_id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      }
+    },
+    "required": [
+      "kind",
+      "id",
+      "version"
+    ]
+  },
+  "focus": {
+    "$ref": "urn:trialectic:schema:power-evaluation:normative-v2#/properties/Focus"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "scenario": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "parent_scenario_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "mode": {
+        "enum": [
+          "hypothetical",
+          "effective"
+        ]
+      },
+      "object_heads": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/objectRef"
+        }
+      },
+      "states": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/objectState"
+        }
+      },
+      "event_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "assumptions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "notes": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "parent_scenario_id",
+      "mode",
+      "object_heads",
+      "states",
+      "event_ids"
+    ]
+  },
+  "objectState": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "at": {
+        "$ref": "#/$defs/time"
+      },
+      "basis": {
+        "enum": [
+          "observed",
+          "simulated",
+          "assumed"
+        ]
+      },
+      "values": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "required": [
+      "object",
+      "at",
+      "basis",
+      "values"
+    ]
+  }
+}

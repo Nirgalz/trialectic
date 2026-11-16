@@ -1,0 +1,96 @@
+{
+  "object": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "category": {
+        "enum": [
+          "individual",
+          "group",
+          "technical_object",
+          "system",
+          "semantic_object"
+        ]
+      },
+      "label": {
+        "type": "string"
+      },
+      "parent_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^[A-Za-z][A-Za-z0-9._:-]*$"
+      },
+      "temporary_child_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "actualised_child_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "required": [
+      "id",
+      "category",
+      "parent_id",
+      "temporary_child_ids",
+      "actualised_child_ids"
+    ]
+  },
+  "definition": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object_id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      },
+      "constituents": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/objectRef"
+        }
+      },
+      "properties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "description": "Property definitions, not time-indexed actual physical values."
+        }
+      },
+      "relation_refs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/relationRef"
+        }
+      },
+      "notes": {
+        "type": "string"
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "required": [
+      "object_id",
+      "version",
+      "constituents",
+      "properties",
+      "relation_refs"
+    ]
+  }
+}

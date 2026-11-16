@@ -1,0 +1,136 @@
+{
+  "temporalRequirement": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "target": {
+        "enum": [
+          "satisfaction",
+          "action_start",
+          "action_completion",
+          "effect",
+          "relation_applicability"
+        ]
+      },
+      "mode": {
+        "enum": [
+          "point",
+          "continuous",
+          "deadline",
+          "recurring",
+          "cumulative"
+        ]
+      },
+      "at": {
+        "$ref": "#/$defs/time"
+      },
+      "deadline": {
+        "$ref": "#/$defs/time"
+      },
+      "window": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "start": {
+            "$ref": "#/$defs/time"
+          },
+          "end": {
+            "$ref": "#/$defs/time"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ]
+      },
+      "recurrence": {
+        "type": "object"
+      },
+      "min_duration": {
+        "type": "string",
+        "pattern": "^P"
+      },
+      "description": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "target",
+      "mode"
+    ]
+  },
+  "temporalEstimate": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "target": {
+        "enum": [
+          "execution",
+          "effect"
+        ]
+      },
+      "duration": {
+        "type": "object"
+      },
+      "start_delay": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "target"
+    ]
+  },
+  "temporal": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "time_zone": {
+        "type": "string",
+        "minLength": 1
+      },
+      "requirements": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/temporalRequirement"
+        }
+      },
+      "composition": {
+        "type": "object",
+        "description": "D-34 requirement-ID composition, distinct from condition/pathway expressions.",
+        "required": [
+          "operator",
+          "requirements"
+        ],
+        "properties": {
+          "operator": {
+            "enum": [
+              "all",
+              "any"
+            ]
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "estimates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/temporalEstimate"
+        }
+      }
+    },
+    "required": [
+      "time_zone",
+      "requirements",
+      "estimates"
+    ]
+  }
+}

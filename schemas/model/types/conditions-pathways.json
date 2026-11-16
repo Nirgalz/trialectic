@@ -1,0 +1,237 @@
+{
+  "status": {
+    "enum": [
+      "satisfied",
+      "unsatisfied",
+      "indeterminate"
+    ]
+  },
+  "coverage": {
+    "enum": [
+      "complete",
+      "incomplete",
+      "indeterminate"
+    ]
+  },
+  "logic": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "$ref": "#/$defs/typedRef"
+          }
+        },
+        "required": [
+          "ref"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "op": {
+            "enum": [
+              "all",
+              "any"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/logic"
+            }
+          }
+        },
+        "required": [
+          "op",
+          "items"
+        ]
+      }
+    ],
+    "description": "D-75 recursive condition/pathway grammar. Not Object-group or temporal composition; no automatic causal interpretation."
+  },
+  "predicate": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "property": {
+        "type": "string",
+        "minLength": 1
+      },
+      "operator": {
+        "enum": [
+          "equals",
+          "not_equals",
+          "exists",
+          "greater_than",
+          "greater_or_equal",
+          "less_than",
+          "less_or_equal"
+        ]
+      },
+      "value": {}
+    },
+    "required": [
+      "object",
+      "property",
+      "operator"
+    ]
+  },
+  "condition": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "owner_relation": {
+        "$ref": "#/$defs/relationRef"
+      },
+      "target": {
+        "enum": [
+          "actionability",
+          "need_satisfaction",
+          "relation_applicability"
+        ]
+      },
+      "predicate": {
+        "$ref": "#/$defs/predicate"
+      },
+      "temporal": {
+        "$ref": "#/$defs/temporal"
+      },
+      "notes": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "owner_relation",
+      "target",
+      "predicate"
+    ]
+  },
+  "conditionAssessment": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "scenario_id": {
+        "$ref": "#/$defs/id"
+      },
+      "condition": {
+        "$ref": "#/$defs/typedRef"
+      },
+      "at": {
+        "$ref": "#/$defs/time"
+      },
+      "status": {
+        "$ref": "#/$defs/status"
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "required": [
+      "id",
+      "scenario_id",
+      "condition",
+      "at",
+      "status"
+    ]
+  },
+  "pathway": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      },
+      "owner_relation": {
+        "$ref": "#/$defs/relationRef"
+      },
+      "coverage": {
+        "$ref": "#/$defs/coverage"
+      },
+      "expression": {
+        "$ref": "#/$defs/logic"
+      },
+      "evidence_claim_id": {
+        "$ref": "#/$defs/id"
+      },
+      "scope": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "version",
+      "owner_relation",
+      "coverage",
+      "expression"
+    ]
+  },
+  "inventory": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      },
+      "owner_relation": {
+        "$ref": "#/$defs/relationRef"
+      },
+      "coverage": {
+        "$ref": "#/$defs/coverage"
+      },
+      "search_status": {
+        "enum": [
+          "not_searched",
+          "searched_no_match",
+          "candidates_identified"
+        ]
+      },
+      "expression": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/logic"
+          }
+        ]
+      },
+      "scope": {
+        "type": "string"
+      },
+      "evidence_claim_id": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "required": [
+      "id",
+      "version",
+      "owner_relation",
+      "coverage",
+      "search_status",
+      "expression"
+    ]
+  }
+}

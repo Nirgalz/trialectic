@@ -1,0 +1,14 @@
+{
+  "nonEmptyString": {
+    "type": "string",
+    "minLength": 1
+  },
+  "coverageStatus": {
+    "type": "string",
+    "enum": [
+      "complete",
+      "incomplete",
+      "indeterminate"
+    ]
+  }
+}

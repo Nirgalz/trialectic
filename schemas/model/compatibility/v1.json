@@ -1,0 +1,80 @@
+{
+  "root": {
+    "$id": "urn:trialectic:schema:power-evaluation:normative-v1",
+    "title": "PowerEvaluation — normative local structural contract v1 (D-57, D-61–D-74)",
+    "description": "Normative only for approved local PowerEvaluation constraints through D-74. Not a global Method exchange model. Scenario result internals, ID/Focus reference types, recursive expressions and semantic validation remain OPEN. See power-evaluation.normative.md for authority, conformance and exclusions.",
+    "$comment": "Implements existing approvals; introduces no new conceptual decision and does not approve D-75. Sources: ../reference/data-models.md, ../reference/trialectic-method.md, ../reference/power-evaluation.md, ../DECISIONS.md. Compatibility: same assertions as power-evaluation.boundaries.schema.json; annotations only differ."
+  },
+  "definitions": {
+    "scenarioResults": {
+      "type": "object",
+      "required": [
+        "actualization_assessments",
+        "scenario_assessment",
+        "effects",
+        "comparisons"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "effective_satisfaction"
+            ]
+          },
+          {
+            "required": [
+              "temporal_compliance"
+            ]
+          },
+          {
+            "required": [
+              "candidate_cans"
+            ]
+          },
+          {
+            "required": [
+              "actualizability"
+            ]
+          },
+          {
+            "required": [
+              "prerequisites"
+            ]
+          },
+          {
+            "required": [
+              "potential_contributions"
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "actualization_assessments": {
+          "$comment": "D-63 approves this section name only. Every JSON value is accepted; nested shape remains OPEN."
+        },
+        "scenario_assessment": {
+          "$comment": "D-63 approves this section name only. Every JSON value is accepted; nested shape remains OPEN."
+        },
+        "effects": {
+          "$comment": "D-63 approves this section name only. Every JSON value is accepted; nested shape remains OPEN."
+        },
+        "comparisons": {
+          "$comment": "D-63 approves this section name only. Every JSON value is accepted; nested shape remains OPEN."
+        }
+      }
+    }
+  },
+  "exclude": [
+    "comparisonCriterion",
+    "contemplatedAssessment",
+    "scenarioActualizationAssessments",
+    "scenarioAssessment",
+    "scenarioComparison",
+    "scenarioComparisons",
+    "scenarioDegree",
+    "scenarioDimension",
+    "scenarioEffectRef",
+    "scenarioEffects",
+    "scenarioUncertainty"
+  ]
+}
