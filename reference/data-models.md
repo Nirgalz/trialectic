@@ -2,7 +2,7 @@
 
 **Status:** reference **catalogue and explanatory map** for the `dev` branch, established 2026-11-16 after D-74. **This document is not a new data-model decision, a normative JSON Schema, a new ontology, or scientific validation.** It records what the existing Method models, *why each distinction exists*, its level of approval and where its authoritative specification is maintained.
 
-**Language:** French explanations; preserve exact English identifiers from the repository and existing JSON. This is an explanatory document, **not** an author-approved French translation of every definition.
+**Language:** English explanations, consistent with the maintained repository reference; preserve exact identifiers from the existing definitions and JSON. The original author-approved French NEED definition is reproduced verbatim, while all explanatory English text is a working rendering, **not** an independently approved bilingual equivalence.
 
 **Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](../schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](../schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
 
