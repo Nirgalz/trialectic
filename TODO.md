@@ -34,7 +34,7 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 **Dependencies:** Foundational; coordinate with T-01, T-02, T-05, T-15.
 
-**Scope:** Specify the shared Object / Subject / Environment / Focus architecture and the full lifecycle of versioned Definitions, identity, Parent/Children branching, shared constituent references, NEED/CAN origin-anchored relations, condition/pathway references, Actualization events, Scenario isolation and history (D-17, D-25–D-45). Identify the stable contracts and unresolved semantics across conceptual, logical and causal layers. Treat D-46/D-47 evidence provenance and qualification as cross-cutting interfaces, not the sole purpose of this foundational task. **OPEN:** canonical identities, conflict and revision semantics, full example schema, branch promotion, interoperability, and independent verification.
+**Scope:** Specify the shared Object / Subject / Environment / Focus architecture and the full lifecycle of versioned Definitions, identity, Parent/Children branching, shared constituent references, NEED/CAN origin-anchored relations, condition/pathway references, Actualization events, Scenario isolation and history (D-17, D-25–D-45). Integrate the **validated conceptual `PowerEvaluation` data model (D-57–D-64)**, its specialized `Results`, provenance, and evaluation-vs-event separation; do not assume the provisional nested fixture fields are final. Identify the stable contracts and unresolved semantics across conceptual, logical and causal layers. Treat D-46/D-47 evidence provenance and qualification as cross-cutting interfaces, not the sole purpose of this foundational task. **OPEN:** canonical identities, conflict and revision semantics, full example schema, branch promotion, interoperability, and independent verification.
 
 **Closure criterion:** An explicitly versioned architecture specification and worked NEED- and CAN-focused examples show IDs, Definition versions, Parent/Children lineage, isolated simulations, actualization, shared references, history, qualified uncertainty and Stage transitions. All unresolved semantics and failure cases are listed; independent review confirms compliance with the validated principles.
 
@@ -47,14 +47,14 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 **Closure criterion:** Operational identification criteria support documented synthetic and held-out examples; independent reviewers distinguish conceptual/functional necessity, evidence gaps and contextually relevant CANs, including group/system examples. The need for any separate 'attributable CAN' status is explicitly resolved before closure.
 
-## T-02 · Define CAN actionability, NEED satisfaction and complete Power conditions
+## T-02 · Define CAN actionability, NEED satisfaction and contextual Power evaluation criteria
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To resolve**
 
 **Dependencies:** T-30, T-01.
 
-**Scope:** Operationalize the difference among a CAN's identified action conditions, CAN actionability for a specified relationship, **complete Power** for the contemplated Actualization, NEED effective satisfaction and temporal compliance (D-27, D-31, D-33–D-35, D-40–D-43). Specify how incomplete/unknown inventories, alternative and joint pathways, contextual necessity/sufficiency and circular dependencies affect each conclusion. Preserve epistemic indeterminacy distinct from a binary property when all relevant conditions are known. Methodological evidence checks (D-46/D-47) must not be confused with Object/condition states.
+**Scope:** Operationalize the difference among a CAN's identified action conditions, actionability for a specified relationship, **the contextual Power comparison and its NEED/CAN/Scenario-focused evaluation outputs** (D-48, D-51–D-64), NEED effective satisfaction, and temporal compliance (D-27, D-31, D-33–D-35, D-40–D-43). Specify how incomplete/unknown inventories, alternative and joint pathways, contextual necessity/sufficiency and circular dependencies affect each conclusion. Preserve epistemic indeterminacy distinct from a binary property when all relevant conditions are known. Methodological evidence checks (D-46/D-47) must not be confused with Object/condition states.
 
-**Closure criterion:** A documented model with explicit counterexamples shows when actionability does or does not settle Power, separates NEED satisfaction from matching, and handles unknown and circular pathways. Statistical estimation method and its limits are specified without ungrounded numerical certainty.
+**Closure criterion:** A documented model with explicit counterexamples shows when actionability does or does not settle the **contextual possibility of a specified Actualization**, separates NEED satisfaction from candidate matching, and handles unknown and circular pathways. Statistical estimation method and its limits are specified without ungrounded numerical certainty.
 
 ## T-05 · Clarify boundaries and identities of Object types
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To resolve**
@@ -83,7 +83,7 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 **Closure criterion:** Independent reproductions agree on graph identities, versioned snapshots, temporary vs actualized branches, shared-reference propagation and relevant decisions; any divergent interpretations and unresolved operational definitions are documented.
 
-**Implementation progress (2026-11-15; NOT task closure):** A preliminary test-only Python reference model and ten decision-linked JSON cases have been committed in `tests/`; a GitHub Actions workflow executes the deterministic suite on `dev`. This is not yet a production analysis engine or a fully independently reproduced protocol.
+**Implementation progress (2026-11-16; NOT task closure):** The test-only Python reference model and ten original decision-linked golden JSON cases remain in `tests/`. A linked seven-evaluation synthetic `PowerEvaluation` fixture and 20 dedicated cross-Focus checks were added under D-57–D-64. [GitHub Actions run 43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) passed 35 tests before the consolidated D-64 documentation updates. These are synthetic structural checks, not a production Power engine, full JSON Schema, validated recursive propagation algorithm, independent reproduction or scientific validation.
 
 
 ## T-16 · Generate NEED- and CAN-focused Resolution Scenarios
