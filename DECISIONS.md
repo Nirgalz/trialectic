@@ -889,5 +889,17 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-15, T-30.
 
+## D-53 · Separate conceptual and analytical dependencies
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- **Conceptual dependencies** relate Objects, NEEDs, and CANs in the Object/relationship Definition layer.
+- **Analytical dependencies** link a Focus-centered Power assessment with other assessments whose results it uses.
+- These are separate relationship types. An analytical reference does not itself establish a conceptual dependence, and conceptual dependencies do not automatically imply that an additional persisted assessment already exists.
+- The separation preserves distinct identity, contextual scope, Definition versioning and assessment uncertainty when reusing results.
+
+**OPEN:** the illustrative `PowerEvaluation` structure (`ID`, `Focus`, `Context`, `Dependencies`, `Results`) has **not** been validated as a final JSON schema. Reference format, cross-evaluation version/context consistency, reuse, cycles, and invalidation rules remain to design.
+
+Related tasks: T-02, T-03, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
