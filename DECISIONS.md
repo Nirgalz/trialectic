@@ -901,5 +901,20 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-30.
 
+## D-54 · Minimum compatibility checks for reusing Power evaluations
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+A Focus-centered Power evaluation may be reused across analyses only after verifying **at least**:
+1. compatibility of the **Focus** (NEED, CAN or Scenario);
+2. compatibility of the **context** (including relevant Scenario and time);
+3. compatibility of the **relevant Object Definition versions**;
+4. compatibility of **available information**, including relevant evidence, assumptions and uncertainty.
+
+Compatibility must not be presumed. A changed Definition or different context is **not automatically incompatible**, but immateriality of a difference has to be justified. When compatibility is unverified, the prior conclusion must not be silently reused; reevaluate or explicitly qualify. Preserve historical results without overwriting their original context.
+
+**OPEN:** exact compatibility predicates, evidence-update policy, partial-result reuse, context transfer, caching/invalidation and dependency propagation, and final data serialization. This decision does not validate the illustrative `PowerEvaluation` JSON Schema.
+
+Related tasks: T-02, T-03, T-18, T-21, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
