@@ -832,5 +832,16 @@ The author expressly **validated all five proposals A–E** on methodological as
 
 **OPEN:** domain-specific methodological checklists/validation by experts, context comparability/transportability, empirical demonstration of cause, evidence source auditing beyond declared labels, calibration or statistical synthesis, quality-vs-sufficiency formal semantics, high-stakes verification policy, evidence-history integration with D-46, normative JSON Schema and independent experimental/CI validation. Related tasks T-01, T-02, T-03, T-16, T-18, T-24, T-30.
 
+## D-48 · Potentiality, Potency and Power redefined
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- **Potentiality / Potentialité** denotes **CAN** exclusively. It has full operational conceptual status; it is not merely a popularized label. **NEED** remains a separate concept: a necessity attributable to an Object for its existence, maintenance, or realization of a determinate state.
+- **Potency / Puissance** is the **list of CANs of an Object**, not a list combining NEEDs and CANs.
+- **Power / Pouvoir** is a **comparative analytical operation** involving the Object's NEEDs, the NEEDs of its CANs, and the NEEDs and CANs of its Environment. Its combined outputs are (1) evaluation of possibilities of Actualization, (2) identification of satisfied and unsatisfied NEEDs, and (3) identification of CANs potentially satisfying those NEEDs.
+- The former definition of Power solely as a binary positive/negative assessment for a CAN is superseded as the general definition. Whether binary feasibility remains useful as a subordinate indicator, and the precise NEED–CAN satisfaction rules, remain **OPEN**.
+- This entry explicitly supersedes the temporary, subsequently withdrawn November 16 conversational proposal treating NEED and CAN jointly as Potentialities or including NEEDs in Potency.
+
+Related tasks: T-01, T-02, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
