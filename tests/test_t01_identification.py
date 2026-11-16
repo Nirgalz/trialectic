@@ -160,9 +160,14 @@ def project_to_v2(case, seed):
         attribution_status = "established_in_model"
 
     claim_id = "CL-" + tag + "-attribution"
+    claim_statement = (
+        f"In synthetic {tag}, {focus} {focus_id} is NOT attributable to {subject_id}."
+        if attribution_status == "refuted_in_context"
+        else f"In synthetic {tag}, {focus} {focus_id} is attributable to {subject_id}."
+    )
     record["claims"] = [{
         "id": claim_id, "version": "v1",
-        "statement": f"In synthetic {tag}: {focus} attribution to {subject_id} is examined.",
+        "statement": claim_statement,
         "scope": "Synthetic stipulated case only; no empirical verification.",
     }]
     record["claim_assessments"] = [{
@@ -170,8 +175,8 @@ def project_to_v2(case, seed):
         "claim_id": claim_id, "claim_version": "v1",
         "at": "2026-11-16T09:00:00+01:00",
         "model_status": (
-            "established_in_model" if attribution_status == "established_in_model"
-            else "not_derived" if attribution_status == "refuted_in_context"
+            "established_in_model"
+            if attribution_status in ("established_in_model", "refuted_in_context")
             else "indeterminate"
         ),
         "empirical_status": "indeterminate",
