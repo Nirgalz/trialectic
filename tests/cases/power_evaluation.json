@@ -496,11 +496,5 @@
   },
   "expected_scenario_independence": [
     "PE-CAN-003"
-  ],
-  "expected_analytical_cycle": [
-    [
-      "PE-CAN-001",
-      "PE-NEED-001"
-    ]
   ]
 }
