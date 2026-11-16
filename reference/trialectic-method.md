@@ -657,7 +657,8 @@ The ZIP was extracted and the script rerun; output JSON was byte-identical (SHA-
 - An Object's **CANs** form a contextually selected, potentially **non-exhaustive** inventory of relational records originating from that Object. A CAN may correspond to NEEDs of the same Object or of others; **a link in `CANs` alone does not establish correspondence, sufficiency or actionability** without D-31 verification. A CAN is not equivalent to a NEED or to Power.
 - **Actionable CAN [VALIDATED, November 15]**: a CAN whose **conditions of action are met**. A distinct classification of *mobilizable CAN* is no longer used in the current terminology. The relationship between action conditions in a specific contribution and full sufficient Conditions of Power of the considered Actualization requires careful specification in T-02.
 - For **Groups and Systems**, distinguish CANs of constituent Objects from CANs of the Group/System that require Actualizations by multiple constituent Objects. Those CANs are not automatically identical.
-- **Potency [VALIDATED earlier definition; FORMALIZATION under the new lexicon]**: the set of an Object's attributable CANs at time T. The earlier term **Puissance / Potency** remains traceable; whether it should be retained as a named concept or replaced by “CANs” has **not** been separately decided.
+- **Potentiality / Potentialité [VALIDATED — November 16, 2026]**: an operational concept equivalent to a **CAN**, not to a NEED; it is not merely a popularized label.
+- **Potency / Puissance [VALIDATED — November 16, 2026]**: the list of an Object's CANs at a given time. NEEDs are not included in Potency.
 - **Focal Potentiality [VALIDATED legacy term; FORMALIZATION]**: a CAN selected when the Stage-2 Focus is a CAN. A Stage-2 Focus on a NEED must not be silently relabeled as a Focal Potentiality.
 - **Plasticity [VALIDATED]**: an Object's aptitude for its Potentialities to emerge, change, or disappear; this is distinct from a change actually observed. How to extend the concept to changes of NEEDs in the revised architecture remains **OPEN**.
 
@@ -956,19 +957,19 @@ Finding a third Object does not by itself establish that its CAN is actionable, 
 
 # 5. Power and Actualization
 
-## 5.1 Power remains distinct
+## 5.1 Power as a comparative analytical operation
 
-**[VALIDATED]** **Power** is assessed for each CAN at T:
-- **Positive Power** when at least one **sufficient pathway** of Conditions of Actualization is satisfied, so its Actualization can be **undertaken**;
-- **Negative Power** otherwise;
-- **Indeterminate assessment** when information is insufficient: this records **analyst uncertainty**, not a third ontological state of Power.
-- **[VALIDATED, November 15]** With uncertainty, Power may be assessed **statistically** where an informative assessment is supportable. Distinguish the probability that **Power is positive given available information** from the probability that an **Actualization succeeds given available information**; the latter is not Power. Maintain qualitative uncertainty where a credible quantitative estimate is not available.
+**[VALIDATED — November 16, 2026]** **Power / Pouvoir** is an **analytical operation** comparing (i) the NEEDs of the Object, (ii) the NEEDs of its CANs, and (iii) the NEEDs and CANs of Objects in its Environment. This analysis jointly produces:
 
-A CAN can belong to an Object's Potency while its Power is negative. Never call this “negative Potency”. A positive Power assessment permits undertaking an Actualization; **it does not guarantee successful outcome**.
+1. an evaluation of the possibility of Actualization;
+2. identification of satisfied and unsatisfied NEEDs;
+3. identification of CANs that may satisfy those NEEDs.
 
-**Important:** actionability for an identified CAN's specific role must not be substituted for the full sufficient-pathway Power test of a broader Actualization. Under the revised terminology the label 'mobilizable CAN' is historical; the exact scope of actionability and its relation to Power still require operational testing under T-02. **[VALIDATED distinction / OPEN criteria]**
+Power is therefore **not defined solely as a positive/negative binary outcome**. It is necessary to distinguish the comparison operation from its outputs, as well as identifying a candidate CAN–NEED match from proving satisfaction or feasible Actualization. Missing information must not be interpreted as negative feasibility. The specific comparison criteria, granularity, handling of unknowns, and outputs for NEED-focused, CAN-focused or Scenario-focused analyses remain **OPEN** under T-02 and T-30.
 
-Alternative sufficient pathways may satisfy the same goal through different conditions, including dependencies on the NEEDs or CANs of other Objects. The tests for conditions and pathways remain **OPEN**.
+**[HISTORICAL — SUPERSEDED AS THE DEFINITION OF POWER]** Earlier versions defined Power as a binary state for each CAN: positive when at least one sufficient pathway of Conditions of Actualization is satisfied, negative otherwise, with indeterminate assessment expressing analyst uncertainty. These distinctions may still be useful as **candidate output indicators** where appropriate, but their status and thresholds under the newly validated operational definition require further examination. In particular, a positive feasibility assessment does not guarantee successful Actualization, and CAN actionability for a particular role must not be silently equated with a complete Scenario assessment.
+
+**[RETAINED DISTINCTIONS]** Statistical uncertainty about conditions, probability of successful Actualization, actual NEED satisfaction, and temporal compliance are separate questions. Alternative pathways can depend on NEEDs and CANs of other Objects; do not assume a complete inventory of alternatives.
 
 ## 5.2 Actualization and improvement
 
