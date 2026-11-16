@@ -814,6 +814,8 @@ In this example, a ten-minute interruption between 08:00 and 12:00 breaches `R1`
 
 **[VALIDATED]** Each evaluation uses the existing three **analytical** statuses (`satisfied`, `unsatisfied`, `indeterminate`), with its own evidence and uncertainty as appropriate. Versioned Object Definitions record temporal constraints; **Scenario-specific evaluation** records effective satisfaction, temporal compliance and the IDs of exceptions actually applied. A temporal constraint inconsistency remains a separate Definition diagnostic, not a fourth intrinsic NEED state. Effective satisfaction and temporal compliance must never be collapsed into one status.
 
+**[VALIDATED — November 16, 2026] Partial satisfaction of a NEED.** A NEED may be **partially satisfied**, but its **degree of satisfaction is quantified only when a pertinent and justifiable measure is available**. Preserve the existing analytical statuses (`satisfied`, `unsatisfied`, `indeterminate`); a partial degree is optional additional information, not an automatic fourth status. A partial degree of satisfaction is distinct from uncertainty or the probability that a NEED is satisfied. Distinguish partial satisfaction of the NEED itself from partial satisfaction of its conditions: the latter does not necessarily entail the former. Some NEEDs may be assessed only discretely. A general numerical scale, aggregation procedure, field names, and validation rules remain **OPEN**; a suggested `degree` field is illustrative, **not an approved JSON Schema**.
+
 Example of the **approved working Scenario evaluation structure**; these illustrative outcomes are **established only within the stated hypothetical model**:
 
 ```json
