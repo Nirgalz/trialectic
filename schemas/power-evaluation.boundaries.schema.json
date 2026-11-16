@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-73)",
-  "description": "Executable Draft 2020-12 partial boundary schema: top-level, Focus, Subject/Context/Dependencies, NEED Results D-69–D-71, CAN actualizability D-72 and CAN prerequisites D-73. Versioned pathway expression logic, semantic reference validation, CAN potential_contributions, Scenario Results, causal and empirical validation remain OPEN.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-74)",
+  "description": "Executable Draft 2020-12 partial schema: D-57 top-level, D-67 Focus, D-68 Subject/Context/Dependencies, full minimum NEED Results (D-69–D-71) and minimum CAN Results (D-72–D-74). Scenario Results internals, causal proofs, referential semantics, time/versioned pathway validation and empirical truth remain OPEN.",
   "type": "object",
   "required": [
     "ID",
@@ -321,6 +321,9 @@
         },
         "prerequisites": {
           "$ref": "#/$defs/canPrerequisites"
+        },
+        "potential_contributions": {
+          "$ref": "#/$defs/canPotentialContributions"
         }
       }
     },
@@ -758,6 +761,90 @@
         "incomplete",
         "indeterminate"
       ]
+    },
+    "canPotentialContributions": {
+      "type": "object",
+      "description": "D-74: scoped inventory of potentially favorable CAN-to-NEED correspondences; none is a proved contribution, sufficiency or effective satisfaction.",
+      "required": [
+        "needs",
+        "search_status",
+        "coverage",
+        "scope",
+        "justification"
+      ],
+      "properties": {
+        "needs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/canPotentialNeedEntry"
+          }
+        },
+        "search_status": {
+          "type": "string",
+          "enum": [
+            "not_searched",
+            "searched"
+          ]
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverageStatus"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      },
+      "not": {
+        "properties": {
+          "search_status": {
+            "const": "not_searched"
+          },
+          "coverage": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "search_status",
+          "coverage"
+        ]
+      }
+    },
+    "canPotentialNeedEntry": {
+      "type": "object",
+      "description": "A candidate contextual correspondence of CAN Actualization or resulting state to one NEED; object identity and causal meaning require separate semantic checking.",
+      "required": [
+        "object_id",
+        "relationship",
+        "justification"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "relationship": {
+          "const": "candidate"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
     }
   }
 }
