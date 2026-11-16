@@ -1166,5 +1166,23 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-16, T-24, T-30.
 
+## D-71 · NEED-focused candidate CAN inventory and coverage
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** A NEED-focused `PowerEvaluation.Results.candidate_cans` is a required object with the following machine-validatable field contract (JSON Schema Draft 2020-12; D-66):
+- **`identified`** — **required array**, possibly empty, of candidate entries. Every entry is an object with **`object_id`** (required nonempty string identifying a CAN Object), **`justification`** (required nonempty string explaining the proposed CAN–NEED correspondence), and optionally **`evidence`** (array, possibly empty, of nonempty evidence-reference strings).
+- **`search_status`** — **required enum** `not_searched` or `searched`; says whether a candidate search was performed, not whether it was exhaustive.
+- **`coverage`** — **required enum** `complete`, `incomplete`, `indeterminate`; describes candidate inventory completeness **within the stated scope**. A claim of `complete` requires a search (`searched`) and supporting contextual justification; structural validation can reject `complete` paired with `not_searched` but cannot establish genuine completeness.
+- **`scope`** — **required nonempty string** delimiting the candidate search/inventory context.
+- **`justification`** — **required nonempty string** explaining the search, its coverage and limitations.
+- **`evidence`** — **optional array**, possibly empty, of nonempty evidence-reference strings for the inventory/search.
+- **`uncertainty`** — **optional object**, with internal fields still OPEN.
+
+**Semantic safeguards:** Keep `search_status` distinct from `coverage`; `identified: []` is **not evidence of impossibility** or of the absence of relevant CANs, even when `searched`. A scoped `coverage: complete` claim is not universal exhaustiveness: evidence, assumptions, relevant Object Definition versions and contextual limits must be assessed by the separate D-65 semantic validator (D-41). Candidate `object_id` must refer to a CAN Object; candidates can belong to the Subject or other Objects in the Environment. Identifying a candidate is a D-31 **correspondence only**: it does not prove a causal **contribution**, conditional **sufficiency**, necessity, current **actionability/Power**, or effective Actualization. Subsequent CAN/Scenario evaluations remain independent Focus-centered assessments with explicit analytical dependencies (D-52–D-54).
+
+**OPEN:** Standardized search algorithms and exhaustiveness tests, how a prior search or inherited evidence is represented, candidate deduplication/ordering, detailed per-candidate relationship qualifications, external evidence and uncertainty schemas, additional-properties closure, semantic reference and compatibility verification, representative empirical evaluation. D-71 completes the named minimum NEED `Results` subfield structure alongside D-69/D-70, **not** the complete global JSON Schema, the full semantic validator or the scientific-validation program.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-01, T-02, T-03, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
