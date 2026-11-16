@@ -865,5 +865,17 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-01, T-02, T-03, T-30.
 
+## D-51 · Context-dependent and partial CAN actualizability
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- A CAN's **possibility of Actualization is always evaluated in context**, relative to a specified Actualization and its requirements.
+- Depending on the context, an envisaged CAN Actualization may be **actualizable**, **partially actualizable**, or **not actualizable**. **Indeterminate** remains a separate analytical assessment when the necessary evidence/context is missing.
+- A **degree of possible Actualization** may be quantified **only when a pertinent and justifiable measure exists**; numerical quantification is not mandatory for every CAN.
+- Preserve the distinction among possible versus effective Actualization, CAN actualizability versus the degree of satisfaction of its dependent NEEDs, and a measured degree versus uncertainty/probability. A contextual evaluation must consider relevant Environment Objects and alternatives, e.g., available recharging for a car whose battery is empty.
+
+**OPEN:** criteria for partial Actualization in non-quantifiable cases, thresholds, temporal/horizon boundaries, alternate pathways, reusable metrics and machine-readable data shape. No final JSON Schema or numerical rule for inferring CAN actualizability from NEED weights was validated.
+
+Related tasks: T-02, T-03, T-16, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
