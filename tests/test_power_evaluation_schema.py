@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-67 boundaries. The older
+The schema enforces only approved D-57/D-61-D-68 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -109,11 +109,96 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_fixture(synthetic)
 
-    def test_nonapproved_nested_serialization_remains_unconstrained(self):
+    def test_subject_requires_object_and_nonempty_object_id(self):
+        for invalid in [None, 12, [], {}, {"object_id": ""}, {"object_id": None},
+                        {"object_id": 17}]:
+            with self.subTest(subject=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Subject"] = invalid
+                self.assert_invalid(obj)
+
+    def test_context_requires_object_and_nonempty_version_map(self):
+        for invalid in [None, 4, [], {}, {"definition_versions": {}},
+                        {"definition_versions": {"": "v1"}},
+                        {"definition_versions": {"O-CAR": ""}},
+                        {"definition_versions": {"O-CAR": None}},
+                        {"definition_versions": []}]:
+            with self.subTest(context=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Context"] = invalid
+                self.assert_invalid(obj)
+
+    def test_missing_context_definition_versions_is_invalid(self):
         obj = copy.deepcopy(self.records[0])
-        obj["Context"] = 4  # NOT endorsed; intentionally outside D-66/D-67 scope
+        del obj["Context"]["definition_versions"]
+        self.assert_invalid(obj)
+
+    def test_context_scenario_and_provenance_are_optional(self):
+        obj = copy.deepcopy(self.records[0])
+        obj["Context"].pop("scenario_id")
+        obj["Context"].pop("provenance")
         self.assert_valid(obj)
-        # Once Context shape is approved, this must become invalid.
+        obj["Context"]["provenance"] = {}
+        self.assert_valid(obj)
+
+    def test_present_context_scenario_is_nonempty_string(self):
+        for invalid in [None, "", 0, False, []]:
+            with self.subTest(scenario=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Context"]["scenario_id"] = invalid
+                self.assert_invalid(obj)
+
+    def test_provenance_object_and_revision_link_types(self):
+        for invalid in [None, "", [], 17, False]:
+            with self.subTest(provenance=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Context"]["provenance"] = invalid
+                self.assert_invalid(obj)
+        for invalid in [None, "", [], 10, False]:
+            with self.subTest(revises=invalid):
+                obj = copy.deepcopy(self.records[3])
+                obj["Context"]["provenance"]["revises"] = invalid
+                self.assert_invalid(obj)
+
+    def test_revision_link_requirement_is_semantic_when_revision_known(self):
+        obj = copy.deepcopy(self.records[3])
+        obj["Context"]["provenance"].pop("revises")
+        self.assert_valid(obj)  # D-68: schema has no "is_revision" proof
+        data = copy.deepcopy(self.fixture)
+        data["evaluations"][3] = obj
+        with self.assertRaises(ValueError):
+            validate_fixture(data)  # D-60 applied as an inter-record constraint
+
+    def test_dependencies_array_and_reference_fields(self):
+        for invalid in [None, "", 0, {}, [None], ["PE-NEED-001"], [{}],
+                        [{"evaluation_id": ""}], [{"evaluation_id": 4}],
+                        [{"evaluation_id": None}]]:
+            with self.subTest(dependencies=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Dependencies"] = invalid
+                self.assert_invalid(obj)
+
+    def test_empty_dependencies_does_not_imply_no_conceptual_dependencies(self):
+        obj = copy.deepcopy(self.records[1])
+        obj["Dependencies"] = []
+        self.assert_valid(obj)  # structural check only; semantics differ
+
+    def test_unapproved_nested_metadata_remains_open(self):
+        obj = copy.deepcopy(self.records[1])
+        obj["Subject"]["unvalidated_metadata"] = {"extra": 1}
+        obj["Context"]["provenance"]["unvalidated_metadata"] = [1, 2]
+        obj["Dependencies"][0]["unvalidated_metadata"] = False
+        self.assert_valid(obj)  # nested additionalProperties closure remains OPEN
+
+    def test_structurally_valid_missing_dependencies_and_versions_not_semantic(self):
+        obj = copy.deepcopy(self.records[1])
+        obj["Dependencies"][0]["evaluation_id"] = "MISSING-EVALUATION"
+        obj["Context"]["definition_versions"] = {"UNKNOWN-OBJECT": "unknown-version"}
+        self.assert_valid(obj)
+        data = copy.deepcopy(self.fixture)
+        data["evaluations"][1] = obj
+        with self.assertRaises(ValueError):
+            validate_fixture(data)
 
 
 if __name__ == "__main__":
