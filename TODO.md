@@ -91,6 +91,9 @@ Two **synthetic, manually reasoned** case studies examined conceptual coherence,
 
 **Closure criterion:** Operational identification criteria support documented synthetic and held-out examples; independent reviewers distinguish conceptual/functional necessity, evidence gaps and contextually relevant CANs, including group/system examples. The need for any separate 'attributable CAN' status is explicitly resolved before closure. Include blinded cross-analyst checks for omitted vulnerable stakeholders, contested thresholds, and false necessity claims; report disagreements rather than silently choosing one taxonomy.
 
+
+**D-82 validated operating criteria (2026-11-16; T-01 remains OPEN):** The author approved T-01-A–M, including revised B/H/J and safeguards L/M. The prospective stand-alone `attributable CAN` category is retired by T-01-K; attribution itself is not retired. Full wording lives in [§3.5 of the reference](reference/trialectic-method.md) and [D-82](DECISIONS.md). A versioned, synthetic discriminating corpus and v2 structural projections are in [tests/cases/t01-identification-v1.json](tests/cases/t01-identification-v1.json), exercised by [tests/test_t01_identification.py](tests/test_t01_identification.py). These do not constitute independent research or close T-01; maintain the blinded cross-analyst and empirically grounded closure requirements.
+
 ## T-02 · Define CAN actionability, NEED satisfaction and contextual Power evaluation criteria
 **Type:** Conceptual / experimental | **Priority:** P0 | **Status:** **To resolve**
 
