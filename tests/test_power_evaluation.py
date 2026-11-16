@@ -217,7 +217,7 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
     def test_fixture_decisions_reference_existing_journal_entries(self):
         import re
         decisions_text = (FIXTURE.parents[2] / "DECISIONS.md").read_text(encoding="utf-8")
-        documented = set(re.findall(r"^## (D-\\d+) ·", decisions_text, re.M))
+        documented = set(re.findall(r"^## (D-\d+) ·", decisions_text, re.M))
         self.assertTrue(set(self.fixture["decisions"]) <= documented)
 
     def test_linked_need_can_scenario_graph(self):
