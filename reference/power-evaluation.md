@@ -240,6 +240,28 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** Actual referent resolution, scoped relation/version/time keys, detailed Condition and pathway evaluation links, reference qualification, exhaustive search methodology, recursive expression schema, cycle solving, inferred necessity/sufficiency, duplicate/list ordering policies, additional metadata closure, evidence and uncertainty internals, and external causal/empirical validation.
 
+### 5.8 CAN potential contributions serialization (D-74)
+
+**[VALIDATED — November 16, 2026; D-74]** A CAN-focused `PowerEvaluation` requires `Results.potential_contributions` as a JSON **object** with the following minimum Draft 2020-12 locally enforceable structure:
+
+| Field | Type / allowed values | Obligation |
+| --- | --- | --- |
+| `needs` | Array (possibly empty) of candidate NEED objects, each with `object_id` (nonempty string), `relationship: candidate` (exact literal), `justification` (nonempty string), optionally `evidence` (array of nonempty reference strings) | **Required** |
+| `search_status` | `not_searched` or `searched` | **Required** |
+| `coverage` | `complete`, `incomplete` or `indeterminate` | **Required** |
+| `scope` | Nonempty string delimiting candidate NEED search | **Required** |
+| `justification` | Nonempty string explaining candidates, search and limitations | **Required** |
+| `evidence` | Array (possibly empty) of nonempty reference strings for the overall inventory | Optional |
+| `uncertainty` | Object; exact internal schema OPEN | Optional |
+
+**[CANDIDATES, NOT PROOFS — D-31/D-62]** A listed NEED is only a **candidate** for a favorable contribution from the CAN's **contemplated Actualization or its resulting state**. The field `relationship` has one approved value, **`candidate`**: `contribution`, `sufficient`, `necessary`, `observed`, etc. are **not** accepted as promoted values. Establishing causal contribution requires an additional, context-sensitive analysis (including possible with/without comparison); conditional sufficiency, Scenario-relative necessity, actualizability/Power and effectively observed NEED satisfaction are further **distinct** questions. An identified matching NEED is not an already satisfied NEED and does not prove an Actualization event.
+
+**[SEARCH AND COVERAGE]** `search_status` says whether the relevant search was performed, while `coverage` makes a claim about completeness of the identified NEED inventory **within `scope`**. `not_searched` and `coverage: complete` are locally incompatible; even a `searched`/`complete` pair is not empirically confirmed by the JSON schema. Empty `needs: []` means only that no candidate NEED has been **recorded**; it is not evidence that none exists or that CAN contribution is impossible. The dual direction of D-71 `Results.candidate_cans` and D-74 `Results.potential_contributions` is **not** automatic symmetry: Context, Focus, assumptions, evidence and Definition versions may differ (D-54).
+
+**[MULTIPLE NEEDs, ENABLING AND ADVERSE EFFECTS]** A CAN may correspond to multiple NEEDs, act jointly with other CANs, or change conditions enabling another CAN. These dependencies and any indirect causal chains require separately qualified, traceable analyses; they cannot be flattened into proved *direct* CAN-to-NEED causation. This section records candidate **favorable** NEED correspondences, not the complete positive/negative effects of Actualizations on Subject or Environment Objects. Potential adverse effects should be recorded in appropriate Scenario/Actualization analyses (D-62/D-63), including the distinct temporal/causal axes where relevant.
+
+**[OPEN]** The causal contribution verification model and counterfactual evidence, sufficiency of joint CAN sets, enabling dependencies, stable representation of specific envisaged Actualizations, search algorithms and completeness proof, cross-Context reuse and target-ID resolution, indirect/adverse effect schemas, confidence/uncertainty representation, nested metadata restrictions and real-world validation. A local structural validation pass is **not** semantic or scientific validation.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -253,7 +275,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-73
+## 7. Still open — not silently approved by D-64–D-74
 
 - Final **JSON Schema**, remaining nested attributes, field types and optionality (including other Focus kinds); treatment of non-applicability outside the **D-70 temporal applicability** contract; reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
