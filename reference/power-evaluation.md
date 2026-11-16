@@ -86,7 +86,18 @@ On changed input or evaluation, **selectively reexamine analytical dependents** 
 
 **Analytical cycles** are detected and grouped for joint examination from independent information, temporal context and possible initiating changes, without unbounded recursion (D-56). An analytical reference cycle is **not proof** of a causal cycle, impossible Actualization or a unique solution. Unresolved results remain indeterminate/conditional.
 
-## 4. Tested illustrative cross-Focus fixture
+## 4. Two complementary validation levels (D-65)
+
+**[VALIDATED — November 16, 2026; D-65]** The validity of a `PowerEvaluation` must be assessed through **two distinct, complementary levels**, without treating successful data-format validation as evidence of analytical correctness:
+
+1. **Structural validity** — checked against a **strict JSON Schema**: expected data shape, common six top-level fields, type-specific `Results` structures, declared JSON data types and allowed enumerated values, and other *locally decidable structural constraints* once their precise encodings have been approved. The selected JSON Schema draft and exact requirements are **not yet validated** by D-65.
+2. **Semantic validity** — checked by an **additional validation mechanism** against relevant contextual/reference information and methodological rules: existence and identity of referenced Objects, assessments and Scenarios; applicable Definition versions; Focus/Subject/context compatibility; analytical dependency and revision-lineage integrity; and consistency of results with evidence, justifications and uncertainty. This second level can require information outside the document and cannot generally be settled by a JSON Schema alone.
+
+A structurally valid evaluation may nevertheless be **semantically invalid, insufficiently substantiated or not yet decidable**. Absence of evidence must not be silently converted into a negative empirical conclusion. Semantic validation is distinct from actual empirical/scientific verification of consequences, the adequacy of causal assumptions, or proof that the Method improves analysis.
+
+**[OPEN]** Formal status taxonomy (e.g. error vs indeterminate vs not assessed), selection/version of JSON Schema dialect, exact nested types, requiredness and nullability, referential integrity rules, handling of legitimate cross-Scenario evaluation reuse (D-54), scope and algorithms of semantic checks, provenance and evidence validation, deterministic error reporting, CI gates, validator implementation and complete test coverage. A strict schema and a validator may be designed as separate components with distinct test oracles; D-65 does **not** prematurely validate their particular implementation.
+
+## 5. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
 
@@ -99,7 +110,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 5. Still open — not silently approved by D-64
+## 6. Still open — not silently approved by D-64/D-65
 
 - Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
