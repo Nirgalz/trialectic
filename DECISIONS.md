@@ -1098,5 +1098,22 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
 
+## D-67 · Focus discriminator and reference structure for PowerEvaluation
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** In `PowerEvaluation.Focus`, use a **required** property `type` as a **case-sensitive discriminator** that selects the corresponding D-61–D-63 `Results` structure. The `Focus` data must contain a **required reference suited to its type**:
+
+- **NEED**: `{"type":"NEED","object_id":"O-NEED-001"}` (`object_id` refers to the NEED Object).
+- **CAN**: `{"type":"CAN","object_id":"O-CAN-001"}` (`object_id` refers to the CAN Object).
+- **Scenario**: `{"type":"Scenario","scenario_id":"S-001"}` (`scenario_id` refers to the Resolution Scenario).
+
+- The three `type` values are exactly `NEED`, `CAN`, and `Scenario`. A mismatched reference key cannot replace the required type-specific reference; a contradictory pair of distinct reference types must be rejected.
+- This rule permits conditional structural validation of `Results` via JSON Schema Draft 2020-12 (D-66). It **does not establish actual existence or contextual suitability** of the referenced Object or Scenario; those remain D-65 semantic-validation tasks.
+- No naming pattern or mandatory prefix is adopted from the illustrative IDs. The approval is limited to the discriminator, its three values, the type-specific **required** references, and rejecting contradictory reference keys, **not** a closed policy for all additional `Focus` metadata.
+
+**OPEN:** exact identifier syntax/normalization, additional `Focus` metadata, other nested fields/types/requiredness, semantic referential integrity, and all other pending schema/validation details. This decision does not approve a complete JSON Schema.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
