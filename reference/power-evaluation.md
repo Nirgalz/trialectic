@@ -109,13 +109,13 @@ A structurally valid evaluation may nevertheless be **semantically invalid, insu
 
 ### 5.1 Strict Focus serialization (D-67)
 
-**[VALIDATED — November 16, 2026; D-67]** `Focus` is a **required object** with the following **exclusive, Focus-dependent shape**:
+**[VALIDATED — November 16, 2026; D-67]** `Focus` is a **required object** with the following **Focus-dependent minimum shape**:
 
 - For **NEED**: `{"type":"NEED","object_id":"<Object ID>"}`.
 - For **CAN**: `{"type":"CAN","object_id":"<Object ID>"}`.
 - For **Resolution Scenario**: `{"type":"Scenario","scenario_id":"<Scenario ID>"}`.
 
-The discriminator `Focus.type` is **required**, with precisely those three **case-sensitive literal values**. The appropriate identifier reference (`object_id` for NEED/CAN or `scenario_id` for Scenario) is **required**, and a conflicting/mismatched identifier key is not permitted in `Focus`. This allows Draft 2020-12 to select the matching D-61–D-63 `Results` substructures. The Focus reference identifies its target in the model but **does not by itself prove that the target exists**, has the declared NEED/CAN category, or belongs to a compatible Subject/Scenario/Definition version; those are **semantic** validation responsibilities under D-65.
+The discriminator `Focus.type` is **required**, with precisely those three **case-sensitive literal values**. The appropriate identifier reference (`object_id` for NEED/CAN or `scenario_id` for Scenario) is **required**. The alternative, mismatched reference key is **not accepted as a substitute**, and the schema must reject a contradictory pair of these two identifier fields. No other nested `Focus` metadata constraints are approved by this decision. This allows Draft 2020-12 to select the matching D-61–D-63 `Results` substructures. The Focus reference identifies its target in the model but **does not by itself prove that the target exists**, has the declared NEED/CAN category, or belongs to a compatible Subject/Scenario/Definition version; those are **semantic** validation responsibilities under D-65.
 
 **[OPEN]** Exact identifier string syntax and global/scoped uniqueness, whether any additional future Focus metadata would require a versioned schema change, the nested field contracts of `Subject`, `Context`, `Dependencies`, and `Results`, and cross-record referential checks remain unapproved. The examples' `O-...` and `S-...` identifier patterns are illustrative, **not validated mandatory prefixes**.
 
