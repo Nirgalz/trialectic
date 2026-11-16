@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-68 boundaries. The older
+The schema enforces only approved D-57/D-61-D-69 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -99,6 +99,122 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         obj = copy.deepcopy(self.records[0])
         obj["Results"]["actualizability"] = {}
         self.assert_invalid(obj)
+
+    def test_d69_need_satisfaction_status_required(self):
+        for idx in [0, 6]:
+            for change in ["missing", None, "", 4, "partially_satisfied", "Satisfied"]:
+                with self.subTest(need=self.records[idx]["ID"], change=change):
+                    obj = copy.deepcopy(self.records[idx])
+                    item = obj["Results"]["effective_satisfaction"]
+                    if change == "missing":
+                        item.pop("status")
+                    else:
+                        item["status"] = change
+                    self.assert_invalid(obj)
+
+    def test_d69_justification_is_required_nonempty_even_when_indeterminate(self):
+        for change in ["missing", None, "", 22, []]:
+            with self.subTest(justification=change):
+                obj = copy.deepcopy(self.records[0])
+                item = obj["Results"]["effective_satisfaction"]
+                item["status"] = "indeterminate"
+                if change == "missing":
+                    item.pop("justification")
+                else:
+                    item["justification"] = change
+                self.assert_invalid(obj)
+        obj = copy.deepcopy(self.records[0])
+        obj["Results"]["effective_satisfaction"].update(
+            status="indeterminate",
+            justification="Need satisfaction cannot be inferred from these measurements."
+        )
+        self.assert_valid(obj)
+
+    def test_d69_optional_degree_with_justified_basis_and_no_universal_scale(self):
+        obj = copy.deepcopy(self.records[0])
+        result = obj["Results"]["effective_satisfaction"]
+        result["status"] = "unsatisfied"
+        result["degree"] = {
+            "value": 60,
+            "measure": "percentage_of_required_volume",
+            "basis": "Synthetic illustration: 6 litres / 10 litres required"
+        }
+        self.assert_valid(obj)
+        # No universal 0-1 bound or fourth partial status is being asserted.
+        result["status"] = "indeterminate"
+        result["degree"] = {
+            "value": 1500,
+            "measure": "measured_volume_ml",
+            "basis": "Hypothetical measurement whose sufficiency threshold is not established"
+        }
+        result["justification"] = "Measured value exists but the satisfaction criterion is unresolved."
+        self.assert_valid(obj)
+
+    def test_d69_malformed_degree_is_invalid(self):
+        invalid = [
+            None, False, 0, "", [], {},
+            {"value": 1},
+            {"value": 1, "measure": "litres"},
+            {"value": 1, "basis": "illustrative"},
+            {"value": True, "measure": "litres", "basis": "illustrative"},
+            {"value": "60", "measure": "percent", "basis": "illustrative"},
+            {"value": 1, "measure": "", "basis": "illustrative"},
+            {"value": 1, "measure": "litres", "basis": ""},
+            {"value": 1, "measure": "litres", "basis": None}
+        ]
+        for degree in invalid:
+            with self.subTest(degree=degree):
+                obj = copy.deepcopy(self.records[0])
+                obj["Results"]["effective_satisfaction"]["degree"] = degree
+                self.assert_invalid(obj)
+
+    def test_d69_evidence_optional_empty_or_nonempty_reference_array(self):
+        obj = copy.deepcopy(self.records[0])
+        item = obj["Results"]["effective_satisfaction"]
+        item.pop("evidence")
+        self.assert_valid(obj)
+        item["evidence"] = []
+        self.assert_valid(obj)
+        item["evidence"] = ["EV-001", "EV-002"]
+        self.assert_valid(obj)
+        for evidence in [None, "", "EV-001", [""], [None], [23], {}, [True]]:
+            with self.subTest(evidence=evidence):
+                item["evidence"] = evidence
+                self.assert_invalid(obj)
+
+    def test_d69_uncertainty_optional_object_no_certainty_inference(self):
+        obj = copy.deepcopy(self.records[0])
+        item = obj["Results"]["effective_satisfaction"]
+        item.pop("uncertainty", None)
+        self.assert_valid(obj)
+        item["uncertainty"] = {}
+        self.assert_valid(obj)
+        item["uncertainty"] = {
+            "description": "No verified calibration", "source": "model assumption"
+        }
+        self.assert_valid(obj)
+        for uncertainty in [None, False, 5, [], "certain"]:
+            with self.subTest(uncertainty=uncertainty):
+                item["uncertainty"] = uncertainty
+                self.assert_invalid(obj)
+
+    def test_d69_temporal_compliance_kept_separate(self):
+        obj = copy.deepcopy(self.records[6])
+        self.assertEqual(
+            obj["Results"]["effective_satisfaction"]["status"], "unsatisfied"
+        )
+        self.assertEqual(
+            obj["Results"]["temporal_compliance"]["status"], "satisfied"
+        )
+        self.assert_valid(obj)
+
+    def test_d69_unapproved_nested_metadata_remains_allowed(self):
+        obj = copy.deepcopy(self.records[6])
+        obj["Results"]["effective_satisfaction"]["violations"] = [
+            {"start": "2026-11-16T09:20+01:00", "end": "2026-11-16T09:40+01:00"}
+        ]
+        obj["Results"]["effective_satisfaction"]["undecided_metadata"] = {"x": 1}
+        self.assert_valid(obj)  # additionalProperties closure has not been approved
 
     def test_structure_cannot_prove_reference_existence(self):
         obj = copy.deepcopy(self.records[1])
