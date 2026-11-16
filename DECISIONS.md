@@ -1146,5 +1146,25 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
 
+## D-70 · NEED temporal compliance applicability, status and exception references
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** In a NEED-focused `PowerEvaluation`, `Results.temporal_compliance` is a required object with the following fields, validated locally through JSON Schema Draft 2020-12:
+
+- **`applicability`** — **required enum** with exactly `applicable`, `not_applicable`, `indeterminate`.
+- **`status`** — conditional, drawn from the existing three analytical compliance statuses `satisfied`, `unsatisfied`, `indeterminate`: **required** when `applicability` is `applicable`; **absent** when `not_applicable`; **optional but restricted to `indeterminate`** when `applicability` is `indeterminate`.
+- **`justification`** — **required nonempty string**, including justification of non-applicability or indeterminate applicability/compliance.
+- **`applied_exceptions`** — **optional array of nonempty string references** to exceptions applied in the evaluation (possibly empty).
+- **`evidence`** — **optional array of nonempty evidence-reference strings** (possibly empty).
+- **`uncertainty`** — **optional object**, with its internal schema still OPEN.
+
+**Distinct meanings:** Non-applicability is **not a fourth compliance status**. If requirements are known to apply but compliance cannot be determined, use `applicability: applicable` and `status: indeterminate`. If applicability itself is unknown, use `applicability: indeterminate` with the stated conditional status rule. Absence of the optional uncertainty field does not certify certainty.
+
+**D-33–D-35 safeguards:** The applicable temporal obligations, requirement types and `all`/`any` compositions reside in the versioned NEED Definition and its explicitly scoped requirements. An exception only changes the applicable temporal requirements for compliance when explicitly authorized, justified, scoped and versioned; it neither changes effective NEED satisfaction nor retroactively legalizes an observed interruption. `applied_exceptions` references identify exceptions actually taken into account, but local structural validation does **not** prove their validity, relevant period or authority. The semantic validator handles these checks and preserves observed/simulated violation intervals and independent effective-satisfaction results. A temporally compliant Scenario may remain effectively unsatisfied during an authorized interruption.
+
+**OPEN:** Complete exception and requirement-assessment structures, time/interval and time-zone serialization, linking interval observations to requirements, contradiction diagnostics, overlap/priority rules, evidence/uncertainty internals, treatment of incomplete requirement inventories, semantic rule implementation, additional nested properties closure and empirical verification. D-70 does not approve the full temporal evaluation engine or final JSON Schema.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-16, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
