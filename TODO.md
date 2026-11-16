@@ -208,6 +208,8 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 **Dependencies:** T-03, T-15; coordinate with T-04.
 
+**D-80 design milestone (November 16, 2026):** The AI-assisted dialogue protocol at [proposals/ai-assisted-dialogue-protocol.md](proposals/ai-assisted-dialogue-protocol.md) is author-approved as an interaction design aligned with the normative v2 `schemas/model/` records. Standalone instruction packaging, operational host integration, structural/semantic fidelity tests and controlled usability/learning comparisons remain to be implemented and evaluated; T-20 is not closed.
+
 **Scope:** Design an adaptive AI dialogue for the default Advanced Mode that identifies the Subject, NEED/CAN Focus, context and uncertainty, presents multiple defensible Scenarios and their trade-offs, and lets a user inspect stated assumptions, source support, missing conditions and consequences. Balance relevance and conversational economy with traceability, D-46/47 evidence distinctions and iterative Definition expansion. Evaluate usability with T-04 without pretending Simple Mode is implemented or automatically selecting one best answer.
 
 **Closure criterion:** A prototype enables users to inspect and compare distinct Scenario alternatives and trace consequences and uncertainty without fabricating observations, imposing one best Scenario or confusing temporary branches with actualized Objects.
