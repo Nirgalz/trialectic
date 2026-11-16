@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-69 boundaries. The older
+The schema enforces only approved D-57/D-61-D-70 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -215,6 +215,146 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         ]
         obj["Results"]["effective_satisfaction"]["undecided_metadata"] = {"x": 1}
         self.assert_valid(obj)  # additionalProperties closure has not been approved
+
+    def test_d70_applicability_is_required_and_enum_is_exact(self):
+        for idx in [0, 6]:
+            for change in ["missing", None, "", "Applicable", "not-applicable",
+                           "unknown", "satisfied", 1, False, []]:
+                with self.subTest(need=self.records[idx]["ID"], applicability=change):
+                    obj = copy.deepcopy(self.records[idx])
+                    tc = obj["Results"]["temporal_compliance"]
+                    if change == "missing":
+                        tc.pop("applicability")
+                    else:
+                        tc["applicability"] = change
+                    self.assert_invalid(obj)
+
+    def test_d70_applicable_requires_three_state_status(self):
+        for valid in ["satisfied", "unsatisfied", "indeterminate"]:
+            with self.subTest(status=valid):
+                obj = copy.deepcopy(self.records[0])
+                tc = obj["Results"]["temporal_compliance"]
+                tc["applicability"] = "applicable"
+                tc["status"] = valid
+                self.assert_valid(obj)
+        for invalid in [None, "", "Satisfied", "not_applicable", 0, False]:
+            with self.subTest(status=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Results"]["temporal_compliance"]["status"] = invalid
+                self.assert_invalid(obj)
+        obj = copy.deepcopy(self.records[0])
+        del obj["Results"]["temporal_compliance"]["status"]
+        self.assert_invalid(obj)
+
+    def test_d70_not_applicable_forbids_compliance_status(self):
+        obj = copy.deepcopy(self.records[0])
+        tc = obj["Results"]["temporal_compliance"]
+        tc["applicability"] = "not_applicable"
+        tc["justification"] = "No temporal requirement applies in this illustrative context."
+        tc.pop("status")
+        self.assert_valid(obj)
+        for status in ["satisfied", "unsatisfied", "indeterminate", None]:
+            with self.subTest(status=status):
+                tc["status"] = status
+                self.assert_invalid(obj)
+
+    def test_d70_applicability_indeterminate_restricts_optional_status(self):
+        obj = copy.deepcopy(self.records[0])
+        tc = obj["Results"]["temporal_compliance"]
+        tc["applicability"] = "indeterminate"
+        tc["justification"] = "Whether the temporal requirement applies is unknown."
+        tc.pop("status")
+        self.assert_valid(obj)
+        tc["status"] = "indeterminate"
+        self.assert_valid(obj)
+        for status in ["satisfied", "unsatisfied", None, "not_applicable"]:
+            with self.subTest(status=status):
+                tc["status"] = status
+                self.assert_invalid(obj)
+
+    def test_d70_nonempty_justification_required_for_all_applicabilities(self):
+        for applicability in ["applicable", "not_applicable", "indeterminate"]:
+            for invalid in ["missing", None, "", 12, [], False]:
+                with self.subTest(applicability=applicability, justification=invalid):
+                    obj = copy.deepcopy(self.records[0])
+                    tc = obj["Results"]["temporal_compliance"]
+                    tc["applicability"] = applicability
+                    if applicability != "applicable":
+                        tc.pop("status")
+                    if invalid == "missing":
+                        tc.pop("justification")
+                    else:
+                        tc["justification"] = invalid
+                    self.assert_invalid(obj)
+
+    def test_d70_applied_exceptions_optional_ref_array(self):
+        obj = copy.deepcopy(self.records[6])
+        tc = obj["Results"]["temporal_compliance"]
+        tc.pop("applied_exceptions")
+        self.assert_valid(obj)
+        tc["applied_exceptions"] = []
+        self.assert_valid(obj)
+        tc["applied_exceptions"] = ["EX-001", "EX-002"]
+        self.assert_valid(obj)
+        for invalid in [None, "", 12, {}, [None], [""], [5], [False]]:
+            with self.subTest(applied_exceptions=invalid):
+                tc["applied_exceptions"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d70_evidence_optional_ref_array(self):
+        obj = copy.deepcopy(self.records[0])
+        tc = obj["Results"]["temporal_compliance"]
+        tc.pop("evidence", None)
+        self.assert_valid(obj)
+        tc["evidence"] = []
+        self.assert_valid(obj)
+        tc["evidence"] = ["EV-INTERRUPTION", "EV-AUTHORIZATION"]
+        self.assert_valid(obj)
+        for invalid in [None, "", {}, [None], [""], [42], [True]]:
+            with self.subTest(evidence=invalid):
+                tc["evidence"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d70_uncertainty_optional_open_object(self):
+        obj = copy.deepcopy(self.records[0])
+        tc = obj["Results"]["temporal_compliance"]
+        tc.pop("uncertainty", None)
+        self.assert_valid(obj)
+        tc["uncertainty"] = {}
+        self.assert_valid(obj)
+        tc["uncertainty"] = {"description": "Time of observation not verified"}
+        self.assert_valid(obj)
+        for invalid in [None, 5, "", False, []]:
+            with self.subTest(uncertainty=invalid):
+                tc["uncertainty"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d70_authorized_exception_does_not_change_effective_status(self):
+        obj = copy.deepcopy(self.records[6])
+        self.assertEqual(
+            obj["Results"]["effective_satisfaction"]["status"], "unsatisfied"
+        )
+        self.assertEqual(obj["Results"]["temporal_compliance"]["applicability"],
+                         "applicable")
+        self.assertEqual(obj["Results"]["temporal_compliance"]["status"],
+                         "satisfied")
+        self.assertEqual(obj["Results"]["temporal_compliance"]["applied_exceptions"],
+                         ["EX-001"])
+        self.assert_valid(obj)
+
+    def test_d70_structural_exception_reference_does_not_prove_authorization(self):
+        obj = copy.deepcopy(self.records[6])
+        obj["Results"]["temporal_compliance"]["applied_exceptions"] = [
+            "UNVERIFIED-EXCEPTION"
+        ]
+        self.assert_valid(obj)  # authorization and scoped validity remain semantic
+
+    def test_d70_unapproved_temporal_metadata_is_open(self):
+        obj = copy.deepcopy(self.records[0])
+        obj["Results"]["temporal_compliance"]["requirement_assessments"] = {
+            "documentation_only": True
+        }
+        self.assert_valid(obj)  # no extra-properties closure yet
 
     def test_structure_cannot_prove_reference_existence(self):
         obj = copy.deepcopy(self.records[1])
