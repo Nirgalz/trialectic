@@ -194,6 +194,7 @@ def project_to_v2(case, seed):
             "scope": tag,
             "justification": case["expected"]["justification"],
             "claim_id": claim_id,
+            "claim_version": "v1",
         },
         "relation": {
             "nature": ["functional"] if focus == "NEED" else ["contributive"],
