@@ -1409,5 +1409,18 @@ are superseded only for the now-specified v2 Scenario field contract.
 
 November 16, 2026. Adopted on the author's instruction. Version 2.0.0 is the sole supported contract. The shared build publishes the Analysis and PowerEvaluation v2 schemas. Earlier v1 artifacts and the v0-to-v1 migration tool are available through Git history. D-79 supersedes earlier maintenance commitments for v1. D-77 and D-78 continue to define v2.
 
+## D-80 · Approve the AI-assisted dialogue protocol and align it with normative v2 models
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Authorization:** The author requested an update of `proposals/ai-assisted-dialogue-protocol.md` using the current Method on `dev` and the data models in `schemas/model/`, explicitly stating: « Cette proposal est validée ».
+
+**Decision:** Adopt the AI-assisted dialogue **design protocol** as approved interaction guidance (revision 1.0). Its purpose is to structure dialogue around Object/Subject, NEED/CAN/Scenario Focus, contextual Power evaluations, independent Scenario comparison, recursive reassessment, uncertainty and source-aware explanations, with progressive learning and a text-only fallback. It is not a separate conceptual Method or a claim that a portable AI prompt, GUI, stateful app or empirically beneficial learning system has been implemented.
+
+**Revision and rationale:** The preceding November 15 draft 0.1 was an OPEN proposal and described Power as generally binary, and data serialization as unresolved. The approved revision follows D-48/D-52 and D-77–D-79: Power is a comparative analytical operation; CAN is Potentiality and Potency lists CANs; partial NEED satisfaction and CAN actualizability are distinct; `schemas/model/` v2 is the normative exchange contract. The protocol now maps conversation stages to the Analysis root, the six-field PowerEvaluation and NEED/CAN/Scenario Results, versioned Objects/relations, scenarios/events/effects and evidence, while distinguishing local schema conformance from referential, semantic and empirical validity.
+
+**Limits/consequences:** No new conceptual definition, schema field, causal inference algorithm, universal score or recommendation rule is adopted. Unresolved DIALOGUE-01–07 design/implementation choices, actual host-interface support, semantic validation and controlled T-04/T-20 user studies remain OPEN. Approval does not close T-20. The maintained reference and normative v2 schemas are unchanged by this protocol documentation update.
+
+Related tasks: T-20, T-03, T-04, T-15, T-16, T-21, T-24, T-27, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
