@@ -877,5 +877,17 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-16, T-30.
 
+## D-52 · Focus-centered contextual Power assessments
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- Each Power assessment is centered on **one selected Focus: NEED, CAN, or Resolution Scenario**.
+- A Focus-specific evaluation may reference other evaluations required by its dependencies, including recursive analysis.
+- Multiple Focus-centered assessments may be **grouped into a broader analysis of a Subject** without erasing their separate identities, context, uncertainty, or results.
+- Preserve **versioned Object Definitions separately** from contextual Power evaluations; an assessment alone does not modify a Definition.
+
+**OPEN:** exact JSON representation, stable evaluation IDs, context/version references, cross-assessment links and aggregation, invalidation and caching, cycle handling and uncertainty propagation. The earlier illustrative schema is not adopted as final.
+
+Related tasks: T-02, T-03, T-15, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
