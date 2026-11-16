@@ -214,6 +214,12 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
         self.assertEqual(set(self.by_id["PE-SCENARIO-001"]), SIX_FIELDS)
         self.assertTrue({"D-57", "D-61", "D-62", "D-63"} <= set(self.fixture["decisions"]))
 
+    def test_fixture_decisions_reference_existing_journal_entries(self):
+        import re
+        decisions_text = (FIXTURE.parents[2] / "DECISIONS.md").read_text(encoding="utf-8")
+        documented = set(re.findall(r"^## (D-\\d+) ·", decisions_text, re.M))
+        self.assertTrue(set(self.fixture["decisions"]) <= documented)
+
     def test_linked_need_can_scenario_graph(self):
         self.assertEqual(self.by_id["PE-NEED-001"]["Focus"]["type"], "NEED")
         self.assertEqual(self.by_id["PE-CAN-001"]["Focus"]["type"], "CAN")
@@ -234,6 +240,10 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
         can = self.by_id["PE-CAN-001"]["Results"]
         self.assertEqual(can["actualizability"]["status"], "partially_actualizable")
         self.assertEqual(can["actualizability"]["degree"]["value"], .1)
+        degree = can["actualizability"]["degree"]
+        self.assertAlmostEqual(degree["estimated_distance_km"] /
+                               degree["target_distance_km"], degree["value"])
+
         self.assertNotIn("degree", self.by_id["PE-NEED-001"]["Results"]["effective_satisfaction"])
         self.assertEqual(self.by_id["PE-NEED-001"]["Results"]["candidate_cans"]["identified"], [])
         self.assertEqual(self.by_id["PE-NEED-001"]["Results"]["candidate_cans"]["coverage"],
@@ -263,6 +273,7 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
         self.assertNotIn("PE-CAN-002", [d["evaluation_id"] for d in old["Dependencies"]])
 
     def test_independent_scenario_does_not_auto_revise(self):
+        self.assertIn("PE-CAN-003", self.fixture["expected_scenario_independence"])
         independent = self.by_id["PE-CAN-003"]
         self.assertEqual(independent["Context"]["scenario_id"], "S-WITH-RECHARGE")
         self.assertEqual(independent["Results"]["actualizability"]["status"], "indeterminate")
