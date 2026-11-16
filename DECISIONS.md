@@ -1084,5 +1084,19 @@ Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) a
 
 Related tasks: T-02, T-03, T-24, T-30.
 
+## D-66 · Strict JSON Schema foundations for PowerEvaluation
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** Establish the following **structural schema foundations**, extending D-65 and the integrated model D-64:
+
+1. Use **JSON Schema Draft 2020-12** for the strict structural validator.
+2. Require **exactly six top-level fields**: `ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results` (D-57); **reject undeclared extra top-level fields**.
+3. Make the **`Results` structure conditional on the selected `Focus` kind** (NEED, CAN, Resolution Scenario), with the corresponding substructure names validated in D-61, D-62, D-63.
+4. **Cross-record semantic validation stays separate** from structural JSON Schema checks (D-65): reference existence and identity, contextual and Definition-version compatibility, and analytical-dependency/revision integrity are not established by a structurally valid document.
+
+**OPEN:** concrete serialization of the Focus discriminator, detailed nested types and fields, required/optional attributes within `Subject`, `Focus`, `Context`, `Dependencies` and `Results`, nullability and formats, policies on extra nested properties, semantics of nonapplicability, validator implementation and independent tests. D-66 **does not approve any final executable JSON Schema** or change outstanding semantic and empirical-validation requirements.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
