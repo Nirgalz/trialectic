@@ -178,6 +178,26 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** A universal time/interval schema; the full exception record, authorization and precedence schema; requirement-assessment references and diagnostics for contradictory Definitions; `evidence` provenance/credibility; `uncertainty` subfields; applicability-determination and compliance algorithms, handling absent or incomplete requirement inventories; additional-properties closure and empirical validity. This D-70 decision formalizes the local result contract only, not a complete temporal reasoning engine or scientific proof.
 
+### 5.5 NEED candidate CAN inventory serialization (D-71)
+
+**[VALIDATED — November 16, 2026; D-71]** The required NEED `Results.candidate_cans` substructure is a JSON **object** whose minimum **local structural contract** is:
+
+| Field | Type / allowed values | Obligation |
+| --- | --- | --- |
+| `identified` | Array (possibly empty) of objects with required nonempty `object_id` and nonempty `justification`; each may have optional `evidence` array of nonempty strings | **Required** |
+| `search_status` | `not_searched` or `searched` | **Required** |
+| `coverage` | `complete`, `incomplete` or `indeterminate` | **Required** |
+| `scope` | Nonempty string delimiting the candidate inventory | **Required** |
+| `justification` | Nonempty string explaining candidate-search scope, findings and limits | **Required** |
+| `evidence` | Array (possibly empty) of nonempty evidence-reference strings | Optional |
+| `uncertainty` | Object; internal schema OPEN | Optional |
+
+**[SEARCH VS COVERAGE]** A search may have occurred without an exhaustive candidate inventory; likewise an empty `identified` array says only that **no CAN was recorded as a candidate** in this evaluation, **not** that no CAN exists or that NEED satisfaction is impossible. `coverage: complete` is a claim of completeness *relative to the stated `scope`, assumptions, evidence and versioned Definitions*, not global/universal exhaustiveness. A `not_searched` record must not claim `complete` coverage; the local schema rejects that contradictory pair. A claim of `complete` with `searched` still requires substantive **semantic** justification. Search/inventory status is distinct from whether any contemplated CAN is actualizable.
+
+**[FOUR DISTINCT RELATION LEVELS — D-31]** An `identified[]` entry documents an **explainable correspondence** of a CAN Object to the focal NEED, supported by its per-entry justification and optional evidence; it is **not** a claim that the CAN's Actualization causally contributes, is conditionally sufficient (alone or together with other CANs), is necessary in a given Scenario, or has positive Power/actionability. CAN candidates may originate from the Subject **or** another Object in the Environment. Their Object identities and relevant Definition versions remain distinct from `PowerEvaluation` IDs. Subsequent CAN and Scenario evaluations use their own Focus and referential/analytical dependency checks (D-52–D-54).
+
+**[VALIDATION BOUNDARY]** Draft 2020-12 checks object shape, local required keys, enum values and nonempty string references. The separate D-65 semantic validator must check that each `object_id` identifies an actual CAN, that the candidate match and claimed search coverage are adequately justified in context, and whether differing Scenarios, evidence or Definitions permit reuse. `uncertainty` absent is not proof of certainty. Nested additional-metadata restrictions, inventory completeness verification, evidence credibility and detailed correspondence/contribution models are **OPEN**.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -191,7 +211,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-70
+## 7. Still open — not silently approved by D-64–D-71
 
 - Final **JSON Schema**, remaining nested attributes, field types and optionality (including other Focus kinds); treatment of non-applicability outside the **D-70 temporal applicability** contract; reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
