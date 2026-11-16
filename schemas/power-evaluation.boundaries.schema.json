@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-71)",
-  "description": "Executable Draft 2020-12 partial boundary schema: D-57 six fields, D-67 Focus, D-68 Subject/Context/Dependencies, D-61–D-63 Focus-specific Results sections, D-69 NEED effective_satisfaction, D-70 NEED temporal_compliance and D-71 NEED candidate_cans. Full CAN and Scenario Results, cross-record semantics, causal evaluation and empirical validation remain OPEN.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-72)",
+  "description": "Executable Draft 2020-12 partial boundary schema for six-field top-level PowerEvaluation, Focus, Subject/Context/Dependencies, NEED Results (D-69 to D-71), and CAN Results.actualizability (D-72). CAN prerequisites/potential_contributions, Scenario Results, contemplated Actualization identity, measurement semantics and cross-record validation remain OPEN.",
   "type": "object",
   "required": [
     "ID",
@@ -314,6 +314,11 @@
             ]
           }
         ]
+      },
+      "properties": {
+        "actualizability": {
+          "$ref": "#/$defs/canActualizability"
+        }
       }
     },
     "scenarioResults": {
@@ -573,6 +578,57 @@
           "items": {
             "$ref": "#/$defs/nonEmptyString"
           }
+        }
+      }
+    },
+    "canActualizability": {
+      "type": "object",
+      "description": "D-72: contextual possibility of contemplated CAN Actualization, not successful actualization, satisfied prerequisite NEEDs or success probability.",
+      "required": [
+        "status",
+        "justification"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "actualizable",
+            "partially_actualizable",
+            "not_actualizable",
+            "indeterminate"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "degree": {
+          "type": "object",
+          "description": "Optional justified numeric measure; no universal bounds, automatic status inference or probability interpretation.",
+          "required": [
+            "value",
+            "measure",
+            "basis"
+          ],
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "measure": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "basis": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
         }
       }
     }
