@@ -1130,5 +1130,21 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
 
+## D-69 · NEED-focused Results.effective_satisfaction field contract
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** In a NEED-focused `PowerEvaluation`, `Results.effective_satisfaction` is a required object with the following fields (JSON Schema Draft 2020-12, D-66):
+- **`status`** — **required**, with exactly three case-sensitive string values: `satisfied`, `unsatisfied`, `indeterminate`.
+- **`justification`** — **required, nonempty string**, stating why the conclusion was reached or why it is indeterminate.
+- **`degree`** — **optional object**. When present, it requires `value` (**number**), `measure` (**nonempty string**) and `basis` (**nonempty string** recording the measure/calculation basis**)**. A degree is used **only where measurement is relevant and justifiable**; the schema does **not** impose a universal [0,1] or percentage scale, numerical threshold, or claim that a degree equals a probability.
+- **`evidence`** — **optional array** of nonempty string references to supporting evidence, and may be empty.
+- **`uncertainty`** — **optional object**, with internal field design left OPEN.
+
+**Semantic safeguards:** D-49's partial satisfaction remains representable without a fourth `partially_satisfied` status: a measured partial degree may accompany `unsatisfied`; `indeterminate` can be appropriate even when measurements are available but criteria are unresolved. Do not confuse a NEED's partial satisfaction with partial satisfaction of its Conditions, and do not interpret degree as confidence. `justification` is required even for `indeterminate`; missing `uncertainty` does **not** establish certainty; missing `evidence` does not prove that evidence is unavailable. The distinct `temporal_compliance` substructure (D-35/D-61) remains untouched.
+
+**OPEN:** exact uncertainty subfields, evidence/provenance resolution and credibility, normalized measurement basis and units, per-NEED thresholds and comparability, aggregation, time/interval representation, additional nested metadata and closure, empirical truth and complete schema. No additional rules for CAN/Scenario `Results` or a production evaluation engine are adopted.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
