@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-70)",
-  "description": "Executable Draft 2020-12 partial boundary schema: six-field top-level, D-67 Focus, D-68 typed Subject/Context/Dependencies, D-61–D-63 Focus-specific Results section names, D-69 NEED effective_satisfaction and D-70 NEED temporal_compliance applicability/status. Full nested candidate CAN/CAN/Scenario results, exception authorization, temporal engine, evidence quality and cross-record semantic validation remain OPEN.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-71)",
+  "description": "Executable Draft 2020-12 partial boundary schema: D-57 six fields, D-67 Focus, D-68 Subject/Context/Dependencies, D-61–D-63 Focus-specific Results sections, D-69 NEED effective_satisfaction, D-70 NEED temporal_compliance and D-71 NEED candidate_cans. Full CAN and Scenario Results, cross-record semantics, causal evaluation and empirical validation remain OPEN.",
   "type": "object",
   "required": [
     "ID",
@@ -263,6 +263,9 @@
         },
         "temporal_compliance": {
           "$ref": "#/$defs/needTemporalCompliance"
+        },
+        "candidate_cans": {
+          "$ref": "#/$defs/needCandidateCANs"
         }
       }
     },
@@ -487,6 +490,91 @@
           }
         }
       ]
+    },
+    "needCandidateCANs": {
+      "type": "object",
+      "description": "D-71: candidate CAN correspondences and scope-qualified search coverage. Presence does not demonstrate contribution, sufficiency or Power.",
+      "required": [
+        "identified",
+        "search_status",
+        "coverage",
+        "scope",
+        "justification"
+      ],
+      "properties": {
+        "identified": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/needCandidateCANEntry"
+          }
+        },
+        "search_status": {
+          "type": "string",
+          "enum": [
+            "not_searched",
+            "searched"
+          ]
+        },
+        "coverage": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "incomplete",
+            "indeterminate"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      },
+      "not": {
+        "properties": {
+          "search_status": {
+            "const": "not_searched"
+          },
+          "coverage": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "search_status",
+          "coverage"
+        ]
+      }
+    },
+    "needCandidateCANEntry": {
+      "type": "object",
+      "required": [
+        "object_id",
+        "justification"
+      ],
+      "description": "D-71: reference to CAN Object and rationale for correspondence; causal adequacy is not implied.",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
     }
   }
 }
