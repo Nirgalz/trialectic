@@ -978,6 +978,8 @@ Finding a third Object does not by itself establish that its CAN is actionable, 
 
 **[OPEN]** The chosen JSON Schema dialect, precise nested serialization, structural constraints, semantic-check algorithms, return statuses and error formats, external-reference resolution, test oracles and implementation remain to be defined and approved; D-65 validates the **separation of responsibilities**, not those details.
 
+**[VALIDATED — November 16, 2026; D-66] Strict JSON Schema foundations.** The structural validation of `PowerEvaluation` shall use **JSON Schema Draft 2020-12**, enforce **exactly** the six D-57/D-64 top-level fields (`ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`), **reject undeclared additional top-level properties**, and condition the `Results` structure on the selected NEED, CAN or Resolution Scenario Focus (D-61–D-63). The separate semantic validator remains responsible for cross-evaluation reference identity, contextual/Definition-version consistency and revision/dependency coherence (D-65). The [companion D-66 specification](power-evaluation.md#5-strict-json-schema-foundations-d-66) documents these boundaries. **[OPEN]** Detailed subfield types, exact `Focus` discriminator representation, required/optional nested fields, nullability, format conventions, nested additional-properties rules, and runnable schema/test design remain to be approved; no finished JSON Schema is implied.
+
 **[VALIDATED — November 16, 2026]** **Power / Pouvoir** is an **analytical operation** comparing (i) the NEEDs of the Object, (ii) the NEEDs of its CANs, and (iii) the NEEDs and CANs of Objects in its Environment. This analysis jointly produces:
 
 1. an evaluation of the possibility of Actualization;
