@@ -56,10 +56,13 @@ available at its original path and `$id`. The normative schema has its own stabl
 assertions; tests lock assertion parity. The new annotations document its scope.
 Future assertion changes require an approved source decision and compatibility review.
 
-The [normalized proposal](proposal-v0/README.md) remains **OPEN**. This profile does
+The [normalized proposal](proposal-v0/README.md) remains incomplete; selected
+compatible choices are now approved by D-75. This profile does
 not import it or settle Object versus relation identity (O-01), the final global
 model, Condition predicates, recursive expression grammar, temporal exceptions,
-or Scenario nested results (prospective D-75 is unapproved). D-36–D-44 concepts
+or Scenario nested results. D-75 subsequently approves only the compatible
+normalized choices listed in the [reconciliation register](proposal-v0/RECONCILIATION.md);
+it does not change this schema or approve Scenario internals. D-36–D-44 concepts
 and working structures are not promoted into a global exchange contract here.
 
 Separate semantic checks are still needed for reference existence/type, ID

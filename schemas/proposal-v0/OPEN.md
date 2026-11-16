@@ -1,6 +1,8 @@
 # Open questions — canonical Trialectic data model proposal v0.1
 
-**Status:** ALL ITEMS OPEN. These are not new conceptual decisions. The prototype files here are a testable proposal for `dev`. Every resolution must be explicitly approved and recorded separately in `DECISIONS.md`, with corresponding reference/TODO updates where warranted. Priorities denote sequencing, **not** settled importance or assigned work.
+**Current status (D-75):** The [reconciliation register](RECONCILIATION.md) supersedes the original status for V-01–V-06. O-01 choice A (separate relation record and represented Object) is validated; its cardinality/lifecycle/migration remains OPEN. O-03 transport references, O-05 condition/pathway expression syntax, O-14 scoped technical strictness and record-family architecture are partially settled. All remaining subquestions stay OPEN. C-01–C-10 resolutions are proposed only.
+
+**Original status:** ALL ITEMS OPEN. These are not new conceptual decisions. The prototype files here are a testable proposal for `dev`. Every resolution must be explicitly approved and recorded separately in `DECISIONS.md`, with corresponding reference/TODO updates where warranted. Priorities denote sequencing, **not** settled importance or assigned work.
 
 ## P0 — Resolve before adopting a normative exchange contract
 

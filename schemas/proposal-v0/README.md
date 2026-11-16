@@ -1,6 +1,8 @@
 # Trialectic normalized data model — proposal v0.1
 
-**Status: OPEN TECHNICAL PROPOSAL, NOT AN APPROVED NORMATIVE SCHEMA.** This directory is a candidate exchange/storage format for the **`dev`** branch. It does **not** change `reference/trialectic-method.md`, `DECISIONS.md`, or close any TODO. The canonical Method remains the working reference. This proposal incorporates developments through November 16, 2026, particularly the revised Focus-centered operation of Power.
+**Status: HISTORICAL TECHNICAL PROPOSAL; SELECTED CHOICES VALIDATED BY D-75, NOT A COMPLETE APPROVED SCHEMA.**
+
+**Current approval:** V-01–V-06 are approved within the precise boundaries in the [reconciliation register](RECONCILIATION.md). C-01–C-10 list conflicts with approved contracts and proposed, unapproved resolutions. The JSON/example remain unchanged; the older OPEN labels below describe their original status and are superseded only for those selected choices. This directory is a candidate exchange/storage format for the **`dev`** branch. It does **not** change `reference/trialectic-method.md`, `DECISIONS.md`, or close any TODO. The canonical Method remains the working reference. This proposal incorporates developments through November 16, 2026, particularly the revised Focus-centered operation of Power.
 
 ## Files
 
@@ -88,7 +90,7 @@ No CI check or full semantic validation is claimed by this document. The example
 
 ## Decision governance
 
-- Treat every field in this directory as **PROPOSED**, even where it implements a **VALIDATED** conceptual distinction.
+- Apply D-75 V-01–V-06 only within their documented scope. Other fields and conflict resolutions remain **PROPOSED**; the full JSON schema is not approved.
 - Before promoting a field into the canonical Method: document alternatives, reasons, interactions, tests, version migration and explicit author approval.
 - Preserve historical source definitions and the distinction between conceptual decisions, formalized implementation, open research and empirical validation.
 - Related work: T-30, T-01, T-02, T-03, T-05, T-15, T-16, T-18, T-21, T-24 and T-27.

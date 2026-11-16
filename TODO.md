@@ -1,5 +1,7 @@
 # TODO — Trialectic Method
 
+**D-75 partial proposal approval (2026-11-16; no task closure):** V-01–V-06 approve compatible identity/transport/expression/record-family choices. [C-01–C-10](schemas/proposal-v0/RECONCILIATION.md) require reviewed PowerEvaluation reconciliation, loss-aware migration, scoped composition and metadata handling (T-30/T-03/T-24). Proposed resolutions are not approved; Scenario nested results and remaining semantic rules stay OPEN.
+
 **Working register** · Updated: November 15, 2026 · **30 tracked task IDs (29 open work items and 1 ongoing governance process)** · Canonical reference: [`reference/trialectic-method.md`](reference/trialectic-method.md) · Branch: `dev`
 
 This file specifies **what remains to do**. It does **not** introduce or validate concepts: validated decisions remain in [`DECISIONS.md`](DECISIONS.md), and the canonical Method definitions remain in the reference. Historical IDs T-01–T-30 are stable even when two tasks share a research workstream; none has been closed.

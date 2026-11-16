@@ -1,5 +1,21 @@
 # Trialectic Method — Reference
 
+**Current D-75 status — November 16, 2026:** The author has now validated the
+compatible normalized proposal choices V-01–V-06 in the
+[reconciliation register](../schemas/proposal-v0/RECONCILIATION.md), within its
+explicit scope. NEED/CAN Objects and their relational representations have
+separate identities; `represented_object` targets the NEED/CAN Object and
+`origin_object` its bearer. Version-pinned transport references and recursive
+condition/pathway `ref`/`op`/`items` syntax are approved technical choices.
+Existing relation/temporal composition formats and PowerEvaluation contracts
+remain authoritative. Profile-specific identifier/closure choices do not tighten
+PowerEvaluation. Other lifecycle, owner, cardinality, temporal, logical and
+evidential semantics remain OPEN. Earlier OPEN/prospective-D-75 statements below
+are superseded only within V-01–V-06; **Scenario nested results are still OPEN**.
+Conflicts C-01–C-10 and their resolutions remain proposed. See
+[D-75](../DECISIONS.md#d-75--partial-approval-of-compatible-normalized-proposal-choices).
+
+
 **Status:** working reference, not scientifically validated. **Reference file:** `reference/trialectic-method.md`. **Versioning:** released snapshots are identified by **Git tags**, not by version-specific filenames. This text originated in the alpha 0.4 consolidation of November 14, 2026; no Git tag is presumed to exist unless explicitly created.
 Sources: earlier alpha 0.3 content (retrievable in Git history), the [decision log](../DECISIONS.md) (D-01–D-27), and explicit decisions from the November 14–15, 2026 Object / Subject / NEED / CAN / Definition discussions, including Object branching, actionable CANs, uncertainty, and shared Definitions. Earlier version-specific reference files are removed from the current tree; Git history preserves their committed contents.
 

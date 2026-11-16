@@ -1252,5 +1252,43 @@ recursive expression serialization and Scenario nested result types remain OPEN.
 Earlier decisions' statements about the unfinished final schema retain their
 historical meaning; the final global contract remains unfinished.
 
+## D-75 · Partial approval of compatible normalized proposal choices
+Date: November 16, 2026 | Status: **VALIDATED by author, limited scope** | Branch: `dev`
+
+**Authorization:** The author requested: « Valide ce qui ne présente pas de conflit et listes les conflits avec des propositions de résolution ».
+
+**Decision:** Approve the compatible technical/conceptual choices V-01–V-06 in
+[`schemas/proposal-v0/RECONCILIATION.md`](schemas/proposal-v0/RECONCILIATION.md):
+separate NEED/CAN Object and relation-record identities (`represented_object`,
+distinct bearer `origin_object`); normalized version-pinned references as a
+transport format; nonempty recursive `ref`/`op`/`items` condition/pathway expressions
+with documentary inventory null distinct from impossibility; profile-scoped closed
+records and identifier syntax; distinct normalized record families; contextual
+measurement and separate provenance/review/model-versus-empirical assessment.
+
+**Precedence and exclusions:** Existing approved field contracts prevail. D-36
+keys, D-34 temporal compositions, D-37 Object compositions and D-57–D-74
+PowerEvaluation fields are not replaced. The ID pattern/closure is not universal
+and does not tighten PowerEvaluation. Version references require actual known
+versions. Approval of architecture does not approve every field, enum or
+requiredness in the historical schema. The global envelope, complete predicate
+syntax, branch/cardinality/owner rules, semantic algorithms and empirical claims
+remain OPEN.
+
+**Conflict handling:** C-01–C-10 in the register identify incompatible overlaps
+and proposed resolutions. Those resolutions are **PROPOSED, NOT VALIDATED**.
+The original proposal JSON/example are retained unchanged for historical clarity;
+no automatic migration or change to normative schema assertions is authorized by
+inference. Follow-up implementation must respect the approved scope above.
+
+**Number clarification:** Earlier references to prospective D-75 anticipated
+Scenario result formalization. This actual D-75 instead records partial proposal
+approval; Scenario nested result fields remain OPEN and require a later decision.
+
+**Consequences:** O-01's separate-record design choice is resolved; V-02–V-06
+partially settle representation choices without closing their remaining semantics.
+See the reconciliation register, canonical reference and catalogue. No TODO is
+closed and no scientific validation is claimed.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

@@ -1,5 +1,21 @@
 # Trialectic Method — Data models, roles and rationale
 
+**Current D-75 status — November 16, 2026:** The author has now validated the
+compatible normalized proposal choices V-01–V-06 in the
+[reconciliation register](../schemas/proposal-v0/RECONCILIATION.md), within its
+explicit scope. NEED/CAN Objects and their relational representations have
+separate identities; `represented_object` targets the NEED/CAN Object and
+`origin_object` its bearer. Version-pinned transport references and recursive
+condition/pathway `ref`/`op`/`items` syntax are approved technical choices.
+Existing relation/temporal composition formats and PowerEvaluation contracts
+remain authoritative. Profile-specific identifier/closure choices do not tighten
+PowerEvaluation. Other lifecycle, owner, cardinality, temporal, logical and
+evidential semantics remain OPEN. Earlier OPEN/prospective-D-75 statements below
+are superseded only within V-01–V-06; **Scenario nested results are still OPEN**.
+Conflicts C-01–C-10 and their resolutions remain proposed. See
+[D-75](../DECISIONS.md#d-75--partial-approval-of-compatible-normalized-proposal-choices).
+
+
 **Status:** reference **catalogue and explanatory map** for the `dev` branch, established 2026-11-16 after D-74. **This document is not a new data-model decision, a normative JSON Schema, a new ontology, or scientific validation.** It records what the existing Method models, *why each distinction exists*, its level of approval and where its authoritative specification is maintained.
 
 **Language:** English explanations, consistent with the maintained repository reference; preserve exact identifiers from the existing definitions and JSON. The original author-approved French NEED definition is reproduced verbatim, while all explanatory English text is a working rendering, **not** an independently approved bilingual equivalence.

@@ -1,5 +1,21 @@
 # PowerEvaluation — validated conceptual data model
 
+**Current D-75 status — November 16, 2026:** The author has now validated the
+compatible normalized proposal choices V-01–V-06 in the
+[reconciliation register](../schemas/proposal-v0/RECONCILIATION.md), within its
+explicit scope. NEED/CAN Objects and their relational representations have
+separate identities; `represented_object` targets the NEED/CAN Object and
+`origin_object` its bearer. Version-pinned transport references and recursive
+condition/pathway `ref`/`op`/`items` syntax are approved technical choices.
+Existing relation/temporal composition formats and PowerEvaluation contracts
+remain authoritative. Profile-specific identifier/closure choices do not tighten
+PowerEvaluation. Other lifecycle, owner, cardinality, temporal, logical and
+evidential semantics remain OPEN. Earlier OPEN/prospective-D-75 statements below
+are superseded only within V-01–V-06; **Scenario nested results are still OPEN**.
+Conflicts C-01–C-10 and their resolutions remain proposed. See
+[D-75](../DECISIONS.md#d-75--partial-approval-of-compatible-normalized-proposal-choices).
+
+
 **Status:** **VALIDATED by author — November 16, 2026 (D-64)**, consolidating D-48–D-63.  
 **Branch:** `dev`.  
 **Scope:** approved **conceptual data model and named data-structure layers**, **not a final machine-enforced JSON Schema**, production evaluator, exhaustive data contract, or scientific validation.
