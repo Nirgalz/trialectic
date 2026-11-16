@@ -301,6 +301,15 @@ class T01IdentificationTests(unittest.TestCase):
                 self.assertTrue(any(c["id"] == claim_id for c in projected["claims"]))
                 self.assertTrue(projected["relations"][0]["attribution"]["justification"])
 
+    def test_patient_and_pianist_subjects_are_individuals(self):
+        # Explicit independent regression oracle for the five prior category errors.
+        cases = {c["id"]: c for c in self.corpus["cases"]}
+        for case_id in ("T01-12", "T01-13", "T01-15", "T01-16", "T01-17"):
+            with self.subTest(case=case_id):
+                self.assertEqual(cases[case_id]["subject_category"], "individual")
+                doc = project_to_v2(cases[case_id], self.seed)
+                self.assertEqual(doc["objects"][0]["category"], "individual")
+
     def test_candidate_can_attribution_is_distinct_from_identity(self):
         by_id = {c["id"]: c for c in self.corpus["cases"]}
         expectations = {
