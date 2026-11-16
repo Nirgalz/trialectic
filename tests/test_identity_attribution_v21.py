@@ -125,6 +125,17 @@ class IdentityAttributionV21(unittest.TestCase):
         self.assertIn("requalification_same_id",
                       [i["code"] for i in self.errors(bad)])
 
+    def test_all_t01_projections_are_locally_semantically_coherent(self):
+        from test_t01_identification import load_json, project_to_v2
+        cases = load_json(ROOT / "tests/cases/t01-identification-v1.json")["cases"]
+        seed = load("tests/cases/analysis_without_scenario.json")
+        self.assertEqual(len(cases), 26)
+        for case in cases:
+            with self.subTest(case=case["id"]):
+                doc = project_to_v2(case, seed)
+                self.schema.validate(doc)
+                self.assertEqual(self.errors(doc), [])
+
     def test_t01_candidates_can_be_indeterminate_without_extra_can_subtype(self):
         from test_t01_identification import load_json, project_to_v2
         cases = load_json(ROOT / "tests/cases/t01-identification-v1.json")["cases"]
