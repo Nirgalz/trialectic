@@ -133,6 +133,24 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** The universal time/interval representation, context assumptions and evidence fields, branch-scoped references, additional metadata, ID normalization, rules to **close** these nested object shapes to extra properties, and the exact structure of `Results` internals remain to be decided. No default `scenario_id`, creation timestamp, mandatory `provenance`, or fixed `O-`/`PE-`/version-prefix formats are introduced. This validation is **not** a final complete JSON Schema.
 
+### 5.3 NEED effective satisfaction serialization (D-69)
+
+**[VALIDATED — November 16, 2026; D-69]** For a `PowerEvaluation` focused on a NEED, `Results.effective_satisfaction` is a required **object** with these **locally enforced** attributes:
+
+| Attribute | Draft 2020-12 type and validation | Obligation |
+| --- | --- | --- |
+| `status` | String, one of `satisfied`, `unsatisfied`, `indeterminate` | **Required** |
+| `justification` | Nonempty string explaining the finding or why it cannot be determined | **Required** |
+| `degree` | Object, when used, with required `value` (number), `measure` (nonempty string), and `basis` (nonempty string) | Optional |
+| `evidence` | Array of nonempty string **references** to evidence; may be empty | Optional |
+| `uncertainty` | Object documenting uncertainty; its internal structure is not yet standardized | Optional |
+
+**Meaning and limits:** A NEED may be **partially satisfied** (D-49) **without a fourth `partially_satisfied` status**. `unsatisfied` can coexist with a meaningful measured partial degree; `indeterminate` can coexist with measurements that do not settle the satisfaction criteria. A numerical `degree` is supplied **only if the method of measurement is relevant and justified**, and is **not** automatically a probability, an epistemic certainty or the fraction of satisfied prerequisite Conditions. **No universal numerical 0–1 or 0–100 scale or threshold is approved**, and a value alone cannot establish that a NEED is satisfied. A partial satisfaction of conditions does not prove partial satisfaction of the NEED.
+
+`justification` is required even for `indeterminate`. `evidence` may be absent or empty (not proof of an absence of possible evidence); the referenced evidence must still be resolved and assessed semantically. `uncertainty` is distinct from both the status and the degree, and its **absence does not imply certainty**. The substructure does not replace the distinct `temporal_compliance` evaluation (D-35) or authorize changing the underlying NEED Definition. Other nested metadata including violation records are **not closed off** by D-69.
+
+**[OPEN]** Standardized internal `uncertainty` representation, evidence references and provenance, numerical measure semantics and thresholds, `degree.basis` machine-readable metadata, additional-properties closure, time/interval encoding, partial-score aggregation, and causal/empirical validation are still to be specified. Passing the local schema does **not** establish that the degree or justification is scientifically warranted.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -146,7 +164,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-68
+## 7. Still open — not silently approved by D-64–D-69
 
 - Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
