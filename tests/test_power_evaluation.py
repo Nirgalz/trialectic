@@ -177,12 +177,28 @@ def validate_fixture(f):
             # The fixture has no registered versioned pathway Definitions;
             # relation ownership, pathway resolution, logical composition and
             # completeness justification are not proved by this adapter.
-            for candidate in result["potential_contributions"]["needs"]:
+            contributions = result["potential_contributions"]
+            if contributions["search_status"] not in {"searched", "not_searched"}:
+                raise ValueError("Invalid D-74 candidate NEED search state")
+            if contributions["coverage"] not in COVERAGE:
+                raise ValueError("Invalid D-74 candidate NEED inventory coverage")
+            if (contributions["search_status"] == "not_searched" and
+                    contributions["coverage"] == "complete"):
+                raise ValueError("Unsearched inventory cannot be complete")
+            if not isinstance(contributions["scope"], str) or not contributions["scope"]:
+                raise ValueError("Candidate NEED inventory must state a scope")
+            if (not isinstance(contributions["justification"], str) or
+                    not contributions["justification"]):
+                raise ValueError("Candidate NEED inventory must explain findings")
+            for candidate in contributions["needs"]:
                 oid = candidate["object_id"]
                 if oid not in objects or objects[oid]["type"] != "NEED":
                     raise ValueError("Potential contribution MUST reference a NEED Object")
                 if candidate.get("relationship") != "candidate":
                     raise ValueError("Do not promote hypothetical CAN/NEED match to proof")
+                if (not isinstance(candidate.get("justification"), str) or
+                        not candidate["justification"]):
+                    raise ValueError("Candidate NEED correspondence requires a justification")
 
         else:  # Scenario
             result = e["Results"]
@@ -394,6 +410,23 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
     def test_d73_mistyped_can_prerequisite_rejected(self):
         self.assert_invalid(lambda data: data["evaluations"][1]["Results"][
             "prerequisites"]["cans"].append({"object_id": "O-NEED-ENERGY"}))
+
+    def test_d74_candidate_need_inventory_remains_a_scoped_hypothesis(self):
+        potential = self.by_id["PE-CAN-001"]["Results"]["potential_contributions"]
+        self.assertEqual(potential["search_status"], "searched")
+        self.assertEqual(potential["coverage"], "incomplete")
+        self.assertEqual(potential["needs"][0]["relationship"], "candidate")
+        self.assertTrue(potential["needs"][0]["justification"])
+
+    def test_d74_wrong_candidate_promotion_rejected(self):
+        self.assert_invalid(lambda data: data["evaluations"][1]["Results"][
+            "potential_contributions"]["needs"][0].update(
+                relationship="causally_established"))
+
+    def test_d74_unsearched_inventory_cannot_claim_complete_coverage(self):
+        self.assert_invalid(lambda data: data["evaluations"][1]["Results"][
+            "potential_contributions"].update(
+                search_status="not_searched", coverage="complete"))
 
     def test_actualizability_unknown_not_equivalent_to_negative(self):
         r = self.by_id["PE-CAN-003"]["Results"]["actualizability"]
