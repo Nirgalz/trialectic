@@ -155,16 +155,28 @@ def validate_fixture(f):
                 if degree["measure"] == "distance_ratio" and not 0 <= degree["value"] <= 1:
                     raise ValueError("Fixture distance_ratio must be within 0 and 1")
             pre = result["prerequisites"]
-            if pre["coverage"] not in COVERAGE:
-                raise ValueError("Prerequisite coverage invalid")
-            for need in pre["needs"]:
-                oid = need["object_id"]
-                if oid not in objects or objects[oid]["type"] != "NEED":
-                    raise ValueError("Prerequisite MUST reference a NEED Object")
-                if "evaluation_id" in need:
-                    depid = need["evaluation_id"]
-                    if depid not in d_ids or by_id[depid]["Focus"].get("object_id") != oid:
-                        raise ValueError("Referenced prerequisite NEED assessment mismatch")
+            if pre["inventory_coverage"] not in COVERAGE:
+                raise ValueError("Prerequisite pathway inventory coverage invalid")
+            # D-73: Object references and analytical evaluation dependencies
+            # remain different relationship types (D-53/D-54).
+            for collection, expected_kind in (("needs", "NEED"), ("cans", "CAN")):
+                for item in pre[collection]:
+                    oid = item["object_id"]
+                    if oid not in objects or objects[oid]["type"] != expected_kind:
+                        raise ValueError("Prerequisite must reference the correct Object type")
+                    if "evaluation_id" in item:
+                        depid = item["evaluation_id"]
+                        if depid not in d_ids or depid not in by_id:
+                            raise ValueError("Referenced prerequisite evaluation must be an analytical Dependency")
+                        focus = by_id[depid]["Focus"]
+                        if focus["type"] != expected_kind or focus.get("object_id") != oid:
+                            raise ValueError("Prerequisite evaluation must match Object and Focus")
+            for item in pre["conditions"]:
+                if "status" in item and item["status"] not in NEED_STATES:
+                    raise ValueError("Invalid contextual Condition status")
+            # The fixture has no registered versioned pathway Definitions;
+            # relation ownership, pathway resolution, logical composition and
+            # completeness justification are not proved by this adapter.
             for candidate in result["potential_contributions"]["needs"]:
                 oid = candidate["object_id"]
                 if oid not in objects or objects[oid]["type"] != "NEED":
@@ -364,6 +376,24 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
             "degree"].pop("basis"))
         self.assert_invalid(lambda f: f["evaluations"][1][
             "Results"]["actualizability"].update(uncertainty="not-an-object"))
+
+    def test_d73_prerequisites_inventory_distinct_from_pathway_coverage(self):
+        pre = self.by_id["PE-CAN-001"]["Results"]["prerequisites"]
+        self.assertEqual(pre["inventory_coverage"], "incomplete")
+        self.assertEqual(pre["pathways"], [])
+        self.assertIn("owner_relation_id", pre["conditions"][0])
+        self.assertNotIn("coverage", pre)
+        # This non-exhaustive inventory cannot establish that the CAN is impossible.
+
+    def test_d73_analytical_reference_must_be_a_declared_dependency(self):
+        def change(data):
+            pre = data["evaluations"][1]["Results"]["prerequisites"]
+            pre["needs"][0]["evaluation_id"] = "PE-NEED-EXCEPTION"
+        self.assert_invalid(change)
+
+    def test_d73_mistyped_can_prerequisite_rejected(self):
+        self.assert_invalid(lambda data: data["evaluations"][1]["Results"][
+            "prerequisites"]["cans"].append({"object_id": "O-NEED-ENERGY"}))
 
     def test_actualizability_unknown_not_equivalent_to_negative(self):
         r = self.by_id["PE-CAN-003"]["Results"]["actualizability"]
