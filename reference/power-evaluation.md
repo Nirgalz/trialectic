@@ -198,6 +198,24 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[VALIDATION BOUNDARY]** Draft 2020-12 checks object shape, local required keys, enum values and nonempty string references. The separate D-65 semantic validator must check that each `object_id` identifies an actual CAN, that the candidate match and claimed search coverage are adequately justified in context, and whether differing Scenarios, evidence or Definitions permit reuse. `uncertainty` absent is not proof of certainty. Nested additional-metadata restrictions, inventory completeness verification, evidence credibility and detailed correspondence/contribution models are **OPEN**.
 
+### 5.6 CAN actualizability serialization (D-72)
+
+**[VALIDATED — November 16, 2026; D-72]** For a CAN-focused `PowerEvaluation`, `Results.actualizability` is a required **object** with the following **local Draft 2020-12 structural contract**:
+
+| Field | Type and meaning | Obligation |
+| --- | --- | --- |
+| `status` | Exactly `actualizable`, `partially_actualizable`, `not_actualizable`, `indeterminate` | **Required** |
+| `justification` | Nonempty string explaining the finding, including an indeterminate one | **Required** |
+| `degree` | Object with required `value` (number), `measure` (nonempty string), `basis` (nonempty string) | Optional |
+| `evidence` | Array of nonempty evidence-reference strings; may be empty | Optional |
+| `uncertainty` | Object, with internal representation yet to be standardized | Optional |
+
+**[CONTEXT AND PARTIALITY]** The status evaluates the **possibility of a specified contemplated Actualization**, not an intrinsic property that is uniformly actualizable in all contexts. `partially_actualizable` may be justified qualitatively, without a `degree`; `not_actualizable` applies only when the established context/conditions support that conclusion; `indeterminate` must not be presented as impossibility. No universal numeric degree range, formula, threshold or automatic status mapping is approved. `degree` is **not** the probability of success or the weighted satisfaction of prerequisite NEEDs (D-51, D-62). Presence of any numeric measure does not establish effective Actualization.
+
+`Results.prerequisites` separately captures identified NEEDs, CANs and conditions; `Results.potential_contributions` separately captures candidate favorable contributions to NEEDs; neither is collapsed into `actualizability`. A later observed or simulated Actualization belongs to a **distinct event/history layer**. `evidence` and `uncertainty` have their own epistemic roles; absence of either is not a proof of impossibility or certainty. Additional nested metadata, including contextual or measure-specific information, is not closed off by D-72.
+
+**[OPEN]** A standard identity/reference for the **contemplated Actualization** beyond the existing `Focus` and `Context` (necessary to interpret the status), criteria for partiality, measure-specific range and interpretation, time/scenario scope, evidence quality, uncertainty subfields, thresholds, numerical aggregation, alternative pathways, causal sufficiency, nested additional-properties closure, cross-record semantics and empirical tests. A valid JSON Schema document does not prove that the stated CAN can actually be Actualized.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -211,7 +229,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-71
+## 7. Still open — not silently approved by D-64–D-72
 
 - Final **JSON Schema**, remaining nested attributes, field types and optionality (including other Focus kinds); treatment of non-applicability outside the **D-70 temporal applicability** contract; reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
