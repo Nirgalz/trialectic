@@ -36,6 +36,42 @@
         "items": {
           "$ref": "#/$defs/id"
         }
+      },
+      "concept_kind": {
+        "enum": [
+          "NEED",
+          "CAN"
+        ],
+        "description": "D-83: immutable, mutually exclusive conceptual identity when established. Absence means no validated NEED/CAN identity; candidate hypotheses belong in claims."
+      },
+      "requalification": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "previous_object_id": {
+            "$ref": "#/$defs/id"
+          },
+          "reason": {
+            "enum": [
+              "correction",
+              "transformation"
+            ]
+          },
+          "justification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_id": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "required": [
+          "previous_object_id",
+          "reason",
+          "justification",
+          "claim_id"
+        ],
+        "description": "D-83: explicit new-ID historical reclassification; referent and provenance require semantic validation."
       }
     },
     "required": [
