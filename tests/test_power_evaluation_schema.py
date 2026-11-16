@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-71 boundaries. The older
+The schema enforces only approved D-57/D-61-D-72 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -537,6 +537,135 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
             "unapproved_candidate_metadata": True
         }]
         self.assert_valid(obj)
+
+    def test_d72_status_required_exact_enum(self):
+        for idx in [1, 3, 5]:
+            for value in ["missing", None, "Actualizable", "partially_satisfied",
+                          "not_applicable", "unknown", False, 2]:
+                with self.subTest(can=self.records[idx]["ID"], value=value):
+                    obj = copy.deepcopy(self.records[idx])
+                    item = obj["Results"]["actualizability"]
+                    if value == "missing":
+                        item.pop("status")
+                    else:
+                        item["status"] = value
+                    self.assert_invalid(obj)
+
+    def test_d72_all_four_statuses_allowed_without_degree(self):
+        for status in ["actualizable", "partially_actualizable",
+                       "not_actualizable", "indeterminate"]:
+            with self.subTest(status=status):
+                obj = copy.deepcopy(self.records[5])
+                item = obj["Results"]["actualizability"]
+                item["status"] = status
+                item.pop("degree", None)
+                self.assert_valid(obj)
+
+    def test_d72_justification_required_even_if_indeterminate(self):
+        for value in ["missing", None, "", [], 0, False]:
+            with self.subTest(value=value):
+                obj = copy.deepcopy(self.records[5])
+                item = obj["Results"]["actualizability"]
+                if value == "missing":
+                    item.pop("justification")
+                else:
+                    item["justification"] = value
+                self.assert_invalid(obj)
+
+    def test_d72_degree_object_all_fields_required(self):
+        obj = copy.deepcopy(self.records[1])
+        degree = obj["Results"]["actualizability"]["degree"]
+        for key in ["value", "measure", "basis"]:
+            with self.subTest(missing=key):
+                case = copy.deepcopy(obj)
+                case["Results"]["actualizability"]["degree"].pop(key)
+                self.assert_invalid(case)
+        for invalid in [None, False, "0.1", 0.2, []]:
+            with self.subTest(degree=invalid):
+                case = copy.deepcopy(obj)
+                case["Results"]["actualizability"]["degree"] = invalid
+                self.assert_invalid(case)
+        self.assertTrue(degree["basis"])
+
+    def test_d72_degree_value_must_be_numeric_and_strings_nonempty(self):
+        obj = copy.deepcopy(self.records[1])
+        for value in ["0.1", None, True, [], {}]:
+            with self.subTest(value=value):
+                case = copy.deepcopy(obj)
+                case["Results"]["actualizability"]["degree"]["value"] = value
+                self.assert_invalid(case)
+        for key in ["measure", "basis"]:
+            for value in ["", None, [], False, 2]:
+                with self.subTest(field=key, value=value):
+                    case = copy.deepcopy(obj)
+                    case["Results"]["actualizability"]["degree"][key] = value
+                    self.assert_invalid(case)
+
+    def test_d72_no_universal_numeric_range(self):
+        obj = copy.deepcopy(self.records[5])
+        item = obj["Results"]["actualizability"]
+        item["degree"] = {
+            "value": 1250,
+            "measure": "hypothetical_distance_m",
+            "basis": "Distance in a model; satisfaction threshold unverified"
+        }
+        self.assert_valid(obj)
+        item["degree"]["value"] = -50
+        self.assert_valid(obj)  # no universal sign/range: measure-specific semantics are OPEN
+
+    def test_d72_uncertainty_is_optional_object(self):
+        obj = copy.deepcopy(self.records[1])
+        item = obj["Results"]["actualizability"]
+        item.pop("uncertainty")
+        self.assert_valid(obj)
+        item["uncertainty"] = {}
+        self.assert_valid(obj)
+        item["uncertainty"] = {"description": "Measure is an estimate"}
+        self.assert_valid(obj)
+        for invalid in ["uncertain", None, False, [], 7]:
+            with self.subTest(value=invalid):
+                item["uncertainty"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d72_evidence_optional_array_of_nonempty_references(self):
+        obj = copy.deepcopy(self.records[1])
+        item = obj["Results"]["actualizability"]
+        item.pop("evidence", None)
+        self.assert_valid(obj)
+        item["evidence"] = []
+        self.assert_valid(obj)
+        item["evidence"] = ["EV-MODEL", "EV-SOURCE"]
+        self.assert_valid(obj)
+        for invalid in [None, "EV-1", 42, {}, [""], [None], [True]]:
+            with self.subTest(value=invalid):
+                item["evidence"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d72_unapproved_extra_degree_metadata_is_allowed(self):
+        obj = copy.deepcopy(self.records[1])
+        degree = obj["Results"]["actualizability"]["degree"]
+        self.assertIn("estimated_distance_km", degree)
+        degree["measure_assumptions"] = {"unverified": True}
+        obj["Results"]["actualizability"]["time_horizon_proposal"] = "OPEN"
+        self.assert_valid(obj)  # nested closure and contemplated-Actualization ID OPEN
+
+    def test_d72_unknown_not_impossible_and_partial_without_numeric_degree(self):
+        obj = copy.deepcopy(self.records[5])
+        item = obj["Results"]["actualizability"]
+        self.assertEqual(item["status"], "indeterminate")
+        self.assertNotIn("degree", item)
+        self.assert_valid(obj)
+        item["status"] = "partially_actualizable"
+        item["justification"] = "One qualitative component is possible; measure not meaningful."
+        self.assert_valid(obj)
+
+    def test_d72_schema_does_not_infer_actualization_from_status(self):
+        obj = copy.deepcopy(self.records[5])
+        item = obj["Results"]["actualizability"]
+        item["status"] = "actualizable"
+        item["justification"] = "Hypothetical possibility only; event not asserted"
+        self.assert_valid(obj)
+        self.assertNotIn("ActualizationEvent", obj)  # distinct layer
 
     def test_structure_cannot_prove_reference_existence(self):
         obj = copy.deepcopy(self.records[1])
