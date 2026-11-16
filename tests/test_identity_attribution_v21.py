@@ -102,6 +102,7 @@ class IdentityAttributionV21(unittest.TestCase):
         doc = copy.deepcopy(self.document)
         newly_identified = copy.deepcopy(doc["objects"][2])
         newly_identified["id"] = "O-new-need"
+        newly_identified["label"] = "Corrected NEED identity"
         newly_identified["concept_kind"] = "NEED"
         newly_identified["requalification"] = {
             "previous_object_id": "O-can-play-piano",
