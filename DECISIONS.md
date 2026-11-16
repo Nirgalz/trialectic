@@ -1136,7 +1136,7 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 **Decision:** In a NEED-focused `PowerEvaluation`, `Results.effective_satisfaction` is a required object with the following fields (JSON Schema Draft 2020-12, D-66):
 - **`status`** — **required**, with exactly three case-sensitive string values: `satisfied`, `unsatisfied`, `indeterminate`.
 - **`justification`** — **required, nonempty string**, stating why the conclusion was reached or why it is indeterminate.
-- **`degree`** — **optional object**. When present, it requires `value` (**number**), `measure` (**nonempty string**) and `basis` (**nonempty string** recording the measure/calculation basis**)**. A degree is used **only where measurement is relevant and justifiable**; the schema does **not** impose a universal [0,1] or percentage scale, numerical threshold, or claim that a degree equals a probability.
+- **`degree`** — **optional object**. When present, it requires `value` (**number**), `measure` (**nonempty string**) and `basis` (**nonempty string** recording the measure/calculation basis). A degree is used **only where measurement is relevant and justifiable**; the schema does **not** impose a universal [0,1] or percentage scale, numerical threshold, or claim that a degree equals a probability.
 - **`evidence`** — **optional array** of nonempty string references to supporting evidence, and may be empty.
 - **`uncertainty`** — **optional object**, with internal field design left OPEN.
 
