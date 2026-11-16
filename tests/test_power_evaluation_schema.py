@@ -21,8 +21,7 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         cls.validator = validator(evaluation=True)
         cls.schema = cls.validator.schema
         cls.fixture = json.loads(CASES.read_text(encoding="utf-8"))
-        scenario = json.loads((CASES.parent / "scenario_results_v2.json").read_text(encoding="utf-8"))
-        cls.records = [scenario if r["Focus"]["type"] == "Scenario" else r for r in cls.fixture["evaluations"]]
+        cls.records = cls.fixture["evaluations"]
 
     def assert_valid(self, obj):
         self.validator.validate(obj)

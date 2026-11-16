@@ -1,0 +1,88 @@
+{
+  "schema_version": "2.0.0",
+  "analysis_id": "A-generator-no-scenario",
+  "main_subject": {
+    "id": "O-generator",
+    "version": "v1"
+  },
+  "secondary_subjects": [],
+  "focus": {
+    "type": "CAN",
+    "object_id": "O-start"
+  },
+  "environment": [],
+  "objects": [
+    {
+      "id": "O-generator",
+      "category": "technical_object",
+      "label": "Emergency generator",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-start",
+      "category": "semantic_object",
+      "label": "CAN: start generator (illustrative identity)",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    }
+  ],
+  "definitions": [
+    {
+      "object_id": "O-generator",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-start",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-start",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    }
+  ],
+  "relations": [
+    {
+      "id": "R-start",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-generator",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-start",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "relation": {
+        "nature": [
+          "functional"
+        ],
+        "links": []
+      }
+    }
+  ],
+  "conditions": [],
+  "pathways": [],
+  "inventories": [],
+  "scenarios": [],
+  "events": [],
+  "condition_assessments": [],
+  "effects": [],
+  "claims": [],
+  "evidence_items": [],
+  "evidence_reviews": [],
+  "claim_assessments": [],
+  "power_assessments": []
+}

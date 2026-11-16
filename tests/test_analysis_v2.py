@@ -30,8 +30,15 @@ class AnalysisV2Tests(unittest.TestCase):
         self.power_validator.validate(self.scenario)
 
     def test_global_required_collections_and_context(self):
-        schema = self.analysis_validator.schema
-        for key in schema['required']:
+        required = {
+            'schema_version', 'analysis_id', 'main_subject', 'secondary_subjects',
+            'focus', 'environment', 'objects', 'definitions', 'relations',
+            'conditions', 'pathways', 'inventories', 'scenarios', 'events',
+            'condition_assessments', 'power_assessments', 'effects', 'claims',
+            'evidence_items', 'evidence_reviews', 'claim_assessments',
+        }
+        self.assertSetEqual(set(self.analysis_validator.schema['required']), required)
+        for key in sorted(required):
             with self.subTest(missing=key):
                 record = copy.deepcopy(self.analysis)
                 del record[key]
@@ -50,12 +57,30 @@ class AnalysisV2Tests(unittest.TestCase):
         self.analysis['focus'] = {'kind': 'CAN', 'relation': {'id': 'R-start', 'version': 'v1'}}
         self.assertFalse(self.analysis_validator.is_valid(self.analysis))
 
-    def test_empty_collections_and_no_scenario_do_not_imply_impossibility(self):
+    def test_empty_collections_are_structurally_valid(self):
         schema = self.analysis_validator.schema
         for key, value in schema['properties'].items():
             if value.get('type') == 'array':
                 self.analysis[key] = []
         self.analysis_validator.validate(self.analysis)  # local shape, not reference validity
+
+    def test_analysis_without_scenario_has_resolvable_subject_and_focus(self):
+        record = read('tests/cases/analysis_without_scenario.json')
+        self.analysis_validator.validate(record)
+        self.assertEqual(record['scenarios'], [])
+        self.assertEqual(record['power_assessments'], [])
+        relation, = record['relations']
+        self.assertEqual(relation['origin_object'], record['main_subject'])
+        focus = relation['represented_object']
+        self.assertEqual(record['focus'], {'type': relation['type'], 'object_id': focus['id']})
+        objects = {obj['id'] for obj in record['objects']}
+        definitions = {(d['object_id'], d['version']): d for d in record['definitions']}
+        for ref in (record['main_subject'], focus):
+            self.assertIn(ref['id'], objects)
+            self.assertIn((ref['id'], ref['version']), definitions)
+        subject = record['main_subject']
+        self.assertIn({'id': relation['id'], 'version': relation['version']},
+                      definitions[subject['id'], subject['version']]['relation_refs'])
 
     def test_minimal_evaluations(self):
         for record in read('tests/cases/power_evaluation_minimal.json'):

@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "Synthetic PowerEvaluation D-64 model with structurally validated D-65–D-74 boundaries. D-74 prospective NEED links are candidate correspondences only; no verified causal contribution, sufficiency, effective satisfaction or exhaustive inventory is claimed. CAN and Scenario semantic engines, versioned pathway logic, external evidence validation and empirical research remain OPEN.",
+  "status": "Synthetic PowerEvaluation D-64 model with structurally validated D-65–D-74 boundaries and D-78 Scenario results. D-74 prospective NEED links are candidate correspondences only; no verified causal contribution, sufficiency, effective satisfaction or exhaustive inventory is claimed. CAN and Scenario semantic engines, versioned pathway logic, external evidence validation and empirical research remain OPEN.",
   "decisions": [
     "D-35",
     "D-49",
@@ -27,7 +27,8 @@
     "D-71",
     "D-72",
     "D-73",
-    "D-74"
+    "D-74",
+    "D-78"
   ],
   "objects": {
     "O-CAR": {
@@ -251,42 +252,62 @@
         }
       ],
       "Results": {
-        "actualization_assessments": [
-          {
-            "can_id": "O-CAN-TRAVEL",
-            "evaluation_id": "PE-CAN-001"
-          }
-        ],
+        "actualization_assessments": {
+          "items": [
+            {
+              "can_object_id": "O-CAN-TRAVEL",
+              "evaluation_id": "PE-CAN-001",
+              "contemplated_actualization": "Travel the planned route without recharging.",
+              "justification": "The linked CAN evaluation assesses available travel range."
+            }
+          ],
+          "coverage": "indeterminate",
+          "scope": "Travel on the planned route.",
+          "justification": "Only the travel CAN is examined."
+        },
         "scenario_assessment": {
           "feasibility": {
             "status": "indeterminate",
             "justification": "Initial evidence"
           },
           "complexity": {
-            "status": "not_evaluated"
-          },
-          "costs": {
-            "status": "not_evaluated"
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
           },
           "temporality": {
-            "status": "not_evaluated"
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
           },
           "expected_effectiveness": {
-            "status": "not_evaluated"
-          }
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
+          },
+          "costs_resources": {
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
+          },
+          "uncertainty": {
+            "justification": "Initial evidence"
+          },
+          "justification": "Partial travel range leaves the feasibility of the full journey indeterminate."
         },
-        "effects": [
-          {
-            "target_object_id": "O-TRAVELER",
-            "need_object_id": "O-NEED-MOBILITY",
-            "epistemic_status": "anticipated",
-            "valence": "unfavorable",
-            "causality": "indirect",
-            "temporality": "delayed",
-            "justification": "The full contemplated journey is not established as achievable."
-          }
-        ],
-        "comparisons": []
+        "effects": {
+          "items": [
+            {
+              "effect_id": "FX-TRAVELER-MOBILITY",
+              "justification": "The full contemplated journey is not established as achievable. This concerns the traveler's mobility NEED (O-NEED-MOBILITY)."
+            }
+          ],
+          "coverage": "indeterminate",
+          "scope": "Consequences for the traveler's mobility.",
+          "justification": "The example considers one anticipated consequence."
+        },
+        "comparisons": {
+          "items": [],
+          "coverage": "indeterminate",
+          "scope": "Alternative travel scenarios.",
+          "justification": "No comparison was performed."
+        }
       }
     },
     {
@@ -395,42 +416,62 @@
         }
       ],
       "Results": {
-        "actualization_assessments": [
-          {
-            "can_id": "O-CAN-TRAVEL",
-            "evaluation_id": "PE-CAN-002"
-          }
-        ],
+        "actualization_assessments": {
+          "items": [
+            {
+              "can_object_id": "O-CAN-TRAVEL",
+              "evaluation_id": "PE-CAN-002",
+              "contemplated_actualization": "Travel the planned route without recharging.",
+              "justification": "The linked CAN evaluation assesses available travel range."
+            }
+          ],
+          "coverage": "indeterminate",
+          "scope": "Travel on the planned route.",
+          "justification": "Only the travel CAN is examined."
+        },
         "scenario_assessment": {
           "feasibility": {
             "status": "indeterminate",
             "justification": "Reassessed after PE-CAN-002 revised its epistemic support; substantive feasibility remains indeterminate."
           },
           "complexity": {
-            "status": "not_evaluated"
-          },
-          "costs": {
-            "status": "not_evaluated"
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
           },
           "temporality": {
-            "status": "not_evaluated"
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
           },
           "expected_effectiveness": {
-            "status": "not_evaluated"
-          }
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
+          },
+          "costs_resources": {
+            "status": "not_assessed",
+            "justification": "This assessment addresses feasibility only."
+          },
+          "uncertainty": {
+            "justification": "Reassessed after PE-CAN-002 revised its epistemic support; substantive feasibility remains indeterminate."
+          },
+          "justification": "Partial travel range leaves the feasibility of the full journey indeterminate."
         },
-        "effects": [
-          {
-            "target_object_id": "O-TRAVELER",
-            "need_object_id": "O-NEED-MOBILITY",
-            "epistemic_status": "anticipated",
-            "valence": "unfavorable",
-            "causality": "indirect",
-            "temporality": "delayed",
-            "justification": "The full contemplated journey is not established as achievable."
-          }
-        ],
-        "comparisons": []
+        "effects": {
+          "items": [
+            {
+              "effect_id": "FX-TRAVELER-MOBILITY",
+              "justification": "The full contemplated journey is not established as achievable. This concerns the traveler's mobility NEED (O-NEED-MOBILITY)."
+            }
+          ],
+          "coverage": "indeterminate",
+          "scope": "Consequences for the traveler's mobility.",
+          "justification": "The example considers one anticipated consequence."
+        },
+        "comparisons": {
+          "items": [],
+          "coverage": "indeterminate",
+          "scope": "Alternative travel scenarios.",
+          "justification": "No comparison was performed."
+        }
       }
     },
     {
@@ -549,5 +590,20 @@
   },
   "expected_scenario_independence": [
     "PE-CAN-003"
+  ],
+  "effects": [
+    {
+      "id": "FX-TRAVELER-MOBILITY",
+      "scenario_id": "S-NO-RECHARGE",
+      "target_object": {
+        "id": "O-TRAVELER",
+        "version": "v1"
+      },
+      "description": "The traveler may be unable to complete the contemplated journey.",
+      "causality": "indirect",
+      "timing": "delayed",
+      "evidence_status": "anticipated",
+      "value": "unfavorable"
+    }
   ]
 }

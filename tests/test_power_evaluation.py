@@ -202,24 +202,20 @@ def validate_fixture(f):
 
         else:  # Scenario
             result = e["Results"]
-            if not isinstance(result["actualization_assessments"], list):
-                raise ValueError("Scenario actualization assessments must be a list")
-            for item in result["actualization_assessments"]:
+            for item in result["actualization_assessments"]["items"]:
                 depid = item["evaluation_id"]
                 if depid not in d_ids:
                     raise ValueError("Scenario actualization needs declared analytical dependency")
                 target = by_id[depid]["Focus"]
-                if target["type"] != "CAN" or target["object_id"] != item["can_id"]:
+                if target["type"] != "CAN" or target["object_id"] != item["can_object_id"]:
                     raise ValueError("Scenario assessment points to wrong CAN Focus")
-            for effect in result["effects"]:
-                if effect["target_object_id"] not in objects:
-                    raise ValueError("Unknown affected Object")
-                if effect["epistemic_status"] not in {"anticipated", "observed", "causally_attributed"}:
-                    raise ValueError("Effect status must not conflate prediction and observation")
-                if effect["valence"] not in {"favorable", "unfavorable", "mixed", "indeterminate"}:
-                    raise ValueError("Undeclared effect valence")
-            if not isinstance(result["comparisons"], list):
-                raise ValueError("Scenario comparisons must be a list")
+            for ref in result["effects"]["items"]:
+                matches = [fx for fx in f["effects"] if fx["id"] == ref["effect_id"]]
+                if len(matches) != 1 or matches[0]["scenario_id"] != scenario_id:
+                    raise ValueError("Effect reference must resolve in this Scenario")
+                target = matches[0]["target_object"]
+                if pinned.get(target["id"]) != target["version"]:
+                    raise ValueError("Affected Object must resolve at its pinned version")
 
     if actual_revisions != f["expected_revisions"]:
         raise ValueError("Revision lineage missing, misdirected or unanticipated")
@@ -325,9 +321,19 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
 
     def test_scenario_effect_is_hypothesized_not_actualized(self):
         scenario = self.by_id["PE-SCENARIO-001"]
-        self.assertEqual(scenario["Results"]["effects"][0]["epistemic_status"], "anticipated")
-        self.assertNotIn("event_id", scenario["Results"]["effects"][0])
-        self.assertEqual(scenario["Results"]["comparisons"], [])
+        ref, = scenario["Results"]["effects"]["items"]
+        effect, = [fx for fx in self.fixture["effects"] if fx["id"] == ref["effect_id"]]
+        self.assertEqual(effect["evidence_status"], "anticipated")
+        self.assertNotIn("event_id", effect)
+        self.assertEqual(scenario["Results"]["comparisons"]["items"], [])
+
+    def test_scenario_dangling_effect_rejected(self):
+        self.assert_invalid(lambda f: f["evaluations"][2]["Results"]["effects"]["items"][0].update(
+            effect_id="FX-MISSING"))
+
+    def test_scenario_cannot_use_an_undeclared_can_revision(self):
+        self.assert_invalid(lambda f: f["evaluations"][4]["Results"]["actualization_assessments"]["items"][0].update(
+            evaluation_id="PE-CAN-001"))
 
     def test_cycle_detection_does_not_infer_impossibility(self):
         acyclic = {row["ID"]: [d["evaluation_id"] for d in row["Dependencies"]]
