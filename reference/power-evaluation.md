@@ -97,7 +97,17 @@ A structurally valid evaluation may nevertheless be **semantically invalid, insu
 
 **[OPEN]** Formal status taxonomy (e.g. error vs indeterminate vs not assessed), selection/version of JSON Schema dialect, exact nested types, requiredness and nullability, referential integrity rules, handling of legitimate cross-Scenario evaluation reuse (D-54), scope and algorithms of semantic checks, provenance and evidence validation, deterministic error reporting, CI gates, validator implementation and complete test coverage. A strict schema and a validator may be designed as separate components with distinct test oracles; D-65 does **not** prematurely validate their particular implementation.
 
-## 5. Tested illustrative cross-Focus fixture
+## 5. Strict JSON Schema foundations (D-66)
+
+**[VALIDATED — November 16, 2026; D-66]** The strict structural schema for a `PowerEvaluation` will use **JSON Schema Draft 2020-12** as its dialect, and shall enforce the following structural principles:
+
+1. **Exactly six top-level fields:** `ID`, `Subject`, `Focus`, `Context`, `Dependencies`, and `Results` (D-57 and D-64). The schema **rejects undeclared additional top-level properties**.
+2. **Focus-conditioned `Results`:** the structural schema distinguishes NEED-, CAN-, and Resolution-Scenario-focused evaluations and requires their respective D-61, D-62, and D-63 **named Results substructures**; one type's `Results` layout must not silently substitute for another's.
+3. **No cross-record semantic claims from structural validity:** referential existence, evaluation/context compatibility, Definition-version consistency, revision lineage, evidential adequacy, and other cross-evaluation consistency requirements remain for the **separate semantic validator** (D-65).
+
+**[SCOPE / OPEN]** D-66 approves the chosen JSON Schema dialect and these *boundary rules*, **not** the exact internal JSON serialization of `Subject`, `Focus`, `Context`, `Dependencies`, or the interior of each `Results` substructure. In particular, the previously illustrated `Focus.type` discriminator and its precise string values, nested required/optional fields, additional-property policies *within* nested structures, nullability, formats and constraints, and how non-applicable results are represented still require separate decisions. A future Draft 2020-12 file must label any unapproved details as provisional and must be tested against valid and deliberately invalid cases before being described as a finished schema. This structural contract is not evidence of semantic or empirical validity.
+
+## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
 
@@ -110,7 +120,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 6. Still open — not silently approved by D-64/D-65
+## 7. Still open — not silently approved by D-64–D-66
 
 - Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
