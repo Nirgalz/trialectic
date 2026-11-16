@@ -362,8 +362,7 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
     def test_d72_basis_required_and_uncertainty_object(self):
         self.assert_invalid(lambda f: f["evaluations"][1]["Results"]["actualizability"][
             "degree"].pop("basis"))
-        self.assert_invalid(lambda f: f["evaluations"][1]["Results"]["actualizability"][
-            "uncertainty"].update(description="") if False else f["evaluations"][1][
+        self.assert_invalid(lambda f: f["evaluations"][1][
             "Results"]["actualizability"].update(uncertainty="not-an-object"))
 
     def test_actualizability_unknown_not_equivalent_to_negative(self):
