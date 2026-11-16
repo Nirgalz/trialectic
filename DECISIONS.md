@@ -1328,5 +1328,82 @@ exceptions/DST, Scenario nested results or empirical truth. No research TODO is 
 The original D-75 approval history remains traceable; D-76 supersedes its statements
 that C-01–C-10 resolutions were unapproved.
 
+## D-77 · Normative global Analysis exchange profile v2
+Date: November 16, 2026 | Status: **VALIDATED under author instruction** | Branch: `dev`
+
+**Authorization:** The author requested: « valide le modèle global et Résultats Scenario ».
+This authorizes defining and adopting the remaining serialization contract. The
+concrete choices below are newly made explicit here, not attributed to past decisions.
+
+**Decision:** Adopt [`schemas/trialectic.schema.json`](schemas/trialectic.schema.json)
+as the normative Draft 2020-12 global Analysis exchange profile, version `2.0.0`,
+with `$id: urn:trialectic:schema:analysis:normative-v2`. The exact root fields,
+record-family fields, requiredness, enums, reference representations and transport
+constraints in that artifact are normative for this profile. The explanatory
+[global contract](schemas/global-model.md) records their rationale and limits.
+
+Require the common analysis keys `schema_version`, `analysis_id`, `main_subject`,
+`secondary_subjects`, `focus`, `environment` and every named model-family collection.
+The root is closed; model-family collections may be empty without asserting
+exhaustiveness or requiring fabricated Scenarios/events/evidence. Optional historical
+assessment and migration-provenance objects retain original source information.
+The analysis Focus uses the approved type/reference discriminator, independently
+of the Focus of historical evaluations. Adopt the reconciled transport record
+assertions as profile contracts, including the bounded predicate vocabulary,
+version references, distinct event kinds and separate evidence/model assessments.
+
+**Compatibility:** Embed the D-78 v2 PowerEvaluation resource, leaving NEED/CAN
+assertions unchanged. Outside evaluations, profile ID patterns and closed records
+remain transport-specific. Keep approved relation/time group formats distinct
+from condition/pathway recursion. Add `simulated` to the global Effect evidence
+status vocabulary; simulation is never treated as observation or causal proof.
+
+**Consequences:** The global exchange envelope is no longer OPEN for v2. Historical
+proposal-v0 and normalized-v1 are not retroactively relabelled or overwritten.
+D-75/D-76 exclusions concerning a not-yet-approved global serialization are
+superseded for this version only. Structural tests and an offline validator are
+provided. Full semantic/reference/lifecycle algorithms and empirical evaluation
+remain separate obligations; the profile is not a universal ontology or causal engine.
+Related tasks: T-03, T-24, T-28, T-30; no research task is closed wholesale.
+
+## D-78 · Typed nested Scenario Results v2
+Date: November 16, 2026 | Status: **VALIDATED under author instruction** | Branch: `dev`
+
+**Authorization:** Same explicit request as D-77, covering Scenario Results.
+
+**Decision:** Adopt [`schemas/power-evaluation.v2.schema.json`](schemas/power-evaluation.v2.schema.json),
+`urn:trialectic:schema:power-evaluation:normative-v2`. It preserves the six-field
+envelope and NEED/CAN assertions; Scenario Results now have four required objects:
+
+- `actualization_assessments`: required `items`, `coverage`, `scope`, `justification`.
+  Items require `can_object_id`, `evaluation_id`, `contemplated_actualization`,
+  `justification`; optional `step_id` references a contemplated step, not an event.
+- `scenario_assessment`: required independent `feasibility`, `complexity`,
+  `costs_resources`, `temporality`, `expected_effectiveness`, overall `uncertainty`
+  and `justification`. Dimensions require analytical `status` and justification;
+  statuses are `assessed`, `not_assessed`, `indeterminate`, `not_applicable`.
+  `assessed` requires a textual `finding`. These describe assessment state, not
+  physical feasibility or probability. Optional degree uses value/measure/basis
+  with no universal bounds. Uncertainty requires its own justification.
+- `effects`: required items of effect_id/justification references, coverage, scope,
+  justification, keeping anticipated/simulated/observed/attributed effects distinct.
+- `comparisons`: required items, coverage, scope, justification. Items require
+  scenario_id, justification and at least one criterion with criterion/finding/
+  justification. Optional selection requires scenario_id and justification;
+  no winner, ranking or aggregate scalar is mandatory.
+
+Inventory coverage is complete/incomplete/indeterminate; arrays may be empty.
+Scope/justification/reference strings are nonempty. Evidence and uncertainty may
+qualify sections/items as defined by the schema. Additional nested metadata stays
+open. See [full field contract and rationale](schemas/global-model.md).
+
+**Compatibility and limits:** Scenario nested serialization is no longer OPEN
+for v2. This intentionally tightens v1's arbitrary/null section values; keep v1
+available. Upgrades need explicit substantive data and revision provenance, not
+invented placeholders. Schema acceptance does not resolve references, prove
+contextual compatibility, complete inventories, causal attribution or empirical
+truth. Earlier D-63 and D-75/D-76 OPEN statements retain historical meaning and
+are superseded only for the now-specified v2 Scenario field contract.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

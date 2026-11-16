@@ -1,5 +1,7 @@
 # Normative PowerEvaluation local structural contract v1
 
+**Historical v1 profile:** D-77/D-78 introduce the [normative global and Scenario v2 contracts](global-model.md). The limits below describe v1; v2 specifies Scenario nested fields without changing NEED/CAN assertions.
+
 **Scope:** [power-evaluation.schema.json](power-evaluation.schema.json) is the
 normative executable Draft 2020-12 contract **only for approved local constraints
 through D-74**. It does not claim to be the final global Method schema.

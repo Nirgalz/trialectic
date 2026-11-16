@@ -1,22 +1,18 @@
 # PowerEvaluation — validated conceptual data model
 
-**Current D-75 status — November 16, 2026:** The author has now validated the
-compatible normalized proposal choices V-01–V-06 in the
-[reconciliation register](../schemas/proposal-v0/RECONCILIATION.md), within its
-explicit scope. NEED/CAN Objects and their relational representations have
-separate identities; `represented_object` targets the NEED/CAN Object and
-`origin_object` its bearer. Version-pinned transport references and recursive
-condition/pathway `ref`/`op`/`items` syntax are approved technical choices.
-Existing relation/temporal composition formats and PowerEvaluation contracts
-remain authoritative. Profile-specific identifier/closure choices do not tighten
-PowerEvaluation. Other lifecycle, owner, cardinality, temporal, logical and
-evidential semantics remain OPEN. Earlier OPEN/prospective-D-75 statements below
-are superseded only within V-01–V-06; **Scenario nested results are still OPEN**.
-**D-76 update:** C-01–C-10 resolutions are now validated and implemented in
-[normalized-v1](../schemas/normalized-v1/README.md), with an explicit, source-preserving
-migration adapter. The normative PowerEvaluation assertions are unchanged; the
-global envelope and Scenario nested results remain OPEN. See
-[D-75](../DECISIONS.md#d-75--partial-approval-of-compatible-normalized-proposal-choices).
+**Current serialization authority — D-77/D-78, November 16, 2026:** The
+[global Analysis model and Scenario Results v2](../schemas/global-model.md) are now
+**normative, adopted under the author's explicit instruction**. Use
+[Analysis v2](../schemas/trialectic.schema.json) and
+[PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json). All root keys,
+record-family contracts and nested Scenario fields are specified there; the five
+Scenario dimensions stay independent and no winner or aggregate score is required.
+D-75's separate Object/relation identities and D-76's reconciliation remain in force.
+Earlier statements below that the global envelope or Scenario serialization is OPEN
+are superseded for v2; v0/v1 remain historical profiles. Complete semantic/reference,
+lifecycle, temporal and causal algorithms and empirical validation are still separate
+work, not guarantees provided by these structural contracts.
+
 
 
 **Status:** **VALIDATED by author — November 16, 2026 (D-64)**, consolidating D-48–D-63.  

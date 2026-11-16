@@ -61,3 +61,7 @@ See [conformance and exclusions](../schemas/power-evaluation.normative.md).
 ## D-76 reconciliation
 
 `test_reconciliation.py` exercises the real source-preserving migration adapter and the reconciled experimental envelope, including ambiguous/missing source data, approved compositions and unchanged normative evaluation compatibility. See [usage and limits](../schemas/normalized-v1/README.md).
+
+## D-77/D-78 normative Analysis/Scenario v2
+
+`test_analysis_v2.py` verifies the complete root contract and typed Scenario results against the new v2 schemas, preserves NEED/CAN assertion parity and checks the intentional version break for historical null Scenario sections. Fixtures `cases/analysis_v2.json` and `cases/scenario_results_v2.json` are synthetic. See [field contracts and offline validation](../schemas/global-model.md).

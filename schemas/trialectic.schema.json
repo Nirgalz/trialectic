@@ -1,0 +1,1454 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trialectic:schema:analysis:normative-v2",
+  "title": "Trialectic Analysis v2 — normative exchange profile (D-77/D-78)",
+  "description": "Versioned global structural contract. All inherited transport fields and enums are adopted for this profile under D-77, subject to documented semantic limits. Scenario Results follow D-78. See global-model.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "analysis_id": {
+      "$ref": "#/$defs/id"
+    },
+    "main_subject": {
+      "$ref": "#/$defs/objectRef"
+    },
+    "secondary_subjects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/objectRef"
+      }
+    },
+    "focus": {
+      "$ref": "#/$defs/focus"
+    },
+    "environment": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/objectRef"
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object"
+      }
+    },
+    "definitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/definition"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/condition"
+      }
+    },
+    "pathways": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pathway"
+      }
+    },
+    "inventories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inventory"
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scenario"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "condition_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conditionAssessment"
+      }
+    },
+    "power_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/powerAssessment"
+      }
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/effect"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "evidence_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "evidence_reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceReview"
+      }
+    },
+    "claim_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claimAssessment"
+      }
+    },
+    "legacy_assessments": {
+      "type": "object",
+      "description": "Historical source assessments, never presented as normative evaluations."
+    },
+    "migration_provenance": {
+      "type": "object",
+      "description": "Original document and explicit supplement plan; history is never overwritten."
+    }
+  },
+  "required": [
+    "schema_version",
+    "analysis_id",
+    "main_subject",
+    "objects",
+    "definitions",
+    "relations",
+    "conditions",
+    "pathways",
+    "inventories",
+    "scenarios",
+    "events",
+    "condition_assessments",
+    "power_assessments",
+    "effects",
+    "claims",
+    "evidence_items",
+    "evidence_reviews",
+    "claim_assessments",
+    "focus",
+    "secondary_subjects",
+    "environment"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._:-]*$",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Must include explicit UTC offset; full ISO 8601 and IANA checks are outside basic JSON Schema."
+    },
+    "status": {
+      "enum": [
+        "satisfied",
+        "unsatisfied",
+        "indeterminate"
+      ]
+    },
+    "coverage": {
+      "enum": [
+        "complete",
+        "incomplete",
+        "indeterminate"
+      ]
+    },
+    "objectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ]
+    },
+    "relationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ]
+    },
+    "typedRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "object",
+            "relation",
+            "condition",
+            "pathway",
+            "temporal_requirement",
+            "link"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "owner_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "version"
+      ]
+    },
+    "focus": {
+      "$ref": "urn:trialectic:schema:power-evaluation:normative-v2#/properties/Focus"
+    },
+    "measure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "method",
+        "justification"
+      ]
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "individual",
+            "group",
+            "technical_object",
+            "system",
+            "semantic_object"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Za-z][A-Za-z0-9._:-]*$"
+        },
+        "temporary_child_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "actualised_child_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "parent_id",
+        "temporary_child_ids",
+        "actualised_child_ids"
+      ]
+    },
+    "definition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "constituents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectRef"
+          }
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "description": "Property definitions, not time-indexed actual physical values."
+          }
+        },
+        "relation_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relationRef"
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "object_id",
+        "version",
+        "constituents",
+        "properties",
+        "relation_refs"
+      ]
+    },
+    "logic": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "$ref": "#/$defs/typedRef"
+            }
+          },
+          "required": [
+            "ref"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/logic"
+              }
+            }
+          },
+          "required": [
+            "op",
+            "items"
+          ]
+        }
+      ],
+      "description": "D-75 recursive condition/pathway grammar. Not Object-group or temporal composition; no automatic causal interpretation."
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "object_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_list": {
+          "enum": [
+            "NEEDs",
+            "CANs"
+          ]
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "contributive",
+              "enabling",
+              "inhibitory",
+              "transformative",
+              "alternative",
+              "complementary",
+              "substitutive",
+              "sequential",
+              "synergistic",
+              "antagonistic",
+              "reciprocal"
+            ]
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/typedRef"
+          }
+        },
+        "mechanism": {
+          "type": "string"
+        },
+        "causality": {
+          "enum": [
+            "direct",
+            "indirect",
+            "indeterminate"
+          ]
+        },
+        "evidence_claim_id": {
+          "$ref": "#/$defs/id"
+        },
+        "affects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "object_id",
+        "source_list"
+      ]
+    },
+    "temporalRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "target": {
+          "enum": [
+            "satisfaction",
+            "action_start",
+            "action_completion",
+            "effect",
+            "relation_applicability"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "point",
+            "continuous",
+            "deadline",
+            "recurring",
+            "cumulative"
+          ]
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "deadline": {
+          "$ref": "#/$defs/time"
+        },
+        "window": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "$ref": "#/$defs/time"
+            },
+            "end": {
+              "$ref": "#/$defs/time"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ]
+        },
+        "recurrence": {
+          "type": "object"
+        },
+        "min_duration": {
+          "type": "string",
+          "pattern": "^P"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "mode"
+      ]
+    },
+    "temporalEstimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "enum": [
+            "execution",
+            "effect"
+          ]
+        },
+        "duration": {
+          "type": "object"
+        },
+        "start_delay": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "target"
+      ]
+    },
+    "temporal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "time_zone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/temporalRequirement"
+          }
+        },
+        "composition": {
+          "type": "object",
+          "description": "D-34 requirement-ID composition, distinct from condition/pathway expressions.",
+          "required": [
+            "operator",
+            "requirements"
+          ],
+          "properties": {
+            "operator": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "requirements": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "estimates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/temporalEstimate"
+          }
+        }
+      },
+      "required": [
+        "time_zone",
+        "requirements",
+        "estimates"
+      ]
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "type": {
+          "enum": [
+            "NEED",
+            "CAN"
+          ]
+        },
+        "origin_object": {
+          "$ref": "#/$defs/objectRef"
+        },
+        "NEEDs": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/objectRef"
+              }
+            }
+          ]
+        },
+        "CANs": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/objectRef"
+              }
+            }
+          ]
+        },
+        "relation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "nature": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "existential",
+                  "structural",
+                  "functional",
+                  "contributive",
+                  "enabling",
+                  "inhibitory",
+                  "transformative"
+                ]
+              }
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/link"
+              }
+            },
+            "composition": {
+              "type": "array",
+              "description": "D-37 Object groups. No implied operator between groups.",
+              "items": {
+                "type": "object",
+                "required": [
+                  "objects",
+                  "operator"
+                ],
+                "properties": {
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "operator": {
+                    "enum": [
+                      "all",
+                      "any"
+                    ]
+                  }
+                }
+              }
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "nature",
+            "links"
+          ]
+        },
+        "temporal": {
+          "$ref": "#/$defs/temporal"
+        },
+        "required_state": {
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "represented_object": {
+          "$ref": "#/$defs/objectRef",
+          "description": "D-75: NEED/CAN Object represented by this distinct relation record, not the bearer."
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "type",
+        "represented_object",
+        "origin_object",
+        "NEEDs",
+        "CANs",
+        "relation"
+      ]
+    },
+    "predicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "object": {
+          "$ref": "#/$defs/objectRef"
+        },
+        "property": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operator": {
+          "enum": [
+            "equals",
+            "not_equals",
+            "exists",
+            "greater_than",
+            "greater_or_equal",
+            "less_than",
+            "less_or_equal"
+          ]
+        },
+        "value": {}
+      },
+      "required": [
+        "object",
+        "property",
+        "operator"
+      ]
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "owner_relation": {
+          "$ref": "#/$defs/relationRef"
+        },
+        "target": {
+          "enum": [
+            "actionability",
+            "need_satisfaction",
+            "relation_applicability"
+          ]
+        },
+        "predicate": {
+          "$ref": "#/$defs/predicate"
+        },
+        "temporal": {
+          "$ref": "#/$defs/temporal"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "owner_relation",
+        "target",
+        "predicate"
+      ]
+    },
+    "pathway": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "owner_relation": {
+          "$ref": "#/$defs/relationRef"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverage"
+        },
+        "expression": {
+          "$ref": "#/$defs/logic"
+        },
+        "evidence_claim_id": {
+          "$ref": "#/$defs/id"
+        },
+        "scope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "owner_relation",
+        "coverage",
+        "expression"
+      ]
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "owner_relation": {
+          "$ref": "#/$defs/relationRef"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverage"
+        },
+        "search_status": {
+          "enum": [
+            "not_searched",
+            "searched_no_match",
+            "candidates_identified"
+          ]
+        },
+        "expression": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/logic"
+            }
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "evidence_claim_id": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "owner_relation",
+        "coverage",
+        "search_status",
+        "expression"
+      ]
+    },
+    "objectState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "object": {
+          "$ref": "#/$defs/objectRef"
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "basis": {
+          "enum": [
+            "observed",
+            "simulated",
+            "assumed"
+          ]
+        },
+        "values": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "object",
+        "at",
+        "basis",
+        "values"
+      ]
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "parent_scenario_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "hypothetical",
+            "effective"
+          ]
+        },
+        "object_heads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectRef"
+          }
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/objectState"
+          }
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "parent_scenario_id",
+        "mode",
+        "object_heads",
+        "states",
+        "event_ids"
+      ]
+    },
+    "stateChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "object": {
+          "$ref": "#/$defs/objectRef"
+        },
+        "property": {
+          "type": "string",
+          "minLength": 1
+        },
+        "before": {},
+        "after": {},
+        "at": {
+          "$ref": "#/$defs/time"
+        }
+      },
+      "required": [
+        "object",
+        "property",
+        "after"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "simulated_actualization",
+            "effective_actualization",
+            "observation",
+            "knowledge_revision",
+            "definition_revision"
+          ]
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "source_can": {
+          "$ref": "#/$defs/relationRef"
+        },
+        "state_changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stateChange"
+          }
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "scenario_id",
+        "kind",
+        "at",
+        "state_changes"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "observation",
+                  "knowledge_revision",
+                  "definition_revision"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "state_changes": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "simulated_actualization",
+                  "effective_actualization"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "source_can"
+            ]
+          }
+        }
+      ]
+    },
+    "conditionAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "condition": {
+          "$ref": "#/$defs/typedRef"
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scenario_id",
+        "condition",
+        "at",
+        "status"
+      ]
+    },
+    "powerAssessment": {
+      "$ref": "urn:trialectic:schema:power-evaluation:normative-v2"
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "event_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_object": {
+          "$ref": "#/$defs/objectRef"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "causality": {
+          "enum": [
+            "direct",
+            "indirect",
+            "indeterminate"
+          ]
+        },
+        "timing": {
+          "enum": [
+            "immediate",
+            "delayed",
+            "indeterminate"
+          ]
+        },
+        "evidence_status": {
+          "enum": [
+            "anticipated",
+            "simulated",
+            "observed",
+            "causally_attributed"
+          ]
+        },
+        "magnitude": {
+          "$ref": "#/$defs/measure"
+        },
+        "value": {
+          "enum": [
+            "favorable",
+            "unfavorable",
+            "neutral",
+            "contested",
+            "indeterminate"
+          ]
+        },
+        "possibility": {
+          "type": "string"
+        },
+        "probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "probability_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_id": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "id",
+        "scenario_id",
+        "target_object",
+        "description",
+        "causality",
+        "timing",
+        "evidence_status"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "probability"
+            ]
+          },
+          "then": {
+            "required": [
+              "probability_basis"
+            ]
+          }
+        }
+      ]
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "statement"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "root_id": {
+          "$ref": "#/$defs/id"
+        },
+        "method": {
+          "enum": [
+            "observation",
+            "measurement",
+            "experiment",
+            "statistical_study",
+            "simulation",
+            "formal_derivation",
+            "documentary",
+            "other",
+            "unknown"
+          ]
+        },
+        "observed_at": {
+          "$ref": "#/$defs/time"
+        },
+        "recorded_at": {
+          "$ref": "#/$defs/time"
+        },
+        "context": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "root_id",
+        "method",
+        "recorded_at"
+      ]
+    },
+    "evidenceReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "evidence_id": {
+          "$ref": "#/$defs/id"
+        },
+        "claim_id": {
+          "$ref": "#/$defs/id"
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "criterion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "$ref": "#/$defs/status"
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "criterion",
+              "status"
+            ]
+          }
+        },
+        "claim_adequacy": {
+          "$ref": "#/$defs/status"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "evidence_id",
+        "claim_id",
+        "at",
+        "criteria",
+        "claim_adequacy"
+      ]
+    },
+    "claimAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "claim_id": {
+          "$ref": "#/$defs/id"
+        },
+        "claim_version": {
+          "$ref": "#/$defs/version"
+        },
+        "scenario_id": {
+          "$ref": "#/$defs/id"
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "model_status": {
+          "enum": [
+            "established_in_model",
+            "not_derived",
+            "indeterminate"
+          ]
+        },
+        "empirical_status": {
+          "enum": [
+            "plausible",
+            "refuted_in_context",
+            "indeterminate"
+          ]
+        },
+        "supporting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "contradicting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "informative_evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "claim_id",
+        "claim_version",
+        "at",
+        "model_status",
+        "empirical_status",
+        "supporting_evidence_ids",
+        "contradicting_evidence_ids",
+        "informative_evidence_ids"
+      ]
+    }
+  },
+  "$comment": "This is a normative exchange profile, not a claim of physical identity, complete causal inference, external evidence verification or empirical validation. Historical v0 and normalized-v1 remain unchanged."
+}

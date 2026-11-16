@@ -1,5 +1,7 @@
 # Reconciled normalized exchange v1 (D-76)
 
+**Historical profile:** D-77/D-78 now adopt [normative Analysis and Scenario v2](../global-model.md). This v1 artifact and its migration remain unchanged in scope; its experimental status does not describe the new v2 contract.
+
 **Approved:** C-01–C-10 resolutions in [D-76](../../DECISIONS.md), implementing
 the compatible D-75 choices. **Still experimental:** the global Analysis envelope
 and all inherited field requirements not specifically approved by D-75/D-76.

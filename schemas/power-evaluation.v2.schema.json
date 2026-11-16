@@ -1,0 +1,1262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trialectic:schema:power-evaluation:normative-v2",
+  "title": "PowerEvaluation v2 — normative local contract including Scenario Results (D-78)",
+  "description": "D-78 formalizes Scenario Results. NEED/CAN assertions are unchanged from normative-v1. Local conformance is not reference integrity, causal or empirical validity. See global-model.md.",
+  "type": "object",
+  "required": [
+    "ID",
+    "Subject",
+    "Focus",
+    "Context",
+    "Dependencies",
+    "Results"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "ID": {
+      "$comment": "D-57 requires presence and semantic uniqueness; JSON type/format remains OPEN. Any JSON value passes local validation."
+    },
+    "Subject": {
+      "type": "object",
+      "required": [
+        "object_id"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "Focus": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "description": "D-67 approves case-sensitive type and type-specific reference presence. ID syntax/types and additional nested metadata remain OPEN.",
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "NEED"
+            }
+          },
+          "required": [
+            "object_id"
+          ],
+          "not": {
+            "required": [
+              "scenario_id"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "CAN"
+            }
+          },
+          "required": [
+            "object_id"
+          ],
+          "not": {
+            "required": [
+              "scenario_id"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "Scenario"
+            }
+          },
+          "required": [
+            "scenario_id"
+          ],
+          "not": {
+            "required": [
+              "object_id"
+            ]
+          }
+        }
+      ],
+      "$comment": "D-67 approves key presence and exclusion, not reference value types. Do not infer identifier type from fixtures."
+    },
+    "Context": {
+      "type": "object",
+      "required": [
+        "definition_versions"
+      ],
+      "properties": {
+        "scenario_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "definition_versions": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "revises": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      }
+    },
+    "Dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evaluation_id"
+        ],
+        "properties": {
+          "evaluation_id": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
+    "Results": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "NEED"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/needResults"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "CAN"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/canResults"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Scenario"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/scenarioResults"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "needResults": {
+      "type": "object",
+      "required": [
+        "effective_satisfaction",
+        "temporal_compliance",
+        "candidate_cans"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "actualizability"
+            ]
+          },
+          {
+            "required": [
+              "prerequisites"
+            ]
+          },
+          {
+            "required": [
+              "potential_contributions"
+            ]
+          },
+          {
+            "required": [
+              "actualization_assessments"
+            ]
+          },
+          {
+            "required": [
+              "scenario_assessment"
+            ]
+          },
+          {
+            "required": [
+              "effects"
+            ]
+          },
+          {
+            "required": [
+              "comparisons"
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "effective_satisfaction": {
+          "$ref": "#/$defs/needEffectiveSatisfaction"
+        },
+        "temporal_compliance": {
+          "$ref": "#/$defs/needTemporalCompliance"
+        },
+        "candidate_cans": {
+          "$ref": "#/$defs/needCandidateCANs"
+        }
+      }
+    },
+    "canResults": {
+      "type": "object",
+      "required": [
+        "actualizability",
+        "prerequisites",
+        "potential_contributions"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "effective_satisfaction"
+            ]
+          },
+          {
+            "required": [
+              "temporal_compliance"
+            ]
+          },
+          {
+            "required": [
+              "candidate_cans"
+            ]
+          },
+          {
+            "required": [
+              "actualization_assessments"
+            ]
+          },
+          {
+            "required": [
+              "scenario_assessment"
+            ]
+          },
+          {
+            "required": [
+              "effects"
+            ]
+          },
+          {
+            "required": [
+              "comparisons"
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "actualizability": {
+          "$ref": "#/$defs/canActualizability"
+        },
+        "prerequisites": {
+          "$ref": "#/$defs/canPrerequisites"
+        },
+        "potential_contributions": {
+          "$ref": "#/$defs/canPotentialContributions"
+        }
+      }
+    },
+    "scenarioResults": {
+      "type": "object",
+      "required": [
+        "actualization_assessments",
+        "scenario_assessment",
+        "effects",
+        "comparisons"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "effective_satisfaction"
+            ]
+          },
+          {
+            "required": [
+              "temporal_compliance"
+            ]
+          },
+          {
+            "required": [
+              "candidate_cans"
+            ]
+          },
+          {
+            "required": [
+              "actualizability"
+            ]
+          },
+          {
+            "required": [
+              "prerequisites"
+            ]
+          },
+          {
+            "required": [
+              "potential_contributions"
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "actualization_assessments": {
+          "$ref": "#/$defs/scenarioActualizationAssessments"
+        },
+        "scenario_assessment": {
+          "$ref": "#/$defs/scenarioAssessment"
+        },
+        "effects": {
+          "$ref": "#/$defs/scenarioEffects"
+        },
+        "comparisons": {
+          "$ref": "#/$defs/scenarioComparisons"
+        }
+      }
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "needEffectiveSatisfaction": {
+      "type": "object",
+      "description": "D-69: NEED actual satisfaction status and explanatory evidence, separate from temporal compliance. Additional nested metadata is not closed by this decision.",
+      "required": [
+        "status",
+        "justification"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "unsatisfied",
+            "indeterminate"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "degree": {
+          "type": "object",
+          "required": [
+            "value",
+            "measure",
+            "basis"
+          ],
+          "description": "Optional pertinent justified measure. No universal numeric range; do not conflate degree with probability.",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "measure": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "basis": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      }
+    },
+    "needTemporalCompliance": {
+      "type": "object",
+      "description": "D-70: distinguish temporal requirement applicability from the three-state compliance result; exceptions affect compliance requirements, not effective NEED satisfaction. Extra nested metadata remains undecided.",
+      "required": [
+        "applicability",
+        "justification"
+      ],
+      "properties": {
+        "applicability": {
+          "type": "string",
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "indeterminate"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "unsatisfied",
+            "indeterminate"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "applied_exceptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "applicability": {
+              "const": "applicable"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        },
+        {
+          "properties": {
+            "applicability": {
+              "const": "not_applicable"
+            }
+          },
+          "not": {
+            "required": [
+              "status"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "applicability": {
+              "const": "indeterminate"
+            },
+            "status": {
+              "const": "indeterminate"
+            }
+          }
+        }
+      ]
+    },
+    "needCandidateCANs": {
+      "type": "object",
+      "description": "D-71: candidate CAN correspondences and scope-qualified search coverage. Presence does not demonstrate contribution, sufficiency or Power.",
+      "required": [
+        "identified",
+        "search_status",
+        "coverage",
+        "scope",
+        "justification"
+      ],
+      "properties": {
+        "identified": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/needCandidateCANEntry"
+          }
+        },
+        "search_status": {
+          "type": "string",
+          "enum": [
+            "not_searched",
+            "searched"
+          ]
+        },
+        "coverage": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "incomplete",
+            "indeterminate"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      },
+      "not": {
+        "properties": {
+          "search_status": {
+            "const": "not_searched"
+          },
+          "coverage": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "search_status",
+          "coverage"
+        ]
+      }
+    },
+    "needCandidateCANEntry": {
+      "type": "object",
+      "required": [
+        "object_id",
+        "justification"
+      ],
+      "description": "D-71: reference to CAN Object and rationale for correspondence; causal adequacy is not implied.",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
+    "canActualizability": {
+      "type": "object",
+      "description": "D-72: contextual possibility of contemplated CAN Actualization, not successful actualization, satisfied prerequisite NEEDs or success probability.",
+      "required": [
+        "status",
+        "justification"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "actualizable",
+            "partially_actualizable",
+            "not_actualizable",
+            "indeterminate"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "degree": {
+          "type": "object",
+          "description": "Optional justified numeric measure; no universal bounds, automatic status inference or probability interpretation.",
+          "required": [
+            "value",
+            "measure",
+            "basis"
+          ],
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "measure": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "basis": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      }
+    },
+    "canPrerequisites": {
+      "type": "object",
+      "description": "D-73: inventories of contextual CAN preconditions and separately scoped completeness of pathways. No implicit all/any logic and no causal or completeness proof.",
+      "required": [
+        "needs",
+        "cans",
+        "conditions",
+        "pathways",
+        "inventory_coverage",
+        "scope",
+        "justification"
+      ],
+      "properties": {
+        "needs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteObjectRef"
+          }
+        },
+        "cans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteObjectRef"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteConditionRef"
+          }
+        },
+        "pathways": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisitePathwayRef"
+          }
+        },
+        "inventory_coverage": {
+          "$ref": "#/$defs/coverageStatus"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      }
+    },
+    "prerequisiteObjectRef": {
+      "type": "object",
+      "description": "D-73: NEED/CAN Object reference, optional separate analytical PowerEvaluation link; actual type/existence/compatibility checked semantically.",
+      "required": [
+        "object_id"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evaluation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "prerequisiteConditionRef": {
+      "type": "object",
+      "description": "D-73: scoped Condition reference, not an Object; status if present is a separate contextual evaluation.",
+      "required": [
+        "owner_relation_id",
+        "condition_id"
+      ],
+      "properties": {
+        "owner_relation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "condition_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "unsatisfied",
+            "indeterminate"
+          ]
+        }
+      }
+    },
+    "prerequisitePathwayRef": {
+      "type": "object",
+      "description": "D-73: reference to a versioned pathway Definition, with coverage of its known conditions rather than overall pathway inventory completeness.",
+      "required": [
+        "pathway_id",
+        "definition_version",
+        "coverage"
+      ],
+      "properties": {
+        "pathway_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "definition_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverageStatus"
+        }
+      }
+    },
+    "coverageStatus": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "incomplete",
+        "indeterminate"
+      ]
+    },
+    "canPotentialContributions": {
+      "type": "object",
+      "description": "D-74: scoped inventory of potentially favorable CAN-to-NEED correspondences; none is a proved contribution, sufficiency or effective satisfaction.",
+      "required": [
+        "needs",
+        "search_status",
+        "coverage",
+        "scope",
+        "justification"
+      ],
+      "properties": {
+        "needs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/canPotentialNeedEntry"
+          }
+        },
+        "search_status": {
+          "type": "string",
+          "enum": [
+            "not_searched",
+            "searched"
+          ]
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverageStatus"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      },
+      "not": {
+        "properties": {
+          "search_status": {
+            "const": "not_searched"
+          },
+          "coverage": {
+            "const": "complete"
+          }
+        },
+        "required": [
+          "search_status",
+          "coverage"
+        ]
+      }
+    },
+    "canPotentialNeedEntry": {
+      "type": "object",
+      "description": "A candidate contextual correspondence of CAN Actualization or resulting state to one NEED; object identity and causal meaning require separate semantic checking.",
+      "required": [
+        "object_id",
+        "relationship",
+        "justification"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "relationship": {
+          "const": "candidate"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
+    "scenarioUncertainty": {
+      "type": "object",
+      "properties": {
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "justification"
+      ]
+    },
+    "scenarioDimension": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "assessed",
+            "not_assessed",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "finding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "degree": {
+          "$ref": "#/$defs/scenarioDegree"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/scenarioUncertainty"
+        }
+      },
+      "required": [
+        "status",
+        "justification"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "assessed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "finding"
+            ]
+          }
+        }
+      ]
+    },
+    "scenarioDegree": {
+      "type": "object",
+      "description": "Optional justified numeric measure; no universal bounds, automatic status inference or probability interpretation.",
+      "required": [
+        "value",
+        "measure",
+        "basis"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "measure": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "contemplatedAssessment": {
+      "type": "object",
+      "properties": {
+        "can_object_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evaluation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contemplated_actualization": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "can_object_id",
+        "evaluation_id",
+        "contemplated_actualization",
+        "justification"
+      ]
+    },
+    "scenarioEffectRef": {
+      "type": "object",
+      "properties": {
+        "effect_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "effect_id",
+        "justification"
+      ]
+    },
+    "comparisonCriterion": {
+      "type": "object",
+      "properties": {
+        "criterion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "finding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/scenarioUncertainty"
+        }
+      },
+      "required": [
+        "criterion",
+        "finding",
+        "justification"
+      ]
+    },
+    "scenarioComparison": {
+      "type": "object",
+      "properties": {
+        "scenario_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/comparisonCriterion"
+          },
+          "minItems": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "scenario_id",
+        "criteria",
+        "justification"
+      ]
+    },
+    "scenarioActualizationAssessments": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contemplatedAssessment"
+          }
+        },
+        "coverage": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "indeterminate"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/scenarioUncertainty"
+        }
+      },
+      "required": [
+        "items",
+        "coverage",
+        "scope",
+        "justification"
+      ]
+    },
+    "scenarioEffects": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scenarioEffectRef"
+          }
+        },
+        "coverage": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "indeterminate"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/scenarioUncertainty"
+        }
+      },
+      "required": [
+        "items",
+        "coverage",
+        "scope",
+        "justification"
+      ]
+    },
+    "scenarioComparisons": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scenarioComparison"
+          }
+        },
+        "coverage": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "indeterminate"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/scenarioUncertainty"
+        },
+        "selection": {
+          "type": "object",
+          "properties": {
+            "scenario_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "justification": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "scenario_id",
+            "justification"
+          ]
+        }
+      },
+      "required": [
+        "items",
+        "coverage",
+        "scope",
+        "justification"
+      ]
+    },
+    "scenarioAssessment": {
+      "type": "object",
+      "properties": {
+        "feasibility": {
+          "$ref": "#/$defs/scenarioDimension"
+        },
+        "complexity": {
+          "$ref": "#/$defs/scenarioDimension"
+        },
+        "costs_resources": {
+          "$ref": "#/$defs/scenarioDimension"
+        },
+        "temporality": {
+          "$ref": "#/$defs/scenarioDimension"
+        },
+        "expected_effectiveness": {
+          "$ref": "#/$defs/scenarioDimension"
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/scenarioUncertainty"
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "feasibility",
+        "complexity",
+        "costs_resources",
+        "temporality",
+        "expected_effectiveness",
+        "uncertainty",
+        "justification"
+      ]
+    }
+  },
+  "$comment": "D-77/D-78 implement the author request to validate the global model and Scenario Results. This version tightens Scenario sections intentionally; normative-v1 remains available for historical data."
+}

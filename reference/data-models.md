@@ -1,27 +1,25 @@
 # Trialectic Method — Data models, roles and rationale
 
-**Current D-75 status — November 16, 2026:** The author has now validated the
-compatible normalized proposal choices V-01–V-06 in the
-[reconciliation register](../schemas/proposal-v0/RECONCILIATION.md), within its
-explicit scope. NEED/CAN Objects and their relational representations have
-separate identities; `represented_object` targets the NEED/CAN Object and
-`origin_object` its bearer. Version-pinned transport references and recursive
-condition/pathway `ref`/`op`/`items` syntax are approved technical choices.
-Existing relation/temporal composition formats and PowerEvaluation contracts
-remain authoritative. Profile-specific identifier/closure choices do not tighten
-PowerEvaluation. Other lifecycle, owner, cardinality, temporal, logical and
-evidential semantics remain OPEN. Earlier OPEN/prospective-D-75 statements below
-are superseded only within V-01–V-06; **Scenario nested results are still OPEN**.
-**D-76 update:** C-01–C-10 resolutions are now validated and implemented in
-[normalized-v1](../schemas/normalized-v1/README.md), with an explicit, source-preserving
-migration adapter. The normative PowerEvaluation assertions are unchanged; the
-global envelope and Scenario nested results remain OPEN. See
-[D-75](../DECISIONS.md#d-75--partial-approval-of-compatible-normalized-proposal-choices).
+**Current serialization authority — D-77/D-78, November 16, 2026:** The
+[global Analysis model and Scenario Results v2](../schemas/global-model.md) are now
+**normative, adopted under the author's explicit instruction**. Use
+[Analysis v2](../schemas/trialectic.schema.json) and
+[PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json). All root keys,
+record-family contracts and nested Scenario fields are specified there; the five
+Scenario dimensions stay independent and no winner or aggregate score is required.
+D-75's separate Object/relation identities and D-76's reconciliation remain in force.
+Earlier statements below that the global envelope or Scenario serialization is OPEN
+are superseded for v2; v0/v1 remain historical profiles. Complete semantic/reference,
+lifecycle, temporal and causal algorithms and empirical validation are still separate
+work, not guarantees provided by these structural contracts.
+
 
 
 **Status:** reference **catalogue and explanatory map** for the `dev` branch, established 2026-11-16 after D-74. **This document is not a new data-model decision, a normative JSON Schema, a new ontology, or scientific validation.** It records what the existing Method models, *why each distinction exists*, its level of approval and where its authoritative specification is maintained.
 
 **Language:** English explanations, consistent with the maintained repository reference; preserve exact identifiers from the existing definitions and JSON. The original author-approved French NEED definition is reproduced verbatim, while all explanatory English text is a working rendering, **not** an independently approved bilingual equivalence.
+
+**Current normative serialization:** [Analysis/Scenario v2](../schemas/global-model.md).
 
 **Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](../schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](../schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
 
@@ -46,7 +44,7 @@ The Method is an analytical framework, not a claim that Object types all behave 
 
 | Model / record family | Why it exists | Maturity and authoritative location |
 | --- | --- | --- |
-| Analysis context, Subject, Environment, Focus, Stage | Say *who/what is examined, from which perspective and for what purpose* | Concept VALIDATED; full analysis envelope OPEN — [canonical §§1–2](trialectic-method.md) |
+| Analysis context, Subject, Environment, Focus, Stage | Say *who/what is examined, from which perspective and for what purpose* | Concept VALIDATED; Analysis v2 envelope VALIDATED (D-77) — [canonical §§1–2](trialectic-method.md) |
 | Object identity, lineage and versioned Definition | Reidentify an Object across changing knowledge, time, composition and Scenario branches | Principles VALIDATED; full storage layout OPEN — canonical §2.1.1 |
 | NEED and CAN Objects; origin-anchored relation | Express necessity and potential Actualization without conflating bearer, target and relationship | D-36/D-50 VALIDATED; identity reconciliation OPEN — canonical §3 |
 | `relation` characteristics, `relation.links`, `affects`, weights | Qualify individual connections, logical groups, enabling/inhibition and possible interactions | D-37/D-38 validated representation; dynamics D-39; full schema OPEN |
@@ -54,7 +52,7 @@ The Method is an analytical framework, not a claim that Object types all behave 
 | Condition Definition and condition evaluation | Separate *what must hold* from *whether it holds now* | D-40 VALIDATED; full predicate syntax OPEN |
 | Pathway, inventory, recursive expression | Represent multiple AND/OR routes and different kinds of incompleteness | D-41–D-43 VALIDATED semantics; full recursive JSON OPEN |
 | Versioned, typed references and multiple graph kinds | Prevent mistaken joins between Objects, relations, conditions, logical dependencies and causal hypotheses | D-39/D-42–D-44 VALIDATED; normalized identifiers OPEN |
-| Resolution Scenario and branch | Compare hypotheses without treating them as realized histories | Object lineage, D-31–D-35/D-44 VALIDATED; complete Scenario schema OPEN |
+| Resolution Scenario and branch | Compare hypotheses without treating them as realized histories | Object lineage, D-31–D-35/D-44 VALIDATED; Scenario exchange fields VALIDATED (D-77/D-78); behavioral semantics remain distinct |
 | Object state, Actualization event, state change | Track what was assumed, simulated or observed and what actually changed | D-40/D-44 VALIDATED distinctions; event JSON provisional |
 | Effect, competing-effect diagnosis | Preserve positive/negative, direct/indirect, immediate/delayed consequences and unresolved contradictions | D-39/D-45 and canonical §7 VALIDATED; effect/conflict JSON OPEN |
 | Claim, evidence item, method review, claim assessment | Keep model-internal inference distinct from independently supported empirical claims | D-46/D-47 VALIDATED principles; normalized JSON OPEN |
@@ -89,7 +87,7 @@ Claim + evidence + review + claim assessment qualify assertions about any layer.
 
 **Approved concepts:** Main Subject (first chosen Object), optional Secondary Subjects, contextual Environment of relevant Objects and relationships, direct `accessible` interaction as narrower than environmental relevance, Stage (analytical operation), Focus (object of attention during a Stage), relevant but non-symmetric perspectives Subject / Environment / Semantics. The default **Advanced Mode** generates and compares several relevant Resolution Scenarios; selection of a winner is optional.
 
-**Storage status:** there is no approved universal top-level `Analysis` JSON contract. The OPEN [proposal-v0](../schemas/proposal-v0/trialectic.schema.json) has `analysis_id`, `main_subject`, `secondary_subjects`, `focus`, `environment` and model-family arrays; these keys **must not** be represented as validated universal fields. Conversely, `PowerEvaluation.Subject` and `PowerEvaluation.Focus` have specifically validated fields in D-67/D-68 (§12).
+**Storage status:** D-77 now adopts the versioned [Analysis v2 exchange contract](../schemas/global-model.md). Its root keys and model-family collections are normative for this profile. Historical proposal-v0 remains unapproved as an alternative contract. These profile keys are not universal ontological properties of every analysis; evaluation Subject/Focus retain D-67/D-68 distinctions.
 
 **Why a Focus is separate from the Subject:** the *same* Object may be the Subject while attention shifts among a NEED, CAN and a Scenario, and another Object may become a Secondary Subject during a recursive analysis. Changing Focus does not automatically change Object identity or its Definition.
 
@@ -324,9 +322,9 @@ When effects or accounts assign incompatible values to the same property/time/co
 
 **DO NOT conflate:** `actualizability` with satisfaction of listed prerequisites or a success probability; `potential_contributions` with causal contribution; a successful individual route with full inventory completeness; a CAN enabling another CAN with direct satisfaction of the final NEED.
 
-### 12.4 Scenario Focus — four approved named result models, internals OPEN (D-63)
+### 12.4 Scenario Focus — named models D-63 and typed nested contract D-78
 
-`PowerEvaluation.Focus.type: "Scenario"` requires a `scenario_id`. The following sections are **required by name** but have **no final nested local JSON contract yet**:
+`PowerEvaluation.Focus.type: "Scenario"` requires a `scenario_id`. The following sections are **required typed objects in v2**. Their exact fields are adopted under D-78 in the [normative global/Scenario contract](../schemas/global-model.md#d-78-scenario-results). The table explains their analytical roles:
 
 | `Results` child | Analytical responsibility / rationale |
 | --- | --- |
@@ -335,7 +333,7 @@ When effects or accounts assign incompatible values to the same property/time/co
 | `effects` | Consider anticipated, simulated and observed consequences on Subject and other Objects, NEEDs/CANs and relations; distinguish direct/indirect, immediate/delayed, favorable/adverse, observed/causally attributed. |
 | `comparisons` | Compare relevant alternatives by explicit criteria and context, without compulsory ranking or selection. |
 
-These substructure **names** are validated (D-63); examples of nested arrays, scores, event references and timelines in [synthetic fixtures](../tests/cases/power_evaluation.json) are **not** approved as the universal schema. Their formalization is the next logical work, beginning with the proposed **D-75**; D-75 is **not yet validated** in this catalogue.
+D-78 now specifies the nested contract: scoped inventories of contemplated CAN evaluation references, five independent justified assessment dimensions and uncertainty, effect references, and criterion-based comparisons with optional justified selection. [Scenario v2 fixture](../tests/cases/scenario_results_v2.json) is synthetic. Earlier fixtures and prospective-D-75 discussions are historical; they do not override D-78.
 
 ## 13. Identity, dependency and provenance distinctions — quick audit guide
 
@@ -361,7 +359,10 @@ These substructure **names** are validated (D-63); examples of nested arrays, sc
 
 ## 14. Existing JSON files and their real authority
 
-### 14.1 Executable partial PowerEvaluation schema — implementer contract
+### 14.1 Normative v2 and historical v1 schemas — implementer contracts
+
+- [Analysis v2](../schemas/trialectic.schema.json) and [PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json) are normative under D-77/D-78. See [the exact contract](../schemas/global-model.md).
+- The following boundary artifacts are retained as historical v1 contracts:
 
 - [`schemas/power-evaluation.boundaries.schema.json`](../schemas/power-evaluation.boundaries.schema.json): **Draft 2020-12**, implementing the D-57/D-61–D-74 approved **partial structural boundary**, including exact six top-level fields and the minimum NEED/CAN result shapes; Scenario internals remain OPEN.
 - [`schemas/README.md`](../schemas/README.md): enforcement scope and omissions.
@@ -407,7 +408,7 @@ For completeness, its **proposed** `$defs` model families and their purpose are 
 3. **Relations and logic:** composition of separate `all`/`any` groups; validated D-42 recursive-expression *principle* vs its still-provisional JSON; empty documentary inventories and cycle analysis.
 4. **Temporal constraints:** exception object, authorization, precedence/overlap, recurrence/DST semantics, validation of real continuous satisfaction and observed violation intervals.
 5. **PowerEvaluation:** complete semantic validator, referential/context compatibility, stable exact identity of contemplated Actualization, meaningful quantitative degrees, evidence adequacy, recursive cycle analysis and proper revision handling.
-6. **Scenario result models:** D-63 `actualization_assessments`, `scenario_assessment`, `effects`, `comparisons` have **validated names and meanings**, but nested types/field obligations remain OPEN pending explicit author decisions (starting with prospective D-75).
+6. **Scenario result models:** D-78 now validates nested fields, types and requiredness in v2. Contextual adequacy, reference resolution, effect causality, evidence and comparison criteria still require separate semantic/empirical assessment.
 7. **Empirical warrants:** mechanisms, source provenance and independence, causal counterfactuals, real effects, expertise, cross-context generalization and objective assessment of completeness remain unproven by syntactic tests.
 8. **Proposal synchronization:** after an approved decision, reconcile any overlapping provisional `schemas/proposal-v0` structures **without implying that the entire v0 proposal was approved**; preserve old versions/decision history.
 
