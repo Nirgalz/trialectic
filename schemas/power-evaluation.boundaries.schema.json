@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-67)",
-  "description": "Executable Draft 2020-12 boundary/schema prototype. Normative only for six required top-level fields, no extra top-level fields, the D-67 Focus discriminator/reference presence and compatible D-61–D-63 Results section names. All other nested field shapes/types and cross-record semantics remain OPEN; validation against this schema does NOT establish complete structural or semantic validity.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-68)",
+  "description": "Executable Draft 2020-12 boundary schema: D-57/D-66 six exact top-level fields; D-67 Focus discriminator and references; D-61–D-63 Focus-specific Results sections; and D-68 Subject, Context and Dependencies local structure. Nested Results formats, ID and Focus identifier string formats, temporal metadata and cross-record semantic checks remain OPEN. Passing this partial schema does NOT establish full structural, semantic or empirical validity.",
   "type": "object",
   "required": [
     "ID",
@@ -15,7 +15,17 @@
   "additionalProperties": false,
   "properties": {
     "ID": true,
-    "Subject": true,
+    "Subject": {
+      "type": "object",
+      "required": [
+        "object_id"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
     "Focus": {
       "type": "object",
       "required": [
@@ -70,8 +80,49 @@
         }
       ]
     },
-    "Context": true,
-    "Dependencies": true,
+    "Context": {
+      "type": "object",
+      "required": [
+        "definition_versions"
+      ],
+      "properties": {
+        "scenario_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "definition_versions": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "revises": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      }
+    },
+    "Dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evaluation_id"
+        ],
+        "properties": {
+          "evaluation_id": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
     "Results": {
       "type": "object"
     }
@@ -296,6 +347,10 @@
           }
         ]
       }
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
     }
   }
 }
