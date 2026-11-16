@@ -1115,5 +1115,20 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
 
+## D-68 · Typed Subject, Context and Dependencies in PowerEvaluation
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** Extend the D-66/D-67 JSON Schema Draft 2020-12 structural contract with minimal required nested fields and types:
+
+- **`Subject`**: required object with required `object_id`, a **nonempty string** referencing the central Object.
+- **`Context`**: required object with required **`definition_versions`**, a **nonempty object/map** from **nonempty Object-ID keys** to **nonempty Definition-version strings**. Optional `scenario_id` is a nonempty string if present; **not every evaluation requires a Resolution Scenario**. Optional `provenance` is an object if present, with `provenance.revises` a nonempty string when present. Under **D-60**, a true revision still requires this link; whether the record is a revision and whether the link is valid must be checked **semantically**, not simply by a local JSON Schema.
+- **`Dependencies`**: required **array**, possibly empty. Every element is an object with a required nonempty-string **`evaluation_id`** referring to another **analytical evaluation**, not a conceptual dependency relation. An empty array does not assert the absence of conceptual dependencies.
+
+**Scope:** Structural checks enforce shape, locally required keys and nonempty string/map values. The **separate D-65 semantic validator** must check existence, relevance, context/Definition compatibility, revision integrity, and the adequacy/completeness of referenced information. A structural validation pass cannot establish those conclusions.
+
+**OPEN:** Time instants/intervals and temporal context encoding; assumptions, provenance evidence and branch-specific references; additional metadata and nested additional-properties restrictions; identifier naming/normalization; exact `Results` internals, richer types and full machine-enforced schema; cross-record semantic algorithms, proofs and empirical correctness. D-68 does not approve any compulsory Scenario, universal timestamp, mandatory provenance object or ID prefix.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
