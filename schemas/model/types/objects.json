@@ -63,13 +63,17 @@
           },
           "claim_id": {
             "$ref": "#/$defs/id"
+          },
+          "claim_version": {
+            "$ref": "#/$defs/version"
           }
         },
         "required": [
           "previous_object_id",
           "reason",
           "justification",
-          "claim_id"
+          "claim_id",
+          "claim_version"
         ],
         "description": "D-83: explicit new-ID historical reclassification; referent and provenance require semantic validation."
       }
