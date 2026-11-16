@@ -1,13 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:analysis:normative-v2",
-  "title": "Trialectic Analysis v2 — normative exchange profile (D-77/D-78)",
-  "description": "Versioned global structural contract. All inherited transport fields and enums are adopted for this profile under D-77, subject to documented semantic limits. Scenario Results follow D-78. See global-model.md.",
+  "title": "Trialectic Analysis v2.0/v2.1 — normative exchange profiles (D-77/D-78/D-83)",
+  "description": "Versioned global structural contract. All inherited transport fields and enums are adopted for this profile under D-77, subject to documented semantic limits. Scenario Results follow D-78. See global-model.md. D-83 v2.1 extends Object conceptual identity, reclassification provenance and relation attribution; historical v2.0 documents remain supported without reinterpreting unqualified attributions.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "schema_version": {
-      "const": "2.0.0"
+      "enum": [
+        "2.0.0",
+        "2.1.0"
+      ]
     },
     "analysis_id": {
       "$ref": "#/$defs/id"
@@ -152,5 +155,73 @@
     "secondary_subjects",
     "environment"
   ],
-  "$comment": "This is a normative exchange profile, not a claim of physical identity, complete causal inference, external evidence verification or empirical validation. Historical v0 and normalized-v1 remain unchanged."
+  "$comment": "This is a normative exchange profile, not a claim of physical identity, complete causal inference, external evidence verification or empirical validation. Historical v0 and normalized-v1 remain unchanged. v2.1 object concept_kind immutable per ID; context-qualified attribution claims are not Power or empirical truth. Old v2.0 unqualified attributions remain epistemically unknown.",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "2.0.0"
+          }
+        },
+        "required": [
+          "schema_version"
+        ]
+      },
+      "then": {
+        "properties": {
+          "objects": {
+            "items": {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "concept_kind"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "requalification"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "relations": {
+            "items": {
+              "not": {
+                "required": [
+                  "attribution"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "2.1.0"
+          }
+        },
+        "required": [
+          "schema_version"
+        ]
+      },
+      "then": {
+        "properties": {
+          "relations": {
+            "items": {
+              "required": [
+                "attribution"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
 }
