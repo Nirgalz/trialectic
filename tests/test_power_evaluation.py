@@ -212,7 +212,7 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
     def test_complete_positive_fixture(self):
         self.assertEqual(len(self.by_id), 7)
         self.assertEqual(set(self.by_id["PE-SCENARIO-001"]), SIX_FIELDS)
-        self.assertTrue({"D-57", "D-61", "D-62", "D-63"} <= set(self.fixture["decisions"]))
+        self.assertTrue({"D-57", "D-61", "D-62", "D-63", "D-64"} <= set(self.fixture["decisions"]))
 
     def test_fixture_decisions_reference_existing_journal_entries(self):
         import re
