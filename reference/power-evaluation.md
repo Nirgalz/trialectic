@@ -216,6 +216,30 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** A standard identity/reference for the **contemplated Actualization** beyond the existing `Focus` and `Context` (necessary to interpret the status), criteria for partiality, measure-specific range and interpretation, time/scenario scope, evidence quality, uncertainty subfields, thresholds, numerical aggregation, alternative pathways, causal sufficiency, nested additional-properties closure, cross-record semantics and empirical tests. A valid JSON Schema document does not prove that the stated CAN can actually be Actualized.
 
+### 5.7 CAN prerequisites serialization (D-73)
+
+**[VALIDATED — November 16, 2026; D-73]** For CAN Focus, `Results.prerequisites` is a required JSON **object** with the following **minimum local Draft 2020-12 field contract**:
+
+| Field | Type and obligations |
+| --- | --- |
+| `needs` | Required **array**, possibly empty; each item is an object with required nonempty `object_id` referencing a NEED, optional nonempty `evaluation_id` |
+| `cans` | Required **array**, possibly empty; same field contract, referencing CAN Objects |
+| `conditions` | Required **array**, possibly empty; each item has required nonempty `owner_relation_id` and `condition_id`; optional `status` = `satisfied`, `unsatisfied` or `indeterminate` |
+| `pathways` | Required **array**, possibly empty; each reference item requires nonempty `pathway_id`, nonempty `definition_version`, and `coverage` = `complete`, `incomplete` or `indeterminate` |
+| `inventory_coverage` | Required `complete`, `incomplete` or `indeterminate`, scoped to the **inventory of relevant pathways** |
+| `scope` | Required nonempty string |
+| `justification` | Required nonempty string |
+| `evidence` | Optional array of nonempty evidence-reference strings (possibly empty) |
+| `uncertainty` | Optional object; detailed schema OPEN |
+
+**[IDENTITY AND DEPENDENCIES — D-40/D-50/D-53/D-54]** `needs[]` and `cans[]` refer to *Object IDs*; they do not introduce independent artificial NEED/CAN ID classes. Each optional `evaluation_id` references a **separate analytical PowerEvaluation**; when the result is used, the referenced evaluation **must** appear in the enclosing `Dependencies`, and the semantic validator must establish Focus/Object/context/version/evidence compatibility. A prerequisite can be identified without an existing evaluation. A Condition is **not automatically an Object**: `owner_relation_id` plus `condition_id` identifies the scoped reference within an owning NEED/CAN relation. Its versioned Definition, time/Scenario and actual predicate evaluation remain separate. An omitted `status` is not an implicit `indeterminate`.
+
+**[TWO DIFFERENT COMPLETENESS CLAIMS — D-41]** Each `pathways[].coverage` concerns completeness of **identified requirements of one pathway**. In contrast, `inventory_coverage` concerns completeness of **all contextually relevant pathways within `scope`**. Both completeness claims require semantic justification grounded in versions, assumptions and evidence; JSON Schema cannot demonstrate either. A fully described pathway does **not** prove an exhaustive inventory. Empty arrays do **not** establish that no other prerequisites or paths exist, and do not encode truth-valued empty logical expressions.
+
+**[LOGICAL COMPOSITION — D-42/D-43]** Identifying NEEDs, CANs, Conditions and pathways in these arrays does **not** assert that they all apply conjunctively. `all`/`any` groups, recursively referenced pathways and their versioned Definitions remain **separate from this minimum result contract**. The recursive **principle** is validated, but the complete normative JSON expression tree and the semantics of cyclic references remain OPEN. A failed Condition in one known route cannot automatically make the whole CAN `not_actualizable`; unknown alternative routes and incomplete searches must be considered. Nor does a known satisfied Condition prove positive Power or effective Actualization.
+
+**[OPEN]** Actual referent resolution, scoped relation/version/time keys, detailed Condition and pathway evaluation links, reference qualification, exhaustive search methodology, recursive expression schema, cycle solving, inferred necessity/sufficiency, duplicate/list ordering policies, additional metadata closure, evidence and uncertainty internals, and external causal/empirical validation.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -229,7 +253,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-72
+## 7. Still open — not silently approved by D-64–D-73
 
 - Final **JSON Schema**, remaining nested attributes, field types and optionality (including other Focus kinds); treatment of non-applicability outside the **D-70 temporal applicability** contract; reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
