@@ -981,5 +981,18 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-18, T-21, T-30.
 
+## D-60 · Revision lineage in Context.provenance, separate from analytical Dependencies
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- Keep the six D-57 top-level `PowerEvaluation` fields: `ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`.
+- Store **revision provenance** in **`Context.provenance`**. The field **`Context.provenance.revises`** explicitly references the ID of the earlier Power evaluation being revised.
+- **`revises` is mandatory when the new evaluation revises a prior one** (including changes of justification or uncertainty under D-59), but is **optional/absent when an evaluation is not a revision**. Separate evaluations of the same CAN in distinct Scenarios do not automatically revise each other.
+- **`Dependencies` remains reserved for analytical dependencies**: other evaluations whose findings the current evaluation uses. Do not confuse analytical dependency, revision history, Object Parent/Children lineage or actualization events.
+- The earlier evaluation, context and results remain historically preserved. This decision resolves the **placement** of the revision link previously OPEN under D-58–D-59, not its complete serialization.
+
+**OPEN:** detailed nested structure and types of `Context.provenance`, allowed additional provenance attributes (e.g. `revision_reason`, illustrative only), referential integrity, timestamp conventions and separation of evaluation creation time from Scenario time, parallel revisions, and validation rules. No final machine-readable JSON Schema is established.
+
+Related tasks: T-02, T-03, T-18, T-21, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
