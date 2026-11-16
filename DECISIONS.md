@@ -994,5 +994,22 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-18, T-21, T-30.
 
+## D-61 · NEED-focused PowerEvaluation Results substructures
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+For a NEED-focused `PowerEvaluation`, organize the **`Results`** field into three distinct parts:
+
+1. **`effective_satisfaction`** — actual NEED satisfaction in the assessed context, with an **optional, justified degree** when a meaningful measure exists. Preserve the established analytical statuses `satisfied`, `unsatisfied`, `indeterminate`; partial satisfaction is additional information, **not a required fourth status** and not equivalent to a probability.
+2. **`temporal_compliance`** — separately evaluate the **applicable** temporal obligations and explicitly authorized exceptions **where relevant**. Compliance does not imply factual satisfaction during an exempt interval.
+3. **`candidate_cans`** — identify CANs that **may contribute by their Actualization or the resulting state** to NEED satisfaction, while representing any incomplete search/coverage. No candidates identified **does not prove** that no candidate exists or that the NEED cannot be satisfied.
+
+- Allow **evidence, justification and uncertainty to be attached distinctly to each component**, not only to an undifferentiated overall evaluation.
+- Keep the six D-57 top-level `PowerEvaluation` fields unchanged. This validation concerns the **organization of NEED-specific Results**, not a complete normative JSON Schema.
+- Preserve D-35 satisfaction/compliance separation, D-49 partial NEED satisfaction, and the difference between candidate CAN identification and proven satisfaction or sufficiency.
+
+**OPEN:** nested required/optional attributes, types, degree scale and comparability, non-applicability vs indeterminacy, time representation, evidence/uncertainty formats, exception provenance, candidate search coverage, links to distinct evaluations and exact machine-validation rules. The example JSON remains illustrative.
+
+Related tasks: T-01, T-02, T-03, T-16, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
