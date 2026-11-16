@@ -116,7 +116,8 @@
         "status": "established_in_model",
         "scope": "Illustrative synthetic attribution, not empirical observation",
         "justification": "Stipulated constitutive grounding for this modeled case only.",
-        "claim_id": "CL-a-can"
+        "claim_id": "CL-a-can",
+        "claim_version": "v1"
       },
       "relation": {
         "nature": [
@@ -143,7 +144,8 @@
         "status": "indeterminate",
         "scope": "Illustrative synthetic attribution, not empirical observation",
         "justification": "Current constitutive grounding for this bearer has not been established.",
-        "claim_id": "CL-b-can"
+        "claim_id": "CL-b-can",
+        "claim_version": "v1"
       },
       "relation": {
         "nature": [
@@ -170,7 +172,8 @@
         "status": "established_in_model",
         "scope": "Illustrative synthetic attribution, not empirical observation",
         "justification": "Stipulated constitutive grounding for this modeled case only.",
-        "claim_id": "CL-can-need"
+        "claim_id": "CL-can-need",
+        "claim_version": "v1"
       },
       "relation": {
         "nature": [
