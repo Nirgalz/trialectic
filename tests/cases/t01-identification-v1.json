@@ -333,8 +333,8 @@
         "action_conditions": "indeterminate"
       },
       "expected": {
-        "outcome": "attributable_not_actionable",
-        "justification": "A learning Potentiality can exist without the advanced performance Potentiality."
+        "outcome": "attributable_actionability_indeterminate",
+        "justification": "A learning Potentiality can exist without the advanced performance Potentiality. Actionability remains epistemically indeterminate when its conditions are unknown."
       },
       "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
     },
@@ -354,8 +354,8 @@
         "action_conditions": "indeterminate"
       },
       "expected": {
-        "outcome": "attributable_not_actionable",
-        "justification": "Autonomous initiation is not mandatory for CAN attribution."
+        "outcome": "attributable_actionability_indeterminate",
+        "justification": "Autonomous initiation is not mandatory for CAN attribution. Actionability remains epistemically indeterminate when its conditions are unknown."
       },
       "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
     },
