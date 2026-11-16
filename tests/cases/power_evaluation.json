@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "Synthetic illustration of D-64 integrated PowerEvaluation and D-65–D-72 typed structural boundaries; CAN partial actualizability range model, other nested CAN/Scenario result fields and the provisional test adapter are not universal methodological rules or empirical engineering claims.",
+  "status": "Synthetic D-64 PowerEvaluation illustration with D-65–D-73 typed structural boundaries. D-73 fixture prerequisites are scoped and non-exhaustive; relation owner IDs are illustrative and no versioned pathway Definitions are registered here. Recursive pathway logic, CAN potential_contributions, Scenario results and independent causal/empirical checks remain provisional.",
   "decisions": [
     "D-35",
     "D-49",
@@ -25,7 +25,8 @@
     "D-69",
     "D-70",
     "D-71",
-    "D-72"
+    "D-72",
+    "D-73"
   ],
   "objects": {
     "O-CAR": {
@@ -195,10 +196,15 @@
           "conditions": [
             {
               "condition_id": "C-ENERGY-1000",
-              "status": "unsatisfied"
+              "status": "unsatisfied",
+              "owner_relation_id": "R-CAN-TRAVEL"
             }
           ],
-          "coverage": "incomplete"
+          "cans": [],
+          "pathways": [],
+          "inventory_coverage": "incomplete",
+          "scope": "Hypothetical no-recharge, 1,000 km car journey; known energy constraints only",
+          "justification": "The fixture lists only known hypothetical NEED and relation-scoped Condition references. No versioned pathway Definition or exhaustive inventory has been registered; unknown alternative pathways remain possible."
         },
         "potential_contributions": {
           "needs": [
@@ -329,10 +335,15 @@
           "conditions": [
             {
               "condition_id": "C-ENERGY-1000",
-              "status": "unsatisfied"
+              "status": "unsatisfied",
+              "owner_relation_id": "R-CAN-TRAVEL"
             }
           ],
-          "coverage": "incomplete"
+          "cans": [],
+          "pathways": [],
+          "inventory_coverage": "incomplete",
+          "scope": "Hypothetical no-recharge, 1,000 km car journey; known energy constraints only",
+          "justification": "The fixture lists only known hypothetical NEED and relation-scoped Condition references. No versioned pathway Definition or exhaustive inventory has been registered; unknown alternative pathways remain possible."
         },
         "potential_contributions": {
           "needs": [
@@ -450,10 +461,15 @@
           "conditions": [
             {
               "condition_id": "C-CHARGER-AVAILABLE",
-              "status": "indeterminate"
+              "status": "indeterminate",
+              "owner_relation_id": "R-CAN-TRAVEL"
             }
           ],
-          "coverage": "incomplete"
+          "cans": [],
+          "pathways": [],
+          "inventory_coverage": "incomplete",
+          "scope": "Hypothetical travel Scenario with an unverified possibility of external recharging",
+          "justification": "The fixture lists only known hypothetical NEED and relation-scoped Condition references. No versioned pathway Definition or exhaustive inventory has been registered; unknown alternative pathways remain possible."
         },
         "potential_contributions": {
           "needs": [
