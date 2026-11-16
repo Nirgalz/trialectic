@@ -137,13 +137,17 @@
           },
           "claim_id": {
             "$ref": "#/$defs/id"
+          },
+          "claim_version": {
+            "$ref": "#/$defs/version"
           }
         },
         "required": [
           "status",
           "scope",
           "justification",
-          "claim_id"
+          "claim_id",
+          "claim_version"
         ]
       }
     },
