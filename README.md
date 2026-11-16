@@ -19,14 +19,16 @@ A methodological **Stage** determines the current **Focus**. The adopted analyti
 
 - **Object:** an Individual, Group, Technical Object, System, or Semantic Object.
 - **NEED:** a necessity attributable to an Object for the existence, maintenance, or realization of a specified state. It may be existential, structural, or both, and may be satisfied without any identifiable CAN Actualization.
-- **CAN:** a contextually relevant Potentiality of an Object; a CAN may itself be represented as a conceptual Object only when relevant. NEEDs and CANs can form relationships within and between Objects.
-- **Conditions:** distinguish the **actionability** of a CAN for a specified contribution from **satisfaction** of a NEED and full **Power** for the considered Actualization. The exact actionability/Power boundary remains open; a separate 'mobilizable CAN' category is historical.
-- **Power and Actualization:** positive Power permits an Actualization to be undertaken without guaranteeing its success. Observed effects feed back into reassessment.
-- **Dependencies:** an Object's Actualization may require a NEED of another Object. When two Objects form a circular NEED–CAN dependency, the Method examines whether a third Object may satisfy a NEED and potentially break the cycle.
+- **CAN:** an Object's Potentiality, identified with its own unique Object ID and contextually attributed through the relevant NEED/CAN relationship records. Each NEED is likewise an Object with a unique ID; their reference identities must not be conflated with relation-record IDs.
+- **Conditions:** distinguish a CAN's actionability for a specified contribution from NEED satisfaction and the **contextual possibility of the contemplated Actualization**. Identified conditions, unknown pathways and actual outcomes remain separate; the exact operational criteria are still being formalized.
+- **Power and Actualization:** **Power is a contextual comparative analytical operation**, not merely a binary positive/negative state. It analyzes relevant NEEDs/CANs of an Object and its Environment to identify satisfied/unsatisfied NEEDs, candidate contributing CANs and possible (including partially possible) Actualizations. **Actualization** is effective implementation and its effects, which prompt reassessment.
+- **Dependencies:** conceptual NEED/CAN relations differ from **analytical dependencies among Power evaluations**. A dependency cycle is not automatically an impossibility; its contextual initiating conditions and possible interventions require joint analysis.
 
 - **Object identity and Definition:** an Object has a stable unique ID and a versioned Definition of constituent Objects **plus** relevant properties and relationships. Temporary and Actualised Children track contradictory Scenario branches; historical Definition versions remain recoverable.
 
 The exact procedures for contextual NEED/CAN identification, actionability/Power, Focus transitions, sufficient pathways, branch propagation and scenario comparisons remain research tasks, **not settled tests**.
+
+- **PowerEvaluation data model (D-64):** the validated common six-field structure (`ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`) has specialized NEED, CAN and Resolution Scenario results, explicit revision provenance and context-aware reuse. See the [integrated model](reference/power-evaluation.md) and the [synthetic regression fixtures](tests/cases/power_evaluation.json). The complete nested JSON Schema and Power computation engine remain under development.
 
 ## Current development
 
