@@ -29,6 +29,8 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 # P0 — Foundational architecture, protocol and evaluation corpus
 
+**D-66 schema foundations (2026-11-16; NOT task closure):** Draft 2020-12 is the **approved JSON Schema dialect** for `PowerEvaluation`. The structural validator must require exactly the six D-57 top-level fields, reject unknown extra top-level properties, and validate the appropriate D-61–D-63 `Results` structure conditional on the Focus. The semantic validator remains separate under D-65. **Next:** explicitly decide the `Focus` discriminator encoding, nested field types and requiredness, then implement and test the schema without promoting provisional fixture conventions into unapproved requirements.
+
 **D-65 validation implementation note (2026-11-16; NOT task closure):** Separate two testable contracts: (1) **strict structural JSON Schema validation** for the approved `PowerEvaluation` shape and eventually agreed nested types and values; (2) **semantic validation** for identity, reference existence, Definition version pins, contextual compatibility, analytical dependency/revision integrity and evidenced findings. Implement distinct diagnostics and independent test cases; do **not** infer empirical accuracy from either check. Schema dialect, nested typing, failure/indeterminacy taxonomy and cross-record validation algorithms remain OPEN.
 
 ## T-30 · Operationalize Object identity, Definitions, branching and NEED/CAN/Focus architecture
