@@ -99,18 +99,20 @@ def project_to_v2(case, seed):
         f"O-{tag}-subject", f"O-{tag}-focus", f"R-{tag}"
     )
     focus = case["focus"]
-    category = (
-        "group" if case["facts"]["rule"] == "collective" else
-        "semantic_object" if case["facts"].get("mode") == "conceptual" else
-        "system" if case["facts"]["rule"] == "scope" else
-        "technical_object"
-    )
-    def obj(oid, kind, label):
-        return {
+    # The scenario explicitly stipulates the Subject category; no generic
+    # technical_object fallback may misclassify individuals.
+    category = case["subject_category"]
+    record["schema_version"] = "2.1.0"
+
+    def obj(oid, kind, label, concept_kind=None):
+        result = {
             "id": oid, "category": kind, "label": label,
             "parent_id": None, "temporary_child_ids": [],
             "actualised_child_ids": [],
         }
+        if concept_kind is not None:
+            result["concept_kind"] = concept_kind
+        return result
     def dfn(oid, refs):
         return {
             "object_id": oid, "version": "v1", "constituents": [],
@@ -124,16 +126,70 @@ def project_to_v2(case, seed):
     record["focus"] = {"type": focus, "object_id": focus_id}
     record["objects"] = [
         obj(subject_id, category, "Origin: " + case["scenario"]),
-        obj(focus_id, "semantic_object", f"{focus} candidate for {tag}"),
+        obj(focus_id, "semantic_object", f"{focus} candidate for {tag}", focus),
     ]
     record["definitions"] = [
         dfn(subject_id, [relation_ref]),
         dfn(focus_id, []),
     ]
+    # Status here is synthetic model attribution, NOT effective satisfaction,
+    # CAN actionability, empirical proof, or a new subtype of CAN.
+    facts = case["facts"]
+    attribution_status = "indeterminate"
+    if focus == "CAN":
+        if facts["rule"] == "can":
+            if facts["prior_constitutive_change"]:
+                attribution_status = "refuted_in_context"
+            elif facts["basis"] == "established":
+                attribution_status = "established_in_model"
+        elif facts["rule"] == "collective":
+            if facts["coordination"] == facts["joint_foundation"] == "established":
+                attribution_status = "established_in_model"
+    elif facts["rule"] == "necessity":
+        if facts["mode"] == "conceptual":
+            if facts["identity_essential"] is True:
+                attribution_status = "established_in_model"
+            elif facts["identity_essential"] is False:
+                attribution_status = "refuted_in_context"
+        elif facts["mode"] == "functional":
+            if facts["alternative"] is True:
+                attribution_status = "refuted_in_context"
+            elif facts["alternative"] is False and facts["coverage"] == "complete":
+                attribution_status = "established_in_model"
+    elif facts["rule"] == "ownership":
+        attribution_status = "established_in_model"
+
+    claim_id = "CL-" + tag + "-attribution"
+    record["claims"] = [{
+        "id": claim_id, "version": "v1",
+        "statement": f"In synthetic {tag}: {focus} attribution to {subject_id} is examined.",
+        "scope": "Synthetic stipulated case only; no empirical verification.",
+    }]
+    record["claim_assessments"] = [{
+        "id": "AS-" + tag + "-attribution",
+        "claim_id": claim_id, "claim_version": "v1",
+        "at": "2026-11-16T09:00:00+01:00",
+        "model_status": (
+            "established_in_model" if attribution_status == "established_in_model"
+            else "not_derived" if attribution_status == "refuted_in_context"
+            else "indeterminate"
+        ),
+        "empirical_status": "indeterminate",
+        "supporting_evidence_ids": [], "contradicting_evidence_ids": [],
+        "informative_evidence_ids": [],
+        "assumptions": [case["scenario"]],
+        "limitations": ["No independently verified evidence or universal causality."],
+    }]
     record["relations"] = [{
         "id": relation_id, "version": "v1", "type": focus,
         "origin_object": subject_ref, "represented_object": focus_ref,
         "NEEDs": None, "CANs": None,
+        "attribution": {
+            "status": attribution_status,
+            "scope": tag,
+            "justification": case["expected"]["justification"],
+            "claim_id": claim_id,
+        },
         "relation": {
             "nature": ["functional"] if focus == "NEED" else ["contributive"],
             "links": [],
@@ -195,7 +251,7 @@ class T01IdentificationTests(unittest.TestCase):
         cls.eval_validator = validator(evaluation=True)
 
     def test_corpus_version_types_and_traceable_oracles(self):
-        self.assertEqual(self.corpus["corpus_version"], "1.0.0")
+        self.assertEqual(self.corpus["corpus_version"], "1.1.0")
         self.assertEqual(self.corpus["profile"]["version"], "2.0.0")
         cases = self.corpus["cases"]
         self.assertEqual(len(cases), 26)
@@ -209,6 +265,10 @@ class T01IdentificationTests(unittest.TestCase):
                 self.assertTrue(case["limitations"].strip())
                 self.assertTrue(set(case["principles"]) <= LETTERS)
                 self.assertIn(case["focus"], ("NEED", "CAN"))
+                self.assertIn(case["subject_category"], (
+                    "individual", "group", "technical_object", "system",
+                    "semantic_object",
+                ))
 
     def test_discriminating_cases_match_independently_authored_expectations(self):
         for case in self.corpus["cases"]:
@@ -234,6 +294,35 @@ class T01IdentificationTests(unittest.TestCase):
                 self.assertEqual(projected["relations"][0]["represented_object"]["id"], focus["object_id"])
                 self.assertEqual(projected["relations"][0]["origin_object"], projected["main_subject"])
                 self.assertEqual(projected["events"], [])  # no actualization invented
+                self.assertEqual(projected["schema_version"], "2.1.0")
+                self.assertEqual(projected["objects"][0]["category"], case["subject_category"])
+                self.assertEqual(projected["objects"][1]["concept_kind"], case["focus"])
+                claim_id = projected["relations"][0]["attribution"]["claim_id"]
+                self.assertTrue(any(c["id"] == claim_id for c in projected["claims"]))
+                self.assertTrue(projected["relations"][0]["attribution"]["justification"])
+
+    def test_candidate_can_attribution_is_distinct_from_identity(self):
+        by_id = {c["id"]: c for c in self.corpus["cases"]}
+        expectations = {
+            "T01-13": ("individual", "established_in_model"),
+            "T01-14": ("technical_object", "refuted_in_context"),
+            "T01-17": ("individual", "indeterminate"),
+            "T01-18": ("group", "established_in_model"),
+            "T01-19": ("group", "indeterminate"),
+        }
+        for case_id, (subject_category, attribution_status) in expectations.items():
+            with self.subTest(case=case_id):
+                doc = project_to_v2(by_id[case_id], self.seed)
+                self.assertEqual(doc["objects"][0]["category"], subject_category)
+                self.assertEqual(doc["objects"][1]["concept_kind"], "CAN")
+                self.assertEqual(
+                    doc["relations"][0]["attribution"]["status"],
+                    attribution_status,
+                )
+                self.assertEqual(
+                    doc["claim_assessments"][0]["empirical_status"],
+                    "indeterminate",
+                )
 
     def test_no_oracle_is_silently_promoted_to_observed_satisfaction_or_causation(self):
         for case in self.corpus["cases"]:
