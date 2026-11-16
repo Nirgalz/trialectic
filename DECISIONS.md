@@ -969,5 +969,17 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-18, T-21, T-30.
 
+## D-59 · Power evaluation revisions include changes of justification and uncertainty
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- Extend D-58: **any change to a Power evaluation's results, justification, or uncertainty requires a new unique evaluation ID**, **even where the substantive conclusion or numerical result is unchanged**.
+- Preserve the previously recorded evaluation, including its contextual evidence and reasoning; retain an **explicit revision link** from the new assessment to the preceding one.
+- Evaluation history must be able to trace **epistemic revisions** separately from revisions of conclusions, changes to Object Definitions, and effective Actualization events.
+- This rule applies to NEED-, CAN- and Scenario-focused Power assessments and **resolves D-58's open question** concerning revisions solely to justification or uncertainty.
+
+**OPEN:** exact revision-link representation within the six-field `PowerEvaluation` baseline; treatment of purely editorial/metadata changes; competing or parallel revisions; immutable storage, timestamps, and audit semantics. No final JSON Schema is implied.
+
+Related tasks: T-02, T-03, T-18, T-21, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
