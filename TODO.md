@@ -29,6 +29,8 @@ D-39–D-47 motivated a sequence of **synthetic executable prototypes**, includi
 
 # P0 — Foundational architecture, protocol and evaluation corpus
 
+**D-65 validation implementation note (2026-11-16; NOT task closure):** Separate two testable contracts: (1) **strict structural JSON Schema validation** for the approved `PowerEvaluation` shape and eventually agreed nested types and values; (2) **semantic validation** for identity, reference existence, Definition version pins, contextual compatibility, analytical dependency/revision integrity and evidenced findings. Implement distinct diagnostics and independent test cases; do **not** infer empirical accuracy from either check. Schema dialect, nested typing, failure/indeterminacy taxonomy and cross-record validation algorithms remain OPEN.
+
 ## T-30 · Operationalize Object identity, Definitions, branching and NEED/CAN/Focus architecture
 **Type:** Conceptual / protocol | **Priority:** P0 | **Status:** **To develop**
 
