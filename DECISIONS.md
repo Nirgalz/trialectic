@@ -1028,5 +1028,23 @@ For a CAN-focused `PowerEvaluation`, organize the **`Results`** field into **thr
 
 Related tasks: T-01, T-02, T-03, T-16, T-30.
 
+## D-63 · Scenario-focused PowerEvaluation Results substructures
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+For a `PowerEvaluation` focused on a **Resolution Scenario**, organize **`Results`** into **four substructures**:
+
+1. **`actualization_assessments`** — evaluate or reference the CAN Actualizations contemplated in the Scenario, with relevant sequencing, dependencies, parallel/conditional relations via the Scenario Definition. **Do not conflate contemplated Actualizations with separately recorded simulated or effective events**.
+2. **`scenario_assessment`** — evaluate **feasibility and its uncertainty, complexity, costs and resources, temporality and expected effectiveness as separate dimensions**. No mandatory aggregate score, single best Scenario or ranking; keep feasibility, difficulty, success probability and consequence probabilities distinct.
+3. **`effects`** — assess anticipated, simulated or observed **favorable and unfavorable** consequences on the Subject and other Objects, NEEDs, CANs and relations. Distinguish **direct/indirect**, **immediate/delayed**, and **anticipated/observed/causally attributed** aspects; keep affected NEEDs' effective satisfaction distinct from temporal compliance. Preserve isolated Scenario branches and independent event records.
+4. **`comparisons`** — enable comparisons with relevant alternative Scenarios without requiring a winner or compulsory selection. Keep generation, evaluation and optional selection separate; optional comparison criteria and weighting must be contextually explicit.
+
+- Associate **evidence, justification and epistemic uncertainty separately with each substructure**.
+- Retain the six D-57 top-level `PowerEvaluation` fields, avoiding duplication or silent alteration of the Scenario's Definition, event history and Object branches.
+- This validates the **nested organization** of Scenario-focused `Results`, **not** the illustrative JSON example or a final JSON Schema.
+
+**OPEN:** nested keys/types and mandatory versus optional values, versioned cross-Scenario references, applicability/coverage of metrics, event/temporal interfaces, empirical probability calibration, uncertainty/provenance serialization, effects/comparison schemas, and executable validation rules.
+
+Related tasks: T-02, T-03, T-16, T-18, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
