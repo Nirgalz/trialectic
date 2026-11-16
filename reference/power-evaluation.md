@@ -119,6 +119,8 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** Exact identifier string syntax and global/scoped uniqueness, whether any additional future Focus metadata would require a versioned schema change, the nested field contracts of `Subject`, `Context`, `Dependencies`, and `Results`, and cross-record referential checks remain unapproved. The examples' `O-...` and `S-...` identifier patterns are illustrative, **not validated mandatory prefixes**.
 
+**[IMPLEMENTATION — provisional D-66/D-67 boundary schema]** A first [executable Draft 2020-12 boundary schema](../schemas/power-evaluation.boundaries.schema.json) and [11 dedicated structural tests](../tests/test_power_evaluation_schema.py) now exercise the **approved** top-level, Focus and conditional `Results` **boundary rules**. The schema deliberately leaves unapproved nested attributes/types unconstrained, as documented in [`schemas/README.md`](../schemas/README.md). **Passing this partial schema is not a claim that a `PowerEvaluation` is fully structurally or semantically valid**. The full strict JSON Schema still requires further decisions.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
