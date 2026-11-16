@@ -1,5 +1,5 @@
 {
-  "corpus_version": "1.0.0",
+  "corpus_version": "1.1.0",
   "name": "T-01 NEED/CAN identification — discriminating cases",
   "status": "synthetic hand-authored oracles; not independent empirical validation",
   "decision_ids": [
@@ -48,7 +48,8 @@
         "outcome": "not_necessary",
         "justification": "A particular supply route is not necessary where a documented alternative reaches the same scoped goal."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-02",
@@ -70,7 +71,8 @@
         "outcome": "necessary_in_scope",
         "justification": "Necessity is relative to the explicitly assumed complete model; no empirical universality follows."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-03",
@@ -91,7 +93,8 @@
         "outcome": "indeterminate",
         "justification": "No identified alternative is not universal impossibility or model-complete necessity."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-04",
@@ -110,7 +113,8 @@
         "outcome": "necessary_in_definition",
         "justification": "Do not treat a constitutive property as a removable physical part of the same identified object."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "semantic_object"
     },
     {
       "id": "T01-05",
@@ -130,7 +134,8 @@
         "outcome": "not_necessary",
         "justification": "Blue paint is not necessary for the triangle category under the stated conceptual definition."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "semantic_object"
     },
     {
       "id": "T01-06",
@@ -149,7 +154,8 @@
         "outcome": "goal_unjustified",
         "justification": "Trivial means-to-goal necessity never independently justifies the goal itself."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "individual"
     },
     {
       "id": "T01-07",
@@ -167,7 +173,8 @@
         "outcome": "indeterminate",
         "justification": "Never invent a measurement threshold to turn an unspecified requirement into a known status."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-08",
@@ -190,7 +197,8 @@
         "outcome": "unsatisfied",
         "justification": "High weighted mean cannot compensate a violated necessary qualitative requirement."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-09",
@@ -213,7 +221,8 @@
         "outcome": "indeterminate",
         "justification": "Uncertainty in an indispensable subrequirement is not a positive overall outcome."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-10",
@@ -233,7 +242,8 @@
         "outcome": "scope_inadequate",
         "justification": "Completeness within households is not relevance/completeness for a wider municipal objective."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-11",
@@ -253,7 +263,8 @@
         "outcome": "scoped_coverage_only",
         "justification": "A scoped complete inventory does not claim an exhaustive universe of NEEDs."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-12",
@@ -272,7 +283,8 @@
         "outcome": "distinct_ownership",
         "justification": "Dependence does not transfer contextual ownership of a NEED."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "individual"
     },
     {
       "id": "T01-13",
@@ -294,7 +306,8 @@
         "outcome": "attributable_not_actionable",
         "justification": "Current constitutive grounds survive temporary external unavailability."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "individual"
     },
     {
       "id": "T01-14",
@@ -315,7 +328,8 @@
         "outcome": "not_yet_attributable",
         "justification": "Future constitutive transformation does not license a present piano-playing CAN."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "technical_object"
     },
     {
       "id": "T01-15",
@@ -336,7 +350,8 @@
         "outcome": "attributable_actionability_indeterminate",
         "justification": "A learning Potentiality can exist without the advanced performance Potentiality. Actionability remains epistemically indeterminate when its conditions are unknown."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "individual"
     },
     {
       "id": "T01-16",
@@ -357,7 +372,8 @@
         "outcome": "attributable_actionability_indeterminate",
         "justification": "Autonomous initiation is not mandatory for CAN attribution. Actionability remains epistemically indeterminate when its conditions are unknown."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "individual"
     },
     {
       "id": "T01-17",
@@ -378,7 +394,8 @@
         "outcome": "indeterminate",
         "justification": "Uncertainty of attribution must not be folded into actionability or a separate CAN category."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "individual"
     },
     {
       "id": "T01-18",
@@ -397,7 +414,8 @@
         "outcome": "collective_can_attributable",
         "justification": "A collective CAN may depend on relations among constituents and differ from individual CANs."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "group"
     },
     {
       "id": "T01-19",
@@ -416,7 +434,8 @@
         "outcome": "indeterminate",
         "justification": "Merely unioning member skills does not demonstrate a collective CAN."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "group"
     },
     {
       "id": "T01-20",
@@ -437,7 +456,8 @@
         "outcome": "contributive_not_sufficient",
         "justification": "Potential favorable contribution does not imply satisfaction of an entire continuous NEED."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-21",
@@ -458,7 +478,8 @@
         "outcome": "candidate_only",
         "justification": "A candidate match is not automatically a causal contribution or sufficiency proof."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "semantic_object"
     },
     {
       "id": "T01-22",
@@ -479,7 +500,8 @@
         "outcome": "adverse_effect_to_examine",
         "justification": "Inhibitory or harmful relations cannot be silently rewritten as favorable contributions."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-23",
@@ -498,7 +520,8 @@
         "outcome": "necessary_only_in_scenario",
         "justification": "Scenario-relative necessity is not absolute necessity across all possible Scenarios."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-24",
@@ -519,7 +542,8 @@
         "outcome": "no_impossibility_inference",
         "justification": "An empty incomplete candidate inventory cannot prove nonexistence or impossibility."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-25",
@@ -542,7 +566,8 @@
         "outcome": "unsatisfied",
         "justification": "A necessary sub-NEED must not be compensated by weights."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     },
     {
       "id": "T01-26",
@@ -564,7 +589,9 @@
         "outcome": "satisfied_in_model",
         "justification": "Only explicit indispensable requirements are checked; adequacy of scope and evidence remains separate."
       },
-      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately.",
+      "subject_category": "system"
     }
-  ]
+  ],
+  "description": " Version 1.1 adds an explicit projection Subject category; ambiguous synthetic proxy categories remain illustrative and are not empirical classification claims."
 }
