@@ -943,5 +943,18 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-18, T-21, T-30.
 
+## D-57 · PowerEvaluation six-field structural baseline and Focus-specific results
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- Adopt **six main top-level fields** as the common **working structure** of a Focus-centered `PowerEvaluation`: `ID`, `Subject`, `Focus`, `Context`, `Dependencies`, and `Results`.
+- `ID`: evaluation identity, distinct from Object and relation-record IDs. `Subject`: Object at the center of the analysis. `Focus`: selected NEED, CAN, or Resolution Scenario. `Context`: contextual references, including relevant time/Scenario and applicable Definition versions. `Dependencies`: **analytical** references to other assessments, not conceptual Object dependency links. `Results`: contextual findings.
+- Keep **a common top-level structure** while specializing the **Results** content by Focus type: NEED (effective satisfaction and, where applicable, temporal compliance); CAN (contextual possibility/degree of Actualization when justified); Resolution Scenario (Scenario evaluation/comparison).
+- Preserve separate, version-aware Object Definitions, contextual Power evaluations, and Actualization events. Do not assume universal numeric degrees for all results.
+- This is a validation of the **outer structure**, **not** of the complete illustrative JSON example or of a final machine-enforced JSON Schema.
+
+**OPEN:** field types and nesting, which nested fields are mandatory, ID/reference format and version scope, full result structures for NEED/CAN/Scenario, evidence/uncertainty representation, context boundaries, aggregation, impact tracking, recursion and tests on representative cases.
+
+Related tasks: T-02, T-03, T-16, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
