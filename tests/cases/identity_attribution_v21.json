@@ -1,0 +1,214 @@
+{
+  "schema_version": "2.1.0",
+  "analysis_id": "A-identity-attribution-v21",
+  "main_subject": {
+    "id": "O-person-a",
+    "version": "v1"
+  },
+  "secondary_subjects": [
+    {
+      "id": "O-person-b",
+      "version": "v1"
+    }
+  ],
+  "focus": {
+    "type": "CAN",
+    "object_id": "O-can-play-piano"
+  },
+  "environment": [],
+  "objects": [
+    {
+      "id": "O-person-a",
+      "category": "individual",
+      "label": "Person A",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-person-b",
+      "category": "individual",
+      "label": "Person B",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-play-piano",
+      "category": "semantic_object",
+      "label": "CAN: play the piano",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-need-instrument",
+      "category": "semantic_object",
+      "label": "NEED: a suitable instrument available for the specified actualization",
+      "concept_kind": "NEED",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    }
+  ],
+  "definitions": [
+    {
+      "object_id": "O-person-a",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-a-can",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-person-b",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-b-can",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-can-play-piano",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-can-need",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-need-instrument",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    }
+  ],
+  "relations": [
+    {
+      "id": "R-a-can",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-person-a",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-can-play-piano",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "established_in_model",
+        "scope": "Illustrative synthetic attribution, not empirical observation",
+        "justification": "Stipulated constitutive grounding for this modeled case only.",
+        "claim_id": "CL-a-can"
+      },
+      "relation": {
+        "nature": [
+          "contributive"
+        ],
+        "links": []
+      }
+    },
+    {
+      "id": "R-b-can",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-person-b",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-can-play-piano",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "indeterminate",
+        "scope": "Illustrative synthetic attribution, not empirical observation",
+        "justification": "Current constitutive grounding for this bearer has not been established.",
+        "claim_id": "CL-b-can"
+      },
+      "relation": {
+        "nature": [
+          "contributive"
+        ],
+        "links": []
+      }
+    },
+    {
+      "id": "R-can-need",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-can-play-piano",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-need-instrument",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "established_in_model",
+        "scope": "Illustrative synthetic attribution, not empirical observation",
+        "justification": "Stipulated constitutive grounding for this modeled case only.",
+        "claim_id": "CL-can-need"
+      },
+      "relation": {
+        "nature": [
+          "functional"
+        ],
+        "links": []
+      }
+    }
+  ],
+  "conditions": [],
+  "pathways": [],
+  "inventories": [],
+  "scenarios": [],
+  "events": [],
+  "condition_assessments": [],
+  "power_assessments": [],
+  "effects": [],
+  "claims": [
+    {
+      "id": "CL-a-can",
+      "version": "v1",
+      "statement": "Synthetic assumption that Person A currently possesses the CAN to play piano.",
+      "scope": "Synthetic fixture only; evidence status unverified"
+    },
+    {
+      "id": "CL-b-can",
+      "version": "v1",
+      "statement": "Whether Person B currently possesses the CAN is unresolved.",
+      "scope": "Synthetic fixture only; evidence status unverified"
+    },
+    {
+      "id": "CL-can-need",
+      "version": "v1",
+      "statement": "In the stipulated context, playing piano requires access to a suitable instrument.",
+      "scope": "Synthetic fixture only; evidence status unverified"
+    }
+  ],
+  "evidence_items": [],
+  "evidence_reviews": [],
+  "claim_assessments": []
+}
