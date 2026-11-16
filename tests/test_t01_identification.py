@@ -252,7 +252,7 @@ class T01IdentificationTests(unittest.TestCase):
 
     def test_corpus_version_types_and_traceable_oracles(self):
         self.assertEqual(self.corpus["corpus_version"], "1.1.0")
-        self.assertEqual(self.corpus["profile"]["version"], "2.0.0")
+        self.assertEqual(self.corpus["profile"]["version"], "2.1.0")
         cases = self.corpus["cases"]
         self.assertEqual(len(cases), 26)
         self.assertEqual(len({c["id"] for c in cases}), len(cases))
