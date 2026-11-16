@@ -929,5 +929,19 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-18, T-21, T-30.
 
+## D-56 · Joint assessment of circular analytical dependencies
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- When Power evaluations depend on one another **cyclically**, detect and group them for **joint contextual evaluation** rather than naïve unbounded recursion.
+- Start from available **cycle-independent evidence**: observed Object states, independently known NEED satisfaction or CAN conditions, relevant Environment Objects, earlier events and other independently established information.
+- Examine feasible contextual changes or initiating Actualizations as appropriate; propagate substantiated changes within the group until results stabilize or the limits of justified conclusions become clear.
+- When the analysis cannot support a definite conclusion, keep results **indeterminate or explicitly conditional**, not automatically negative.
+- Distinguish a **cycle among evaluations** from a **conceptual NEED/CAN dependency cycle** or a **causal cycle**. An analytical cycle does not establish a causal cycle or Actualization impossibility.
+- Evaluate already active, currently blocked, externally initiable and unstable or antagonistic situations according to the relevant Scenario/time context; cyclic structure alone does not settle their status.
+
+**OPEN:** exact graph grouping and scheduling, convergence/non-convergence or oscillation semantics, thresholds for justified conclusions, temporal event interpretation, circularity handling in PowerEvaluation links, and final validated data schema/algorithm. Related existing principles: D-39, D-42, D-55.
+
+Related tasks: T-02, T-03, T-18, T-21, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
