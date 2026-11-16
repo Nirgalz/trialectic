@@ -3,6 +3,8 @@
 **Status:** working reference, not scientifically validated. **Reference file:** `reference/trialectic-method.md`. **Versioning:** released snapshots are identified by **Git tags**, not by version-specific filenames. This text originated in the alpha 0.4 consolidation of November 14, 2026; no Git tag is presumed to exist unless explicitly created.
 Sources: earlier alpha 0.3 content (retrievable in Git history), the [decision log](../DECISIONS.md) (D-01–D-27), and explicit decisions from the November 14–15, 2026 Object / Subject / NEED / CAN / Definition discussions, including Object branching, actionable CANs, uncertainty, and shared Definitions. Earlier version-specific reference files are removed from the current tree; Git history preserves their committed contents.
 
+**Companion index:** [Data models — roles, rationale, approval status and authoritative sources](data-models.md) documents why each record family exists and which field shapes remain OPEN. It is an explanatory navigation aid, **not a new normative schema**. For the integrated Power evaluation, also read [PowerEvaluation](power-evaluation.md).
+
 ## Reading convention and editorial scope
 
 - **VALIDATED** — a concept or distinction explicitly approved by the author. Validation here is **conceptual**, not experimental or scientific.
