@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-72)",
-  "description": "Executable Draft 2020-12 partial boundary schema for six-field top-level PowerEvaluation, Focus, Subject/Context/Dependencies, NEED Results (D-69 to D-71), and CAN Results.actualizability (D-72). CAN prerequisites/potential_contributions, Scenario Results, contemplated Actualization identity, measurement semantics and cross-record validation remain OPEN.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-73)",
+  "description": "Executable Draft 2020-12 partial boundary schema: top-level, Focus, Subject/Context/Dependencies, NEED Results D-69–D-71, CAN actualizability D-72 and CAN prerequisites D-73. Versioned pathway expression logic, semantic reference validation, CAN potential_contributions, Scenario Results, causal and empirical validation remain OPEN.",
   "type": "object",
   "required": [
     "ID",
@@ -318,6 +318,9 @@
       "properties": {
         "actualizability": {
           "$ref": "#/$defs/canActualizability"
+        },
+        "prerequisites": {
+          "$ref": "#/$defs/canPrerequisites"
         }
       }
     },
@@ -631,6 +634,130 @@
           "type": "object"
         }
       }
+    },
+    "canPrerequisites": {
+      "type": "object",
+      "description": "D-73: inventories of contextual CAN preconditions and separately scoped completeness of pathways. No implicit all/any logic and no causal or completeness proof.",
+      "required": [
+        "needs",
+        "cans",
+        "conditions",
+        "pathways",
+        "inventory_coverage",
+        "scope",
+        "justification"
+      ],
+      "properties": {
+        "needs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteObjectRef"
+          }
+        },
+        "cans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteObjectRef"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteConditionRef"
+          }
+        },
+        "pathways": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisitePathwayRef"
+          }
+        },
+        "inventory_coverage": {
+          "$ref": "#/$defs/coverageStatus"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      }
+    },
+    "prerequisiteObjectRef": {
+      "type": "object",
+      "description": "D-73: NEED/CAN Object reference, optional separate analytical PowerEvaluation link; actual type/existence/compatibility checked semantically.",
+      "required": [
+        "object_id"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evaluation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "prerequisiteConditionRef": {
+      "type": "object",
+      "description": "D-73: scoped Condition reference, not an Object; status if present is a separate contextual evaluation.",
+      "required": [
+        "owner_relation_id",
+        "condition_id"
+      ],
+      "properties": {
+        "owner_relation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "condition_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "unsatisfied",
+            "indeterminate"
+          ]
+        }
+      }
+    },
+    "prerequisitePathwayRef": {
+      "type": "object",
+      "description": "D-73: reference to a versioned pathway Definition, with coverage of its known conditions rather than overall pathway inventory completeness.",
+      "required": [
+        "pathway_id",
+        "definition_version",
+        "coverage"
+      ],
+      "properties": {
+        "pathway_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "definition_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverageStatus"
+        }
+      }
+    },
+    "coverageStatus": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "incomplete",
+        "indeterminate"
+      ]
     }
   }
 }
