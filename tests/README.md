@@ -4,9 +4,10 @@
 
 ## Execute
 
-Python 3.11 or later; standard library only:
+Python 3.11 or later. The core regression harness uses the standard library; Draft 2020-12 boundary-schema tests additionally use the pinned `jsonschema` test dependency:
 
 ```sh
+python -m pip install -r requirements-test.txt
 python -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
@@ -28,6 +29,12 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 - **Deliberate boundary:** the subfield serialization, hard-coded fixture contexts, and test adapter's constraints (including the exemplary `distance_ratio` scale and strict same-Scenario references) are **not normative Method rules**. D-54 permits compatibility-based reuse when supported; these tests reject cross-Scenario links **only because the example lacks any documented compatibility proof**.
 - Cycles are merely detected, not mathematically solved or causally classified; propagation is illustrated through explicit revised records, not independently computed by a dependency engine. Scenario consequences remain *anticipated* and no effective Actualization events are inferred.
 - Tests do not yet establish a final JSON Schema, a causal sufficiency/Power computation, complete pathway inventories, trustworthy probabilities, meaningful empirical validity or a calibrated comparison among Scenario alternatives.
+
+## D-66/D-67 Draft 2020-12 boundary-schema checks
+
+The executable [`schemas/power-evaluation.boundaries.schema.json`](../schemas/power-evaluation.boundaries.schema.json) is **partial**. It enforces six closed top-level fields; the D-67 `Focus.type` discriminator with type-specific required reference; and Focus-dependent D-61–D-63 `Results` **section presence**, not the full nested data contract.
+
+[`test_power_evaluation_schema.py`](test_power_evaluation_schema.py) adds **11 executable JSON Schema checks** using `jsonschema==4.23.0`, including negative cases for missing top-level fields, conflicting Focus references, incorrectly selected `Results`, and a distinction between structural validity and semantic reference resolution. **This is not a final strict JSON Schema.** Unapproved nested shapes and evidence validation remain open; see [`schemas/README.md`](../schemas/README.md).
 
 ## What tests can and cannot show
 
