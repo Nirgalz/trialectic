@@ -193,7 +193,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 ## 7. Still open — not silently approved by D-64–D-70
 
-- Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
+- Final **JSON Schema**, remaining nested attributes, field types and optionality (including other Focus kinds); treatment of non-applicability outside the **D-70 temporal applicability** contract; reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
 - Reuse compatibility proof, impact tests, cycle convergence, alternative-path completeness, version-sensitive cache invalidation and automatic recursive propagation.
 - Verified causal sufficiency, actual effects, scenario execution and representative multi-Object examples beyond the synthetic car case.
