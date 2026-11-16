@@ -891,13 +891,13 @@ A CAN currently attributable must be distinguished from a CAN that could emerge 
 - **Development** changing constitution or Potency so a CAN may emerge or change;
 - **Redefinition** of the selected NEED or CAN Focus.
 
-The earlier 'attributable CAN' category has been **questioned by the author as potentially unnecessary**, rather than explicitly retained as an independent current status. The practical inventory now selects CANs at contextually relevant granularity. Existing constitutive-foundation principles and three earlier tests remain **OPEN** research hypotheses, not a new mandatory status or definitive criteria:
+**[UPDATED D-82]** The standalone 'attributable CAN' category has now been explicitly retired by the author (T-01-K); attribution as an analytical operation and its justification remain mandatory. The practical inventory now selects CANs at contextually relevant granularity. Existing constitutive-foundation principles and three earlier tests remain **OPEN** research hypotheses, not a new mandatory status or definitive criteria:
 
 - **A — Present foundation**: identify constitutive properties at T without assuming a necessary future transformation.
 - **B — Discriminating contribution**: verify that the foundation is sufficiently specific to the Actualization to avoid attribution of every CAN to every Object.
 - **C — Individualized attribution**: distinguish collective Object CANs from individual contributions without automatic transfer.
 
-**OPEN:** Whether 'attributable CAN' should remain a separate technical category; threshold of relevant constitutive contribution; boundary between constitution and action conditions; evidence, uncertainty, and inter-analyst reproducibility; differentiated CAN identification criteria by Object type. Contextual granularity is validated, but operational selection rules remain to be tested.
+**OPEN after D-82:** Operational threshold of relevant constitutive contribution; boundary between constitution and action conditions; evidence, uncertainty, and inter-analyst reproducibility; differentiated CAN identification criteria by Object type. The separate 'attributable CAN' category is **retired** (T-01-K). Contextual granularity is validated, but operational selection rules remain to be tested.
 
 ## 3.5 Validated operational identification principles T-01-A–M (D-82)
 
@@ -1386,7 +1386,7 @@ The Method's comparative value, reproducibility, benefits and limitations remain
 ## 11.1 Highest-priority dependencies
 
 - **T-30 — Object / Subject / NEED / CAN / Definition architecture:** implement the newly **VALIDATED** unique IDs, versioned Definitions, Parent/Temporary Children/Actualised Children, branch promotion, shared constituents, conceptual versus functional existence and contextual CANs; formalize boundary tests, actionability/Power interface, uncertainty, historical simulation isolation and full Focus/Stage protocol. **[OPEN operationalization]**
-- **T-01 — NEED and CAN identification:** test existential/structural necessity, conceptual/functional existence, contextual CAN selection and group/System CANs; decide whether a distinct 'attributable CAN' category or legacy tests A/B/C remain useful. **[OPEN operationalization]**
+- **T-01 — NEED and CAN identification:** test existential/structural necessity, conceptual/functional existence, contextual CAN selection and group/System CANs; the separate 'attributable CAN' category is retired under D-82; test the retained identification criteria and legacy A/B/C hypotheses operationally. **[OPEN operationalization]**
 - **T-02 — Conditions of Power:** specify actionable CANs, action conditions versus global sufficient pathways, NEED satisfaction, inter-Object dependency, binary Power and statistical assessment of uncertainty. **[OPEN]**
 - **T-03 — Reproducible protocol:** define contextualization, evidence recording, uncertainty, analyst agreement and parallel Subject analysis, including separate Scenario generation/evaluation and optional selection. **[OPEN]**
 - **T-04 — Comparative usefulness:** compare the **default Advanced Mode** to free-form and generic structured analyses; previously proposed Simple Mode comparisons are deferred. **[OPEN]**
@@ -1457,7 +1457,7 @@ Initial Object identification is relative to the focal Subject and its existenti
 
 **[VALIDATED terminology]** Use **CAN actionable** in place of a distinct **CAN mobilizable** category. The relationship between an actionable CAN's conditions and full Power remains a targeted OPEN question. Statistical assessment of Power uncertainty is distinguished from probability of successful Actualization. Actualization updates affected Object Definitions and may entail harmful or non-monotone changes.
 
-**[OPEN]** Whether to formally retire 'attributable CAN' as a distinct category; calibrated assessment of uncertainty; versioned graph propagation and conflicts; precise actionability/Power logic; Object boundary tests and complete operational protocol. Nothing in this revision represents experimental or scientific validation.
+**[D-82 RESOLVED]** The distinct 'attributable CAN' category is retired; **[OPEN]** calibrated assessment of uncertainty; versioned graph propagation and conflicts; precise actionability/Power logic; Object boundary tests and complete operational protocol. Nothing in this revision represents experimental or scientific validation.
 
 ## November 15, 2026 — Default Advanced Mode and scenario objectives
 
