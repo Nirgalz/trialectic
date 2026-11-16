@@ -33,3 +33,19 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 ## D-77/D-78 normative Analysis/Scenario v2
 
 `test_analysis_v2.py` checks the D-77 required fields against an independent list. Alongside the full example and the standalone Scenario evaluation, `cases/analysis_without_scenario.json` exercises a CAN focus with a versioned subject, represented Object and relation, before any Scenario or PowerEvaluation is recorded. See [field contracts and offline validation](../schemas/global-model.md).
+
+## T-01 identification corpus v1 (D-82; synthetic, non-empirical)
+
+- `cases/t01-identification-v1.json` is the **versioned** source of 26 independently authored *expected* classifications (10 positive / 7 negative / 9 boundary). Every case identifies its principles, scoped stipulated premises, expected outcome, justification and limits. All T-01-A–M appear in this corpus.
+- `test_t01_identification.py` runs deterministic discriminating-rule comparisons, document/decision traceability, no-compensation and attribution/unknown-state invariants, and projects every case to a **minimal, explicitly epistemically indeterminate** Analysis + PowerEvaluation envelope conforming to the installed modular v2 JSON Schema. Deliberate invalid mutations must fail; a valid but dangling reference demonstrates that structural validity does not imply semantic correctness.
+- The projection is **not** a full causal or historical encoding of each synthetic scenario. In particular, it deliberately records no physical Actualization event, no established CAN contribution and no validated satisfaction outcome merely from an illustrative identification oracle. Tests do not independently confirm the conceptual truth of cases, causal mechanisms, actualizability, or real-world evidence.
+- **Remaining T-01 research:** independently reviewed and blind cross-analyst cases (including contested thresholds and missing vulnerable Subjects), empirical source verification, case-specific semantic reference validation and controlled comparisons. These tests do not close T-01 or T-24/T-27.
+
+To run the dedicated tests from the repository root:
+
+```sh
+python -m pip install -r requirements-test.txt
+python -m unittest discover -s tests -p 'test_t01_identification.py' -v
+```
+
+The existing `method-regression.yml` workflow discovers this module automatically on pushes to `dev`. Verify the resulting GitHub Actions run before claiming CI success.
