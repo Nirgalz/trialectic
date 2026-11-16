@@ -109,6 +109,7 @@ class IdentityAttributionV21(unittest.TestCase):
             "reason": "correction",
             "justification": "Correction of earlier synthetic identification.",
             "claim_id": "CL-new-need",
+            "claim_version": "v1",
         }
         doc["objects"].append(newly_identified)
         doc["definitions"].append({
