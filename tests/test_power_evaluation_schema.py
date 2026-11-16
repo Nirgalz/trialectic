@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-72 boundaries. The older
+The schema enforces only approved D-57/D-61-D-73 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -666,6 +666,191 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         item["justification"] = "Hypothetical possibility only; event not asserted"
         self.assert_valid(obj)
         self.assertNotIn("ActualizationEvent", obj)  # distinct layer
+
+    def test_d73_required_prerequisite_fields(self):
+        required = ["needs", "cans", "conditions", "pathways",
+                    "inventory_coverage", "scope", "justification"]
+        for field in required:
+            with self.subTest(missing=field):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["prerequisites"].pop(field)
+                self.assert_invalid(obj)
+
+    def test_d73_prerequisites_must_be_object(self):
+        for bad in [None, False, "", [], 0, {"needs": []}]:
+            with self.subTest(value=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["prerequisites"] = bad
+                self.assert_invalid(obj)
+
+    def test_d73_four_collections_are_arrays_and_can_be_empty(self):
+        for key in ["needs", "cans", "conditions", "pathways"]:
+            for bad in [None, False, 2, {}, "O-NEED-ENERGY"]:
+                with self.subTest(key=key, value=bad):
+                    obj = copy.deepcopy(self.records[1])
+                    obj["Results"]["prerequisites"][key] = bad
+                    self.assert_invalid(obj)
+        obj = copy.deepcopy(self.records[1])
+        for key in ["needs", "cans", "conditions", "pathways"]:
+            obj["Results"]["prerequisites"][key] = []
+        self.assert_valid(obj)  # empty inventory != proof no prerequisites exist
+
+    def test_d73_need_and_can_refs_require_nonempty_object_id(self):
+        for key in ["needs", "cans"]:
+            for bad in [None, "id", False, 2, {}, {"evaluation_id": "PE-NEED-001"},
+                        {"object_id": ""}, {"object_id": None},
+                        {"object_id": 2}]:
+                with self.subTest(key=key, ref=bad):
+                    obj = copy.deepcopy(self.records[1])
+                    obj["Results"]["prerequisites"][key] = [bad]
+                    self.assert_invalid(obj)
+
+    def test_d73_evaluation_id_optional_but_typed_when_present(self):
+        for key in ["needs", "cans"]:
+            obj = copy.deepcopy(self.records[1])
+            p = obj["Results"]["prerequisites"]
+            p[key] = [{"object_id": "O-CAN-RECHARGE" if key == "cans"
+                       else "O-NEED-ENERGY"}]
+            self.assert_valid(obj)
+            p[key][0]["evaluation_id"] = "PE-NEED-001"
+            self.assert_valid(obj)  # target kind and use are semantic
+            for bad in [None, "", False, 0, [], {}]:
+                with self.subTest(key=key, evaluation_id=bad):
+                    p[key][0]["evaluation_id"] = bad
+                    self.assert_invalid(obj)
+
+    def test_d73_condition_scoped_identity_and_optional_status(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["prerequisites"]
+        p["conditions"] = [{
+            "owner_relation_id": "R-CAN-TRAVEL",
+            "condition_id": "C-ENERGY-1000"
+        }]
+        self.assert_valid(obj)  # absence of status is not automatic indeterminate
+        for status in ["satisfied", "unsatisfied", "indeterminate"]:
+            p["conditions"][0]["status"] = status
+            self.assert_valid(obj)
+        for status in [None, "unknown", "partially_satisfied", 1, False]:
+            with self.subTest(status=status):
+                p["conditions"][0]["status"] = status
+                self.assert_invalid(obj)
+
+    def test_d73_condition_ref_rejects_unqualified_identity(self):
+        bads = [{}, {"condition_id": "C-ENERGY-1000"},
+                {"owner_relation_id": "R-CAN-TRAVEL"},
+                {"owner_relation_id": "", "condition_id": "C"},
+                {"owner_relation_id": "R", "condition_id": ""},
+                {"owner_relation_id": None, "condition_id": "C"},
+                {"owner_relation_id": "R", "condition_id": None},
+                {"owner_relation_id": 5, "condition_id": "C"},
+                "C-ENERGY-1000", None]
+        for bad in bads:
+            with self.subTest(condition=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["prerequisites"]["conditions"] = [bad]
+                self.assert_invalid(obj)
+
+    def test_d73_pathway_version_and_per_pathway_coverage_required(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["prerequisites"]
+        entry = {"pathway_id": "P-DIRECT", "definition_version": "v1",
+                 "coverage": "complete"}
+        p["pathways"] = [entry]
+        self.assert_valid(obj)
+        for field in ["pathway_id", "definition_version", "coverage"]:
+            with self.subTest(missing=field):
+                case = copy.deepcopy(obj)
+                case["Results"]["prerequisites"]["pathways"][0].pop(field)
+                self.assert_invalid(case)
+
+    def test_d73_pathway_bad_types_and_coverage_rejected(self):
+        bads = [None, 5, "P-DIRECT", {}, [],
+                {"pathway_id": "", "definition_version": "v1", "coverage": "complete"},
+                {"pathway_id": "P", "definition_version": "", "coverage": "complete"},
+                {"pathway_id": "P", "definition_version": None, "coverage": "complete"},
+                {"pathway_id": "P", "definition_version": "v1", "coverage": "unknown"},
+                {"pathway_id": "P", "definition_version": "v1", "coverage": None}]
+        for bad in bads:
+            with self.subTest(entry=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["prerequisites"]["pathways"] = [bad]
+                self.assert_invalid(obj)
+
+    def test_d73_two_coverage_levels_remain_independent(self):
+        for inventory_coverage in ["complete", "incomplete", "indeterminate"]:
+            for pathway_coverage in ["complete", "incomplete", "indeterminate"]:
+                with self.subTest(inventory=inventory_coverage, pathway=pathway_coverage):
+                    obj = copy.deepcopy(self.records[1])
+                    p = obj["Results"]["prerequisites"]
+                    p["inventory_coverage"] = inventory_coverage
+                    p["pathways"] = [{
+                        "pathway_id": "P-DIRECT",
+                        "definition_version": "v1",
+                        "coverage": pathway_coverage
+                    }]
+                    self.assert_valid(obj)  # completeness claim still needs semantic justification
+
+    def test_d73_inventory_coverage_required_exact_enum(self):
+        for bad in [None, "", "exhaustive", "not_searched", False, 4, []]:
+            with self.subTest(value=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["prerequisites"]["inventory_coverage"] = bad
+                self.assert_invalid(obj)
+
+    def test_d73_scope_and_justification_required_nonempty(self):
+        for key in ["scope", "justification"]:
+            for bad in [None, "", False, 3, [], {}]:
+                with self.subTest(key=key, value=bad):
+                    obj = copy.deepcopy(self.records[1])
+                    obj["Results"]["prerequisites"][key] = bad
+                    self.assert_invalid(obj)
+
+    def test_d73_inventory_evidence_optional_reference_array(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["prerequisites"]
+        p.pop("evidence", None)
+        self.assert_valid(obj)
+        p["evidence"] = []
+        self.assert_valid(obj)
+        p["evidence"] = ["EV-PRECONDITION-001"]
+        self.assert_valid(obj)
+        for bad in [None, "EV-1", [""], [None], [True], {}, 3]:
+            with self.subTest(value=bad):
+                p["evidence"] = bad
+                self.assert_invalid(obj)
+
+    def test_d73_uncertainty_optional_object(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["prerequisites"]
+        p.pop("uncertainty", None)
+        self.assert_valid(obj)
+        p["uncertainty"] = {}
+        self.assert_valid(obj)
+        p["uncertainty"] = {"description": "Unexamined alternatives remain possible."}
+        self.assert_valid(obj)
+        for bad in [None, "", 3, [], False]:
+            with self.subTest(value=bad):
+                p["uncertainty"] = bad
+                self.assert_invalid(obj)
+
+    def test_d73_extra_metadata_open_and_no_logical_tree_imposed(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["prerequisites"]
+        p["pathways"].append({
+            "pathway_id": "P-DIRECT", "definition_version": "v1",
+            "coverage": "incomplete", "unapproved_metadata": {"test": True}
+        })
+        p["unapproved_inventory_metadata"] = {"conjunction_not_assumed": True}
+        self.assert_valid(obj)  # D-42 recursive expression serialization still OPEN
+
+    def test_d73_analytical_link_validation_remains_separate(self):
+        obj = copy.deepcopy(self.records[1])
+        obj["Results"]["prerequisites"]["needs"][0]["evaluation_id"] = "PE-NOT-DECLARED"
+        self.assert_valid(obj)  # JSON Schema validates only the reference shape
+        fixture = copy.deepcopy(self.fixture)
+        fixture["evaluations"][1] = obj
+        with self.assertRaises(ValueError):
+            validate_fixture(fixture)  # D-53/D-54 independent analytical resolution
 
     def test_structure_cannot_prove_reference_existence(self):
         obj = copy.deepcopy(self.records[1])
