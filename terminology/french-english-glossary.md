@@ -20,6 +20,8 @@
 
 **Critical distinction:** **Potency ≠ Power** (**Puissance ≠ Pouvoir**). Potency is the set of a Subject's Potentialities at time T; Power concerns whether the conditions for *undertaking* a particular Actualization are satisfied. Translate **negative Power** as **Pouvoir négatif**, never **Puissance négative**.
 
+**Validated clarification (November 16, 2026):** **Potentiality / Potentialité = CAN** as an operational concept; **NEED** is distinct. **Potency / Puissance** is the list of an Object's CANs (excluding NEEDs). **Power / Pouvoir** denotes a comparative operation among the Object's NEEDs, its CANs' NEEDs, and its Environment's NEEDs and CANs, yielding assessments of Actualization possibilities, NEED satisfaction statuses, and CANs potentially meeting NEEDs. Former binary Power wording is historical as a general definition; subordinate indicators remain to be studied.
+
 ## 2. Additional working terminology (not separately approved)
 
 ### Subjects, context, and Potentialities
