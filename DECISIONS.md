@@ -1422,5 +1422,14 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-20, T-03, T-04, T-15, T-16, T-21, T-24, T-27, T-30.
 
+## D-81 · Organize approved Method applications outside proposals
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** Move the D-80-approved AI-assisted dialogue design from `proposals/ai-assisted-dialogue-protocol.md` to `applications/ai-assisted-analysis/dialogue-protocol.md`, establishing `applications/` as the location for application-specific implementations and usage protocols. Remove the now-empty `proposals/` directory from the current tree. Update relative references and index links while preserving the original historical location mentioned in D-80.
+
+**Scope:** Repository organization only; no change to the approved dialogue protocol's methodological content, normative v2 schemas or empirical status. Future application areas may be added as they materialize.
+
+Related tasks: T-20, T-26, T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

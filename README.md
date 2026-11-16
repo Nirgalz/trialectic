@@ -55,6 +55,7 @@ These are **potential applications, not validated use cases**. Comparative value
 
 - [Canonical reference](reference/trialectic-method.md) — current working document; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements. Version snapshots are managed with Git tags rather than numbered filenames; prior revisions can be recovered from Git history.
 - [Data models and rationale](reference/data-models.md) — comprehensive cross-reference of current conceptual and data models, why each is distinct, their validation status, and open serialization questions. An explanatory catalogue, **not a new normative schema**.
+- [AI-assisted dialogue protocol](applications/ai-assisted-analysis/dialogue-protocol.md) — approved AI interaction design aligned with the current Method and normative data models; implementation and empirical evaluation remain open.
 - [TODO](TODO.md) — 30 research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
 - [Contribution guidelines](CONTRIBUTING.md) — how to propose changes, submit pull requests, and document decisions.
