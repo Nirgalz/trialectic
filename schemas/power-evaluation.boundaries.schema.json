@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-67)",
+  "description": "Executable Draft 2020-12 boundary/schema prototype. Normative only for six required top-level fields, no extra top-level fields, the D-67 Focus discriminator/reference presence and compatible D-61–D-63 Results section names. All other nested field shapes/types and cross-record semantics remain OPEN; validation against this schema does NOT establish complete structural or semantic validity.",
+  "type": "object",
+  "required": [
+    "ID",
+    "Subject",
+    "Focus",
+    "Context",
+    "Dependencies",
+    "Results"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "ID": true,
+    "Subject": true,
+    "Focus": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "description": "D-67 approves case-sensitive type and type-specific reference presence. ID syntax/types and additional nested metadata remain OPEN.",
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "NEED"
+            }
+          },
+          "required": [
+            "object_id"
+          ],
+          "not": {
+            "required": [
+              "scenario_id"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "CAN"
+            }
+          },
+          "required": [
+            "object_id"
+          ],
+          "not": {
+            "required": [
+              "scenario_id"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "Scenario"
+            }
+          },
+          "required": [
+            "scenario_id"
+          ],
+          "not": {
+            "required": [
+              "object_id"
+            ]
+          }
+        }
+      ]
+    },
+    "Context": true,
+    "Dependencies": true,
+    "Results": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "NEED"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/needResults"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "CAN"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/canResults"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Focus": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Scenario"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "Focus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "Results": {
+            "$ref": "#/$defs/scenarioResults"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "needResults": {
+      "type": "object",
+      "required": [
+        "effective_satisfaction",
+        "temporal_compliance",
+        "candidate_cans"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "actualizability"
+            ]
+          },
+          {
+            "required": [
+              "prerequisites"
+            ]
+          },
+          {
+            "required": [
+              "potential_contributions"
+            ]
+          },
+          {
+            "required": [
+              "actualization_assessments"
+            ]
+          },
+          {
+            "required": [
+              "scenario_assessment"
+            ]
+          },
+          {
+            "required": [
+              "effects"
+            ]
+          },
+          {
+            "required": [
+              "comparisons"
+            ]
+          }
+        ]
+      }
+    },
+    "canResults": {
+      "type": "object",
+      "required": [
+        "actualizability",
+        "prerequisites",
+        "potential_contributions"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "effective_satisfaction"
+            ]
+          },
+          {
+            "required": [
+              "temporal_compliance"
+            ]
+          },
+          {
+            "required": [
+              "candidate_cans"
+            ]
+          },
+          {
+            "required": [
+              "actualization_assessments"
+            ]
+          },
+          {
+            "required": [
+              "scenario_assessment"
+            ]
+          },
+          {
+            "required": [
+              "effects"
+            ]
+          },
+          {
+            "required": [
+              "comparisons"
+            ]
+          }
+        ]
+      }
+    },
+    "scenarioResults": {
+      "type": "object",
+      "required": [
+        "actualization_assessments",
+        "scenario_assessment",
+        "effects",
+        "comparisons"
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "effective_satisfaction"
+            ]
+          },
+          {
+            "required": [
+              "temporal_compliance"
+            ]
+          },
+          {
+            "required": [
+              "candidate_cans"
+            ]
+          },
+          {
+            "required": [
+              "actualizability"
+            ]
+          },
+          {
+            "required": [
+              "prerequisites"
+            ]
+          },
+          {
+            "required": [
+              "potential_contributions"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
