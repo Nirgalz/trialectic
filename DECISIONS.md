@@ -843,5 +843,14 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-01, T-02, T-30.
 
+## D-49 · Partial satisfaction of a NEED
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+A NEED **may be partially satisfied**. Quantify the degree of satisfaction **only when a pertinent and justifiable measure is available**. Keep the existing evaluative statuses (`satisfied`, `unsatisfied`, `indeterminate`); optional degree information complements the status rather than automatically creating a fourth one. Distinguish a measured degree of satisfaction from probability/epistemic uncertainty, and distinguish partial satisfaction of a NEED from partial satisfaction of its conditions. Not every NEED admits a meaningful numeric degree.
+
+**OPEN:** measurement methods by NEED type, thresholds, multidimensional representation, aggregation of conditions or sub-NEEDs, machine-readable field shape and validation. No final JSON Schema or numeric aggregation rule was approved.
+
+Related tasks: T-02, T-03, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
