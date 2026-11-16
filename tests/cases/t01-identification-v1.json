@@ -1,0 +1,570 @@
+{
+  "corpus_version": "1.0.0",
+  "name": "T-01 NEED/CAN identification — discriminating cases",
+  "status": "synthetic hand-authored oracles; not independent empirical validation",
+  "decision_ids": [
+    "D-18",
+    "D-25",
+    "D-27",
+    "D-31",
+    "D-36",
+    "D-37",
+    "D-46",
+    "D-47",
+    "D-48",
+    "D-49",
+    "D-50",
+    "D-51",
+    "D-71",
+    "D-74",
+    "D-77",
+    "D-82"
+  ],
+  "normative_text": "reference/trialectic-method.md#35-validated-operational-identification-principles-t-01-am-d-82",
+  "profile": {
+    "uri": "urn:trialectic:schema:analysis:normative-v2",
+    "version": "2.0.0",
+    "note": "Each case is projected to a structurally valid v2 Analysis+PowerEvaluation in the test harness. Projection does not establish real-world Object membership, truth or causality."
+  },
+  "oracle_policy": "Expected outcomes are authored independently of the deterministic discriminating-rules test. Do not infer empirical truth from schema conformance or code agreement.",
+  "cases": [
+    {
+      "id": "T01-01",
+      "kind": "positive",
+      "focus": "NEED",
+      "principles": [
+        "A",
+        "B",
+        "C"
+      ],
+      "scenario": "Electricity is a candidate requirement for one-hour room lighting, but a viable fuel lamp is available.",
+      "facts": {
+        "rule": "necessity",
+        "mode": "functional",
+        "alternative": true,
+        "coverage": "complete"
+      },
+      "expected": {
+        "outcome": "not_necessary",
+        "justification": "A particular supply route is not necessary where a documented alternative reaches the same scoped goal."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-02",
+      "kind": "positive",
+      "focus": "NEED",
+      "principles": [
+        "A",
+        "B",
+        "D"
+      ],
+      "scenario": "An essential continuous state has no viable alternative in a deliberately closed synthetic model.",
+      "facts": {
+        "rule": "necessity",
+        "mode": "functional",
+        "alternative": false,
+        "coverage": "complete"
+      },
+      "expected": {
+        "outcome": "necessary_in_scope",
+        "justification": "Necessity is relative to the explicitly assumed complete model; no empirical universality follows."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-03",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "B",
+        "E"
+      ],
+      "scenario": "No alternative found for critical heating, but candidate inventory remains incomplete.",
+      "facts": {
+        "rule": "necessity",
+        "mode": "functional",
+        "alternative": false,
+        "coverage": "incomplete"
+      },
+      "expected": {
+        "outcome": "indeterminate",
+        "justification": "No identified alternative is not universal impossibility or model-complete necessity."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-04",
+      "kind": "positive",
+      "focus": "NEED",
+      "principles": [
+        "B"
+      ],
+      "scenario": "A triangle's having three sides is constitutive of the category triangle.",
+      "facts": {
+        "rule": "necessity",
+        "mode": "conceptual",
+        "identity_essential": true
+      },
+      "expected": {
+        "outcome": "necessary_in_definition",
+        "justification": "Do not treat a constitutive property as a removable physical part of the same identified object."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-05",
+      "kind": "negative",
+      "focus": "NEED",
+      "principles": [
+        "B",
+        "C"
+      ],
+      "scenario": "Painting a triangle blue is not constitutive of its conceptual triangle identity.",
+      "facts": {
+        "rule": "necessity",
+        "mode": "conceptual",
+        "identity_essential": false
+      },
+      "expected": {
+        "outcome": "not_necessary",
+        "justification": "Blue paint is not necessary for the triangle category under the stated conceptual definition."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-06",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "A",
+        "L"
+      ],
+      "scenario": "Possessing a yacht is stipulated as an aim without any independent justification of that aim.",
+      "facts": {
+        "rule": "goal",
+        "goal_relevance": "unjustified"
+      },
+      "expected": {
+        "outcome": "goal_unjustified",
+        "justification": "Trivial means-to-goal necessity never independently justifies the goal itself."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-07",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "D"
+      ],
+      "scenario": "A potable-water quality threshold is asserted without criterion or evidence.",
+      "facts": {
+        "rule": "threshold",
+        "threshold_justified": false
+      },
+      "expected": {
+        "outcome": "indeterminate",
+        "justification": "Never invent a measurement threshold to turn an unspecified requirement into a known status."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-08",
+      "kind": "negative",
+      "focus": "NEED",
+      "principles": [
+        "D",
+        "M"
+      ],
+      "scenario": "Water volume is adequate, but water is documented non-potable for an indispensable quality requirement.",
+      "facts": {
+        "rule": "aggregation",
+        "essential": [
+          "satisfied",
+          "unsatisfied"
+        ],
+        "weighted_degree": 0.9
+      },
+      "expected": {
+        "outcome": "unsatisfied",
+        "justification": "High weighted mean cannot compensate a violated necessary qualitative requirement."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-09",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "D",
+        "M"
+      ],
+      "scenario": "Volume is adequate, but suitability for the essential quality requirement is unmeasured.",
+      "facts": {
+        "rule": "aggregation",
+        "essential": [
+          "satisfied",
+          "indeterminate"
+        ],
+        "weighted_degree": 0.95
+      },
+      "expected": {
+        "outcome": "indeterminate",
+        "justification": "Uncertainty in an indispensable subrequirement is not a positive overall outcome."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-10",
+      "kind": "negative",
+      "focus": "NEED",
+      "principles": [
+        "E",
+        "L"
+      ],
+      "scenario": "The water assessment inventories households but excludes a care center whose demand could change the result.",
+      "facts": {
+        "rule": "scope",
+        "materially_omitted": true,
+        "inventory_coverage": "complete"
+      },
+      "expected": {
+        "outcome": "scope_inadequate",
+        "justification": "Completeness within households is not relevance/completeness for a wider municipal objective."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-11",
+      "kind": "positive",
+      "focus": "NEED",
+      "principles": [
+        "E",
+        "L"
+      ],
+      "scenario": "A specifically scoped household-only study justifies exclusions with evidence and notes the limited aim.",
+      "facts": {
+        "rule": "scope",
+        "materially_omitted": false,
+        "inventory_coverage": "complete"
+      },
+      "expected": {
+        "outcome": "scoped_coverage_only",
+        "justification": "A scoped complete inventory does not claim an exhaustive universe of NEEDs."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-12",
+      "kind": "positive",
+      "focus": "NEED",
+      "principles": [
+        "F"
+      ],
+      "scenario": "A patient's NEED conditions a hospital procedure but remains attributed to the patient.",
+      "facts": {
+        "rule": "ownership",
+        "need_owner": "patient",
+        "dependent_subject": "hospital"
+      },
+      "expected": {
+        "outcome": "distinct_ownership",
+        "justification": "Dependence does not transfer contextual ownership of a NEED."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-13",
+      "kind": "positive",
+      "focus": "CAN",
+      "principles": [
+        "G",
+        "H",
+        "K"
+      ],
+      "scenario": "A pianist can play but has no instrument available now.",
+      "facts": {
+        "rule": "can",
+        "basis": "established",
+        "prior_constitutive_change": false,
+        "action_conditions": "unsatisfied"
+      },
+      "expected": {
+        "outcome": "attributable_not_actionable",
+        "justification": "Current constitutive grounds survive temporary external unavailability."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-14",
+      "kind": "negative",
+      "focus": "CAN",
+      "principles": [
+        "G",
+        "H"
+      ],
+      "scenario": "A block of wood might later be transformed into a piano.",
+      "facts": {
+        "rule": "can",
+        "basis": "absent",
+        "prior_constitutive_change": true,
+        "action_conditions": "indeterminate"
+      },
+      "expected": {
+        "outcome": "not_yet_attributable",
+        "justification": "Future constitutive transformation does not license a present piano-playing CAN."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-15",
+      "kind": "positive",
+      "focus": "CAN",
+      "principles": [
+        "G",
+        "H"
+      ],
+      "scenario": "A person presently has the CAN to learn piano; playing at professional level is not inferred.",
+      "facts": {
+        "rule": "can",
+        "basis": "established",
+        "prior_constitutive_change": false,
+        "action_conditions": "indeterminate"
+      },
+      "expected": {
+        "outcome": "attributable_not_actionable",
+        "justification": "A learning Potentiality can exist without the advanced performance Potentiality."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-16",
+      "kind": "positive",
+      "focus": "CAN",
+      "principles": [
+        "G",
+        "H"
+      ],
+      "scenario": "A patient's constitution supports receiving surgery performed wholly by others.",
+      "facts": {
+        "rule": "can",
+        "basis": "established",
+        "prior_constitutive_change": false,
+        "action_conditions": "indeterminate"
+      },
+      "expected": {
+        "outcome": "attributable_not_actionable",
+        "justification": "Autonomous initiation is not mandatory for CAN attribution."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-17",
+      "kind": "boundary",
+      "focus": "CAN",
+      "principles": [
+        "G",
+        "K"
+      ],
+      "scenario": "A person's present piano proficiency is unknown.",
+      "facts": {
+        "rule": "can",
+        "basis": "unknown",
+        "prior_constitutive_change": false,
+        "action_conditions": "indeterminate"
+      },
+      "expected": {
+        "outcome": "indeterminate",
+        "justification": "Uncertainty of attribution must not be folded into actionability or a separate CAN category."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-18",
+      "kind": "positive",
+      "focus": "CAN",
+      "principles": [
+        "I"
+      ],
+      "scenario": "A documented coordinated team has a constitution that grounds a collective three-person intervention CAN.",
+      "facts": {
+        "rule": "collective",
+        "coordination": "established",
+        "joint_foundation": "established"
+      },
+      "expected": {
+        "outcome": "collective_can_attributable",
+        "justification": "A collective CAN may depend on relations among constituents and differ from individual CANs."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-19",
+      "kind": "boundary",
+      "focus": "CAN",
+      "principles": [
+        "I"
+      ],
+      "scenario": "Three individuals have complementary skills, but organization and coordination are unknown.",
+      "facts": {
+        "rule": "collective",
+        "coordination": "unknown",
+        "joint_foundation": "unknown"
+      },
+      "expected": {
+        "outcome": "indeterminate",
+        "justification": "Merely unioning member skills does not demonstrate a collective CAN."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-20",
+      "kind": "negative",
+      "focus": "NEED",
+      "principles": [
+        "J"
+      ],
+      "scenario": "A lamp provides 20 minutes toward a 60-minute continuous lighting NEED.",
+      "facts": {
+        "rule": "relation",
+        "correspondence": true,
+        "causal": "supported_in_model",
+        "sufficiency": false,
+        "adverse": false
+      },
+      "expected": {
+        "outcome": "contributive_not_sufficient",
+        "justification": "Potential favorable contribution does not imply satisfaction of an entire continuous NEED."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-21",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "J"
+      ],
+      "scenario": "A semantic similarity identifies a possible CAN–NEED match but no causal mechanism is supported.",
+      "facts": {
+        "rule": "relation",
+        "correspondence": true,
+        "causal": "unknown",
+        "sufficiency": null,
+        "adverse": false
+      },
+      "expected": {
+        "outcome": "candidate_only",
+        "justification": "A candidate match is not automatically a causal contribution or sufficiency proof."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-22",
+      "kind": "negative",
+      "focus": "NEED",
+      "principles": [
+        "J"
+      ],
+      "scenario": "A proposed action risks reducing another Subject's reserve, without a demonstrated favorable NEED contribution.",
+      "facts": {
+        "rule": "relation",
+        "correspondence": false,
+        "causal": "unknown",
+        "sufficiency": null,
+        "adverse": true
+      },
+      "expected": {
+        "outcome": "adverse_effect_to_examine",
+        "justification": "Inhibitory or harmful relations cannot be silently rewritten as favorable contributions."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-23",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "J"
+      ],
+      "scenario": "A CAN is indispensable within one successful two-CAN Scenario but dispensable in an alternative Scenario.",
+      "facts": {
+        "rule": "scenario_necessity",
+        "same_scenario_required": true,
+        "identified_alternative": true
+      },
+      "expected": {
+        "outcome": "necessary_only_in_scenario",
+        "justification": "Scenario-relative necessity is not absolute necessity across all possible Scenarios."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-24",
+      "kind": "boundary",
+      "focus": "NEED",
+      "principles": [
+        "E",
+        "J"
+      ],
+      "scenario": "An open inventory contains no currently identified suitable CAN.",
+      "facts": {
+        "rule": "inventory",
+        "searched": true,
+        "coverage": "incomplete",
+        "candidate_count": 0
+      },
+      "expected": {
+        "outcome": "no_impossibility_inference",
+        "justification": "An empty incomplete candidate inventory cannot prove nonexistence or impossibility."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-25",
+      "kind": "negative",
+      "focus": "NEED",
+      "principles": [
+        "M"
+      ],
+      "scenario": "A high aggregated score masks one documented indispensable sub-NEED failure.",
+      "facts": {
+        "rule": "aggregation",
+        "essential": [
+          "satisfied",
+          "unsatisfied",
+          "satisfied"
+        ],
+        "weighted_degree": 0.98
+      },
+      "expected": {
+        "outcome": "unsatisfied",
+        "justification": "A necessary sub-NEED must not be compensated by weights."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    },
+    {
+      "id": "T01-26",
+      "kind": "positive",
+      "focus": "NEED",
+      "principles": [
+        "M"
+      ],
+      "scenario": "Every explicitly indispensable independent requirement is satisfied in this declared model.",
+      "facts": {
+        "rule": "aggregation",
+        "essential": [
+          "satisfied",
+          "satisfied"
+        ],
+        "weighted_degree": 0.95
+      },
+      "expected": {
+        "outcome": "satisfied_in_model",
+        "justification": "Only explicit indispensable requirements are checked; adequacy of scope and evidence remains separate."
+      },
+      "limitations": "Synthetic stipulated premises; not empirical evidence. Scope and Object Definition versions must be checked separately."
+    }
+  ]
+}
