@@ -3,8 +3,8 @@
 **Current serialization authority — D-77/D-78, November 16, 2026:** The
 [global Analysis model and Scenario Results v2](../schemas/global-model.md) are now
 **normative, adopted under the author's explicit instruction**. Use
-[Analysis v2](../schemas/trialectic.schema.json) and
-[PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json). All root keys,
+[Analysis v2](../schemas/model/analysis.json) and
+[PowerEvaluation v2](../schemas/model/power-evaluation.json). All root keys,
 record-family contracts and nested Scenario fields are specified there; the five
 Scenario dimensions stay independent and no winner or aggregate score is required.
 D-75's separate Object/relation identities and D-76's reconciliation remain in force.
@@ -361,7 +361,7 @@ D-78 now specifies the nested contract: scoped inventories of contemplated CAN e
 
 ### 14.1 Normative v2 and historical v1 schemas — implementer contracts
 
-- [Analysis v2](../schemas/trialectic.schema.json) and [PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json) are normative under D-77/D-78. See [the exact contract](../schemas/global-model.md).
+- [Analysis v2](../schemas/model/analysis.json) and [PowerEvaluation v2](../schemas/model/power-evaluation.json) are normative under D-77/D-78. See [the exact contract](../schemas/global-model.md).
 - The following boundary artifacts are retained as historical v1 contracts:
 
 - [`schemas/power-evaluation.boundaries.schema.json`](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json): **Draft 2020-12**, implementing the D-57/D-61–D-74 approved **partial structural boundary**, including exact six top-level fields and the minimum NEED/CAN result shapes; Scenario internals remain OPEN.

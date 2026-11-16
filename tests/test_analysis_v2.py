@@ -30,7 +30,7 @@ class AnalysisV2Tests(unittest.TestCase):
         self.power_validator.validate(self.scenario)
 
     def test_global_required_collections_and_context(self):
-        schema = read('schemas/trialectic.schema.json')
+        schema = self.analysis_validator.schema
         for key in schema['required']:
             with self.subTest(missing=key):
                 record = copy.deepcopy(self.analysis)
@@ -51,7 +51,7 @@ class AnalysisV2Tests(unittest.TestCase):
         self.assertFalse(self.analysis_validator.is_valid(self.analysis))
 
     def test_empty_collections_and_no_scenario_do_not_imply_impossibility(self):
-        schema = read('schemas/trialectic.schema.json')
+        schema = self.analysis_validator.schema
         for key, value in schema['properties'].items():
             if value.get('type') == 'array':
                 self.analysis[key] = []
@@ -136,7 +136,7 @@ class AnalysisV2Tests(unittest.TestCase):
         self.assertFalse(self.power_validator.is_valid(self.scenario))
 
     def test_effect_simulation_is_not_observation(self):
-        schema = read('schemas/trialectic.schema.json')
+        schema = self.analysis_validator.schema
         check = Draft202012Validator({'$schema': schema['$schema'], '$defs': schema['$defs'], '$ref': '#/$defs/effect'})
         effect = dict(id='FX-1', scenario_id='S0', target_object={'id': 'O-room', 'version': 'v1'},
                       description='Hypothetical effect.', causality='direct', timing='delayed', evidence_status='simulated')

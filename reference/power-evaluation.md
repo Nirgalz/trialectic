@@ -3,8 +3,8 @@
 **Current serialization authority — D-77/D-78, November 16, 2026:** The
 [global Analysis model and Scenario Results v2](../schemas/global-model.md) are now
 **normative, adopted under the author's explicit instruction**. Use
-[Analysis v2](../schemas/trialectic.schema.json) and
-[PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json). All root keys,
+[Analysis v2](../schemas/model/analysis.json) and
+[PowerEvaluation v2](../schemas/model/power-evaluation.json). All root keys,
 record-family contracts and nested Scenario fields are specified there; the five
 Scenario dimensions stay independent and no winner or aggregate score is required.
 D-75's separate Object/relation identities and D-76's reconciliation remain in force.

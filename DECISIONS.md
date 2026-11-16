@@ -1335,7 +1335,7 @@ Date: November 16, 2026 | Status: **VALIDATED under author instruction** | Branc
 This authorizes defining and adopting the remaining serialization contract. The
 concrete choices below are newly made explicit here, not attributed to past decisions.
 
-**Decision:** Adopt [`schemas/trialectic.schema.json`](schemas/trialectic.schema.json)
+**Decision:** Adopt [`schemas/trialectic.schema.json`](https://github.com/Nirgalz/trialectic/blob/ef15494027f0bc9e7ede9ffffdbc2c2f2c224220/schemas/trialectic.schema.json)
 as the normative Draft 2020-12 global Analysis exchange profile, version `2.0.0`,
 with `$id: urn:trialectic:schema:analysis:normative-v2`. The exact root fields,
 record-family fields, requiredness, enums, reference representations and transport
@@ -1371,7 +1371,7 @@ Date: November 16, 2026 | Status: **VALIDATED under author instruction** | Branc
 
 **Authorization:** Same explicit request as D-77, covering Scenario Results.
 
-**Decision:** Adopt [`schemas/power-evaluation.v2.schema.json`](schemas/power-evaluation.v2.schema.json),
+**Decision:** Adopt [`schemas/power-evaluation.v2.schema.json`](https://github.com/Nirgalz/trialectic/blob/ef15494027f0bc9e7ede9ffffdbc2c2f2c224220/schemas/power-evaluation.v2.schema.json),
 `urn:trialectic:schema:power-evaluation:normative-v2`. It preserves the six-field
 envelope and NEED/CAN assertions; Scenario Results now have four required objects:
 

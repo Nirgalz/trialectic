@@ -13,9 +13,32 @@ from referencing import Registry, Resource
 ROOT = Path(__file__).resolve().parents[1]
 
 
+MODEL = ROOT / "schemas" / "model"
+
+
+def read(path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_schemas():
+    analysis = read(MODEL / "analysis.json")
+    evaluation = read(MODEL / "power-evaluation.json")
+    evaluation["properties"].update(read(MODEL / "evaluation-context.json"))
+    analysis_defs = {}
+    evaluation_defs = {}
+    for path in sorted((MODEL / "types").rglob("*.json")):
+        target = evaluation_defs if path.parent.name == "evaluation" else analysis_defs
+        for key, value in read(path).items():
+            if key in target:
+                raise ValueError(f"Duplicate definition {key} in {path}")
+            target[key] = value
+    analysis["$defs"] = analysis_defs
+    evaluation["$defs"] = evaluation_defs
+    return analysis, evaluation
+
+
 def validator(evaluation=False):
-    power = json.loads((ROOT / 'schemas/power-evaluation.v2.schema.json').read_text(encoding='utf-8'))
-    analysis = json.loads((ROOT / 'schemas/trialectic.schema.json').read_text(encoding='utf-8'))
+    analysis, power = load_schemas()
     for schema in (power, analysis):
         Draft202012Validator.check_schema(schema)
     registry = Registry().with_resources((s['$id'], Resource.from_contents(s)) for s in (power, analysis))

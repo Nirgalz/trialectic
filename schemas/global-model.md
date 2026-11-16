@@ -11,8 +11,8 @@ layout or that structural validity proves analytical/empirical truth.
 
 | Document | Schema | Identity |
 | --- | --- | --- |
-| One complete Analysis exchange document | [trialectic.schema.json](trialectic.schema.json) | `urn:trialectic:schema:analysis:normative-v2` |
-| One NEED, CAN or Scenario evaluation | [power-evaluation.v2.schema.json](power-evaluation.v2.schema.json) | `urn:trialectic:schema:power-evaluation:normative-v2` |
+| One complete Analysis exchange document | [analysis.json](model/analysis.json) | `urn:trialectic:schema:analysis:normative-v2` |
+| One NEED, CAN or Scenario evaluation | [power-evaluation.json](model/power-evaluation.json) | `urn:trialectic:schema:power-evaluation:normative-v2` |
 
 Both use Draft 2020-12. The global document declares `schema_version: "2.0.0"`.
 PowerEvaluation retains exactly its six fields and is selected by its schema URI,

@@ -1,6 +1,6 @@
 # Unified model sources
 
-Version 2.0.0 is the current exchange contract. Analysis and PowerEvaluation are its two document types. The schema files one directory above are published artifacts.
+Version 2.0.0 is the current exchange contract. Analysis and PowerEvaluation are its two document types. The offline validator assembles both schemas in memory from this directory.
 
 | Source | Responsibility |
 | --- | --- |
@@ -9,12 +9,14 @@ Version 2.0.0 is the current exchange contract. Analysis and PowerEvaluation are
 | types/evaluation/ | Shared field types and separate NEED, CAN and Scenario Results |
 | types/ | Domain families, including Objects, relations, temporal requirements, conditions and pathways, Scenarios, events and effects, and evidence and claims |
 
-The type files are maps of named definitions. Their local references resolve inside the assembled resource. Use the published entry points with external validators. Each family is edited in one place. From the repository root, run:
+Each type file maps names to definitions. The loader merges the context fields into PowerEvaluation and attaches each family to the appropriate schema under `$defs`. It registers both schema identifiers locally so Analysis can reference PowerEvaluation. The entry files depend on this assembly step.
+
+From the repository root, install the test requirements and validate either document type:
 
 ```sh
-python tools/build_schemas.py
-python tools/build_schemas.py --check
-python -m unittest discover -s tests -p 'test_*.py'
+python -m pip install -r requirements-test.txt
+python tools/validate_analysis.py tests/cases/analysis_v2.json
+python tools/validate_analysis.py tests/cases/scenario_results_v2.json --evaluation
 ```
 
-The build compares parsed JSON and preserves existing files when only property ordering differs. CI checks the published outputs against the sources.
+Python consumers can call `tools.validate_analysis.validator()` for Analysis or `validator(evaluation=True)` for PowerEvaluation. See the [field reference](../global-model.md) for the contract and [test guide](../../tests/README.md) for regressions.

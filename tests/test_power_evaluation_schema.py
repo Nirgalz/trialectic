@@ -6,22 +6,20 @@ import json
 import pathlib
 import unittest
 
-from jsonschema import Draft202012Validator
+from tools.validate_analysis import validator
 from jsonschema.exceptions import ValidationError
 
 from test_power_evaluation import validate_fixture
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SCHEMA = ROOT / "schemas" / "power-evaluation.v2.schema.json"
 CASES = ROOT / "tests" / "cases" / "power_evaluation.json"
 
 
 class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
-        Draft202012Validator.check_schema(cls.schema)
-        cls.validator = Draft202012Validator(cls.schema)
+        cls.validator = validator(evaluation=True)
+        cls.schema = cls.validator.schema
         cls.fixture = json.loads(CASES.read_text(encoding="utf-8"))
         scenario = json.loads((CASES.parent / "scenario_results_v2.json").read_text(encoding="utf-8"))
         cls.records = [scenario if r["Focus"]["type"] == "Scenario" else r for r in cls.fixture["evaluations"]]
