@@ -107,6 +107,18 @@ A structurally valid evaluation may nevertheless be **semantically invalid, insu
 
 **[SCOPE / OPEN]** D-66 approves the chosen JSON Schema dialect and these *boundary rules*, **not** the exact internal JSON serialization of `Subject`, `Focus`, `Context`, `Dependencies`, or the interior of each `Results` substructure. In particular, the previously illustrated `Focus.type` discriminator and its precise string values, nested required/optional fields, additional-property policies *within* nested structures, nullability, formats and constraints, and how non-applicable results are represented still require separate decisions. A future Draft 2020-12 file must label any unapproved details as provisional and must be tested against valid and deliberately invalid cases before being described as a finished schema. This structural contract is not evidence of semantic or empirical validity.
 
+### 5.1 Strict Focus serialization (D-67)
+
+**[VALIDATED — November 16, 2026; D-67]** `Focus` is a **required object** with the following **exclusive, Focus-dependent shape**:
+
+- For **NEED**: `{"type":"NEED","object_id":"<Object ID>"}`.
+- For **CAN**: `{"type":"CAN","object_id":"<Object ID>"}`.
+- For **Resolution Scenario**: `{"type":"Scenario","scenario_id":"<Scenario ID>"}`.
+
+The discriminator `Focus.type` is **required**, with precisely those three **case-sensitive literal values**. The appropriate identifier reference (`object_id` for NEED/CAN or `scenario_id` for Scenario) is **required**, and a conflicting/mismatched identifier key is not permitted in `Focus`. This allows Draft 2020-12 to select the matching D-61–D-63 `Results` substructures. The Focus reference identifies its target in the model but **does not by itself prove that the target exists**, has the declared NEED/CAN category, or belongs to a compatible Subject/Scenario/Definition version; those are **semantic** validation responsibilities under D-65.
+
+**[OPEN]** Exact identifier string syntax and global/scoped uniqueness, whether any additional future Focus metadata would require a versioned schema change, the nested field contracts of `Subject`, `Context`, `Dependencies`, and `Results`, and cross-record referential checks remain unapproved. The examples' `O-...` and `S-...` identifier patterns are illustrative, **not validated mandatory prefixes**.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -120,7 +132,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-66
+## 7. Still open — not silently approved by D-64–D-67
 
 - Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
