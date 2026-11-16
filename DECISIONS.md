@@ -1258,7 +1258,7 @@ Date: November 16, 2026 | Status: **VALIDATED by author, limited scope** | Branc
 **Authorization:** The author requested: « Valide ce qui ne présente pas de conflit et listes les conflits avec des propositions de résolution ».
 
 **Decision:** Approve the compatible technical/conceptual choices V-01–V-06 in
-[`schemas/proposal-v0/RECONCILIATION.md`](schemas/proposal-v0/RECONCILIATION.md):
+[`schemas/proposal-v0/RECONCILIATION.md`](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/RECONCILIATION.md):
 separate NEED/CAN Object and relation-record identities (`represented_object`,
 distinct bearer `origin_object`); normalized version-pinned references as a
 transport format; nonempty recursive `ref`/`op`/`items` condition/pathway expressions
@@ -1295,7 +1295,7 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 **Authorization:** The author stated: « J'accepte ces résolutions, tu peux les effectuer valider ».
 
-**Decision:** Approve C-01–C-10 in the [reconciliation register](schemas/proposal-v0/RECONCILIATION.md).
+**Decision:** Approve C-01–C-10 in the [reconciliation register](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/RECONCILIATION.md).
 Implement them in a new [normalized-v1](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/normalized-v1/README.md), preserving
 proposal-v0 as history and reusing the unchanged normative PowerEvaluation schema.
 

@@ -21,7 +21,7 @@ work, not guarantees provided by these structural contracts.
 
 **Current normative serialization:** [Analysis/Scenario v2](../schemas/global-model.md).
 
-**Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](../schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
+**Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
 
 ## 0. How to read the models
 
@@ -104,7 +104,7 @@ Claim + evidence + review + claim assessment qualify assertions about any layer.
 - A constituent Object may be **shared by reference**; changes relevant to other current Definitions can propagate, while simulated modifications remain isolated to their Scenario.
 - Definition versions and references to constituent versions must preserve historical meaning; a new observation does not automatically mean the Definition changed.
 
-**Serialization status:** the notation `{ID, Definition_version, Parent, Temporary_Children, Actualised_Children}` in canonical §9 is illustrative. [Proposal-v0 `object`/`definition`](../schemas/proposal-v0/trialectic.schema.json) uses `id`, `category`, `parent_id`, child-ID lists, `constituents`, `properties` and `relation_refs`: **OPEN TECHNICAL PROPOSAL**, not a second approved schema. The precise meaning of one Object ID across physical instantiation, alternative descriptions, versions and branches remains an open implementation matter.
+**Serialization status:** the notation `{ID, Definition_version, Parent, Temporary_Children, Actualised_Children}` in canonical §9 is illustrative. [Proposal-v0 `object`/`definition`](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/trialectic.schema.json) uses `id`, `category`, `parent_id`, child-ID lists, `constituents`, `properties` and `relation_refs`: **OPEN TECHNICAL PROPOSAL**, not a second approved schema. The precise meaning of one Object ID across physical instantiation, alternative descriptions, versions and branches remains an open implementation matter.
 
 **Do not confuse:** parentage vs composition; actual change vs new knowledge; simulated branch vs observed event; shared reference vs copied constituent; branch identity vs evaluation-revision lineage.
 
@@ -118,7 +118,7 @@ Claim + evidence + review + claim assessment qualify assertions about any layer.
 
 **CAN:** Potentiality of an Object that may be Actualized in specified circumstances; autonomous action is not universally required. A CAN may be identified without being currently actualizable.
 
-**Identity clarification (D-50):** a NEED is an **Object** with its own Object ID; a CAN is likewise an **Object** with its own ID. When NEED Object N appears in Object O's `NEEDs` list, O is contextually attributed that NEED. The possessing O is **not** identical to N. Whether the separately identified **D-36 relational record** *is* the underlying NEED/CAN Object or represents it through a separate record **remains unresolved**. This is explicitly tracked as O-01 in [proposal-v0 OPEN](../schemas/proposal-v0/OPEN.md); do **not** silently merge Object IDs and relation IDs.
+**Identity clarification (D-50):** a NEED is an **Object** with its own Object ID; a CAN is likewise an **Object** with its own ID. When NEED Object N appears in Object O's `NEEDs` list, O is contextually attributed that NEED. The possessing O is **not** identical to N. Whether the separately identified **D-36 relational record** *is* the underlying NEED/CAN Object or represents it through a separate record **remains unresolved**. This is explicitly tracked as O-01 in [proposal-v0 OPEN](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/OPEN.md); do **not** silently merge Object IDs and relation IDs.
 
 **Validated D-36 minimal working relation record** (field names approved at this level):
 
@@ -371,7 +371,7 @@ D-78 now specifies the nested contract: scoped inventories of contemplated CAN e
 
 ### 14.2 Global normalized schema proposal v0.1 — inventory, NOT normative
 
-The separate [`schemas/proposal-v0/trialectic.schema.json`](../schemas/proposal-v0/trialectic.schema.json) is explicitly an **OPEN technical proposal**, accompanying [README](../schemas/proposal-v0/README.md), [OPEN questions](../schemas/proposal-v0/OPEN.md) and an [illustrative example](../schemas/proposal-v0/example.json). It proposes one exchange envelope containing:
+The separate [`schemas/proposal-v0/trialectic.schema.json`](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/trialectic.schema.json) is explicitly an **OPEN technical proposal**, accompanying [README](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/README.md), [OPEN questions](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/OPEN.md) and an [illustrative example](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/example.json). It proposes one exchange envelope containing:
 
 ```text
 schema_version, analysis_id, main_subject, secondary_subjects,
