@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "Synthetic illustration of D-64 integrated model, structural/semantic split D-65, typed boundary schema D-66–D-70 and scoped NEED candidate CAN inventory D-71; unverified causal correspondences, CAN/Scenario nested results, and fixture-specific semantic rules remain provisional.",
+  "status": "Synthetic illustration of D-64 integrated PowerEvaluation and D-65–D-72 typed structural boundaries; CAN partial actualizability range model, other nested CAN/Scenario result fields and the provisional test adapter are not universal methodological rules or empirical engineering claims.",
   "decisions": [
     "D-35",
     "D-49",
@@ -24,7 +24,8 @@
     "D-68",
     "D-69",
     "D-70",
-    "D-71"
+    "D-71",
+    "D-72"
   ],
   "objects": {
     "O-CAR": {
@@ -176,10 +177,13 @@
             "value": 0.1,
             "measure": "distance_ratio",
             "estimated_distance_km": 100,
-            "target_distance_km": 1000
+            "target_distance_km": 1000,
+            "basis": "Hypothetical estimate: 100 km modelled travel / 1,000 km target distance; model-only distance ratio, not real-world autonomy"
           },
           "justification": "Model-only proportional range assumption; unverified for actual driving.",
-          "uncertainty": "Theoretical estimate only."
+          "uncertainty": {
+            "description": "Theoretical estimate only."
+          }
         },
         "prerequisites": {
           "needs": [
@@ -307,10 +311,13 @@
             "value": 0.1,
             "measure": "distance_ratio",
             "estimated_distance_km": 100,
-            "target_distance_km": 1000
+            "target_distance_km": 1000,
+            "basis": "Hypothetical estimate: 100 km modelled travel / 1,000 km target distance; model-only distance ratio, not real-world autonomy"
           },
           "justification": "Independent source questions this range approximation; unchanged numerical conclusion retained for synthetic illustration.",
-          "uncertainty": "Confidence reduced because physical range is not measured."
+          "uncertainty": {
+            "description": "Confidence reduced because physical range is not measured."
+          }
         },
         "prerequisites": {
           "needs": [
