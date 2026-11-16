@@ -1046,5 +1046,25 @@ For a `PowerEvaluation` focused on a **Resolution Scenario**, organize **`Result
 
 Related tasks: T-02, T-03, T-16, T-18, T-30.
 
+## D-64 · Validate the integrated PowerEvaluation conceptual data model
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** The author explicitly **validates the integrated `PowerEvaluation` model** following the cross-Focus consistency tests, and authorizes the corresponding update of the `dev` reference. This validation **consolidates** previously accepted decisions without overruling their distinctions or implying approval of unresolved implementation details.
+
+The **validated common structural contract** (D-57) has six top-level fields: `ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`. The **Focus-specific `Results`** are:
+- **NEED (D-61):** `effective_satisfaction`, `temporal_compliance`, `candidate_cans`;
+- **CAN (D-62):** `actualizability`, `prerequisites`, `potential_contributions`;
+- **Resolution Scenario (D-63):** `actualization_assessments`, `scenario_assessment`, `effects`, `comparisons`.
+
+The model also retains validated distinctions among **Object/NEED/CAN identities and versioned Definitions; conceptual versus analytical dependencies (D-53); context/Definition/evidence compatibility for reuse (D-54); selective propagation and analytical-cycle handling (D-55–D-56); new evaluation IDs and preserved epistemic revision history (D-58–D-59); and `Context.provenance.revises` distinct from `Dependencies` (D-60)**. It must never conflate possible and effective Actualization, NEED satisfaction and compliance, candidate contribution and proven causal sufficiency, hypothetical and observed effects, or Scenario evaluation and optional selection.
+
+**Supporting engineering test:** A synthetic suite in `tests/cases/power_evaluation.json` and `tests/test_power_evaluation.py` links NEED/CAN/Scenario assessments, checks revision provenance and version/reference errors, and exercises deliberately invalid cases. [GitHub Actions run 43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) completed **35/35 unit tests successfully**, including **20 cross-Focus PowerEvaluation tests**, on November 16, 2026. This demonstrates consistency in the **specified test cases only**, not a formal proof, a complete coverage claim, scientific validity or a working general Power inference engine.
+
+**Documentation:** [`reference/power-evaluation.md`](reference/power-evaluation.md) is the integrated companion specification; [`reference/trialectic-method.md`](reference/trialectic-method.md) remains the canonical working Method reference. Examples and fixture-specific validation rules remain explicitly provisional.
+
+**OPEN:** final JSON Schema and nested field types/requiredness; representation of nonapplicability, provenance and uncertainty; normalized typed/versioned references; computation of Power, partial degrees and multi-NEED pathways; validity of reuse proofs, recursive update algorithms and cycle convergence; causal sufficiency and Scenario effects; wider empirical/adversarial tests. **No tracked implementation or scientific-validation task is declared complete solely from D-64.**
+
+Related tasks: T-01, T-02, T-03, T-16, T-18, T-21, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
