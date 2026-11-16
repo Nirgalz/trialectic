@@ -151,6 +151,33 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** Standardized internal `uncertainty` representation, evidence references and provenance, numerical measure semantics and thresholds, `degree.basis` machine-readable metadata, additional-properties closure, time/interval encoding, partial-score aggregation, and causal/empirical validation are still to be specified. Passing the local schema does **not** establish that the degree or justification is scientifically warranted.
 
+### 5.4 NEED temporal compliance serialization (D-70)
+
+**[VALIDATED — November 16, 2026; D-70]** For a NEED-focused `PowerEvaluation`, `Results.temporal_compliance` is a required **object** that reports temporal **applicability** separately from the existing three-state **compliance** evaluation. The local Draft 2020-12 structural contract is:
+
+| Field | Type and values | Requiredness |
+| --- | --- | --- |
+| `applicability` | Exactly `applicable`, `not_applicable`, `indeterminate` | **Required** |
+| `status` | Exactly `satisfied`, `unsatisfied`, `indeterminate` | **Conditional**, as below |
+| `justification` | Nonempty string | **Required**, including when status is indeterminate or requirements do not apply |
+| `applied_exceptions` | Array of nonempty reference strings to exceptions actually applied | Optional; may be empty |
+| `evidence` | Array of nonempty evidence-reference strings | Optional; may be empty |
+| `uncertainty` | Object; inner structure OPEN | Optional |
+
+**[VALIDATED applicability and status constraints]**
+
+- **`applicable`**: `status` is **required** and uses one of the three approved compliance values.
+- **`not_applicable`**: `status` is **absent**, and the reason for non-applicability is explained by `justification`. It does **not** mean that an obligation has been satisfied, or that it was evaluated but the result is unknown.
+- **`indeterminate`**: `status` is **optional**; if present it must be **`indeterminate`**, not `satisfied` or `unsatisfied`. This is uncertainty over *whether a temporal requirement applies*, not an automatic compliance conclusion.
+
+`not_applicable` is **not a fourth compliance status**. Applicability uncertainty differs from a known applicable requirement whose compliance outcome is `indeterminate`. An absent optional `uncertainty` does not prove confidence or certainty.
+
+**[EXCEPTIONS AND EVENTS — semantic requirements]** Authorized exceptions are explicitly permitted, justified, time-/constraint-scoped and historically versioned under D-34/D-35. The `applied_exceptions` references identify exceptions *used by the assessment*, not merely exceptions that exist; **a syntactically valid ID does not establish authorization, applicability, valid version or interval coverage**. Only the semantic validator can establish that the exception's scope applies and that it does not bypass unrelated constraints. An observed or simulated interruption can remain **effectively unsatisfied** even when `temporal_compliance.status` is `satisfied` under a legitimate exception. No exception is inferred from an interruption and no historical Definition is silently changed.
+
+**[REQUIREMENTS AND INTERVALS]** The D-33/D-34 temporal requirement modes (`point`, `continuous`, `deadline`, `recurring`, `cumulative`) and `all`/`any` compositions remain stored in their **versioned NEED Definition**, not duplicated as new rules in the compliance result. Relevant individual requirement assessments, permitted exceptions and observed/simulated violation intervals must be traceable at the applicable scope, without equating interrupted *effective* satisfaction with a violation of an *applicable* temporal requirement. Their precise linked-reference representation is **OPEN**.
+
+**[OPEN]** A universal time/interval schema; the full exception record, authorization and precedence schema; requirement-assessment references and diagnostics for contradictory Definitions; `evidence` provenance/credibility; `uncertainty` subfields; applicability-determination and compliance algorithms, handling absent or incomplete requirement inventories; additional-properties closure and empirical validity. This D-70 decision formalizes the local result contract only, not a complete temporal reasoning engine or scientific proof.
+
 ## 6. Tested illustrative cross-Focus fixture
 
 The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
@@ -164,7 +191,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-69
+## 7. Still open — not silently approved by D-64–D-70
 
 - Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
