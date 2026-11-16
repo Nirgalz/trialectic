@@ -1066,5 +1066,23 @@ The model also retains validated distinctions among **Object/NEED/CAN identities
 
 Related tasks: T-01, T-02, T-03, T-16, T-18, T-21, T-24, T-30.
 
+## D-65 · Two complementary validation levels for PowerEvaluation
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** A `PowerEvaluation` requires **two independent, complementary validation levels**:
+
+1. **Structural validity** — verified by a **strict JSON Schema**, against the approved six common fields, Focus-specific `Results` sections and future formally defined types, allowed values and structural constraints.
+2. **Semantic validity** — verified by a **separate mechanism** responsible for the consistency of referenced Objects and evaluations, their identities and Definition versions, relevant Subject/Focus/Scenario context, analytical dependencies, revisions and provenance (`Context.provenance.revises`), and justified interpretation of results, evidence and uncertainty.
+
+- A record may be **structurally valid** while **semantically invalid or insufficiently justified**. Missing information or unresolved uncertainty must not be presented as proof of impossibility.
+- A semantic validation result does not automatically establish empirical correctness, causal truth, successful Actualization or scientific validity.
+- This extends the **author-validated integrated conceptual data model D-64** without overruling its open nested schema details, compatibility-based reuse principle (D-54), or historical evaluations.
+
+**OPEN:** JSON Schema dialect/version selection (Draft 2020-12 was **recommended**, not separately approved by D-65); exact fields and types, locally decidable structural constraints, semantic validator responsibilities and algorithms, distinct invalid/indeterminate/not-assessed statuses, error reporting, cross-record referential integrity, external evidence checks, implementation and independent tests. Do not conflate provisional fixture-validator restrictions with universal Method rules.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md).
+
+Related tasks: T-02, T-03, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
