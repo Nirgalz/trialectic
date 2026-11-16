@@ -139,6 +139,12 @@ Claim + evidence + review + claim assessment qualify assertions about any layer.
 
 **Do not confuse:** Object ID vs relation-record ID, origin Object vs target/linked Object, relation Definition vs contextual satisfaction, candidate correspondence vs established effect.
 
+### D-83 — Independent identification and qualified attribution (normative v2.1 extension)
+
+An Object has at most one immutable NEED/CAN conceptual kind per permanent ID. A CAN may itself possess NEEDs. Identification as NEED or CAN is independent of attribution to an Object. Pending identification remains a qualified claim, not a definitive Object kind; pending or refuted attribution does not contribute to the bearer's established Puissance. A requalification requires a new Object ID, historical provenance and reassessment.
+
+The transport profile 2.1.0 adds optional `Object.concept_kind`, `Object.requalification` and version-required `Relation.attribution`, explicitly separating concept identity from context-specific attribution. Earlier 2.0.0 documents remain valid but their unqualified relations are **not** established by default. Details: [global-model.md](../schemas/global-model.md), D-83 and the scoped semantic checker. Operational completeness and empirical evidence are still OPEN.
+
 ## 5. `relation`, `relation.links`, interactions and weights
 
 **Rationale.** Plain lists of Object IDs conceal *why* a link matters. Links need individual roles, conditions, causal hypotheses, relative importance and possible link-to-link effects; logical composition must be explicit rather than inferred from list membership.
