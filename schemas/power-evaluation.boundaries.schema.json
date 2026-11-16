@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-68)",
-  "description": "Executable Draft 2020-12 boundary schema: D-57/D-66 six exact top-level fields; D-67 Focus discriminator and references; D-61–D-63 Focus-specific Results sections; and D-68 Subject, Context and Dependencies local structure. Nested Results formats, ID and Focus identifier string formats, temporal metadata and cross-record semantic checks remain OPEN. Passing this partial schema does NOT establish full structural, semantic or empirical validity.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-69)",
+  "description": "Executable Draft 2020-12 partial structural schema: validated D-57/D-66 top level, D-67 Focus, D-68 Subject/Context/Dependencies, D-61–D-63 focus-dependent Results sections and D-69 NEED effective_satisfaction fields. Other Results internals, evidence credibility, measurement adequacy and cross-record semantic validation remain OPEN; passing this schema does not establish complete structural or semantic validity.",
   "type": "object",
   "required": [
     "ID",
@@ -256,6 +256,11 @@
             ]
           }
         ]
+      },
+      "properties": {
+        "effective_satisfaction": {
+          "$ref": "#/$defs/needEffectiveSatisfaction"
+        }
       }
     },
     "canResults": {
@@ -351,6 +356,56 @@
     "nonEmptyString": {
       "type": "string",
       "minLength": 1
+    },
+    "needEffectiveSatisfaction": {
+      "type": "object",
+      "description": "D-69: NEED actual satisfaction status and explanatory evidence, separate from temporal compliance. Additional nested metadata is not closed by this decision.",
+      "required": [
+        "status",
+        "justification"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "unsatisfied",
+            "indeterminate"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "degree": {
+          "type": "object",
+          "required": [
+            "value",
+            "measure",
+            "basis"
+          ],
+          "description": "Optional pertinent justified measure. No universal numeric range; do not conflate degree with probability.",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "measure": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "basis": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      }
     }
   }
 }
