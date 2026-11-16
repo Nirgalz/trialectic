@@ -732,12 +732,17 @@
         },
         "description": {
           "type": "string"
+        },
+        "represented_object": {
+          "$ref": "#/$defs/objectRef",
+          "description": "PROPOSED: identity of the NEED/CAN as an Object, distinct from the relation-record ID and its origin Object; D-36/D-2026-11-16 mapping requires review."
         }
       },
       "required": [
         "id",
         "version",
         "type",
+        "represented_object",
         "origin_object",
         "NEEDs",
         "CANs",
