@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "synthetic illustration of validated integrated PowerEvaluation (D-64), structural/semantic separation D-65, typed schema D-66–D-69 and temporal compliance D-70; nested candidate CANs, Scenario and other result formats, hypothetical numerical degrees and fixture-specific semantic checks remain provisional",
+  "status": "Synthetic illustration of D-64 integrated model, structural/semantic split D-65, typed boundary schema D-66–D-70 and scoped NEED candidate CAN inventory D-71; unverified causal correspondences, CAN/Scenario nested results, and fixture-specific semantic rules remain provisional.",
   "decisions": [
     "D-35",
     "D-49",
@@ -23,7 +23,8 @@
     "D-67",
     "D-68",
     "D-69",
-    "D-70"
+    "D-70",
+    "D-71"
   ],
   "objects": {
     "O-CAR": {
@@ -136,7 +137,12 @@
         "candidate_cans": {
           "identified": [],
           "coverage": "incomplete",
-          "uncertainty": "No full search of possible charging alternatives has been conducted."
+          "uncertainty": {
+            "description": "No full search of possible charging alternatives has been conducted."
+          },
+          "search_status": "not_searched",
+          "scope": "Hypothetical vehicle energy NEED under the no-recharge journey scenario",
+          "justification": "No systematic candidate-CAN search was conducted for the modeled no-recharge journey; zero recorded candidates does not imply that no alternatives exist."
         }
       }
     },
@@ -495,7 +501,10 @@
         },
         "candidate_cans": {
           "identified": [],
-          "coverage": "incomplete"
+          "coverage": "incomplete",
+          "search_status": "not_searched",
+          "scope": "Hypothetical service continuity NEED during the declared maintenance interruption",
+          "justification": "Candidate CANs for maintaining or restoring service were not searched in the synthetic exception case; the empty list is not an impossibility claim."
         }
       }
     }
