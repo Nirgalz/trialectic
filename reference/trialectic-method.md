@@ -1411,9 +1411,9 @@ Initial Object identification is relative to the focal Subject and its existenti
 
 
 **Normative local schema implementation (November 16, 2026):**
-[`power-evaluation.schema.json`](../schemas/power-evaluation.schema.json) implements
+[`power-evaluation.schema.json`](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.schema.json) implements
 the approved local PowerEvaluation constraints through D-74. Its
-[conformance and exclusions](../schemas/power-evaluation.normative.md) are normative
+[conformance and exclusions](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.normative.md) are normative
 only within that limited structural scope. The existing boundary schema remains
 compatible. This implementation does not approve the global normalized proposal,
 Object/relation identity, recursive grammar, Scenario result internals or D-75.

@@ -134,7 +134,7 @@ The discriminator `Focus.type` is **required**, with precisely those three **cas
 
 **[OPEN]** Exact identifier string syntax and global/scoped uniqueness, whether any additional future Focus metadata would require a versioned schema change, the more detailed nested field contracts of `Subject`, `Context`, `Dependencies` (partly resolved by D-68), and `Results`, and cross-record referential checks beyond D-68 remain unapproved. The examples' `O-...` and `S-...` identifier patterns are illustrative, **not validated mandatory prefixes**.
 
-**[IMPLEMENTATION — provisional D-66–D-68 boundary schema]** An [executable Draft 2020-12 boundary schema](../schemas/power-evaluation.boundaries.schema.json) and [22 dedicated structural tests](../tests/test_power_evaluation_schema.py) exercise the **approved** top-level, Focus, conditional `Results` section names, and D-68 typed minimums for `Subject`, `Context` and `Dependencies`. The schema still leaves unapproved nested `Results` attributes, metadata and formats unconstrained, as documented in [`schemas/README.md`](../schemas/README.md). **Passing this partial schema is not a claim that a `PowerEvaluation` is fully structurally, semantically or empirically valid**. The full strict JSON Schema still requires further decisions.
+**[IMPLEMENTATION — provisional D-66–D-68 boundary schema]** An [executable Draft 2020-12 boundary schema](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json) and [22 dedicated structural tests](../tests/test_power_evaluation_schema.py) exercise the **approved** top-level, Focus, conditional `Results` section names, and D-68 typed minimums for `Subject`, `Context` and `Dependencies`. The schema still leaves unapproved nested `Results` attributes, metadata and formats unconstrained, as documented in [`schemas/README.md`](../schemas/README.md). **Passing this partial schema is not a claim that a `PowerEvaluation` is fully structurally, semantically or empirically valid**. The full strict JSON Schema still requires further decisions.
 
 ### 5.2 Subject, Context and Dependencies serialization (D-68)
 
@@ -302,9 +302,9 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 
 **Normative local schema implementation (November 16, 2026):**
-[`power-evaluation.schema.json`](../schemas/power-evaluation.schema.json) implements
+[`power-evaluation.schema.json`](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.schema.json) implements
 the approved local PowerEvaluation constraints through D-74. Its
-[conformance and exclusions](../schemas/power-evaluation.normative.md) are normative
+[conformance and exclusions](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.normative.md) are normative
 only within that limited structural scope. The existing boundary schema remains
 compatible. This implementation does not approve the global normalized proposal,
 Object/relation identity, recursive grammar, Scenario result internals or D-75.

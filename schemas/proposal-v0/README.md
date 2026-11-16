@@ -2,7 +2,7 @@
 
 **Status: HISTORICAL TECHNICAL PROPOSAL; SELECTED CHOICES VALIDATED BY D-75, NOT A COMPLETE APPROVED SCHEMA.**
 
-**Current approval:** V-01–V-06 are approved within the precise boundaries in the [reconciliation register](RECONCILIATION.md). C-01–C-10 resolutions are now approved by D-76 and implemented in [normalized-v1](../normalized-v1/README.md). The JSON/example remain unchanged; the older OPEN labels below describe their original status and are superseded only for those selected choices. This directory is a candidate exchange/storage format for the **`dev`** branch. It does **not** change `reference/trialectic-method.md`, `DECISIONS.md`, or close any TODO. The canonical Method remains the working reference. This proposal incorporates developments through November 16, 2026, particularly the revised Focus-centered operation of Power.
+**Current approval:** V-01–V-06 are approved within the precise boundaries in the [reconciliation register](RECONCILIATION.md). C-01–C-10 resolutions are now approved by D-76 and implemented in [normalized-v1](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/normalized-v1/README.md). The JSON/example remain unchanged; the older OPEN labels below describe their original status and are superseded only for those selected choices. This directory is a candidate exchange/storage format for the **`dev`** branch. It does **not** change `reference/trialectic-method.md`, `DECISIONS.md`, or close any TODO. The canonical Method remains the working reference. This proposal incorporates developments through November 16, 2026, particularly the revised Focus-centered operation of Power.
 
 ## Files
 

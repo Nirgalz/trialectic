@@ -16,10 +16,7 @@ layout or that structural validity proves analytical/empirical truth.
 
 Both use Draft 2020-12. The global document declares `schema_version: "2.0.0"`.
 PowerEvaluation retains exactly its six fields and is selected by its schema URI,
-without adding a seventh version field. NEED/CAN assertions are unchanged from
-v1. Scenario v2 is an intentional stricter contract. Historical v1 schemas,
-proposal-v0 and normalized-v1 remain available unchanged. Existing approvals
-about experimental status remain accurate for those historical versions.
+without adding a seventh version field. Version 2.0.0 is the sole supported exchange profile.
 
 ## D-77 global Analysis envelope
 
@@ -152,16 +149,7 @@ records an explicitly justified choice, not an automatic best-Scenario theorem.
 Scenario reference existence, matching comparison context, criteria suitability
 and any selection's consistency require semantic assessment.
 
-## Migration, fixtures and verification
-
-No in-place promotion of historical null/arbitrary Scenario values is performed.
-To upgrade to v2, preserve the original document, set the new global version,
-supply the required root keys and convert analysis `focus` to the approved
-discriminator using known represented-Object identities. Retain NEED/CAN records.
-For each Scenario, supply explicit typed sections and justifications; do not infer
-applicability, uncertainty, events or a winner from legacy fields. New results or
-epistemic revisions require a new evaluation ID and `provenance.revises` under D-60.
-Missing data blocks an honest claim of v2 conformance; historical v1 is still usable.
+## Fixtures and verification
 
 [Analysis fixture](../tests/cases/analysis_v2.json) and
 [Scenario fixture](../tests/cases/scenario_results_v2.json) are synthetic examples,
@@ -178,5 +166,4 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 The validator resolves both schemas locally and reports **local structural
 conformance only**. Tests cover required sections, rejected shapes, independent
 dimensions, partial/unassessed findings, no mandatory numeric score/winner,
-effect references, comparison criteria, v1 compatibility and intentional v2
-Scenario tightening. CI runs them on pushes and pull requests to `dev`.
+effect references, comparison criteria, typed Scenario sections. CI runs them on pushes and pull requests to `dev`.

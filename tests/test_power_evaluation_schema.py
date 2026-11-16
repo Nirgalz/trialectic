@@ -1,8 +1,4 @@
-"""Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
-
-The schema enforces only approved D-57/D-61-D-74 boundaries. The older
-test_power_evaluation.py adapter supplies separate, provisional semantic checks.
-"""
+"""PowerEvaluation structural regressions for the current schema."""
 from __future__ import annotations
 
 import copy
@@ -16,7 +12,7 @@ from jsonschema.exceptions import ValidationError
 from test_power_evaluation import validate_fixture
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SCHEMA = ROOT / "schemas" / "power-evaluation.boundaries.schema.json"
+SCHEMA = ROOT / "schemas" / "power-evaluation.v2.schema.json"
 CASES = ROOT / "tests" / "cases" / "power_evaluation.json"
 
 
@@ -27,7 +23,8 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         Draft202012Validator.check_schema(cls.schema)
         cls.validator = Draft202012Validator(cls.schema)
         cls.fixture = json.loads(CASES.read_text(encoding="utf-8"))
-        cls.records = cls.fixture["evaluations"]
+        scenario = json.loads((CASES.parent / "scenario_results_v2.json").read_text(encoding="utf-8"))
+        cls.records = [scenario if r["Focus"]["type"] == "Scenario" else r for r in cls.fixture["evaluations"]]
 
     def assert_valid(self, obj):
         self.validator.validate(obj)
@@ -39,7 +36,7 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
     def test_schema_declares_draft_2020_12(self):
         self.assertEqual(self.schema["$schema"], "https://json-schema.org/draft/2020-12/schema")
 
-    def test_all_seven_linked_records_validate_structurally(self):
+    def test_all_focus_samples_validate_structurally(self):
         for record in self.records:
             with self.subTest(evaluation=record["ID"]):
                 self.assert_valid(record)

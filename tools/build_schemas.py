@@ -1,6 +1,5 @@
 """Build published Draft 2020-12 resources from the unified model sources."""
 import argparse
-import hashlib
 import json
 from pathlib import Path
 
@@ -26,16 +25,7 @@ def build():
             target[key] = value
     analysis["$defs"] = analysis_defs
     evaluation["$defs"] = evaluation_defs
-    delta = read(MODEL / "compatibility/v1.json")
-    legacy_defs = {k: v for k, v in evaluation_defs.items() if k not in delta["exclude"]}
-    legacy = {**evaluation, **delta["root"], "$defs": {**legacy_defs, **delta["definitions"]}}
-    # The published v1 resource is frozen, including its annotations.
-    fingerprint = hashlib.sha256(json.dumps(legacy, sort_keys=True, ensure_ascii=True).encode()).hexdigest()
-    if fingerprint != "1b90a9235819c4fdc4a0550b5f7e3fd286594d5f86fdf54bb6c157aa414e933c":
-        raise ValueError("Update the v1 compatibility overrides to preserve the released contract")
-    return {"trialectic.schema.json": analysis,
-            "power-evaluation.v2.schema.json": evaluation,
-            "power-evaluation.schema.json": legacy}
+    return {"trialectic.schema.json": analysis, "power-evaluation.v2.schema.json": evaluation}
 
 
 def main():

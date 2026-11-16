@@ -21,7 +21,7 @@ work, not guarantees provided by these structural contracts.
 
 **Current normative serialization:** [Analysis/Scenario v2](../schemas/global-model.md).
 
-**Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](../schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](../schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
+**Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](../schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
 
 ## 0. How to read the models
 
@@ -292,7 +292,7 @@ When effects or accounts assign incompatible values to the same property/time/co
 
 **Reuse/recursion D-53–D-56:** reusable assessments must pass Focus, context/time/Scenario, Definition version and available-evidence compatibility checks; downstream impacted results/justifications/uncertainty may need **selective recursive reevaluation**. Detect cycles among analytical Dependencies, assess the coupled group contextually and preserve indeterminate/conditional outcomes where necessary. Cycles do not imply causal impossibility.
 
-**Two validators (D-65):** Draft 2020-12 checks the **local shape**, and a separate semantic validator would check existence, Object/Focus type, version/context/evidence compatibility, justified inferences and revision/dependency consistency. The latter is **not fully implemented**, and neither validator establishes empirical truth. The currently executable [partial JSON boundary schema](../schemas/power-evaluation.boundaries.schema.json) enforces approved local rules, not the full final schema.
+**Two validators (D-65):** Draft 2020-12 checks the **local shape**, and a separate semantic validator would check existence, Object/Focus type, version/context/evidence compatibility, justified inferences and revision/dependency consistency. The latter is **not fully implemented**, and neither validator establishes empirical truth. The currently executable [partial JSON boundary schema](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json) enforces approved local rules, not the full final schema.
 
 ### 12.2 NEED Focus — three separately evaluated result models (D-61, D-69–D-71)
 
@@ -364,7 +364,7 @@ D-78 now specifies the nested contract: scoped inventories of contemplated CAN e
 - [Analysis v2](../schemas/trialectic.schema.json) and [PowerEvaluation v2](../schemas/power-evaluation.v2.schema.json) are normative under D-77/D-78. See [the exact contract](../schemas/global-model.md).
 - The following boundary artifacts are retained as historical v1 contracts:
 
-- [`schemas/power-evaluation.boundaries.schema.json`](../schemas/power-evaluation.boundaries.schema.json): **Draft 2020-12**, implementing the D-57/D-61–D-74 approved **partial structural boundary**, including exact six top-level fields and the minimum NEED/CAN result shapes; Scenario internals remain OPEN.
+- [`schemas/power-evaluation.boundaries.schema.json`](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json): **Draft 2020-12**, implementing the D-57/D-61–D-74 approved **partial structural boundary**, including exact six top-level fields and the minimum NEED/CAN result shapes; Scenario internals remain OPEN.
 - [`schemas/README.md`](../schemas/README.md): enforcement scope and omissions.
 - [`tests/cases/power_evaluation.json`](../tests/cases/power_evaluation.json) and [schema tests](../tests/test_power_evaluation_schema.py): **synthetic regression evidence**, not new normative field approvals.
 - [`tests/reference_model.py`](../tests/reference_model.py) and [core fixtures](../tests/cases/core.json): narrow experimental logic/Scenario tests, not a general production engine.
@@ -425,9 +425,9 @@ For completeness, its **proposed** `$defs` model families and their purpose are 
 
 
 **Normative local schema implementation (November 16, 2026):**
-[`power-evaluation.schema.json`](../schemas/power-evaluation.schema.json) implements
+[`power-evaluation.schema.json`](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.schema.json) implements
 the approved local PowerEvaluation constraints through D-74. Its
-[conformance and exclusions](../schemas/power-evaluation.normative.md) are normative
+[conformance and exclusions](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.normative.md) are normative
 only within that limited structural scope. The existing boundary schema remains
 compatible. This implementation does not approve the global normalized proposal,
 Object/relation identity, recursive grammar, Scenario result internals or D-75.

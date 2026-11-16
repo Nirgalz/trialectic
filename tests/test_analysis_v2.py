@@ -1,4 +1,4 @@
-"""D-77 global and D-78 Scenario contracts; v1 remains a separate profile."""
+"""D-77 global and D-78 Scenario contracts."""
 import copy
 import json
 import unittest
@@ -57,13 +57,8 @@ class AnalysisV2Tests(unittest.TestCase):
                 self.analysis[key] = []
         self.analysis_validator.validate(self.analysis)  # local shape, not reference validity
 
-    def test_need_and_can_assertions_are_unchanged(self):
-        old = read('schemas/power-evaluation.schema.json')
-        new = read('schemas/power-evaluation.v2.schema.json')
-        for key in old['$defs']:
-            if key != 'scenarioResults':
-                self.assertEqual(old['$defs'][key], new['$defs'][key], key)
-        for record in read('tests/cases/power_evaluation_minimal.json')[:2]:
+    def test_minimal_evaluations(self):
+        for record in read('tests/cases/power_evaluation_minimal.json'):
             self.power_validator.validate(record)
 
     def test_global_collection_types_version_and_discriminator(self):
@@ -75,12 +70,6 @@ class AnalysisV2Tests(unittest.TestCase):
                 document = copy.deepcopy(original)
                 document[key] = value
                 self.assertFalse(self.analysis_validator.is_valid(document))
-
-    def test_historical_scenario_acceptance_is_versioned(self):
-        old = Draft202012Validator(read('schemas/power-evaluation.schema.json'))
-        legacy = read('tests/cases/power_evaluation_minimal.json')[2]
-        old.validate(legacy)
-        self.assertFalse(self.power_validator.is_valid(legacy))
 
     def test_scenario_sections_are_objects_with_required_fields(self):
         for key in self.scenario['Results']:

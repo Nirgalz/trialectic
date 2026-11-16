@@ -28,7 +28,7 @@ A methodological **Stage** determines the current **Focus**. The adopted analyti
 
 The exact procedures for contextual NEED/CAN identification, actionability/Power, Focus transitions, sufficient pathways, branch propagation and scenario comparisons remain research tasks, **not settled tests**.
 
-- **PowerEvaluation data model (D-64):** the validated common six-field structure (`ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`) has specialized NEED, CAN and Resolution Scenario results, explicit revision provenance and context-aware reuse. See the [integrated model](reference/power-evaluation.md) and the [synthetic regression fixtures](tests/cases/power_evaluation.json). The [normative local JSON Schema](schemas/power-evaluation.schema.json) implements approved structural constraints through D-74; see its [scope and exclusions](schemas/power-evaluation.normative.md). The [global Analysis and Scenario Results v2 contracts](schemas/global-model.md) are now normative under D-77/D-78. The semantic/causal Power computation engine and empirical evaluation remain separate work.
+- **PowerEvaluation data model (D-64):** the validated common six-field structure (`ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`) has specialized NEED, CAN and Resolution Scenario results, explicit revision provenance and context-aware reuse. See the [integrated model](reference/power-evaluation.md) and the [synthetic regression fixtures](tests/cases/power_evaluation.json). The [global Analysis and Scenario Results v2 contracts](schemas/global-model.md) are now normative under D-77/D-78. The semantic/causal Power computation engine and empirical evaluation remain separate work.
 
 ## Current development
 

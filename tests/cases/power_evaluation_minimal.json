@@ -71,25 +71,82 @@
     }
   },
   {
-    "ID": "PE-SYNTHETIC-Scenario",
+    "ID": "PE-S0",
     "Subject": {
-      "object_id": "O-SYNTHETIC"
+      "object_id": "O-generator"
     },
     "Focus": {
       "type": "Scenario",
-      "scenario_id": "S-SYNTHETIC"
+      "scenario_id": "S0"
     },
     "Context": {
       "definition_versions": {
-        "O-SYNTHETIC": "v1"
-      }
+        "O-generator": "v1",
+        "O-battery": "v1",
+        "O-grid": "v1",
+        "O-room": "v1",
+        "O-start": "v1",
+        "O-continuity": "v1"
+      },
+      "scenario_id": "S0"
     },
-    "Dependencies": [],
+    "Dependencies": [
+      {
+        "evaluation_id": "PA-start"
+      }
+    ],
     "Results": {
-      "actualization_assessments": null,
-      "scenario_assessment": null,
-      "effects": null,
-      "comparisons": null
+      "actualization_assessments": {
+        "items": [
+          {
+            "can_object_id": "O-start",
+            "evaluation_id": "PA-start",
+            "contemplated_actualization": "Start the generator in hypothetical S0.",
+            "justification": "Reference to an indeterminate CAN assessment, not an event."
+          }
+        ],
+        "coverage": "indeterminate",
+        "scope": "Contemplated generator start.",
+        "justification": "Synthetic example; inventory not established."
+      },
+      "scenario_assessment": {
+        "feasibility": {
+          "status": "indeterminate",
+          "justification": "No adequate contextual analysis in this synthetic example."
+        },
+        "complexity": {
+          "status": "indeterminate",
+          "justification": "No adequate contextual analysis in this synthetic example."
+        },
+        "costs_resources": {
+          "status": "indeterminate",
+          "justification": "No adequate contextual analysis in this synthetic example."
+        },
+        "temporality": {
+          "status": "indeterminate",
+          "justification": "No adequate contextual analysis in this synthetic example."
+        },
+        "expected_effectiveness": {
+          "status": "indeterminate",
+          "justification": "No adequate contextual analysis in this synthetic example."
+        },
+        "uncertainty": {
+          "justification": "Synthetic inputs provide no empirical assessment."
+        },
+        "justification": "Dimensions are assessed independently; no total score is inferred."
+      },
+      "effects": {
+        "items": [],
+        "coverage": "indeterminate",
+        "scope": "Effects of hypothetical S0.",
+        "justification": "Synthetic example; inventory not established."
+      },
+      "comparisons": {
+        "items": [],
+        "coverage": "indeterminate",
+        "scope": "Relevant alternatives to S0.",
+        "justification": "Synthetic example; inventory not established."
+      }
     }
   }
 ]

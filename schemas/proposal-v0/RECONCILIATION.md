@@ -59,7 +59,7 @@ Scenario result fields previously anticipated under that decision number.
    ambiguous represented Objects, and revision/input-link separation.
 
 **D-76 update:** The author has approved C-01–C-10. Their implementation and
-regression tests are in [normalized-v1](../normalized-v1/README.md) and the
-[migration adapter](../../tools/reconcile_proposal_v0.py). The normative
+regression tests are in [normalized-v1](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/normalized-v1/README.md) and the
+[migration adapter](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/tools/reconcile_proposal_v0.py). The normative
 PowerEvaluation assertions are unchanged; the global envelope remains experimental.
 Earlier statements of unapproved resolutions describe the pre-D-76 status.

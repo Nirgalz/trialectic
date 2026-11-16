@@ -1243,8 +1243,8 @@ Date: November 16, 2026 | Branch: `dev`
 
 Following the author's request to make a normative JSON Schema, the approved
 D-57/D-61–D-74 local constraints are published as
-[`schemas/power-evaluation.schema.json`](schemas/power-evaluation.schema.json),
-with [explicit limited conformance scope](schemas/power-evaluation.normative.md),
+[`schemas/power-evaluation.schema.json`](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.schema.json),
+with [explicit limited conformance scope](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.normative.md),
 compatible legacy assertions, minimal synthetic fixtures and CI regression tests.
 This is implementation of existing decisions, **not a new conceptual approval**.
 D-75 is not validated; Object/relation identity, the global normalized model,
@@ -1296,7 +1296,7 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 **Authorization:** The author stated: « J'accepte ces résolutions, tu peux les effectuer valider ».
 
 **Decision:** Approve C-01–C-10 in the [reconciliation register](schemas/proposal-v0/RECONCILIATION.md).
-Implement them in a new [normalized-v1](schemas/normalized-v1/README.md), preserving
+Implement them in a new [normalized-v1](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/normalized-v1/README.md), preserving
 proposal-v0 as history and reusing the unchanged normative PowerEvaluation schema.
 
 - C-01–C-03: six-field evaluations, Object-based Focus via represented_object,
@@ -1404,6 +1404,10 @@ invented placeholders. Schema acceptance does not resolve references, prove
 contextual compatibility, complete inventories, causal attribution or empirical
 truth. Earlier D-63 and D-75/D-76 OPEN statements retain historical meaning and
 are superseded only for the now-specified v2 Scenario field contract.
+
+## D-79 · Retire the v1 distribution and compatibility requirement
+
+November 16, 2026. Adopted on the author's instruction. Version 2.0.0 is the sole supported contract. The shared build publishes the Analysis and PowerEvaluation v2 schemas. Earlier v1 artifacts and the v0-to-v1 migration tool are available through Git history. D-79 supersedes earlier maintenance commitments for v1. D-77 and D-78 continue to define v2.
 
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

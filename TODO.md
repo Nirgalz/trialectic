@@ -2,7 +2,7 @@
 
 **D-77/D-78 global and Scenario contracts adopted (2026-11-16):** [Analysis/Scenario v2](schemas/global-model.md) specifies the global exchange profile and nested Scenario results. New synthetic fixtures, offline validation and CI tests implement the field contracts. Full semantic/reference/temporal/causal engines and empirical research remain open; no research task is closed wholesale. Earlier serialization-OPEN statements below refer to prior profiles.
 
-**D-76 reconciliation implemented (2026-11-16; no task closure):** C-01–C-10 resolutions are author-approved. [normalized-v1](schemas/normalized-v1/README.md) embeds normative PowerEvaluation items, preserves approved compositions and provides an explicit source-preserving migration with regression tests. Global envelope, full semantic checks and Scenario internals remain OPEN.
+**D-76 reconciliation implemented (2026-11-16; no task closure):** C-01–C-10 resolutions are author-approved. [normalized-v1](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/normalized-v1/README.md) embeds normative PowerEvaluation items, preserves approved compositions and provides an explicit source-preserving migration with regression tests. Global envelope, full semantic checks and Scenario internals remain OPEN.
 
 **D-75 partial proposal approval (2026-11-16; no task closure):** V-01–V-06 approve compatible identity/transport/expression/record-family choices. [C-01–C-10](schemas/proposal-v0/RECONCILIATION.md) require reviewed PowerEvaluation reconciliation, loss-aware migration, scoped composition and metadata handling (T-30/T-03/T-24). Proposed resolutions are not approved; Scenario nested results and remaining semantic rules stay OPEN.
 
