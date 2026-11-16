@@ -1219,5 +1219,24 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-01, T-02, T-03, T-16, T-24, T-30.
 
+## D-74 · CAN-focused potential NEED contributions and scoped candidate inventory
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** A CAN-focused `PowerEvaluation.Results.potential_contributions` is a required object with the following minimum **JSON Schema Draft 2020-12** local contract:
+- **`needs`** — **required**, possibly empty array of candidate NEED entries. Each entry is an object with **`object_id`** (required nonempty string referring to a NEED Object), **`relationship`** (required, **exactly `candidate`**), and **`justification`** (required nonempty string explaining the prospective correspondence of CAN Actualization or resulting state to the NEED). Optional **`evidence`** is a possibly empty array of nonempty reference strings.
+- **`search_status`** — **required enum** `not_searched` or `searched`.
+- **`coverage`** — **required enum** `complete`, `incomplete`, `indeterminate`, scoped to the candidate NEED inventory. A `not_searched` record cannot claim `complete` coverage. `complete` is a *scoped claim requiring semantic justification*, not proof of universal exhaustiveness.
+- **`scope`**, **`justification`** — **required nonempty strings**, delimiting and explaining candidate discovery, its results and limitations.
+- **`evidence`** — optional, possibly empty array of nonempty evidence-reference strings concerning the inventory.
+- **`uncertainty`** — optional object, internal structure OPEN.
+
+**Why only `relationship: candidate`?** Under D-31 and D-62 this substructure records **potential favorable correspondence**, not established causal contribution, conditional sufficiency, necessity, actionability/Power, or effective NEED satisfaction. Changing a string to `contributes` or `sufficient` would **not** perform the required analysis. The requisite separate context-sensitive assessments and verifications remain outside D-74. A CAN may correspond to several NEEDs, operate jointly with other CANs, or enable another CAN without directly satisfying the final NEED. Indirect chains and possibly adverse effects on other Objects must remain traceable through suitable recursive evaluations and Scenario effects, **not silently promoted** to direct or established contributions.
+
+**Complementarity with D-71:** NEED-focused `candidate_cans` identifies CAN candidates for a NEED; CAN-focused `potential_contributions` identifies NEED candidates for the contemplated CAN Actualization. The two analyses may have different Contexts, assumptions, Definition versions and evidence and are **not automatically symmetric, interchangeable or reusable** (D-54). `needs: []` proves neither the absence of possible beneficial NEEDs nor the inability to contribute; `searched` alone does not imply exhaustive coverage. A structurally well-formed Object ID does not prove existence/type or correspondence: the D-65 semantic validator must check those claims and evidence.
+
+**OPEN:** Causal-contribution evidence/assessment model, counterfactual and sufficient-set reasoning, representation of joint and enabling CANs, direct/indirect and favorable/adverse causal effects, complete inventory-search methods, external reference/Definition compatibility, epistemic uncertainty/evidence internals, closure and deduplication of nested metadata, Scenario reasoning and empirical validity. D-74 completes the **minimum CAN Results substructure contract** alongside D-72/D-73, but does not complete the entire PowerEvaluation JSON Schema or semantic validator.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-01, T-02, T-03, T-16, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
