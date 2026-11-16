@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "Synthetic D-64 PowerEvaluation illustration with D-65–D-73 typed structural boundaries. D-73 fixture prerequisites are scoped and non-exhaustive; relation owner IDs are illustrative and no versioned pathway Definitions are registered here. Recursive pathway logic, CAN potential_contributions, Scenario results and independent causal/empirical checks remain provisional.",
+  "status": "Synthetic PowerEvaluation D-64 model with structurally validated D-65–D-74 boundaries. D-74 prospective NEED links are candidate correspondences only; no verified causal contribution, sufficiency, effective satisfaction or exhaustive inventory is claimed. CAN and Scenario semantic engines, versioned pathway logic, external evidence validation and empirical research remain OPEN.",
   "decisions": [
     "D-35",
     "D-49",
@@ -26,7 +26,8 @@
     "D-70",
     "D-71",
     "D-72",
-    "D-73"
+    "D-73",
+    "D-74"
   ],
   "objects": {
     "O-CAR": {
@@ -210,11 +211,14 @@
           "needs": [
             {
               "object_id": "O-NEED-MOBILITY",
-              "relationship": "candidate"
+              "relationship": "candidate",
+              "justification": "The contemplated travel CAN could correspond to the traveler's mobility NEED; causal contribution and eventual satisfaction are not established."
             }
           ],
           "coverage": "incomplete",
-          "justification": "Candidate contribution does not establish satisfaction."
+          "justification": "Candidate contribution does not establish satisfaction.",
+          "search_status": "searched",
+          "scope": "Hypothetical CAN travel effects on the traveler's NEEDs in the no-recharge journey"
         }
       }
     },
@@ -349,11 +353,14 @@
           "needs": [
             {
               "object_id": "O-NEED-MOBILITY",
-              "relationship": "candidate"
+              "relationship": "candidate",
+              "justification": "The contemplated travel CAN could correspond to the traveler's mobility NEED; causal contribution and eventual satisfaction are not established."
             }
           ],
           "coverage": "incomplete",
-          "justification": "Candidate contribution does not establish satisfaction."
+          "justification": "Candidate contribution does not establish satisfaction.",
+          "search_status": "searched",
+          "scope": "Hypothetical CAN travel effects on the traveler's NEEDs in the no-recharge journey"
         }
       }
     },
@@ -475,10 +482,14 @@
           "needs": [
             {
               "object_id": "O-NEED-MOBILITY",
-              "relationship": "candidate"
+              "relationship": "candidate",
+              "justification": "The contemplated travel CAN could correspond to the traveler's mobility NEED; causal contribution and eventual satisfaction are not established."
             }
           ],
-          "coverage": "incomplete"
+          "coverage": "incomplete",
+          "search_status": "searched",
+          "scope": "Hypothetical CAN travel effects on the traveler's NEEDs where external recharging could be possible",
+          "justification": "One hypothetical candidate NEED is recorded, but the search has not established a comprehensive inventory or causal effect."
         }
       }
     },
