@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "synthetic examples illustrating the validated D-64 conceptual model, D-65–D-68 validation boundaries and D-69 NEED effective_satisfaction contract; other Results fields, degree hypotheses, and fixture-specific semantic restrictions remain provisional",
+  "status": "synthetic illustration of validated integrated PowerEvaluation (D-64), structural/semantic separation D-65, typed schema D-66–D-69 and temporal compliance D-70; nested candidate CANs, Scenario and other result formats, hypothetical numerical degrees and fixture-specific semantic checks remain provisional",
   "decisions": [
     "D-35",
     "D-49",
@@ -22,7 +22,8 @@
     "D-66",
     "D-67",
     "D-68",
-    "D-69"
+    "D-69",
+    "D-70"
   ],
   "objects": {
     "O-CAR": {
@@ -129,7 +130,8 @@
         },
         "temporal_compliance": {
           "status": "indeterminate",
-          "justification": "Continuity over the journey has not been observed or simulated."
+          "justification": "Continuity over the journey has not been observed or simulated.",
+          "applicability": "applicable"
         },
         "candidate_cans": {
           "identified": [],
@@ -488,7 +490,8 @@
           "applied_exceptions": [
             "EX-001"
           ],
-          "justification": "Illustrative authorized exception applies to compliance only."
+          "justification": "Illustrative authorized exception applies to compliance only.",
+          "applicability": "applicable"
         },
         "candidate_cans": {
           "identified": [],
