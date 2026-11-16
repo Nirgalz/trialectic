@@ -916,5 +916,18 @@ Compatibility must not be presumed. A changed Definition or different context is
 
 Related tasks: T-02, T-03, T-18, T-21, T-30.
 
+## D-55 · Selective recursive propagation of Power evaluation changes
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- A change in **source data, context, relevant Object Definitions, or an evaluation** triggers examination of **analytically dependent evaluations**.
+- Reevaluate only those for which the change may affect a relevant result, its justification, or its uncertainty; propagate pertinent effects **recursively** to downstream evaluations.
+- Stop when no further relevant evaluation requires examination. A numerical result remaining unchanged does **not** alone demonstrate that downstream justification or uncertainty is unchanged.
+- Preserve historical evaluations in their original context rather than overwriting them.
+- Detect circular analytical dependencies and treat them separately; do not recurse indefinitely or interpret a structural cycle as automatic impossibility.
+
+**OPEN:** impact/significance tests, dependency indexing, evaluation scheduling, treatment of cyclic convergence, invalidation/caching, version-aware trace fields, and an executable algorithm. The proposed `PowerEvaluation` schema remains non-normative.
+
+Related tasks: T-02, T-03, T-18, T-21, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
