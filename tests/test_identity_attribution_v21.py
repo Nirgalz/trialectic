@@ -95,6 +95,18 @@ class IdentityAttributionV21(unittest.TestCase):
         self.assertIn("attribution_claim_unresolved",
                       [i["code"] for i in self.errors(doc)])
 
+    def test_claim_revisions_do_not_retarget_version_pinned_attributions(self):
+        updated = copy.deepcopy(self.document)
+        revised = copy.deepcopy(updated["claims"][0])
+        revised["version"] = "v2"
+        revised["statement"] = "Revised synthetic attribution claim."
+        updated["claims"].append(revised)
+        self.schema.validate(updated)
+        self.assertEqual(self.errors(updated), [])
+        self.assertEqual(
+            updated["relations"][0]["attribution"]["claim_version"], "v1"
+        )
+
     def test_identity_cannot_change_under_the_same_object_id(self):
         historical = copy.deepcopy(self.document)
         changed = copy.deepcopy(self.document)
