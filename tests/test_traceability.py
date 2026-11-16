@@ -27,6 +27,11 @@ class TraceabilityTests(unittest.TestCase):
     def test_canonical_reference_is_present(self):
         self.assertTrue((ROOT / "reference/trialectic-method.md").is_file())
 
+    def test_approved_power_evaluation_companion_is_present(self):
+        companion = ROOT / "reference/power-evaluation.md"
+        self.assertTrue(companion.is_file(), "D-64 integrated model companion is required")
+        self.assertIn("D-64", companion.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()
