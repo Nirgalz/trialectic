@@ -117,9 +117,21 @@ A structurally valid evaluation may nevertheless be **semantically invalid, insu
 
 The discriminator `Focus.type` is **required**, with precisely those three **case-sensitive literal values**. The appropriate identifier reference (`object_id` for NEED/CAN or `scenario_id` for Scenario) is **required**. The alternative, mismatched reference key is **not accepted as a substitute**, and the schema must reject a contradictory pair of these two identifier fields. No other nested `Focus` metadata constraints are approved by this decision. This allows Draft 2020-12 to select the matching D-61–D-63 `Results` substructures. The Focus reference identifies its target in the model but **does not by itself prove that the target exists**, has the declared NEED/CAN category, or belongs to a compatible Subject/Scenario/Definition version; those are **semantic** validation responsibilities under D-65.
 
-**[OPEN]** Exact identifier string syntax and global/scoped uniqueness, whether any additional future Focus metadata would require a versioned schema change, the nested field contracts of `Subject`, `Context`, `Dependencies`, and `Results`, and cross-record referential checks remain unapproved. The examples' `O-...` and `S-...` identifier patterns are illustrative, **not validated mandatory prefixes**.
+**[OPEN]** Exact identifier string syntax and global/scoped uniqueness, whether any additional future Focus metadata would require a versioned schema change, the more detailed nested field contracts of `Subject`, `Context`, `Dependencies` (partly resolved by D-68), and `Results`, and cross-record referential checks beyond D-68 remain unapproved. The examples' `O-...` and `S-...` identifier patterns are illustrative, **not validated mandatory prefixes**.
 
 **[IMPLEMENTATION — provisional D-66/D-67 boundary schema]** A first [executable Draft 2020-12 boundary schema](../schemas/power-evaluation.boundaries.schema.json) and [11 dedicated structural tests](../tests/test_power_evaluation_schema.py) now exercise the **approved** top-level, Focus and conditional `Results` **boundary rules**. The schema deliberately leaves unapproved nested attributes/types unconstrained, as documented in [`schemas/README.md`](../schemas/README.md). **Passing this partial schema is not a claim that a `PowerEvaluation` is fully structurally or semantically valid**. The full strict JSON Schema still requires further decisions.
+
+### 5.2 Subject, Context and Dependencies serialization (D-68)
+
+**[VALIDATED — November 16, 2026; D-68]** Extend the Draft 2020-12 structural contract with the following **minimum nested shapes**. All referenced identifiers and versions are nonempty strings, with **no prescribed naming prefix**.
+
+- **`Subject`** is a required JSON **object** containing a required **`object_id`**, a nonempty string identifying the central Object.
+- **`Context`** is a required JSON **object** containing required **`definition_versions`**, a **nonempty JSON object** mapping nonempty Object-ID keys to nonempty Definition-version strings. This map records the Definitions relevant to the analysis, but structural validation cannot establish that all relevant versions have been included. Optional **`scenario_id`**, when present, is a nonempty string; **a Resolution Scenario must not be required for every evaluation**. Optional **`provenance`**, when present, is an object; optional **`provenance.revises`**, when present, is a nonempty string referring to the earlier evaluation. In a genuine revision it **must be present under D-60**; detecting whether a record represents a revision requires **semantic checking**, not merely examination of the one document.
+- **`Dependencies`** is a required JSON **array**, which **may be empty**. Each element is a JSON **object** containing a required **`evaluation_id`** as a nonempty string, referring to another analytical Power evaluation. `[]` means **no referenced analytical evaluation inputs**, **not** absence of conceptual Object/NEED/CAN dependencies.
+
+**[VALIDATION BOUNDARY]** The JSON Schema can check local types, required keys, nonempty identifiers and nonempty version-map entries. The **separate D-65 semantic validator** must resolve referents, identity/versions, context compatibility and revision justification, and must assess whether the relevant versions and dependencies are sufficiently represented. In particular, a correctly shaped `Context.provenance.revises` link is not proof of a valid revision; a correctly shaped `Dependencies` entry is not proof that an evaluation can be reused under D-54.
+
+**[OPEN]** The universal time/interval representation, context assumptions and evidence fields, branch-scoped references, additional metadata, ID normalization, rules to **close** these nested object shapes to extra properties, and the exact structure of `Results` internals remain to be decided. No default `scenario_id`, creation timestamp, mandatory `provenance`, or fixed `O-`/`PE-`/version-prefix formats are introduced. This validation is **not** a final complete JSON Schema.
 
 ## 6. Tested illustrative cross-Focus fixture
 
@@ -134,7 +146,7 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 
 **Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
 
-## 7. Still open — not silently approved by D-64–D-67
+## 7. Still open — not silently approved by D-64–D-68
 
 - Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
 - Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
