@@ -402,3 +402,12 @@ For completeness, its **proposed** `$defs` model families and their purpose are 
 6. **When editing**, first obtain explicit author approval for conceptual/normative changes, record a new D-number, update corresponding reference and schemas/fixtures/tests/TODO, then verify CI on the final `dev` commit. Leave `main` untouched unless separately requested.
 
 **Maintenance rule:** append or revise this **explanatory catalogue** whenever a validated data-model decision changes the inventory or its rationale. It is a navigational memory aid, not a source for silently creating new Method rules. Where a status changes from OPEN to VALIDATED, update the relevant row, cross-link the new decision and keep the earlier historical context traceable.
+
+
+**Normative local schema implementation (November 16, 2026):**
+[`power-evaluation.schema.json`](../schemas/power-evaluation.schema.json) implements
+the approved local PowerEvaluation constraints through D-74. Its
+[conformance and exclusions](../schemas/power-evaluation.normative.md) are normative
+only within that limited structural scope. The existing boundary schema remains
+compatible. This implementation does not approve the global normalized proposal,
+Object/relation identity, recursive grammar, Scenario result internals or D-75.

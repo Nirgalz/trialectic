@@ -1238,5 +1238,19 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-01, T-02, T-03, T-16, T-24, T-30.
 
+## Implementation note · Normative local schema (no new D-number)
+Date: November 16, 2026 | Branch: `dev`
+
+Following the author's request to make a normative JSON Schema, the approved
+D-57/D-61–D-74 local constraints are published as
+[`schemas/power-evaluation.schema.json`](schemas/power-evaluation.schema.json),
+with [explicit limited conformance scope](schemas/power-evaluation.normative.md),
+compatible legacy assertions, minimal synthetic fixtures and CI regression tests.
+This is implementation of existing decisions, **not a new conceptual approval**.
+D-75 is not validated; Object/relation identity, the global normalized model,
+recursive expression serialization and Scenario nested result types remain OPEN.
+Earlier decisions' statements about the unfinished final schema retain their
+historical meaning; the final global contract remains unfinished.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

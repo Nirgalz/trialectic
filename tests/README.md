@@ -48,3 +48,12 @@ The executable [`schemas/power-evaluation.boundaries.schema.json`](../schemas/po
 - The number of unit checks and generated permutations is an **engineering coverage** measure, never evidence of the Method's empirical validity or an increase in AI reasoning accuracy.
 
 Related tracked work: T-03, T-24 and T-27 in `TODO.md`. Preserve the validated conceptual distinctions from D-27, D-31, D-35 and D-40–D-47.
+
+## Normative local profile
+
+`test_normative_schema.py` runs the boundary regression suite against the normative
+[PowerEvaluation schema](../schemas/power-evaluation.schema.json), checks assertion
+parity, and protects OPEN identifier and Scenario value types.
+`cases/power_evaluation_minimal.json` supplies three independent synthetic records;
+the surrounding array is test packaging, not an approved Analysis envelope.
+See [conformance and exclusions](../schemas/power-evaluation.normative.md).

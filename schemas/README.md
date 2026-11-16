@@ -2,7 +2,11 @@
 
 The **author-validated model** is described in [`reference/power-evaluation.md`](../reference/power-evaluation.md) (D-57–D-74). JSON Schema Draft **2020-12** was approved in D-66; the Focus discriminator/reference contract in D-67.
 
-## Current executable schema
+## Normative local profile
+
+[`power-evaluation.schema.json`](power-evaluation.schema.json) is now the **normative local structural profile through D-74**. See the [conformance, authority and exclusions](power-evaluation.normative.md). It preserves the boundary schema's assertions and leaves all unapproved details OPEN. It is not a final global Method contract.
+
+## Compatible boundary schema
 
 [`power-evaluation.boundaries.schema.json`](power-evaluation.boundaries.schema.json) is a **limited structural boundary contract**, not the finished strict schema for all nested data:
 

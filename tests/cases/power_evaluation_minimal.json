@@ -1,0 +1,95 @@
+[
+  {
+    "ID": "PE-SYNTHETIC-NEED",
+    "Subject": {
+      "object_id": "O-SYNTHETIC"
+    },
+    "Focus": {
+      "type": "NEED",
+      "object_id": "O-SYNTHETIC-NEED"
+    },
+    "Context": {
+      "definition_versions": {
+        "O-SYNTHETIC": "v1"
+      }
+    },
+    "Dependencies": [],
+    "Results": {
+      "effective_satisfaction": {
+        "status": "indeterminate",
+        "justification": "No observation supplied."
+      },
+      "temporal_compliance": {
+        "applicability": "indeterminate",
+        "justification": "Temporal requirements not assessed."
+      },
+      "candidate_cans": {
+        "identified": [],
+        "search_status": "not_searched",
+        "coverage": "indeterminate",
+        "scope": "Synthetic example only.",
+        "justification": "Search has not been undertaken."
+      }
+    }
+  },
+  {
+    "ID": "PE-SYNTHETIC-CAN",
+    "Subject": {
+      "object_id": "O-SYNTHETIC"
+    },
+    "Focus": {
+      "type": "CAN",
+      "object_id": "O-SYNTHETIC-CAN"
+    },
+    "Context": {
+      "definition_versions": {
+        "O-SYNTHETIC": "v1"
+      }
+    },
+    "Dependencies": [],
+    "Results": {
+      "actualizability": {
+        "status": "indeterminate",
+        "justification": "Contemplated Actualization not assessed."
+      },
+      "prerequisites": {
+        "needs": [],
+        "cans": [],
+        "conditions": [],
+        "pathways": [],
+        "inventory_coverage": "indeterminate",
+        "scope": "Synthetic example only.",
+        "justification": "Prerequisites not inventoried."
+      },
+      "potential_contributions": {
+        "needs": [],
+        "search_status": "not_searched",
+        "coverage": "indeterminate",
+        "scope": "Synthetic example only.",
+        "justification": "Search has not been undertaken."
+      }
+    }
+  },
+  {
+    "ID": "PE-SYNTHETIC-Scenario",
+    "Subject": {
+      "object_id": "O-SYNTHETIC"
+    },
+    "Focus": {
+      "type": "Scenario",
+      "scenario_id": "S-SYNTHETIC"
+    },
+    "Context": {
+      "definition_versions": {
+        "O-SYNTHETIC": "v1"
+      }
+    },
+    "Dependencies": [],
+    "Results": {
+      "actualization_assessments": null,
+      "scenario_assessment": null,
+      "effects": null,
+      "comparisons": null
+    }
+  }
+]

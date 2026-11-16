@@ -1393,3 +1393,12 @@ Initial Object identification is relative to the focal Subject and its existenti
 ## November 15, 2026 — D-47 method-sensitive evidence review
 
 **[VALIDATED A–E]** Source-method and claim-specific appraisal; distinguish applicable requirements from evaluated compliance, methodological quality from probative sufficiency, joint evidence interpretation without arbitrary aggregation, and verification-depth proportionality without converting stakes into truth. **[SYNTHETIC TEST]** 612/612 assertions passed, five method families, seven adversarial cases, 243 ternary combinations and 24 input permutations, reproduced byte-identically from extracted archive. Example criteria/check algorithms and synthetic source labels remain unapproved; no tasks closed.
+
+
+**Normative local schema implementation (November 16, 2026):**
+[`power-evaluation.schema.json`](../schemas/power-evaluation.schema.json) implements
+the approved local PowerEvaluation constraints through D-74. Its
+[conformance and exclusions](../schemas/power-evaluation.normative.md) are normative
+only within that limited structural scope. The existing boundary schema remains
+compatible. This implementation does not approve the global normalized proposal,
+Object/relation identity, recursive grammar, Scenario result internals or D-75.

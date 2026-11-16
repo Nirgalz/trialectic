@@ -284,3 +284,12 @@ The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) conne
 - Independent reproductions, empirical evaluations, probability calibration, additional adversarial tests and use in real analyses.
 
 **Meaning of D-64:** the author has validated `PowerEvaluation` as the **integrated conceptual data model** and approved its incorporation in the `dev` reference. D-64 **does not resolve** the explicitly OPEN details above or turn illustrative JSON subfields into mandatory rules.
+
+
+**Normative local schema implementation (November 16, 2026):**
+[`power-evaluation.schema.json`](../schemas/power-evaluation.schema.json) implements
+the approved local PowerEvaluation constraints through D-74. Its
+[conformance and exclusions](../schemas/power-evaluation.normative.md) are normative
+only within that limited structural scope. The existing boundary schema remains
+compatible. This implementation does not approve the global normalized proposal,
+Object/relation identity, recursive grammar, Scenario result internals or D-75.
