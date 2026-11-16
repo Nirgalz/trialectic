@@ -23,8 +23,8 @@
   "normative_text": "reference/trialectic-method.md#35-validated-operational-identification-principles-t-01-am-d-82",
   "profile": {
     "uri": "urn:trialectic:schema:analysis:normative-v2",
-    "version": "2.0.0",
-    "note": "Each case is projected to a structurally valid v2 Analysis+PowerEvaluation in the test harness. Projection does not establish real-world Object membership, truth or causality."
+    "version": "2.1.0",
+    "note": "Each case is projected to a structurally valid v2.1 Analysis+PowerEvaluation with explicit conceptual identity and qualified attribution. Projection does not establish real-world Object membership, truth or causality."
   },
   "oracle_policy": "Expected outcomes are authored independently of the deterministic discriminating-rules test. Do not infer empirical truth from schema conformance or code agreement.",
   "cases": [
