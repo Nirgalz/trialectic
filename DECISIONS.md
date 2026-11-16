@@ -956,5 +956,18 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Related tasks: T-02, T-03, T-16, T-30.
 
+## D-58 · Unique IDs and explicit revision lineage for Power evaluations
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+- Each **new Power evaluation producing a revised result** receives a **new unique evaluation ID**.
+- Preserve every prior evaluation as a distinct historical record, including its original context and results; never overwrite it when producing a revised evaluation.
+- Maintain an **explicit revision reference** linking the revised evaluation back to the earlier evaluation it revises.
+- **Revision lineage** is distinct from **analytical dependencies** (`Dependencies`) and from Object **Parent/Children** lineage; these relationships must not be conflated.
+- The rule applies equally to NEED-, CAN-, and Scenario-focused Power evaluations.
+
+**OPEN:** exact place, name, and structure of the revision reference within the D-57 six-field baseline; whether changes to evidence, justification or uncertainty without a changed substantive result also trigger a new ID; competing/parallel revisions; history traversal, timestamps and immutable storage requirements. This does not finalize the JSON Schema.
+
+Related tasks: T-02, T-03, T-18, T-21, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
