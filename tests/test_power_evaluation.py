@@ -130,14 +130,30 @@ def validate_fixture(f):
             ability = result["actualizability"]
             if ability["status"] not in ACTUALIZABILITY:
                 raise ValueError("Invalid CAN actualizability")
+            if (not isinstance(ability.get("justification"), str) or
+                    not ability["justification"]):
+                raise ValueError("CAN actualizability requires a justification (D-72)")
+            if "uncertainty" in ability and not isinstance(ability["uncertainty"], dict):
+                raise ValueError("CAN uncertainty must be an object (D-72)")
+            if "evidence" in ability:
+                evidence = ability["evidence"]
+                if (not isinstance(evidence, list) or
+                        any(not isinstance(ref, str) or not ref for ref in evidence)):
+                    raise ValueError("CAN actualizability evidence references invalid (D-72)")
             if "degree" in ability:
                 degree = ability["degree"]
                 if (not isinstance(degree, dict) or
                     not isinstance(degree.get("value"), (float, int)) or
                     isinstance(degree.get("value"), bool) or
-                    not 0 <= degree["value"] <= 1 or
-                    not degree.get("measure")):
-                    raise ValueError("Provisional degree must be measurable and bounded")
+                    not isinstance(degree.get("measure"), str) or
+                    not degree["measure"] or
+                    not isinstance(degree.get("basis"), str) or
+                    not degree["basis"]):
+                    raise ValueError("D-72 degree requires value, measure and basis")
+                # A bounded distance_ratio is a hypothesis for this fixture's
+                # *particular measurement*, NOT a universal D-72 degree scale.
+                if degree["measure"] == "distance_ratio" and not 0 <= degree["value"] <= 1:
+                    raise ValueError("Fixture distance_ratio must be within 0 and 1")
             pre = result["prerequisites"]
             if pre["coverage"] not in COVERAGE:
                 raise ValueError("Prerequisite coverage invalid")
@@ -329,9 +345,26 @@ class CrossFocusPowerEvaluationTests(unittest.TestCase):
     def test_incorrect_results_type_rejected(self):
         self.assert_invalid(lambda f: f["evaluations"][1]["Results"].pop("prerequisites"))
 
-    def test_nonjustified_invalid_degree_rejected(self):
+    def test_invalid_distance_ratio_rejected_under_fixture_measure_only(self):
+        # The declared synthetic ratio is bounded, not all possible degrees.
         self.assert_invalid(lambda f: f["evaluations"][1]["Results"]["actualizability"][
             "degree"].update(value=1.2))
+
+    def test_d72_non_ratio_measure_is_not_universally_bounded(self):
+        data = copy.deepcopy(self.fixture)
+        data["evaluations"][5]["Results"]["actualizability"]["degree"] = {
+            "value": 1250,
+            "measure": "hypothetical_distance_m",
+            "basis": "Model-only travel distance, without an established sufficiency threshold"
+        }
+        validate_fixture(data)
+
+    def test_d72_basis_required_and_uncertainty_object(self):
+        self.assert_invalid(lambda f: f["evaluations"][1]["Results"]["actualizability"][
+            "degree"].pop("basis"))
+        self.assert_invalid(lambda f: f["evaluations"][1]["Results"]["actualizability"][
+            "uncertainty"].update(description="") if False else f["evaluations"][1][
+            "Results"]["actualizability"].update(uncertainty="not-an-object"))
 
     def test_actualizability_unknown_not_equivalent_to_negative(self):
         r = self.by_id["PE-CAN-003"]["Results"]["actualizability"]
