@@ -112,6 +112,7 @@ The adopted recursive sequence is:
 - `NEEDs`: nullable list of **Object references**, used for more granular specification, particularly of a parent NEED.
 - `CANs`: nullable list of **Object references**, used for more granular specification of the parent NEED or CAN.
 - `NEEDs` and `CANs` are **not necessarily themselves lists of instantiated NEED/CAN relational records**, but lists of Objects as explicitly specified by the author. These are role-labeled links and do not automatically change the referenced Objects' global types.
+- **[VALIDATED — November 16, 2026]** A NEED is itself an Object with a unique Object ID; a CAN is likewise an Object with its own unique Object ID. Contextual attribution follows list membership: when NEED Object N appears in Object O's `NEEDs` list, O has NEED N. `object_id` can directly identify N; an additional `need_id` is not necessary for that relationship. This does not imply that N becomes the same Object as O. The distinction between the possessing Object and the NEED Object is contextual to the recorded relationship.
 - A single referenced Object across the two lists yields one target participant; multiple references yield several target participants. **No mandatory separate `TargetObject` field** is required, because the participants are already represented by `NEEDs` and `CANs`.
 - The relation can be modeled, descriptively, as an **origin-anchored multi-participant relation / directed hyperrelation** rather than obligatorily a binary relation. This mathematical characterization is a formalization, not a separately adopted ontology.
 
@@ -176,6 +177,13 @@ In this illustration the listed participant groupings express **asserted analysi
 | `causality` | `direct`, `indirect` or `indeterminate` qualification, where justified | Optional |
 | `evidence` | Evidential qualification and justification; existing D-31 labels apply | Optional |
 | `affects` | IDs of **other link records affected** by this link | Optional |
+| `weight` | Non-negative relative weight of the linked NEED in a parent NEED's or CAN's dependency on NEEDs | Optional |
+
+**[VALIDATED — November 16, 2026]** The optional `weight` applies to links representing a **NEED dependency of a NEED**, and equally to links representing a **NEED dependency of a CAN**. A weight characterizes the dependency link, not an intrinsic global importance of the NEED Object. Different parent NEEDs or CANs may therefore assign different weights to the same linked NEED. A weight does not by itself establish logical necessity, satisfaction, CAN actionability or causal sufficiency. Its value is distinct from the linked NEED's measured degree of satisfaction, and from uncertainty about that measure.
+
+For a parent NEED whose relevant dependency NEEDs have justified numerical satisfaction degrees and known non-negative weights with positive sum, the **working aggregation formalization** is a weighted arithmetic mean of the child NEEDs' global satisfaction degrees: `sum(weight_i * degree_i) / sum(weight_i)`. Each child's degree is assessed independently before aggregation, recursively where appropriate. How to handle missing weights/degrees, zero total weights, cycles, non-comparable measures, indispensable dependencies and the exact semantics of weights for a CAN's dependency on NEEDs remains **OPEN**. In particular, this averaging formula is **not automatically a measure of a CAN's Actualization probability, actionability or Power**.
+
+**[ILLUSTRATIVE EXTENSION — field placement approved, example not an enforced JSON Schema]** In a parent NEED or CAN record, `relation.links` may include `{"id":"L-1","object_id":"O-need-1","source_list":"NEEDs","weight":3}` alongside another linked NEED Object with its own weight. Both targets are Objects identified by Object IDs, not secondarily identified via an invented `need_id` field.
 
 The first **three fields are mandatory** in any explicitly recorded link; `affects` was separately approved as an optional field (proposal C). Role fields can remain unknown when the referenced Object is identified but the nature or evidence of its relation is not yet determined. Link identifiers must distinguish different links **within a relational record**; global uniqueness of link IDs, stable identity across branching, and cross-record link addressing are still **OPEN**.
 
