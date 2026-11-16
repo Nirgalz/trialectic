@@ -1184,5 +1184,22 @@ Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
 
 Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-01, T-02, T-03, T-24, T-30.
 
+## D-72 · CAN-focused Results.actualizability field contract
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Decision:** For a CAN-focused `PowerEvaluation`, the required `Results.actualizability` substructure is a JSON **object** with the following minimum, locally enforceable fields (Draft 2020-12 under D-66):
+
+- **`status`** — **required**, with exactly the four case-sensitive values `actualizable`, `partially_actualizable`, `not_actualizable`, `indeterminate` (D-51/D-62).
+- **`justification`** — **required nonempty string**, including when the result is indeterminate.
+- **`degree`** — **optional object**, with required `value` (**number**), `measure` (**nonempty string**) and `basis` (**nonempty string**) when present. Use a numeric degree **only when its measure is relevant and justified**; no universal numerical scale or threshold is imposed.
+- **`evidence`** — **optional array** of nonempty evidence-reference strings, possibly empty.
+- **`uncertainty`** — **optional object**, internal structure still OPEN. Its absence does not establish certainty.
+
+**Semantic safeguards:** `actualizable`, `partially_actualizable` and `not_actualizable` refer to the **specified contemplated Actualization in its evaluated context**, not an intrinsic/universal verdict about the CAN. `indeterminate` is reserved for unresolved evidence/conditions, not treated as impossibility. Partial Actualizability may be documented qualitatively without a numerical degree. A degree of possibility is **not** the probability of successful Actualization, the degree of satisfaction of prerequisite NEEDs, or effective Actualization itself. No status can be inferred mechanically from numeric `degree` or weighted prerequisite NEED values; alternatives and Environment conditions can change the result. `Results.prerequisites` remains separate from `Results.actualizability`, as do effective/simulated events and effects.
+
+**OPEN:** A fully stable reference to the contemplated Actualization (beyond the existing Focus and Context) and how to validate its semantics; criteria for partial Actualization, measure-specific range/basis/threshold rules, uncertainty and evidence serialization and adequacy, time horizon, alternative pathways, contextual compatibility (D-54), algorithms, closure of nested extra fields, full CAN/Scenario `Results`, and empirical validation. D-72 does not adopt a final complete JSON Schema or Power engine.
+
+Documented in [`reference/power-evaluation.md`](reference/power-evaluation.md) and [`reference/trialectic-method.md`](reference/trialectic-method.md). Related tasks: T-02, T-03, T-16, T-24, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
