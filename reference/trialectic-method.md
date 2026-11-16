@@ -899,6 +899,136 @@ The earlier 'attributable CAN' category has been **questioned by the author as p
 
 **OPEN:** Whether 'attributable CAN' should remain a separate technical category; threshold of relevant constitutive contribution; boundary between constitution and action conditions; evidence, uncertainty, and inter-analyst reproducibility; differentiated CAN identification criteria by Object type. Contextual granularity is validated, but operational selection rules remain to be tested.
 
+## 3.5 Validated operational identification principles T-01-A–M (D-82)
+
+**Status: author-validated methodological principles (November 16, 2026; D-82).** The French formulations below are the approved text. B, H and J reproduce the subsequently approved revised versions, not the superseded originals. These criteria guide identification and qualification; they do not alter D-18's NEED definition, D-48's definitions of CAN/Potency/Power, the D-31 relation taxonomy, D-50 Object/NEED/CAN identity, or the normative v2 transport schema. T-01 remains **OPEN** for operational, multi-analyst and empirical verification. The terms "established in the model" and "indeterminate" qualify knowledge and must not be conflated with empirical proof or intrinsic Object states.
+
+**Attribution / representation boundary:** an attributed NEED or CAN has its own Object identity and can be represented in an origin-anchored relation; the possessing Object, represented NEED/CAN Object and relation record remain distinct (D-36, D-50, D-75–D-77). A NEED may remain unsatisfied; a CAN may remain non-actionable or not currently actualizable. No candidate correspondence is automatically causal, sufficient or necessary (D-31/D-74).
+
+**Status of classification:** T-01-K retires *attributable CAN* as an autonomous category prospectively; D-27 remains historical. Attribution itself remains required as an analytical operation, including justification and epistemic qualification.
+
+### T-01-A — Identification contextualisée d’un NEED
+
+Un NEED est toujours identifié relativement à un Objet, à un état déterminé et à un contexte explicites. Son attribution nécessite une justification de la relation de nécessité entre sa satisfaction et cet état. La pertinence de l'état déterminé est évaluée séparément de la nécessité du NEED.
+
+### T-01-B — Vérification contextualisée de la nécessité
+
+La nécessité d'un NEED candidat doit être vérifiée relativement à l'Objet, à l'état déterminé et au contexte de l'analyse, en mobilisant les modes de justification appropriés à sa nature.
+
+Pour les nécessités fonctionnelles, l'analyse examine notamment si l'état demeure atteignable ou maintenable sans satisfaction du NEED candidat, en considérant les alternatives pertinentes.
+
+Pour les nécessités constitutives ou conceptuelles, elle examine les relations de définition et d'identité, sans supposer qu'une suppression contrefactuelle puisse préserver l'Objet étudié.
+
+L'analyse distingue les conclusions établies dans le modèle, réfutées dans le contexte ou indéterminées, sans présumer l'exhaustivité des alternatives ni la validité empirique des hypothèses.
+
+### T-01-C — Distinction entre nécessité et moyen de satisfaction
+
+L'identification d'un NEED doit distinguer l'état ou la condition nécessaire à l'Objet des moyens susceptibles d'en assurer la satisfaction.
+
+Un moyen particulier ne peut être qualifié de nécessaire que relativement à un état déterminé, un contexte et des alternatives examinées. Sa nécessité dans un Scénario ne démontre pas sa nécessité dans tous les Scénarios possibles.
+
+### T-01-D — Caractérisation de l’état requis
+
+Un NEED doit être caractérisé par un état requis suffisamment précis pour permettre d'évaluer sa satisfaction.
+
+Cette caractérisation explicite, selon leur pertinence, les propriétés concernées, les exigences qualitatives ou quantitatives, les seuils de satisfaction et les contraintes temporelles.
+
+Les critères retenus doivent être justifiés. Lorsqu'ils sont insuffisamment connus, cette incertitude doit être conservée plutôt que remplacée par des valeurs arbitraires.
+
+### T-01-E — Complétude contextuelle de l’identification
+
+L'identification des NEED d'un Objet constitue un processus contextualisé et potentiellement non exhaustif.
+
+L'analyse doit expliciter le périmètre des Objets et Sujets considérés, les critères ayant guidé leur sélection et les limites de l'identification.
+
+La complétude peut être évaluée relativement à ce périmètre, sans présumer une exhaustivité universelle.
+
+L'absence de NEED identifié ne démontre pas son inexistence.
+
+La découverte de nouveaux NEED ou d'Objets pertinents peut nécessiter une réévaluation des analyses qui en dépendent, sans modifier rétroactivement les faits observés.
+
+### T-01-F — Attribution et interdépendance des NEED
+
+Chaque NEED doit être attribué explicitement à l'Objet auquel il appartient.
+
+Un NEED attribué à un Objet peut constituer une condition nécessaire à l'existence, au maintien, au fonctionnement ou à l'Actualisation d'un autre Objet, sans que cette dépendance entraîne automatiquement une attribution du même NEED à ce dernier.
+
+Les NEED d'un groupe ou d'un système ne doivent pas être assimilés automatiquement à l'ensemble des NEED de leurs constituants, ni inversement.
+
+L'analyse doit identifier les interdépendances pertinentes et préserver la distinction entre les Objets concernés.
+
+### T-01-G — Identification contextualisée d’un CAN
+
+Un CAN est identifié relativement à un Objet, à une Actualisation déterminée et à un contexte explicite.
+
+Son attribution doit être justifiée par des propriétés identifiables de l'Objet qui fondent une possibilité d'Actualisation, y compris lorsque celle-ci dépend d'interventions extérieures.
+
+L'identification d'un CAN est indépendante de la satisfaction actuelle de ses conditions d'Actualisation.
+
+Une Potentialité déjà présente mais non identifiée doit être distinguée d'une Potentialité dont l'émergence nécessite une transformation de l'Objet.
+
+Lorsque les informations disponibles ne permettent pas de déterminer si le CAN est actuellement présent, cette incertitude doit être conservée.
+
+### T-01-H — Fondement discriminant du CAN
+
+L'attribution actuelle d'un CAN exige l'identification de propriétés ou de relations constitutives de l'Objet, dont la pertinence pour l'Actualisation considérée est explicitement justifiée.
+
+Cette justification doit distinguer le fondement actuel de la Potentialité, les interventions extérieures nécessaires à son Actualisation et les transformations constitutives préalables qui feraient éventuellement émerger une autre Potentialité.
+
+Une possibilité générale de transformation future ne constitue pas, à elle seule, un fondement suffisant pour attribuer actuellement le CAN correspondant.
+
+### T-01-I — Attribution des Potentialités collectives
+
+Un CAN peut être attribué à un groupe ou à un système lorsque sa constitution, incluant les propriétés de ses constituants et leurs relations, fonde la possibilité de l'Actualisation considérée.
+
+Les CAN du groupe ou du système ne correspondent pas nécessairement à la simple réunion des CAN individuels de ses constituants.
+
+Inversement, l'attribution d'un CAN à un groupe ou à un système n'implique pas que chacun de ses constituants possède individuellement ce CAN.
+
+L'analyse doit identifier les contributions et interdépendances pertinentes, sans confondre l'existence du CAN collectif avec la satisfaction de ses conditions d'Actualisation.
+
+### T-01-J — Identification et qualification des relations NEED–CAN
+
+L'analyse identifie les relations candidates entre NEED et CAN, les Objets concernés, leur contexte, leurs mécanismes supposés et leur qualification épistémique.
+
+La correspondance est distinguée de la contribution causale, de la suffisance conditionnelle et de la nécessité relative à un Scénario. Ces dernières exigent des vérifications propres, sans être déduites de la seule identification.
+
+L'analyse conserve également les relations inhibitrices ou les effets défavorables pertinents, sans les assimiler à des contributions favorables.
+
+Les conclusions doivent rester relatives aux Scénarios, aux conditions et aux connaissances disponibles, en séparant validité interne du modèle et justification empirique.
+
+### T-01-K — Attribution sans statut supplémentaire
+
+L'attribution d'un CAN à un Objet constitue une opération d'identification fondée sur sa constitution actuelle, l'Actualisation envisagée et le contexte d'analyse.
+
+Elle ne nécessite pas de catégorie autonome « attributable CAN ».
+
+Lorsque cette attribution est incertaine, l'analyse doit conserver les justifications, informations manquantes et qualifications épistémiques pertinentes.
+
+L'attribution d'un CAN reste distincte de son actualisabilité et de son Actualisation effective.
+
+### T-01-L — Pertinence du périmètre de contextualisation
+
+La contextualisation doit justifier la sélection des Objets, Sujets, états déterminés et relations considérés comme pertinents pour l'analyse.
+
+La pertinence du périmètre doit être examinée indépendamment de la complétude des NEED identifiés à l'intérieur de celui-ci.
+
+Lorsqu'un Objet ou Sujet initialement exclu pourrait modifier significativement l'identification des NEED, leurs conditions de satisfaction ou les conclusions de l'analyse, cette exclusion doit être réexaminée.
+
+La contextualisation demeure révisable. Toute extension pertinente entraîne une réévaluation des conclusions concernées, sans modifier rétroactivement les faits observés.
+
+### T-01-M — Non-compensation des exigences indispensables
+
+Lorsqu'un NEED dépend de plusieurs exigences, l'analyse doit distinguer leur importance relative de leur caractère nécessaire.
+
+Une pondération ou une agrégation des degrés de satisfaction ne peut pas, à elle seule, établir la satisfaction globale d'un NEED lorsque certaines exigences sont indispensables.
+
+Les exigences conjointement nécessaires doivent être vérifiées selon leurs conditions propres, indépendamment des indicateurs agrégés.
+
+Lorsqu'une exigence indispensable est insatisfaite ou indéterminée, cette information doit être conservée explicitement dans l'évaluation globale.
+
+**Tests and limits:** Synthetic, hand-authored discriminating cases and v2-projection checks are maintained at [tests/cases/t01-identification-v1.json](../tests/cases/t01-identification-v1.json), with executable tests in [tests/test_t01_identification.py](../tests/test_t01_identification.py). Passing these checks shows only stated structural/invariant properties, not correctness of causal assertions or inter-analyst reproducibility. T-01's closure criteria in [TODO.md](../TODO.md) remain in force.
+
 # 4. NEED–CAN relations and dependencies
 
 ## 4.1 Relational principles
