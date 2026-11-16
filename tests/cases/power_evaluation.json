@@ -1,0 +1,506 @@
+{
+  "schema": "power-evaluation-fixtures-v0-provisional",
+  "status": "synthetic illustration; top-level and substructure names validated by D-57, D-61-D-63; nested field shapes and numeric hypotheses not normative",
+  "decisions": [
+    "D-35",
+    "D-49",
+    "D-51",
+    "D-52",
+    "D-53",
+    "D-54",
+    "D-55",
+    "D-56",
+    "D-57",
+    "D-58",
+    "D-59",
+    "D-60",
+    "D-61",
+    "D-62",
+    "D-63"
+  ],
+  "objects": {
+    "O-CAR": {
+      "version": "v1",
+      "type": "TechnicalObject",
+      "NEEDs": [
+        "O-NEED-ENERGY"
+      ],
+      "CANs": [
+        "O-CAN-TRAVEL"
+      ]
+    },
+    "O-NEED-ENERGY": {
+      "version": "v1",
+      "type": "NEED",
+      "NEEDs": [],
+      "CANs": []
+    },
+    "O-CAN-TRAVEL": {
+      "version": "v1",
+      "type": "CAN",
+      "NEEDs": [
+        "O-NEED-ENERGY"
+      ],
+      "CANs": []
+    },
+    "O-TRAVELER": {
+      "version": "v1",
+      "type": "Individual",
+      "NEEDs": [
+        "O-NEED-MOBILITY"
+      ],
+      "CANs": []
+    },
+    "O-NEED-MOBILITY": {
+      "version": "v1",
+      "type": "NEED",
+      "NEEDs": [],
+      "CANs": []
+    },
+    "O-STATION": {
+      "version": "v1",
+      "type": "TechnicalObject",
+      "NEEDs": [
+        "O-NEED-CONTINUITY"
+      ],
+      "CANs": [
+        "O-CAN-RECHARGE"
+      ]
+    },
+    "O-NEED-CONTINUITY": {
+      "version": "v1",
+      "type": "NEED",
+      "NEEDs": [],
+      "CANs": []
+    },
+    "O-CAN-RECHARGE": {
+      "version": "v1",
+      "type": "CAN",
+      "NEEDs": [],
+      "CANs": []
+    }
+  },
+  "scenarios": {
+    "S-NO-RECHARGE": {
+      "subject": "O-CAR",
+      "assumption": "20% battery; 500 km nominal full range; no recharging within this considered route"
+    },
+    "S-WITH-RECHARGE": {
+      "subject": "O-CAR",
+      "assumption": "Potential recharging location, not independently verified or actualized"
+    },
+    "S-INTERRUPTION": {
+      "subject": "O-STATION",
+      "assumption": "20-minute observed-model outage with expressly authorized temporal exception EX-001"
+    }
+  },
+  "evaluations": [
+    {
+      "ID": "PE-NEED-001",
+      "Subject": {
+        "object_id": "O-CAR"
+      },
+      "Focus": {
+        "type": "NEED",
+        "object_id": "O-NEED-ENERGY"
+      },
+      "Context": {
+        "scenario_id": "S-NO-RECHARGE",
+        "definition_versions": {
+          "O-CAR": "v1",
+          "O-NEED-ENERGY": "v1"
+        },
+        "provenance": {}
+      },
+      "Dependencies": [],
+      "Results": {
+        "effective_satisfaction": {
+          "status": "unsatisfied",
+          "justification": "In the hypothetical model, 20% of 500 km is less than the stated 1,000 km requirement; this is not a physical range guarantee.",
+          "evidence": [
+            "MODEL-ASSUMPTION-CHARGE"
+          ]
+        },
+        "temporal_compliance": {
+          "status": "indeterminate",
+          "justification": "Continuity over the journey has not been observed or simulated."
+        },
+        "candidate_cans": {
+          "identified": [],
+          "coverage": "incomplete",
+          "uncertainty": "No full search of possible charging alternatives has been conducted."
+        }
+      }
+    },
+    {
+      "ID": "PE-CAN-001",
+      "Subject": {
+        "object_id": "O-CAR"
+      },
+      "Focus": {
+        "type": "CAN",
+        "object_id": "O-CAN-TRAVEL"
+      },
+      "Context": {
+        "scenario_id": "S-NO-RECHARGE",
+        "definition_versions": {
+          "O-CAR": "v1",
+          "O-CAN-TRAVEL": "v1",
+          "O-NEED-ENERGY": "v1"
+        },
+        "provenance": {}
+      },
+      "Dependencies": [
+        {
+          "evaluation_id": "PE-NEED-001"
+        }
+      ],
+      "Results": {
+        "actualizability": {
+          "status": "partially_actualizable",
+          "degree": {
+            "value": 0.1,
+            "measure": "distance_ratio",
+            "estimated_distance_km": 100,
+            "target_distance_km": 1000
+          },
+          "justification": "Model-only proportional range assumption; unverified for actual driving.",
+          "uncertainty": "Theoretical estimate only."
+        },
+        "prerequisites": {
+          "needs": [
+            {
+              "object_id": "O-NEED-ENERGY",
+              "evaluation_id": "PE-NEED-001"
+            }
+          ],
+          "conditions": [
+            {
+              "condition_id": "C-ENERGY-1000",
+              "status": "unsatisfied"
+            }
+          ],
+          "coverage": "incomplete"
+        },
+        "potential_contributions": {
+          "needs": [
+            {
+              "object_id": "O-NEED-MOBILITY",
+              "relationship": "candidate"
+            }
+          ],
+          "coverage": "incomplete",
+          "justification": "Candidate contribution does not establish satisfaction."
+        }
+      }
+    },
+    {
+      "ID": "PE-SCENARIO-001",
+      "Subject": {
+        "object_id": "O-CAR"
+      },
+      "Focus": {
+        "type": "Scenario",
+        "scenario_id": "S-NO-RECHARGE"
+      },
+      "Context": {
+        "scenario_id": "S-NO-RECHARGE",
+        "definition_versions": {
+          "O-CAR": "v1",
+          "O-CAN-TRAVEL": "v1",
+          "O-NEED-ENERGY": "v1",
+          "O-TRAVELER": "v1",
+          "O-NEED-MOBILITY": "v1"
+        },
+        "provenance": {}
+      },
+      "Dependencies": [
+        {
+          "evaluation_id": "PE-NEED-001"
+        },
+        {
+          "evaluation_id": "PE-CAN-001"
+        }
+      ],
+      "Results": {
+        "actualization_assessments": [
+          {
+            "can_id": "O-CAN-TRAVEL",
+            "evaluation_id": "PE-CAN-001"
+          }
+        ],
+        "scenario_assessment": {
+          "feasibility": {
+            "status": "indeterminate",
+            "justification": "Initial evidence"
+          },
+          "complexity": {
+            "status": "not_evaluated"
+          },
+          "costs": {
+            "status": "not_evaluated"
+          },
+          "temporality": {
+            "status": "not_evaluated"
+          },
+          "expected_effectiveness": {
+            "status": "not_evaluated"
+          }
+        },
+        "effects": [
+          {
+            "target_object_id": "O-TRAVELER",
+            "need_object_id": "O-NEED-MOBILITY",
+            "epistemic_status": "anticipated",
+            "valence": "unfavorable",
+            "causality": "indirect",
+            "temporality": "delayed",
+            "justification": "The full contemplated journey is not established as achievable."
+          }
+        ],
+        "comparisons": []
+      }
+    },
+    {
+      "ID": "PE-CAN-002",
+      "Subject": {
+        "object_id": "O-CAR"
+      },
+      "Focus": {
+        "type": "CAN",
+        "object_id": "O-CAN-TRAVEL"
+      },
+      "Context": {
+        "scenario_id": "S-NO-RECHARGE",
+        "definition_versions": {
+          "O-CAR": "v1",
+          "O-CAN-TRAVEL": "v1",
+          "O-NEED-ENERGY": "v1"
+        },
+        "provenance": {
+          "revises": "PE-CAN-001"
+        }
+      },
+      "Dependencies": [
+        {
+          "evaluation_id": "PE-NEED-001"
+        }
+      ],
+      "Results": {
+        "actualizability": {
+          "status": "partially_actualizable",
+          "degree": {
+            "value": 0.1,
+            "measure": "distance_ratio",
+            "estimated_distance_km": 100,
+            "target_distance_km": 1000
+          },
+          "justification": "Independent source questions this range approximation; unchanged numerical conclusion retained for synthetic illustration.",
+          "uncertainty": "Confidence reduced because physical range is not measured."
+        },
+        "prerequisites": {
+          "needs": [
+            {
+              "object_id": "O-NEED-ENERGY",
+              "evaluation_id": "PE-NEED-001"
+            }
+          ],
+          "conditions": [
+            {
+              "condition_id": "C-ENERGY-1000",
+              "status": "unsatisfied"
+            }
+          ],
+          "coverage": "incomplete"
+        },
+        "potential_contributions": {
+          "needs": [
+            {
+              "object_id": "O-NEED-MOBILITY",
+              "relationship": "candidate"
+            }
+          ],
+          "coverage": "incomplete",
+          "justification": "Candidate contribution does not establish satisfaction."
+        }
+      }
+    },
+    {
+      "ID": "PE-SCENARIO-002",
+      "Subject": {
+        "object_id": "O-CAR"
+      },
+      "Focus": {
+        "type": "Scenario",
+        "scenario_id": "S-NO-RECHARGE"
+      },
+      "Context": {
+        "scenario_id": "S-NO-RECHARGE",
+        "definition_versions": {
+          "O-CAR": "v1",
+          "O-CAN-TRAVEL": "v1",
+          "O-NEED-ENERGY": "v1",
+          "O-TRAVELER": "v1",
+          "O-NEED-MOBILITY": "v1"
+        },
+        "provenance": {
+          "revises": "PE-SCENARIO-001"
+        }
+      },
+      "Dependencies": [
+        {
+          "evaluation_id": "PE-NEED-001"
+        },
+        {
+          "evaluation_id": "PE-CAN-002"
+        }
+      ],
+      "Results": {
+        "actualization_assessments": [
+          {
+            "can_id": "O-CAN-TRAVEL",
+            "evaluation_id": "PE-CAN-002"
+          }
+        ],
+        "scenario_assessment": {
+          "feasibility": {
+            "status": "indeterminate",
+            "justification": "Reassessed after PE-CAN-002 revised its epistemic support; substantive feasibility remains indeterminate."
+          },
+          "complexity": {
+            "status": "not_evaluated"
+          },
+          "costs": {
+            "status": "not_evaluated"
+          },
+          "temporality": {
+            "status": "not_evaluated"
+          },
+          "expected_effectiveness": {
+            "status": "not_evaluated"
+          }
+        },
+        "effects": [
+          {
+            "target_object_id": "O-TRAVELER",
+            "need_object_id": "O-NEED-MOBILITY",
+            "epistemic_status": "anticipated",
+            "valence": "unfavorable",
+            "causality": "indirect",
+            "temporality": "delayed",
+            "justification": "The full contemplated journey is not established as achievable."
+          }
+        ],
+        "comparisons": []
+      }
+    },
+    {
+      "ID": "PE-CAN-003",
+      "Subject": {
+        "object_id": "O-CAR"
+      },
+      "Focus": {
+        "type": "CAN",
+        "object_id": "O-CAN-TRAVEL"
+      },
+      "Context": {
+        "scenario_id": "S-WITH-RECHARGE",
+        "definition_versions": {
+          "O-CAR": "v1",
+          "O-CAN-TRAVEL": "v1",
+          "O-NEED-ENERGY": "v1",
+          "O-STATION": "v1",
+          "O-CAN-RECHARGE": "v1"
+        },
+        "provenance": {}
+      },
+      "Dependencies": [],
+      "Results": {
+        "actualizability": {
+          "status": "indeterminate",
+          "justification": "Charging accessibility is hypothetical, not verified; cannot reuse no-recharge conclusion."
+        },
+        "prerequisites": {
+          "needs": [
+            {
+              "object_id": "O-NEED-ENERGY"
+            }
+          ],
+          "conditions": [
+            {
+              "condition_id": "C-CHARGER-AVAILABLE",
+              "status": "indeterminate"
+            }
+          ],
+          "coverage": "incomplete"
+        },
+        "potential_contributions": {
+          "needs": [
+            {
+              "object_id": "O-NEED-MOBILITY",
+              "relationship": "candidate"
+            }
+          ],
+          "coverage": "incomplete"
+        }
+      }
+    },
+    {
+      "ID": "PE-NEED-EXCEPTION",
+      "Subject": {
+        "object_id": "O-STATION"
+      },
+      "Focus": {
+        "type": "NEED",
+        "object_id": "O-NEED-CONTINUITY"
+      },
+      "Context": {
+        "scenario_id": "S-INTERRUPTION",
+        "definition_versions": {
+          "O-STATION": "v1",
+          "O-NEED-CONTINUITY": "v1"
+        },
+        "provenance": {}
+      },
+      "Dependencies": [],
+      "Results": {
+        "effective_satisfaction": {
+          "status": "unsatisfied",
+          "violations": [
+            {
+              "start": "2026-11-16T09:20:00+01:00",
+              "end": "2026-11-16T09:40:00+01:00"
+            }
+          ],
+          "evidence": [
+            "MODEL-OUTAGE"
+          ]
+        },
+        "temporal_compliance": {
+          "status": "satisfied",
+          "applied_exceptions": [
+            "EX-001"
+          ],
+          "justification": "Illustrative authorized exception applies to compliance only."
+        },
+        "candidate_cans": {
+          "identified": [],
+          "coverage": "incomplete"
+        }
+      }
+    }
+  ],
+  "expected_revisions": {
+    "PE-CAN-002": "PE-CAN-001",
+    "PE-SCENARIO-002": "PE-SCENARIO-001"
+  },
+  "expected_scenario_independence": [
+    "PE-CAN-003"
+  ],
+  "expected_analytical_cycle": [
+    [
+      "PE-CAN-001",
+      "PE-NEED-001"
+    ]
+  ]
+}
