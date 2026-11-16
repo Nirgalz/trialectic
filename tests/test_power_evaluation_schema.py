@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-70 boundaries. The older
+The schema enforces only approved D-57/D-61-D-71 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -355,6 +355,188 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
             "documentation_only": True
         }
         self.assert_valid(obj)  # no extra-properties closure yet
+
+    def test_d71_identified_required_and_array(self):
+        for invalid in ["missing", None, 1, False, "", {}, "O-CAN-RECHARGE", [None], ["O-CAN-RECHARGE"]]:
+            with self.subTest(value=invalid):
+                obj = copy.deepcopy(self.records[0])
+                candidate = obj["Results"]["candidate_cans"]
+                if invalid == "missing":
+                    candidate.pop("identified")
+                else:
+                    candidate["identified"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d71_candidate_entry_requires_object_id_and_justification(self):
+        invalid_entries = [
+            {}, {"object_id": "O-CAN-RECHARGE"},
+            {"justification": "Candidate match"},
+            {"object_id": "", "justification": "Candidate match"},
+            {"object_id": 7, "justification": "Candidate match"},
+            {"object_id": None, "justification": "Candidate match"},
+            {"object_id": "O-CAN-RECHARGE", "justification": ""},
+            {"object_id": "O-CAN-RECHARGE", "justification": None},
+            {"object_id": "O-CAN-RECHARGE", "justification": 11}
+        ]
+        for invalid in invalid_entries:
+            with self.subTest(entry=invalid):
+                obj = copy.deepcopy(self.records[0])
+                obj["Results"]["candidate_cans"]["identified"] = [invalid]
+                self.assert_invalid(obj)
+
+    def test_d71_candidate_entry_optional_evidence_refs(self):
+        obj = copy.deepcopy(self.records[0])
+        candidate = obj["Results"]["candidate_cans"]
+        entry = {
+            "object_id": "O-CAN-RECHARGE",
+            "justification": "A contemplated recharge could be relevant to the modeled energy NEED."
+        }
+        candidate["identified"] = [entry]
+        self.assert_valid(obj)
+        entry["evidence"] = []
+        self.assert_valid(obj)
+        entry["evidence"] = ["EV-RECHARGE-001"]
+        self.assert_valid(obj)
+        for invalid in [None, 42, "", "EV-RECHARGE-001", {}, [None], [""], [False]]:
+            with self.subTest(evidence=invalid):
+                entry["evidence"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d71_search_status_required_enum(self):
+        for invalid in ["missing", None, "", "Search", "not searched", "unknown", False, 0, []]:
+            with self.subTest(search_status=invalid):
+                obj = copy.deepcopy(self.records[0])
+                candidate = obj["Results"]["candidate_cans"]
+                if invalid == "missing":
+                    candidate.pop("search_status")
+                else:
+                    candidate["search_status"] = invalid
+                self.assert_invalid(obj)
+        obj = copy.deepcopy(self.records[0])
+        obj["Results"]["candidate_cans"]["search_status"] = "searched"
+        self.assert_valid(obj)
+
+    def test_d71_coverage_required_enum(self):
+        for invalid in ["missing", None, "", "Complete", "unknown", "unlimited", False, [], 2]:
+            with self.subTest(coverage=invalid):
+                obj = copy.deepcopy(self.records[0])
+                candidate = obj["Results"]["candidate_cans"]
+                if invalid == "missing":
+                    candidate.pop("coverage")
+                else:
+                    candidate["coverage"] = invalid
+                self.assert_invalid(obj)
+        for allowed in ["complete", "incomplete", "indeterminate"]:
+            with self.subTest(coverage=allowed):
+                obj = copy.deepcopy(self.records[0])
+                candidate = obj["Results"]["candidate_cans"]
+                candidate["search_status"] = "searched"
+                candidate["coverage"] = allowed
+                self.assert_valid(obj)
+
+    def test_d71_no_search_cannot_claim_complete_coverage(self):
+        obj = copy.deepcopy(self.records[0])
+        candidate = obj["Results"]["candidate_cans"]
+        candidate["search_status"] = "not_searched"
+        candidate["coverage"] = "complete"
+        self.assert_invalid(obj)
+        for allowed in ["incomplete", "indeterminate"]:
+            with self.subTest(coverage=allowed):
+                candidate["coverage"] = allowed
+                self.assert_valid(obj)
+
+    def test_d71_scope_required_nonempty(self):
+        for invalid in ["missing", None, "", False, 0, {}, []]:
+            with self.subTest(scope=invalid):
+                obj = copy.deepcopy(self.records[0])
+                candidate = obj["Results"]["candidate_cans"]
+                if invalid == "missing":
+                    candidate.pop("scope")
+                else:
+                    candidate["scope"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d71_justification_required_nonempty(self):
+        for invalid in ["missing", None, "", False, 7, {}, []]:
+            with self.subTest(justification=invalid):
+                obj = copy.deepcopy(self.records[0])
+                candidate = obj["Results"]["candidate_cans"]
+                if invalid == "missing":
+                    candidate.pop("justification")
+                else:
+                    candidate["justification"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d71_inventory_evidence_optional_array(self):
+        obj = copy.deepcopy(self.records[0])
+        candidate = obj["Results"]["candidate_cans"]
+        candidate.pop("evidence", None)
+        self.assert_valid(obj)
+        candidate["evidence"] = []
+        self.assert_valid(obj)
+        candidate["evidence"] = ["EV-SEARCH-001"]
+        self.assert_valid(obj)
+        for invalid in [None, "EV-SEARCH-001", "", 5, {}, [None], [""], [False]]:
+            with self.subTest(evidence=invalid):
+                candidate["evidence"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d71_uncertainty_optional_object(self):
+        obj = copy.deepcopy(self.records[0])
+        candidate = obj["Results"]["candidate_cans"]
+        candidate.pop("uncertainty", None)
+        self.assert_valid(obj)
+        candidate["uncertainty"] = {}
+        self.assert_valid(obj)
+        candidate["uncertainty"] = {"description": "Inventory was not independently verified"}
+        self.assert_valid(obj)
+        for invalid in [None, "not certain", 7, False, []]:
+            with self.subTest(uncertainty=invalid):
+                candidate["uncertainty"] = invalid
+                self.assert_invalid(obj)
+
+    def test_d71_empty_scoped_complete_inventory_not_proof_of_impossibility(self):
+        obj = copy.deepcopy(self.records[0])
+        c = obj["Results"]["candidate_cans"]
+        c.update(
+            identified=[],
+            search_status="searched",
+            coverage="complete",
+            scope="Declared hypothetical candidate classes only",
+            justification="Illustrative scoped inventory; no globally exhaustive claim."
+        )
+        self.assert_valid(obj)
+
+    def test_d71_candidate_in_environment_not_an_actualization_proof(self):
+        obj = copy.deepcopy(self.records[0])
+        obj["Results"]["candidate_cans"]["identified"] = [{
+            "object_id": "O-CAN-RECHARGE",
+            "justification": "A different Object could contribute through a contemplated recharge."
+        }]
+        self.assert_valid(obj)  # structural matching only, no Power inference
+
+    def test_d71_reference_target_type_needs_semantic_validation(self):
+        obj = copy.deepcopy(self.records[0])
+        obj["Results"]["candidate_cans"]["identified"] = [{
+            "object_id": "O-NEED-ENERGY",
+            "justification": "Syntactically valid but this Object is not a CAN."
+        }]
+        self.assert_valid(obj)
+        data = copy.deepcopy(self.fixture)
+        data["evaluations"][0] = obj
+        with self.assertRaises(ValueError):
+            validate_fixture(data)  # known wrong Object category
+
+    def test_d71_extra_nested_metadata_remains_open(self):
+        obj = copy.deepcopy(self.records[0])
+        c = obj["Results"]["candidate_cans"]
+        c["unapproved_future_metadata"] = {"content": "not standardized"}
+        c["identified"] = [{
+            "object_id": "O-CAN-RECHARGE",
+            "justification": "Illustrative contextual match",
+            "unapproved_candidate_metadata": True
+        }]
+        self.assert_valid(obj)
 
     def test_structure_cannot_prove_reference_existence(self):
         obj = copy.deepcopy(self.records[1])
