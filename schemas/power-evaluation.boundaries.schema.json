@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:power-evaluation:structural-boundaries-v0",
-  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-69)",
-  "description": "Executable Draft 2020-12 partial structural schema: validated D-57/D-66 top level, D-67 Focus, D-68 Subject/Context/Dependencies, D-61–D-63 focus-dependent Results sections and D-69 NEED effective_satisfaction fields. Other Results internals, evidence credibility, measurement adequacy and cross-record semantic validation remain OPEN; passing this schema does not establish complete structural or semantic validity.",
+  "title": "PowerEvaluation — partial structural contract (D-57, D-61–D-70)",
+  "description": "Executable Draft 2020-12 partial boundary schema: six-field top-level, D-67 Focus, D-68 typed Subject/Context/Dependencies, D-61–D-63 Focus-specific Results section names, D-69 NEED effective_satisfaction and D-70 NEED temporal_compliance applicability/status. Full nested candidate CAN/CAN/Scenario results, exception authorization, temporal engine, evidence quality and cross-record semantic validation remain OPEN.",
   "type": "object",
   "required": [
     "ID",
@@ -260,6 +260,9 @@
       "properties": {
         "effective_satisfaction": {
           "$ref": "#/$defs/needEffectiveSatisfaction"
+        },
+        "temporal_compliance": {
+          "$ref": "#/$defs/needTemporalCompliance"
         }
       }
     },
@@ -406,6 +409,84 @@
           "type": "object"
         }
       }
+    },
+    "needTemporalCompliance": {
+      "type": "object",
+      "description": "D-70: distinguish temporal requirement applicability from the three-state compliance result; exceptions affect compliance requirements, not effective NEED satisfaction. Extra nested metadata remains undecided.",
+      "required": [
+        "applicability",
+        "justification"
+      ],
+      "properties": {
+        "applicability": {
+          "type": "string",
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "indeterminate"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "unsatisfied",
+            "indeterminate"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "applied_exceptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "uncertainty": {
+          "type": "object"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "applicability": {
+              "const": "applicable"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        },
+        {
+          "properties": {
+            "applicability": {
+              "const": "not_applicable"
+            }
+          },
+          "not": {
+            "required": [
+              "status"
+            ]
+          }
+        },
+        {
+          "properties": {
+            "applicability": {
+              "const": "indeterminate"
+            },
+            "status": {
+              "const": "indeterminate"
+            }
+          }
+        }
+      ]
     }
   }
 }
