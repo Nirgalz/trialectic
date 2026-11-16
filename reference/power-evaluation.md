@@ -1,0 +1,110 @@
+# PowerEvaluation — validated conceptual data model
+
+**Status:** **VALIDATED by author — November 16, 2026 (D-64)**, consolidating D-48–D-63.  
+**Branch:** `dev`.  
+**Scope:** approved **conceptual data model and named data-structure layers**, **not a final machine-enforced JSON Schema**, production evaluator, exhaustive data contract, or scientific validation.
+
+This companion document summarizes the applicable decisions from the [canonical working reference](trialectic-method.md). In case of ambiguity, consult that reference and [DECISIONS.md](../DECISIONS.md). [Synthetic executable fixtures](../tests/cases/power_evaluation.json) and [unit tests](../tests/test_power_evaluation.py) illustrate and check selected invariants without defining additional normative semantics.
+
+## 1. Purpose and distinct layers
+
+**Power / Pouvoir** is a **contextual comparative analytical operation** involving an Object's NEEDs, the NEEDs of its CANs, and the relevant NEEDs and CANs in its Environment. A `PowerEvaluation` records its **Focus-centered contextual results**. It does **not** constitute the Object, the NEED or CAN, an Actualization event, or the Definition of a Resolution Scenario.
+
+Preserve separate identities for:
+- **Object Definitions:** versioned composition, properties, NEED/CAN Object references and conceptual relations.
+- **Power evaluations:** context-specific, historically traceable analytical conclusions and uncertainty.
+- **Actualization events and Scenario history:** contemplated steps must remain distinct from simulated events and observed effects.
+
+NEEDs and CANs have unique Object IDs (D-50). These are **not interchangeable** with IDs of relation records, conditions, links, Scenarios, or Power evaluations.
+
+## 2. Common PowerEvaluation structure
+
+A Focus-centered evaluation has these **six top-level fields** (D-57, validated again as a coherent whole by D-64):
+
+| Field | Validated high-level contract |
+| --- | --- |
+| `ID` | A unique identifier of the **evaluation**, distinct from the Subject, Focus Object and relation-record IDs |
+| `Subject` | The Object whose contextual situation is analyzed |
+| `Focus` | Exactly the chosen NEED, CAN, or Resolution Scenario for this evaluation |
+| `Context` | Information required to interpret the result: relevant Scenario, time or interval, assumptions, evidence context and applicable Object Definition versions |
+| `Dependencies` | References to **analytical evaluations used** as inputs; not conceptual NEED/CAN links |
+| `Results` | A Focus-specific results structure, with distinct evidence, reasons and uncertainty where applicable |
+
+The precise JSON types, internal field keys beyond the named validated structures, requiredness of optional information, scope of identifiers, and formal serialization remain **OPEN**. The example JSON in the test fixtures is one explicitly **provisional serialization**, not a universal enforcement schema.
+
+### 2.1 NEED Focus (D-35, D-49, D-61)
+
+`Results` has these three named substructures:
+
+| Substructure | Meaning |
+| --- | --- |
+| `effective_satisfaction` | Actual NEED satisfaction, with analytical `satisfied`, `unsatisfied`, `indeterminate` states and an **optional justified degree** when meaningful |
+| `temporal_compliance` | Separate evaluation of applicable temporal requirements and duly authorized exceptions, when relevant |
+| `candidate_cans` | CANs that may contribute **by Actualization or resulting states** to NEED satisfaction, including incomplete-search/coverage information |
+
+Partial NEED satisfaction is not a fourth mandatory status, the degree is not a probability, and partial satisfaction of conditions is not necessarily partial satisfaction of the NEED. Temporal compliance does not erase factual interruptions or make a NEED effectively satisfied. No identified candidate CAN does not prove impossible satisfaction. Each part can have its **own** evidence, justification and uncertainty.
+
+### 2.2 CAN Focus (D-51, D-62)
+
+`Results` has these three named substructures:
+
+| Substructure | Meaning |
+| --- | --- |
+| `actualizability` | Contextual possibility of the **specified contemplated Actualization**: `actualizable`, `partially_actualizable`, `not_actualizable`, or `indeterminate` |
+| `prerequisites` | Identified NEEDs, CANs and conditions required for the contemplated Actualization, with scoped coverage and evaluation links as relevant |
+| `potential_contributions` | NEEDs to which the CAN's Actualization or resulting states could contribute, **without presuming proven contribution or sufficiency** |
+
+A degree of possible CAN Actualization is **optional**, only if its measure is relevant and justified. Do not infer it directly from the weighted satisfaction of prerequisite NEEDs or confuse it with probability of successful Actualization. Missing prerequisite evaluations do not prove impossibility; the list may be incomplete. Adverse effects on other Objects must be considered in the wider Actualization or Scenario assessment.
+
+### 2.3 Resolution Scenario Focus (D-31–D-35, D-44, D-63)
+
+`Results` has these four named substructures:
+
+| Substructure | Meaning |
+| --- | --- |
+| `actualization_assessments` | References/evaluations for contemplated CAN Actualizations, with ordering and relations residing in the Scenario model |
+| `scenario_assessment` | Distinct feasibility and its uncertainty, complexity, cost/resources, temporality and expected effectiveness dimensions |
+| `effects` | Anticipated, simulated, observed or (if supported) causally attributed favorable/adverse effects on Subjects, Environment Objects and relevant NEEDs/CANs |
+| `comparisons` | Contextual comparison with other alternatives; no compulsory winner, universal rank or aggregate score |
+
+Preserve direct/indirect versus immediate/delayed as **independent axes**. Distinguish uncertainty about feasibility, probability of success, and possibility/probability of individual consequences. Keep Scenario branches isolated. Generation, assessment and optional selection are distinct. Each results part retains separable reasons, evidence and uncertainty.
+
+## 3. Analytical dependencies, revisions and reuse (D-52–D-60)
+
+**Different links have different meanings:**
+
+- **Conceptual dependency:** Object/NEED/CAN relationship in the versioned Definition layer.
+- **Analytical dependency:** `PowerEvaluation.Dependencies` refers to assessment(s) whose results are used; it does not itself assert a causal/constitutive relationship.
+- **Revision lineage:** `PowerEvaluation.Context.provenance.revises` refers to the **earlier evaluation** whose results, justification or uncertainty are revised; it is required for a revision and absent/optional for independent evaluations.
+- **Object Parent/Children lineage:** tracks Object branches, not assessment versions.
+
+A change to **a result, its justification, or its uncertainty** creates an evaluation with **a new unique `ID`**, preserving the original record and linking to the evaluation revised (D-58–D-60). The same CAN evaluated independently under a distinct Scenario does **not automatically** revise the previous assessment.
+
+Reusing an evaluation requires at least verifying compatibility of **Focus**, **context**, **relevant Definition versions**, and **available information/evidence/uncertainty** (D-54). Difference does not automatically mean incompatibility, but compatibility cannot be presumed; the rules proving it remain OPEN.
+
+On changed input or evaluation, **selectively reexamine analytical dependents** and propagate pertinent differences in result, reasoning or uncertainty until no further relevant evaluation needs reassessment (D-55). Do not overwrite historical records.
+
+**Analytical cycles** are detected and grouped for joint examination from independent information, temporal context and possible initiating changes, without unbounded recursion (D-56). An analytical reference cycle is **not proof** of a causal cycle, impossible Actualization or a unique solution. Unresolved results remain indeterminate/conditional.
+
+## 4. Tested illustrative cross-Focus fixture
+
+The [seven-record synthetic fixture](../tests/cases/power_evaluation.json) connects:
+
+1. A car's energy **NEED** evaluation `PE-NEED-001`.
+2. A travel **CAN** evaluation `PE-CAN-001` depending analytically on that NEED.
+3. A no-recharge **Scenario** evaluation `PE-SCENARIO-001`, referencing the related evaluations.
+4. A revised CAN evaluation `PE-CAN-002` retaining the numeric conclusion but revising its epistemic basis (and `PE-SCENARIO-002` as a downstream reassessment).
+5. Independent `PE-CAN-003` in a distinct hypothetical recharge Scenario, without a revision link.
+6. A separate NEED example `PE-NEED-EXCEPTION` showing **effective dissatisfaction** despite **satisfied temporal compliance** under a modeled authorized exception.
+
+**Engineering test evidence:** GitHub Actions execution [43823308169](https://github.com/Nirgalz/trialectic/actions/runs/43823308169) reported **35 tests passing** (including 20 focused on these structures) on `dev` as of November 16, 2026. That evidence is about these **synthetic cases**, not a scientific or semantic proof of general correctness. CI should be verified again after changes; successful historical runs are not automatically current.
+
+## 5. Still open — not silently approved by D-64
+
+- Final **JSON Schema**, detailed nested attributes, field types, optionality, `not_applicable` versus `indeterminate`, reference normalization, revision-link integrity and creation timestamps.
+- Quantitative degree semantics, thresholds, comparability and justified aggregation; exact Power calculation across nonexhaustive paths.
+- Reuse compatibility proof, impact tests, cycle convergence, alternative-path completeness, version-sensitive cache invalidation and automatic recursive propagation.
+- Verified causal sufficiency, actual effects, scenario execution and representative multi-Object examples beyond the synthetic car case.
+- Independent reproductions, empirical evaluations, probability calibration, additional adversarial tests and use in real analyses.
+
+**Meaning of D-64:** the author has validated `PowerEvaluation` as the **integrated conceptual data model** and approved its incorporation in the `dev` reference. D-64 **does not resolve** the explicitly OPEN details above or turn illustrative JSON subfields into mandatory rules.
