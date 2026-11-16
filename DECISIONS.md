@@ -1562,5 +1562,21 @@ Lorsqu'une exigence indispensable est insatisfaite ou indéterminée, cette info
 
 Related tasks: T-01, T-02, T-03, T-05, T-15, T-24, T-27, T-28, T-30.
 
+## D-83 · Immutable NEED/CAN identity, candidate identification and independent attribution
+Date: November 16, 2026 | Status: **VALIDATED conceptual principles by author in project discussion** | Branch: `dev`
+
+**Validated principles (author-confirmed):**
+
+1. A NEED or CAN is an Object with its own identity and potentially its own NEEDs; specifically, **a CAN can possess NEEDs**. Identification of that Object as NEED or CAN is independent of its attribution to another Object.
+2. An Object cannot be identified as both NEED and CAN, even in different contexts. The NEED/CAN conceptual identity is **exclusive and immutable for a given Object ID**.
+3. An insufficiently justified identification remains an **epistemically qualified hypothesis** (claim), not a definitive NEED/CAN identity. Uncertainty about identification is not a third kind of NEED or CAN.
+4. Attribution of an identified NEED/CAN to another Object is a **distinct contextual relation**. In particular, merely identifying a CAN does not establish its possession by a Subject or its inclusion in that Subject's Puissance.
+5. A CAN attribution must be justified from current constitutive properties/relations, separately from its NEEDs, contextual actionability, Power and effective Actualization. A refuted or indeterminate attribution must not enter the bearer Object's established Puissance. No standalone subtype `attributable CAN` is introduced (T-01-K).
+6. Reclassifying an Object from NEED to CAN or CAN to NEED requires a **new Object ID**, preserving the historical record and revisiting dependent conclusions. A correction of erroneous identification must be traced separately from a physical/constitutive transformation; ordinary changes of Definition, NEEDs and relations do not change the immutable conceptual identity.
+
+**Compatibility and implementation boundary:** D-25's stable Object ID, D-36's relational representation, D-50's independent NEED/CAN Object IDs, D-75's `represented_object` versus `origin_object`, D-77's transport profile, and D-82's identification principles all remain in force. This decision does **not** itself settle a universal classification algorithm, thresholds for proof, cross-document history storage or empirical truth. Record proposed serialization and executable tests distinctly from these approved principles. Historical decisions are not silently rewritten.
+
+Related tasks: T-01, T-02, T-24, T-27, T-28, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
