@@ -1,6 +1,6 @@
 {
   "schema": "power-evaluation-fixtures-v0-provisional",
-  "status": "synthetic illustration of the author-validated conceptual PowerEvaluation model (D-64), validation layers (D-65), and boundary-level typed schema (D-66–D-68); internal Results serialization, degree hypotheses and fixture-specific semantic rules remain provisional",
+  "status": "synthetic examples illustrating the validated D-64 conceptual model, D-65–D-68 validation boundaries and D-69 NEED effective_satisfaction contract; other Results fields, degree hypotheses, and fixture-specific semantic restrictions remain provisional",
   "decisions": [
     "D-35",
     "D-49",
@@ -21,7 +21,8 @@
     "D-65",
     "D-66",
     "D-67",
-    "D-68"
+    "D-68",
+    "D-69"
   ],
   "objects": {
     "O-CAR": {
@@ -479,7 +480,8 @@
           ],
           "evidence": [
             "MODEL-OUTAGE"
-          ]
+          ],
+          "justification": "In the declared synthetic interruption interval, service continuity was not effectively maintained; the modeled authorized exception affects temporal compliance only."
         },
         "temporal_compliance": {
           "status": "satisfied",
