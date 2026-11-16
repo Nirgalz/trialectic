@@ -1,6 +1,6 @@
 """Draft 2020-12 boundary/schema checks; deliberately NOT a complete nested data contract.
 
-The schema enforces only approved D-57/D-61-D-73 boundaries. The older
+The schema enforces only approved D-57/D-61-D-74 boundaries. The older
 test_power_evaluation.py adapter supplies separate, provisional semantic checks.
 """
 from __future__ import annotations
@@ -851,6 +851,169 @@ class PowerEvaluationBoundarySchemaTests(unittest.TestCase):
         fixture["evaluations"][1] = obj
         with self.assertRaises(ValueError):
             validate_fixture(fixture)  # D-53/D-54 independent analytical resolution
+
+    def test_d74_required_potential_contribution_fields(self):
+        for key in ["needs", "search_status", "coverage", "scope", "justification"]:
+            with self.subTest(missing=key):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"].pop(key)
+                self.assert_invalid(obj)
+
+    def test_d74_potential_contributions_must_be_object(self):
+        for bad in [None, False, "", 0, [], {"needs": []}]:
+            with self.subTest(value=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_need_candidates_list_can_be_empty(self):
+        obj = copy.deepcopy(self.records[1])
+        c = obj["Results"]["potential_contributions"]
+        c["needs"] = []
+        self.assert_valid(obj)
+        for bad in [None, False, {}, "O-NEED-MOBILITY", 8]:
+            with self.subTest(value=bad):
+                c["needs"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_candidate_need_entry_required_fields(self):
+        for key in ["object_id", "relationship", "justification"]:
+            with self.subTest(missing=key):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"]["needs"][0].pop(key)
+                self.assert_invalid(obj)
+        for bad in [None, "O-NEED-MOBILITY", {}, [], False, 2]:
+            with self.subTest(entry=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"]["needs"] = [bad]
+                self.assert_invalid(obj)
+
+    def test_d74_need_reference_nonempty_string(self):
+        for bad in ["", None, 2, False, [], {}]:
+            with self.subTest(object_id=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"]["needs"][0]["object_id"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_relationship_is_exactly_candidate(self):
+        for bad in ["contributes", "contribution", "sufficient",
+                    "causally_established", "actualized", "Candidate", "", None,
+                    False, 0]:
+            with self.subTest(relationship=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"]["needs"][0]["relationship"] = bad
+                self.assert_invalid(obj)
+        self.assert_valid(self.records[1])
+
+    def test_d74_per_candidate_justification_and_evidence(self):
+        for bad in ["", None, [], False, 3]:
+            with self.subTest(justification=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"]["needs"][0]["justification"] = bad
+                self.assert_invalid(obj)
+        obj = copy.deepcopy(self.records[1])
+        item = obj["Results"]["potential_contributions"]["needs"][0]
+        item.pop("evidence", None)
+        self.assert_valid(obj)
+        item["evidence"] = []
+        self.assert_valid(obj)
+        item["evidence"] = ["EV-MOBILITY-HYPOTHESIS"]
+        self.assert_valid(obj)
+        for bad in ["EV-1", None, [""], [False], [None], {}, 1]:
+            with self.subTest(evidence=bad):
+                item["evidence"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_search_status_required_exact_enum(self):
+        for good in ["not_searched", "searched"]:
+            with self.subTest(status=good):
+                obj = copy.deepcopy(self.records[1])
+                p = obj["Results"]["potential_contributions"]
+                p["search_status"] = good
+                self.assert_valid(obj)
+        for bad in ["not searched", "unknown", "done", None, "", False, 0]:
+            with self.subTest(status=bad):
+                obj = copy.deepcopy(self.records[1])
+                obj["Results"]["potential_contributions"]["search_status"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_scoped_coverage_enum_and_search_consistency(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["potential_contributions"]
+        p["search_status"] = "searched"
+        for good in ["complete", "incomplete", "indeterminate"]:
+            with self.subTest(coverage=good):
+                p["coverage"] = good
+                self.assert_valid(obj)
+        for bad in ["not_searched", "exhaustive", None, "", False, 1]:
+            with self.subTest(coverage=bad):
+                p["coverage"] = bad
+                self.assert_invalid(obj)
+        p["search_status"] = "not_searched"
+        p["coverage"] = "complete"
+        self.assert_invalid(obj)
+        p["coverage"] = "indeterminate"
+        self.assert_valid(obj)
+
+    def test_d74_scope_and_inventory_justification_nonempty(self):
+        for key in ["scope", "justification"]:
+            for bad in ["", None, False, 1, {}, []]:
+                with self.subTest(key=key, value=bad):
+                    obj = copy.deepcopy(self.records[1])
+                    obj["Results"]["potential_contributions"][key] = bad
+                    self.assert_invalid(obj)
+
+    def test_d74_inventory_evidence_optional_reference_array(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["potential_contributions"]
+        p.pop("evidence", None)
+        self.assert_valid(obj)
+        p["evidence"] = []
+        self.assert_valid(obj)
+        p["evidence"] = ["EV-CANDIDATE-SEARCH"]
+        self.assert_valid(obj)
+        for bad in ["EV-1", None, [""], [False], [None], {}, 1]:
+            with self.subTest(evidence=bad):
+                p["evidence"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_uncertainty_optional_object(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["potential_contributions"]
+        p.pop("uncertainty", None)
+        self.assert_valid(obj)
+        p["uncertainty"] = {}
+        self.assert_valid(obj)
+        p["uncertainty"] = {"description": "Contribution unverified"}
+        self.assert_valid(obj)
+        for bad in [None, "", 1, False, []]:
+            with self.subTest(uncertainty=bad):
+                p["uncertainty"] = bad
+                self.assert_invalid(obj)
+
+    def test_d74_no_structural_proof_of_causation_or_complete_inventory(self):
+        obj = copy.deepcopy(self.records[1])
+        p = obj["Results"]["potential_contributions"]
+        p["needs"].append({"object_id": "UNVERIFIED-NEED",
+                           "relationship": "candidate",
+                           "justification": "Speculative relationship; identity unverified"})
+        p.update(search_status="searched", coverage="complete")
+        self.assert_valid(obj)  # causal claim, identity, exhaustive scope still semantic
+        p["candidate_metadata_not_yet_standardized"] = {"indirect": True}
+        p["needs"][0]["undecided_metadata"] = {"causal_proof_not_claimed": True}
+        self.assert_valid(obj)  # unapproved nested additionalProperties still OPEN
+
+    def test_d74_semantic_validator_rejects_wrong_need_object_kind(self):
+        obj = copy.deepcopy(self.records[1])
+        obj["Results"]["potential_contributions"]["needs"] = [{
+            "object_id": "O-CAN-TRAVEL", "relationship": "candidate",
+            "justification": "Syntactically valid, but target is not a NEED."
+        }]
+        self.assert_valid(obj)
+        data = copy.deepcopy(self.fixture)
+        data["evaluations"][1] = obj
+        with self.assertRaises(ValueError):
+            validate_fixture(data)
 
     def test_structure_cannot_prove_reference_existence(self):
         obj = copy.deepcopy(self.records[1])
