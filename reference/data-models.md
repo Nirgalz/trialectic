@@ -12,7 +12,10 @@ remain authoritative. Profile-specific identifier/closure choices do not tighten
 PowerEvaluation. Other lifecycle, owner, cardinality, temporal, logical and
 evidential semantics remain OPEN. Earlier OPEN/prospective-D-75 statements below
 are superseded only within V-01–V-06; **Scenario nested results are still OPEN**.
-Conflicts C-01–C-10 and their resolutions remain proposed. See
+**D-76 update:** C-01–C-10 resolutions are now validated and implemented in
+[normalized-v1](../schemas/normalized-v1/README.md), with an explicit, source-preserving
+migration adapter. The normative PowerEvaluation assertions are unchanged; the
+global envelope and Scenario nested results remain OPEN. See
 [D-75](../DECISIONS.md#d-75--partial-approval-of-compatible-normalized-proposal-choices).
 
 

@@ -1290,5 +1290,43 @@ partially settle representation choices without closing their remaining semantic
 See the reconciliation register, canonical reference and catalogue. No TODO is
 closed and no scientific validation is claimed.
 
+## D-76 · Approval and implementation of proposal conflict resolutions C-01–C-10
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+**Authorization:** The author stated: « J'accepte ces résolutions, tu peux les effectuer valider ».
+
+**Decision:** Approve C-01–C-10 in the [reconciliation register](schemas/proposal-v0/RECONCILIATION.md).
+Implement them in a new [normalized-v1](schemas/normalized-v1/README.md), preserving
+proposal-v0 as history and reusing the unchanged normative PowerEvaluation schema.
+
+- C-01–C-03: six-field evaluations, Object-based Focus via represented_object,
+  and Focus-specific Results; no universal Actualizability field.
+- C-04–C-06: explicit known Definition-version pins; optional Scenario; preserved
+  source timestamps; justified satisfaction/applicability, candidates and prerequisites.
+  Missing source data requires explicit supplements, never fabricated defaults.
+- C-07: separate generic measures; documented same-value unit/basis equivalence
+  for degree conversion, preserving source information. Numeric conversion algorithms
+  need separate review.
+- C-08: preserve D-37 objects/operator group arrays and D-34 operator/requirements
+  time groups; recursive logic remains scoped to condition/pathway definitions.
+- C-09: no transport ID pattern or nested-property closure is imposed on normative
+  evaluation items. Aliases/conversions, when needed, must preserve original identity.
+- C-10: explicitly classify legacy links as analytical input, revision or both;
+  verify Dependencies/revises accordingly; revisions need new evaluation IDs and
+  preserved predecessors. Unclassified links block migration.
+
+**Implementation:** The migration takes source data plus an explicit supplement
+plan, validates the result offline, retains original records/document and plan,
+and creates a separate output without overwriting existing files. Synthetic
+example supplements are declarations, not recovered evidence. Selected consistency
+checks are implemented; complete semantic validation is still OPEN.
+
+**Limits:** This approves the resolutions, not the complete global exchange
+envelope, every inherited proposal field, physical identity/lifecycle/cardinality,
+reference-owner rules, general alias algorithms, inter-group semantics, temporal
+exceptions/DST, Scenario nested results or empirical truth. No research TODO is closed.
+The original D-75 approval history remains traceable; D-76 supersedes its statements
+that C-01–C-10 resolutions were unapproved.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

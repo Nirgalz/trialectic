@@ -1,5 +1,7 @@
 # TODO — Trialectic Method
 
+**D-76 reconciliation implemented (2026-11-16; no task closure):** C-01–C-10 resolutions are author-approved. [normalized-v1](schemas/normalized-v1/README.md) embeds normative PowerEvaluation items, preserves approved compositions and provides an explicit source-preserving migration with regression tests. Global envelope, full semantic checks and Scenario internals remain OPEN.
+
 **D-75 partial proposal approval (2026-11-16; no task closure):** V-01–V-06 approve compatible identity/transport/expression/record-family choices. [C-01–C-10](schemas/proposal-v0/RECONCILIATION.md) require reviewed PowerEvaluation reconciliation, loss-aware migration, scoped composition and metadata handling (T-30/T-03/T-24). Proposed resolutions are not approved; Scenario nested results and remaining semantic rules stay OPEN.
 
 **Working register** · Updated: November 15, 2026 · **30 tracked task IDs (29 open work items and 1 ongoing governance process)** · Canonical reference: [`reference/trialectic-method.md`](reference/trialectic-method.md) · Branch: `dev`

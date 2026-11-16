@@ -20,9 +20,9 @@ Approval is technical/conceptual within these boundaries, not empirical validati
 The global envelope and complete set of required collections remain unapproved.
 Do not infer approval of every JSON assertion from a validated architectural choice.
 
-## Conflicts and proposed resolutions — NOT YET APPROVED
+## Conflicts and resolutions — VALIDATED by D-76
 
-| ID | Conflict / incompatible overlap | Approved authority | Proposed resolution |
+| ID | Conflict / incompatible overlap | Approved authority | Resolution approved by D-76 |
 | --- | --- | --- | --- |
 | C-01 | `$defs.powerAssessment` is flat, uses different fields and lacks the six-field envelope | D-57, D-66 | Replace assessment items in a future normalized schema with the normative `PowerEvaluation` schema; preserve old records through an explicit versioned migration. Keep the global Analysis envelope a separate proposal. |
 | C-02 | `focus.kind`, `SCENARIO`, NEED/CAN `relation` target | D-50, D-67 | Use `Focus.type` = NEED/CAN/Scenario and `object_id`/`scenario_id`. Resolve a legacy relation target through validated V-01 `represented_object`; never substitute the relation ID or origin ID. Ambiguous/missing targets block migration. The Analysis-level focus remains separately scoped. |
@@ -49,7 +49,7 @@ Scenario nested results and global envelope requiredness remain OPEN. V-01–V-0
 do not settle these by implication. In particular D-75 does **not** formalize the
 Scenario result fields previously anticipated under that decision number.
 
-## Implementation order proposed for review
+## Implementation order (D-76)
 
 1. Reuse the approved PowerEvaluation contract and resolve Focus identity (C-01–C-04).
 2. Define loss-aware migration of results, degree and dependency/revision links (C-05–C-07, C-10).
@@ -58,5 +58,8 @@ Scenario result fields previously anticipated under that decision number.
    interruption, unknown applicability, empty candidate search, missing version pins,
    ambiguous represented Objects, and revision/input-link separation.
 
-No automatic migration, change to normative schema assertions, or resolution
-approval is performed by this register.
+**D-76 update:** The author has approved C-01–C-10. Their implementation and
+regression tests are in [normalized-v1](../normalized-v1/README.md) and the
+[migration adapter](../../tools/reconcile_proposal_v0.py). The normative
+PowerEvaluation assertions are unchanged; the global envelope remains experimental.
+Earlier statements of unapproved resolutions describe the pre-D-76 status.

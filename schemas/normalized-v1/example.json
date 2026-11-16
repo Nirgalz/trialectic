@@ -1,0 +1,1503 @@
+{
+  "schema_version": "1.0.0-reconciled-proposal",
+  "analysis_id": "A-generator-demo",
+  "main_subject": {
+    "id": "O-generator",
+    "version": "v1"
+  },
+  "secondary_subjects": [
+    {
+      "id": "O-room",
+      "version": "v1"
+    }
+  ],
+  "focus": {
+    "kind": "CAN",
+    "relation": {
+      "id": "R-start",
+      "version": "v1"
+    }
+  },
+  "environment": [
+    {
+      "id": "O-battery",
+      "version": "v1"
+    },
+    {
+      "id": "O-grid",
+      "version": "v1"
+    },
+    {
+      "id": "O-room",
+      "version": "v1"
+    }
+  ],
+  "objects": [
+    {
+      "id": "O-generator",
+      "category": "technical_object",
+      "label": "Emergency generator",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-battery",
+      "category": "technical_object",
+      "label": "Starting battery",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-grid",
+      "category": "system",
+      "label": "External electrical supply",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-room",
+      "category": "system",
+      "label": "Room under study",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-start",
+      "category": "semantic_object",
+      "label": "CAN: start generator (illustrative identity)",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-continuity",
+      "category": "semantic_object",
+      "label": "NEED: maintain room power (illustrative identity)",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    }
+  ],
+  "definitions": [
+    {
+      "object_id": "O-generator",
+      "version": "v1",
+      "constituents": [
+        {
+          "id": "O-battery",
+          "version": "v1"
+        }
+      ],
+      "properties": {
+        "power_ready": {
+          "description": "Whether generator is ready to deliver energy"
+        }
+      },
+      "relation_refs": [
+        {
+          "id": "R-start",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-battery",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "charged": {
+          "description": "Availability of sufficient starting charge"
+        }
+      },
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-grid",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "available": {
+          "description": "External power availability"
+        }
+      },
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-room",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "power_available": {
+          "description": "Room electrical supply state"
+        }
+      },
+      "relation_refs": [
+        {
+          "id": "R-continuity",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-start",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-continuity",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    }
+  ],
+  "relations": [
+    {
+      "id": "R-start",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-generator",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-start",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "O-battery",
+          "version": "v1"
+        },
+        {
+          "id": "O-grid",
+          "version": "v1"
+        }
+      ],
+      "description": "Illustrative CAN to start generator; neither alternative proves full real-world Power.",
+      "relation": {
+        "nature": [
+          "contributive"
+        ],
+        "links": [
+          {
+            "id": "L-battery",
+            "object_id": "O-battery",
+            "source_list": "CANs",
+            "roles": [
+              "enabling"
+            ],
+            "conditions": [
+              {
+                "kind": "condition",
+                "id": "C-battery",
+                "owner_id": "R-start",
+                "version": "v1"
+              }
+            ],
+            "mechanism": "Battery may provide starting power"
+          },
+          {
+            "id": "L-grid",
+            "object_id": "O-grid",
+            "source_list": "CANs",
+            "roles": [
+              "enabling"
+            ],
+            "conditions": [
+              {
+                "kind": "condition",
+                "id": "C-grid",
+                "owner_id": "R-start",
+                "version": "v1"
+              }
+            ],
+            "mechanism": "External source may provide starting power"
+          }
+        ],
+        "composition": [
+          {
+            "objects": [
+              "O-battery",
+              "O-grid"
+            ],
+            "operator": "any"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-continuity",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-room",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-continuity",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "O-generator",
+          "version": "v1"
+        }
+      ],
+      "required_state": {
+        "property": "power_available",
+        "value": true
+      },
+      "description": "Room needs continuous electrical supply, regardless of whether a CAN is Actualized.",
+      "relation": {
+        "nature": [
+          "functional"
+        ],
+        "links": [
+          {
+            "id": "L-generator",
+            "object_id": "O-generator",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "mechanism": "Generator might contribute if connected and compatible"
+          }
+        ]
+      },
+      "temporal": {
+        "time_zone": "Europe/Paris",
+        "requirements": [
+          {
+            "id": "TR-continuous",
+            "target": "satisfaction",
+            "mode": "continuous",
+            "window": {
+              "start": "2026-11-16T08:00:00+01:00",
+              "end": "2026-11-16T12:00:00+01:00"
+            }
+          }
+        ],
+        "estimates": []
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "C-battery",
+      "owner_relation": {
+        "id": "R-start",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-battery",
+          "version": "v1"
+        },
+        "property": "charged",
+        "operator": "equals",
+        "value": true
+      }
+    },
+    {
+      "id": "C-grid",
+      "owner_relation": {
+        "id": "R-start",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-grid",
+          "version": "v1"
+        },
+        "property": "available",
+        "operator": "equals",
+        "value": true
+      }
+    }
+  ],
+  "pathways": [
+    {
+      "id": "P-battery",
+      "version": "v1",
+      "owner_relation": {
+        "id": "R-start",
+        "version": "v1"
+      },
+      "coverage": "complete",
+      "scope": "Only the stipulated simplified start-power prerequisite",
+      "expression": {
+        "ref": {
+          "kind": "condition",
+          "id": "C-battery",
+          "owner_id": "R-start",
+          "version": "v1"
+        }
+      }
+    },
+    {
+      "id": "P-grid",
+      "version": "v1",
+      "owner_relation": {
+        "id": "R-start",
+        "version": "v1"
+      },
+      "coverage": "complete",
+      "scope": "Only the stipulated simplified start-power prerequisite",
+      "expression": {
+        "ref": {
+          "kind": "condition",
+          "id": "C-grid",
+          "owner_id": "R-start",
+          "version": "v1"
+        }
+      }
+    }
+  ],
+  "inventories": [
+    {
+      "id": "I-start",
+      "version": "v1",
+      "owner_relation": {
+        "id": "R-start",
+        "version": "v1"
+      },
+      "coverage": "incomplete",
+      "search_status": "candidates_identified",
+      "expression": {
+        "op": "any",
+        "items": [
+          {
+            "ref": {
+              "kind": "pathway",
+              "id": "P-battery",
+              "owner_id": "R-start",
+              "version": "v1"
+            }
+          },
+          {
+            "ref": {
+              "kind": "pathway",
+              "id": "P-grid",
+              "owner_id": "R-start",
+              "version": "v1"
+            }
+          }
+        ]
+      },
+      "scope": "Illustrative pathways, not exhaustive real-world actionability"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S0",
+      "parent_scenario_id": null,
+      "mode": "hypothetical",
+      "object_heads": [
+        {
+          "id": "O-generator",
+          "version": "v1"
+        },
+        {
+          "id": "O-battery",
+          "version": "v1"
+        },
+        {
+          "id": "O-grid",
+          "version": "v1"
+        },
+        {
+          "id": "O-room",
+          "version": "v1"
+        },
+        {
+          "id": "O-start",
+          "version": "v1"
+        },
+        {
+          "id": "O-continuity",
+          "version": "v1"
+        }
+      ],
+      "states": [
+        {
+          "object": {
+            "id": "O-battery",
+            "version": "v1"
+          },
+          "at": "2026-11-16T09:00:00+01:00",
+          "basis": "assumed",
+          "values": {
+            "charged": true
+          }
+        },
+        {
+          "object": {
+            "id": "O-grid",
+            "version": "v1"
+          },
+          "at": "2026-11-16T09:00:00+01:00",
+          "basis": "assumed",
+          "values": {
+            "available": false
+          }
+        },
+        {
+          "object": {
+            "id": "O-room",
+            "version": "v1"
+          },
+          "at": "2026-11-16T09:00:00+01:00",
+          "basis": "assumed",
+          "values": {
+            "power_available": false
+          }
+        }
+      ],
+      "event_ids": [],
+      "assumptions": [
+        "Synthetic-only conditions; no actual generator or real-world causal claims"
+      ]
+    }
+  ],
+  "events": [],
+  "condition_assessments": [
+    {
+      "id": "CA-battery",
+      "scenario_id": "S0",
+      "condition": {
+        "kind": "condition",
+        "id": "C-battery",
+        "owner_id": "R-start",
+        "version": "v1"
+      },
+      "at": "2026-11-16T09:00:00+01:00",
+      "status": "satisfied",
+      "evidence_ids": [
+        "E-fixture"
+      ]
+    },
+    {
+      "id": "CA-grid",
+      "scenario_id": "S0",
+      "condition": {
+        "kind": "condition",
+        "id": "C-grid",
+        "owner_id": "R-start",
+        "version": "v1"
+      },
+      "at": "2026-11-16T09:00:00+01:00",
+      "status": "unsatisfied",
+      "evidence_ids": [
+        "E-fixture"
+      ]
+    }
+  ],
+  "effects": [],
+  "claims": [
+    {
+      "id": "CL-battery",
+      "version": "v1",
+      "statement": "The battery is assumed charged in hypothetical Scenario S0.",
+      "scenario_id": "S0",
+      "scope": "Synthetic scenario at 09:00 local time"
+    }
+  ],
+  "evidence_items": [
+    {
+      "id": "E-fixture",
+      "source": "Declared synthetic example fixture",
+      "root_id": "SOURCE-fixture",
+      "method": "simulation",
+      "recorded_at": "2026-11-16T09:00:00+01:00",
+      "context": "Not empirical observation",
+      "limitations": [
+        "No independent measurement"
+      ]
+    }
+  ],
+  "evidence_reviews": [
+    {
+      "id": "ER-fixture",
+      "evidence_id": "E-fixture",
+      "claim_id": "CL-battery",
+      "at": "2026-11-16T09:00:00+01:00",
+      "criteria": [
+        {
+          "criterion": "declared_in_fixture",
+          "status": "satisfied"
+        },
+        {
+          "criterion": "empirical_independence",
+          "status": "indeterminate"
+        }
+      ],
+      "claim_adequacy": "indeterminate"
+    }
+  ],
+  "claim_assessments": [
+    {
+      "id": "AS-battery",
+      "claim_id": "CL-battery",
+      "claim_version": "v1",
+      "scenario_id": "S0",
+      "at": "2026-11-16T09:00:00+01:00",
+      "model_status": "established_in_model",
+      "empirical_status": "indeterminate",
+      "supporting_evidence_ids": [
+        "E-fixture"
+      ],
+      "contradicting_evidence_ids": [],
+      "informative_evidence_ids": [],
+      "assumptions": [
+        "The fixture input is stipulated."
+      ]
+    }
+  ],
+  "legacy_assessments": {
+    "need_assessments": [
+      {
+        "id": "NA-room",
+        "scenario_id": "S0",
+        "need_relation": {
+          "id": "R-continuity",
+          "version": "v1"
+        },
+        "at": "2026-11-16T09:00:00+01:00",
+        "effective_satisfaction": "unsatisfied",
+        "temporal_compliance": "unsatisfied",
+        "evidence_ids": [
+          "E-fixture"
+        ]
+      }
+    ],
+    "power_assessments": [
+      {
+        "id": "PA-start",
+        "scenario_id": "S0",
+        "at": "2026-11-16T09:00:00+01:00",
+        "focus": {
+          "kind": "CAN",
+          "relation": {
+            "id": "R-start",
+            "version": "v1"
+          }
+        },
+        "subject": {
+          "id": "O-generator",
+          "version": "v1"
+        },
+        "need_assessment_ids": [],
+        "candidate_can_relations": [
+          {
+            "id": "R-start",
+            "version": "v1"
+          }
+        ],
+        "missing_condition_refs": [],
+        "actualizability": "indeterminate",
+        "evidence_ids": [
+          "E-fixture"
+        ],
+        "justification": "One modeled prerequisite is satisfied; real-world complete Power and success are not established."
+      }
+    ]
+  },
+  "power_assessments": [
+    {
+      "ID": "NA-room",
+      "Subject": {
+        "object_id": "O-room"
+      },
+      "Focus": {
+        "type": "NEED",
+        "object_id": "O-continuity"
+      },
+      "Context": {
+        "definition_versions": {
+          "O-generator": "v1",
+          "O-start": "v1",
+          "O-room": "v1",
+          "O-continuity": "v1"
+        },
+        "scenario_id": "S0",
+        "at": "2026-11-16T09:00:00+01:00",
+        "provenance": {
+          "legacy_record": {
+            "id": "NA-room",
+            "scenario_id": "S0",
+            "need_relation": {
+              "id": "R-continuity",
+              "version": "v1"
+            },
+            "at": "2026-11-16T09:00:00+01:00",
+            "effective_satisfaction": "unsatisfied",
+            "temporal_compliance": "unsatisfied",
+            "evidence_ids": [
+              "E-fixture"
+            ]
+          },
+          "migration": "proposal-v0-to-reconciled-v1/D-76"
+        }
+      },
+      "Dependencies": [],
+      "Results": {
+        "effective_satisfaction": {
+          "status": "unsatisfied",
+          "justification": "Explicit synthetic stipulation: room power_available is false at the assessed instant."
+        },
+        "temporal_compliance": {
+          "applicability": "applicable",
+          "status": "unsatisfied",
+          "justification": "Explicit synthetic supplement: continuous supply is required and interrupted at the assessed instant."
+        },
+        "candidate_cans": {
+          "identified": [],
+          "search_status": "not_searched",
+          "coverage": "indeterminate",
+          "scope": "Synthetic fixture only; no candidate search undertaken.",
+          "justification": "No search result can be inferred from the old lists."
+        }
+      }
+    },
+    {
+      "ID": "PA-start",
+      "Subject": {
+        "object_id": "O-generator"
+      },
+      "Focus": {
+        "type": "CAN",
+        "object_id": "O-start"
+      },
+      "Context": {
+        "definition_versions": {
+          "O-generator": "v1",
+          "O-start": "v1",
+          "O-room": "v1",
+          "O-continuity": "v1"
+        },
+        "scenario_id": "S0",
+        "at": "2026-11-16T09:00:00+01:00",
+        "provenance": {
+          "legacy_record": {
+            "id": "PA-start",
+            "scenario_id": "S0",
+            "at": "2026-11-16T09:00:00+01:00",
+            "focus": {
+              "kind": "CAN",
+              "relation": {
+                "id": "R-start",
+                "version": "v1"
+              }
+            },
+            "subject": {
+              "id": "O-generator",
+              "version": "v1"
+            },
+            "need_assessment_ids": [],
+            "candidate_can_relations": [
+              {
+                "id": "R-start",
+                "version": "v1"
+              }
+            ],
+            "missing_condition_refs": [],
+            "actualizability": "indeterminate",
+            "evidence_ids": [
+              "E-fixture"
+            ],
+            "justification": "One modeled prerequisite is satisfied; real-world complete Power and success are not established."
+          },
+          "migration": "proposal-v0-to-reconciled-v1/D-76"
+        }
+      },
+      "Dependencies": [],
+      "Results": {
+        "actualizability": {
+          "status": "indeterminate",
+          "justification": "One modeled prerequisite is satisfied; full real-world Actualizability is not established."
+        },
+        "prerequisites": {
+          "needs": [],
+          "cans": [],
+          "conditions": [
+            {
+              "owner_relation_id": "R-start",
+              "condition_id": "C-battery",
+              "status": "satisfied"
+            },
+            {
+              "owner_relation_id": "R-start",
+              "condition_id": "C-grid",
+              "status": "unsatisfied"
+            }
+          ],
+          "pathways": [
+            {
+              "pathway_id": "P-battery",
+              "definition_version": "v1",
+              "coverage": "complete"
+            },
+            {
+              "pathway_id": "P-grid",
+              "definition_version": "v1",
+              "coverage": "complete"
+            }
+          ],
+          "inventory_coverage": "incomplete",
+          "scope": "Only the simplified start-power prerequisites are inventoried.",
+          "justification": "Per-pathway completeness is a synthetic stipulation; the inventory is explicitly incomplete."
+        },
+        "potential_contributions": {
+          "needs": [],
+          "search_status": "not_searched",
+          "coverage": "indeterminate",
+          "scope": "Synthetic fixture only; no candidate search undertaken.",
+          "justification": "No search result can be inferred from the old lists."
+        }
+      }
+    }
+  ],
+  "migration_provenance": {
+    "source_version": "0.1.0-proposal",
+    "plan": {
+      "evaluations": {
+        "NA-room": {
+          "Subject": {
+            "object_id": "O-room"
+          },
+          "Context": {
+            "definition_versions": {
+              "O-generator": "v1",
+              "O-start": "v1",
+              "O-room": "v1",
+              "O-continuity": "v1"
+            }
+          },
+          "Dependencies": [],
+          "Results": {
+            "effective_satisfaction": {
+              "status": "unsatisfied",
+              "justification": "Explicit synthetic stipulation: room power_available is false at the assessed instant."
+            },
+            "temporal_compliance": {
+              "applicability": "applicable",
+              "status": "unsatisfied",
+              "justification": "Explicit synthetic supplement: continuous supply is required and interrupted at the assessed instant."
+            },
+            "candidate_cans": {
+              "identified": [],
+              "search_status": "not_searched",
+              "coverage": "indeterminate",
+              "scope": "Synthetic fixture only; no candidate search undertaken.",
+              "justification": "No search result can be inferred from the old lists."
+            }
+          }
+        },
+        "PA-start": {
+          "Context": {
+            "definition_versions": {
+              "O-generator": "v1",
+              "O-start": "v1",
+              "O-room": "v1",
+              "O-continuity": "v1"
+            }
+          },
+          "Dependencies": [],
+          "Results": {
+            "actualizability": {
+              "status": "indeterminate",
+              "justification": "One modeled prerequisite is satisfied; full real-world Actualizability is not established."
+            },
+            "prerequisites": {
+              "needs": [],
+              "cans": [],
+              "conditions": [
+                {
+                  "owner_relation_id": "R-start",
+                  "condition_id": "C-battery",
+                  "status": "satisfied"
+                },
+                {
+                  "owner_relation_id": "R-start",
+                  "condition_id": "C-grid",
+                  "status": "unsatisfied"
+                }
+              ],
+              "pathways": [
+                {
+                  "pathway_id": "P-battery",
+                  "definition_version": "v1",
+                  "coverage": "complete"
+                },
+                {
+                  "pathway_id": "P-grid",
+                  "definition_version": "v1",
+                  "coverage": "complete"
+                }
+              ],
+              "inventory_coverage": "incomplete",
+              "scope": "Only the simplified start-power prerequisites are inventoried.",
+              "justification": "Per-pathway completeness is a synthetic stipulation; the inventory is explicitly incomplete."
+            },
+            "potential_contributions": {
+              "needs": [],
+              "search_status": "not_searched",
+              "coverage": "indeterminate",
+              "scope": "Synthetic fixture only; no candidate search undertaken.",
+              "justification": "No search result can be inferred from the old lists."
+            }
+          }
+        }
+      },
+      "relation_compositions": {
+        "R-start@v1": {
+          "value": [
+            {
+              "objects": [
+                "O-battery",
+                "O-grid"
+              ],
+              "operator": "any"
+            }
+          ],
+          "justification": "Explicit synthetic re-expression of the one alternative Object group only. No inter-group or causal conclusion."
+        }
+      }
+    },
+    "source_document": {
+      "schema_version": "0.1.0-proposal",
+      "analysis_id": "A-generator-demo",
+      "main_subject": {
+        "id": "O-generator",
+        "version": "v1"
+      },
+      "secondary_subjects": [
+        {
+          "id": "O-room",
+          "version": "v1"
+        }
+      ],
+      "focus": {
+        "kind": "CAN",
+        "relation": {
+          "id": "R-start",
+          "version": "v1"
+        }
+      },
+      "environment": [
+        {
+          "id": "O-battery",
+          "version": "v1"
+        },
+        {
+          "id": "O-grid",
+          "version": "v1"
+        },
+        {
+          "id": "O-room",
+          "version": "v1"
+        }
+      ],
+      "objects": [
+        {
+          "id": "O-generator",
+          "category": "technical_object",
+          "label": "Emergency generator",
+          "parent_id": null,
+          "temporary_child_ids": [],
+          "actualised_child_ids": []
+        },
+        {
+          "id": "O-battery",
+          "category": "technical_object",
+          "label": "Starting battery",
+          "parent_id": null,
+          "temporary_child_ids": [],
+          "actualised_child_ids": []
+        },
+        {
+          "id": "O-grid",
+          "category": "system",
+          "label": "External electrical supply",
+          "parent_id": null,
+          "temporary_child_ids": [],
+          "actualised_child_ids": []
+        },
+        {
+          "id": "O-room",
+          "category": "system",
+          "label": "Room under study",
+          "parent_id": null,
+          "temporary_child_ids": [],
+          "actualised_child_ids": []
+        },
+        {
+          "id": "O-start",
+          "category": "semantic_object",
+          "label": "CAN: start generator (illustrative identity)",
+          "parent_id": null,
+          "temporary_child_ids": [],
+          "actualised_child_ids": []
+        },
+        {
+          "id": "O-continuity",
+          "category": "semantic_object",
+          "label": "NEED: maintain room power (illustrative identity)",
+          "parent_id": null,
+          "temporary_child_ids": [],
+          "actualised_child_ids": []
+        }
+      ],
+      "definitions": [
+        {
+          "object_id": "O-generator",
+          "version": "v1",
+          "constituents": [
+            {
+              "id": "O-battery",
+              "version": "v1"
+            }
+          ],
+          "properties": {
+            "power_ready": {
+              "description": "Whether generator is ready to deliver energy"
+            }
+          },
+          "relation_refs": [
+            {
+              "id": "R-start",
+              "version": "v1"
+            }
+          ]
+        },
+        {
+          "object_id": "O-battery",
+          "version": "v1",
+          "constituents": [],
+          "properties": {
+            "charged": {
+              "description": "Availability of sufficient starting charge"
+            }
+          },
+          "relation_refs": []
+        },
+        {
+          "object_id": "O-grid",
+          "version": "v1",
+          "constituents": [],
+          "properties": {
+            "available": {
+              "description": "External power availability"
+            }
+          },
+          "relation_refs": []
+        },
+        {
+          "object_id": "O-room",
+          "version": "v1",
+          "constituents": [],
+          "properties": {
+            "power_available": {
+              "description": "Room electrical supply state"
+            }
+          },
+          "relation_refs": [
+            {
+              "id": "R-continuity",
+              "version": "v1"
+            }
+          ]
+        },
+        {
+          "object_id": "O-start",
+          "version": "v1",
+          "constituents": [],
+          "properties": {},
+          "relation_refs": []
+        },
+        {
+          "object_id": "O-continuity",
+          "version": "v1",
+          "constituents": [],
+          "properties": {},
+          "relation_refs": []
+        }
+      ],
+      "relations": [
+        {
+          "id": "R-start",
+          "version": "v1",
+          "type": "CAN",
+          "origin_object": {
+            "id": "O-generator",
+            "version": "v1"
+          },
+          "represented_object": {
+            "id": "O-start",
+            "version": "v1"
+          },
+          "NEEDs": null,
+          "CANs": [
+            {
+              "id": "O-battery",
+              "version": "v1"
+            },
+            {
+              "id": "O-grid",
+              "version": "v1"
+            }
+          ],
+          "description": "Illustrative CAN to start generator; neither alternative proves full real-world Power.",
+          "relation": {
+            "nature": [
+              "contributive"
+            ],
+            "links": [
+              {
+                "id": "L-battery",
+                "object_id": "O-battery",
+                "source_list": "CANs",
+                "roles": [
+                  "enabling"
+                ],
+                "conditions": [
+                  {
+                    "kind": "condition",
+                    "id": "C-battery",
+                    "owner_id": "R-start",
+                    "version": "v1"
+                  }
+                ],
+                "mechanism": "Battery may provide starting power"
+              },
+              {
+                "id": "L-grid",
+                "object_id": "O-grid",
+                "source_list": "CANs",
+                "roles": [
+                  "enabling"
+                ],
+                "conditions": [
+                  {
+                    "kind": "condition",
+                    "id": "C-grid",
+                    "owner_id": "R-start",
+                    "version": "v1"
+                  }
+                ],
+                "mechanism": "External source may provide starting power"
+              }
+            ],
+            "composition": {
+              "op": "any",
+              "items": [
+                {
+                  "ref": {
+                    "kind": "object",
+                    "id": "O-battery",
+                    "version": "v1"
+                  }
+                },
+                {
+                  "ref": {
+                    "kind": "object",
+                    "id": "O-grid",
+                    "version": "v1"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "R-continuity",
+          "version": "v1",
+          "type": "NEED",
+          "origin_object": {
+            "id": "O-room",
+            "version": "v1"
+          },
+          "represented_object": {
+            "id": "O-continuity",
+            "version": "v1"
+          },
+          "NEEDs": null,
+          "CANs": [
+            {
+              "id": "O-generator",
+              "version": "v1"
+            }
+          ],
+          "required_state": {
+            "property": "power_available",
+            "value": true
+          },
+          "description": "Room needs continuous electrical supply, regardless of whether a CAN is Actualized.",
+          "relation": {
+            "nature": [
+              "functional"
+            ],
+            "links": [
+              {
+                "id": "L-generator",
+                "object_id": "O-generator",
+                "source_list": "CANs",
+                "roles": [
+                  "contributive"
+                ],
+                "mechanism": "Generator might contribute if connected and compatible"
+              }
+            ]
+          },
+          "temporal": {
+            "time_zone": "Europe/Paris",
+            "requirements": [
+              {
+                "id": "TR-continuous",
+                "target": "satisfaction",
+                "mode": "continuous",
+                "window": {
+                  "start": "2026-11-16T08:00:00+01:00",
+                  "end": "2026-11-16T12:00:00+01:00"
+                }
+              }
+            ],
+            "estimates": []
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "id": "C-battery",
+          "owner_relation": {
+            "id": "R-start",
+            "version": "v1"
+          },
+          "target": "actionability",
+          "predicate": {
+            "object": {
+              "id": "O-battery",
+              "version": "v1"
+            },
+            "property": "charged",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "C-grid",
+          "owner_relation": {
+            "id": "R-start",
+            "version": "v1"
+          },
+          "target": "actionability",
+          "predicate": {
+            "object": {
+              "id": "O-grid",
+              "version": "v1"
+            },
+            "property": "available",
+            "operator": "equals",
+            "value": true
+          }
+        }
+      ],
+      "pathways": [
+        {
+          "id": "P-battery",
+          "version": "v1",
+          "owner_relation": {
+            "id": "R-start",
+            "version": "v1"
+          },
+          "coverage": "complete",
+          "scope": "Only the stipulated simplified start-power prerequisite",
+          "expression": {
+            "ref": {
+              "kind": "condition",
+              "id": "C-battery",
+              "owner_id": "R-start",
+              "version": "v1"
+            }
+          }
+        },
+        {
+          "id": "P-grid",
+          "version": "v1",
+          "owner_relation": {
+            "id": "R-start",
+            "version": "v1"
+          },
+          "coverage": "complete",
+          "scope": "Only the stipulated simplified start-power prerequisite",
+          "expression": {
+            "ref": {
+              "kind": "condition",
+              "id": "C-grid",
+              "owner_id": "R-start",
+              "version": "v1"
+            }
+          }
+        }
+      ],
+      "inventories": [
+        {
+          "id": "I-start",
+          "version": "v1",
+          "owner_relation": {
+            "id": "R-start",
+            "version": "v1"
+          },
+          "coverage": "incomplete",
+          "search_status": "candidates_identified",
+          "expression": {
+            "op": "any",
+            "items": [
+              {
+                "ref": {
+                  "kind": "pathway",
+                  "id": "P-battery",
+                  "owner_id": "R-start",
+                  "version": "v1"
+                }
+              },
+              {
+                "ref": {
+                  "kind": "pathway",
+                  "id": "P-grid",
+                  "owner_id": "R-start",
+                  "version": "v1"
+                }
+              }
+            ]
+          },
+          "scope": "Illustrative pathways, not exhaustive real-world actionability"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "S0",
+          "parent_scenario_id": null,
+          "mode": "hypothetical",
+          "object_heads": [
+            {
+              "id": "O-generator",
+              "version": "v1"
+            },
+            {
+              "id": "O-battery",
+              "version": "v1"
+            },
+            {
+              "id": "O-grid",
+              "version": "v1"
+            },
+            {
+              "id": "O-room",
+              "version": "v1"
+            },
+            {
+              "id": "O-start",
+              "version": "v1"
+            },
+            {
+              "id": "O-continuity",
+              "version": "v1"
+            }
+          ],
+          "states": [
+            {
+              "object": {
+                "id": "O-battery",
+                "version": "v1"
+              },
+              "at": "2026-11-16T09:00:00+01:00",
+              "basis": "assumed",
+              "values": {
+                "charged": true
+              }
+            },
+            {
+              "object": {
+                "id": "O-grid",
+                "version": "v1"
+              },
+              "at": "2026-11-16T09:00:00+01:00",
+              "basis": "assumed",
+              "values": {
+                "available": false
+              }
+            },
+            {
+              "object": {
+                "id": "O-room",
+                "version": "v1"
+              },
+              "at": "2026-11-16T09:00:00+01:00",
+              "basis": "assumed",
+              "values": {
+                "power_available": false
+              }
+            }
+          ],
+          "event_ids": [],
+          "assumptions": [
+            "Synthetic-only conditions; no actual generator or real-world causal claims"
+          ]
+        }
+      ],
+      "events": [],
+      "condition_assessments": [
+        {
+          "id": "CA-battery",
+          "scenario_id": "S0",
+          "condition": {
+            "kind": "condition",
+            "id": "C-battery",
+            "owner_id": "R-start",
+            "version": "v1"
+          },
+          "at": "2026-11-16T09:00:00+01:00",
+          "status": "satisfied",
+          "evidence_ids": [
+            "E-fixture"
+          ]
+        },
+        {
+          "id": "CA-grid",
+          "scenario_id": "S0",
+          "condition": {
+            "kind": "condition",
+            "id": "C-grid",
+            "owner_id": "R-start",
+            "version": "v1"
+          },
+          "at": "2026-11-16T09:00:00+01:00",
+          "status": "unsatisfied",
+          "evidence_ids": [
+            "E-fixture"
+          ]
+        }
+      ],
+      "need_assessments": [
+        {
+          "id": "NA-room",
+          "scenario_id": "S0",
+          "need_relation": {
+            "id": "R-continuity",
+            "version": "v1"
+          },
+          "at": "2026-11-16T09:00:00+01:00",
+          "effective_satisfaction": "unsatisfied",
+          "temporal_compliance": "unsatisfied",
+          "evidence_ids": [
+            "E-fixture"
+          ]
+        }
+      ],
+      "power_assessments": [
+        {
+          "id": "PA-start",
+          "scenario_id": "S0",
+          "at": "2026-11-16T09:00:00+01:00",
+          "focus": {
+            "kind": "CAN",
+            "relation": {
+              "id": "R-start",
+              "version": "v1"
+            }
+          },
+          "subject": {
+            "id": "O-generator",
+            "version": "v1"
+          },
+          "need_assessment_ids": [],
+          "candidate_can_relations": [
+            {
+              "id": "R-start",
+              "version": "v1"
+            }
+          ],
+          "missing_condition_refs": [],
+          "actualizability": "indeterminate",
+          "evidence_ids": [
+            "E-fixture"
+          ],
+          "justification": "One modeled prerequisite is satisfied; real-world complete Power and success are not established."
+        }
+      ],
+      "effects": [],
+      "claims": [
+        {
+          "id": "CL-battery",
+          "version": "v1",
+          "statement": "The battery is assumed charged in hypothetical Scenario S0.",
+          "scenario_id": "S0",
+          "scope": "Synthetic scenario at 09:00 local time"
+        }
+      ],
+      "evidence_items": [
+        {
+          "id": "E-fixture",
+          "source": "Declared synthetic example fixture",
+          "root_id": "SOURCE-fixture",
+          "method": "simulation",
+          "recorded_at": "2026-11-16T09:00:00+01:00",
+          "context": "Not empirical observation",
+          "limitations": [
+            "No independent measurement"
+          ]
+        }
+      ],
+      "evidence_reviews": [
+        {
+          "id": "ER-fixture",
+          "evidence_id": "E-fixture",
+          "claim_id": "CL-battery",
+          "at": "2026-11-16T09:00:00+01:00",
+          "criteria": [
+            {
+              "criterion": "declared_in_fixture",
+              "status": "satisfied"
+            },
+            {
+              "criterion": "empirical_independence",
+              "status": "indeterminate"
+            }
+          ],
+          "claim_adequacy": "indeterminate"
+        }
+      ],
+      "claim_assessments": [
+        {
+          "id": "AS-battery",
+          "claim_id": "CL-battery",
+          "claim_version": "v1",
+          "scenario_id": "S0",
+          "at": "2026-11-16T09:00:00+01:00",
+          "model_status": "established_in_model",
+          "empirical_status": "indeterminate",
+          "supporting_evidence_ids": [
+            "E-fixture"
+          ],
+          "contradicting_evidence_ids": [],
+          "informative_evidence_ids": [],
+          "assumptions": [
+            "The fixture input is stipulated."
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "evaluations": {
+    "NA-room": {
+      "Subject": {
+        "object_id": "O-room"
+      },
+      "Context": {
+        "definition_versions": {
+          "O-generator": "v1",
+          "O-start": "v1",
+          "O-room": "v1",
+          "O-continuity": "v1"
+        }
+      },
+      "Dependencies": [],
+      "Results": {
+        "effective_satisfaction": {
+          "status": "unsatisfied",
+          "justification": "Explicit synthetic stipulation: room power_available is false at the assessed instant."
+        },
+        "temporal_compliance": {
+          "applicability": "applicable",
+          "status": "unsatisfied",
+          "justification": "Explicit synthetic supplement: continuous supply is required and interrupted at the assessed instant."
+        },
+        "candidate_cans": {
+          "identified": [],
+          "search_status": "not_searched",
+          "coverage": "indeterminate",
+          "scope": "Synthetic fixture only; no candidate search undertaken.",
+          "justification": "No search result can be inferred from the old lists."
+        }
+      }
+    },
+    "PA-start": {
+      "Context": {
+        "definition_versions": {
+          "O-generator": "v1",
+          "O-start": "v1",
+          "O-room": "v1",
+          "O-continuity": "v1"
+        }
+      },
+      "Dependencies": [],
+      "Results": {
+        "actualizability": {
+          "status": "indeterminate",
+          "justification": "One modeled prerequisite is satisfied; full real-world Actualizability is not established."
+        },
+        "prerequisites": {
+          "needs": [],
+          "cans": [],
+          "conditions": [
+            {
+              "owner_relation_id": "R-start",
+              "condition_id": "C-battery",
+              "status": "satisfied"
+            },
+            {
+              "owner_relation_id": "R-start",
+              "condition_id": "C-grid",
+              "status": "unsatisfied"
+            }
+          ],
+          "pathways": [
+            {
+              "pathway_id": "P-battery",
+              "definition_version": "v1",
+              "coverage": "complete"
+            },
+            {
+              "pathway_id": "P-grid",
+              "definition_version": "v1",
+              "coverage": "complete"
+            }
+          ],
+          "inventory_coverage": "incomplete",
+          "scope": "Only the simplified start-power prerequisites are inventoried.",
+          "justification": "Per-pathway completeness is a synthetic stipulation; the inventory is explicitly incomplete."
+        },
+        "potential_contributions": {
+          "needs": [],
+          "search_status": "not_searched",
+          "coverage": "indeterminate",
+          "scope": "Synthetic fixture only; no candidate search undertaken.",
+          "justification": "No search result can be inferred from the old lists."
+        }
+      }
+    }
+  },
+  "relation_compositions": {
+    "R-start@v1": {
+      "value": [
+        {
+          "objects": [
+            "O-battery",
+            "O-grid"
+          ],
+          "operator": "any"
+        }
+      ],
+      "justification": "Explicit synthetic re-expression of the one alternative Object group only. No inter-group or causal conclusion."
+    }
+  }
+}

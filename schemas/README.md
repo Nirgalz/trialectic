@@ -37,3 +37,7 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 [`tests/test_power_evaluation_schema.py`](../tests/test_power_evaluation_schema.py) uses a pinned Draft 2020-12-capable `jsonschema` validator for **positive and negative** tests. A dedicated negative test illustrates a **structurally valid but semantically non-resolving** Focus ID, in line with D-65.
 
 **Next open decisions:** `ID` type/format; ID normalization and time/extended provenance formats; detailed constraints beyond D-68 for `Subject`, `Context`, `Dependencies`; remaining nested `Results` validity (especially Scenario; causal-contribution modeling and full condition-pathway expression serialization and detailed CAN inventory/provenance semantics and time/requirement/exception subrecords for NEED), nullable/not-applicable values, degree/evidence interpretation, and complete semantic cross-reference resolution. Implement these incrementally rather than converting illustrative fixture details into mandatory requirements.
+
+## D-76 reconciled exchange implementation
+
+[normalized-v1](normalized-v1/README.md) implements the approved C-01–C-10 resolutions, reuses normative PowerEvaluation items, and supplies an explicit migration adapter plus synthetic plan/example. The surrounding global envelope remains experimental; proposal-v0 is preserved as history.

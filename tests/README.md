@@ -57,3 +57,7 @@ parity, and protects OPEN identifier and Scenario value types.
 `cases/power_evaluation_minimal.json` supplies three independent synthetic records;
 the surrounding array is test packaging, not an approved Analysis envelope.
 See [conformance and exclusions](../schemas/power-evaluation.normative.md).
+
+## D-76 reconciliation
+
+`test_reconciliation.py` exercises the real source-preserving migration adapter and the reconciled experimental envelope, including ambiguous/missing source data, approved compositions and unchanged normative evaluation compatibility. See [usage and limits](../schemas/normalized-v1/README.md).
