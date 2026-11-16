@@ -1011,5 +1011,22 @@ For a NEED-focused `PowerEvaluation`, organize the **`Results`** field into thre
 
 Related tasks: T-01, T-02, T-03, T-16, T-30.
 
+## D-62 · CAN-focused PowerEvaluation Results substructures
+Date: November 16, 2026 | Status: **VALIDATED by author** | Branch: `dev`
+
+For a CAN-focused `PowerEvaluation`, organize the **`Results`** field into **three distinct substructures**:
+
+1. **`actualizability`** — evaluate the possibility of the specified CAN Actualization **within its context** using the established statuses `actualizable`, `partially_actualizable`, `not_actualizable`, `indeterminate`. An optional numerical degree requires a pertinent, justified measure and must not be confused with NEED satisfaction degrees, actionability in a narrower role, success probability, or an effective Actualization.
+2. **`prerequisites`** — identify the NEEDs, CANs and conditions on which that Actualization depends, with references to their evaluations where appropriate and explicit allowance for incomplete knowledge. Identified prerequisites are not automatically satisfied or exhaustive.
+3. **`potential_contributions`** — identify NEEDs to which the CAN's **Actualization or its resulting states** may contribute. Candidate matches are not proof of causal contribution, sufficient satisfaction or effective Actualization. Preserve distinctions among a single CAN contributing to several NEEDs, joint CAN contributions and enabling CANs.
+
+- Each substructure may hold **its own evidence, justification and epistemic uncertainty**.
+- Do not erase adverse impacts on other Objects; examine them in the relevant Actualization/Scenario analysis. The contribution substructure concerns potential favorable NEED contributions and is not an exhaustive effects model.
+- Keep the six D-57 top-level `PowerEvaluation` fields unchanged. This decision validates **nested organization**, not the full illustrative JSON example or a final machine-readable JSON Schema.
+
+**OPEN:** detailed nested keys and datatypes, required versus optional fields, exhaustive-versus-partial coverage, context/temporal bounds, references to separate Power evaluations, thresholds and degree metrics, evidence/uncertainty representation, adverse-effects interfaces, and testable validation rules.
+
+Related tasks: T-01, T-02, T-03, T-16, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
