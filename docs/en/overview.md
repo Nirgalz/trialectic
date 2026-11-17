@@ -22,7 +22,19 @@ This approach can be useful, but it becomes insufficient when difficulties resul
 
 **The Trialectic Method proposes an analytical framework for understanding these relationships, identifying opportunities for change, and exploring several Resolution Scenarios.**
 
-Its purpose is not to provide an automatic answer, but to support a more structured and thorough understanding of the situations examined.
+Its purpose is to make problem understanding, exploration of possibilities and informed decision-making more explicit and revisable, rather than automatically prescribe a universally best answer.
+
+## Three phases of one method — Understand, Explore, Decide (D-85)
+
+The complete Method has **three essential, recursive phases**, but they do not all have to be carried out for every inquiry:
+
+1. **Understand:** clarify the problem, examine the Subject in its Environment, relevant relationships and Semantics, question interpretations, and identify what is known, contested or unknown.
+2. **Explore:** consider alternative possibilities and, where helpful, Resolution Scenarios, their conditions, potential effects and uncertainties.
+3. **Decide:** use explicit goals, values, criteria, constraints and uncertainty to choose an informed course of action, or justify deferring a choice when the evidence is insufficient.
+
+A useful analysis may **end after Understanding** or **after Exploration** if that already meets the analyst's aims. Exploration and decision may send the analyst back to revisit the initial question, assumptions or context; the phases are not a rigid linear staircase.
+
+**A decision is a legitimate final purpose of the complete Method, not a requirement for every application or a claim of one objectively best answer.** The technical data model exists to formalize the Method's operation; it does not define the Method's purpose. NEED/CAN and Actualization-focused procedures remain available where pertinent, without being mandatory starting points for every problem.
 
 ## A method applicable to different fields
 
