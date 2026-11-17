@@ -45,3 +45,11 @@ body,.map{background:var(--bg)}.map{background:var(--panel)}button.primary:hover
 #focus-cycle-history li{padding:3px}
 #map-depth{min-width:245px}
 @media(max-width:760px){.focus-cycle-panel{padding:18px}.focus-cycle-context{grid-template-columns:1fr}#map-depth{min-width:0}}
+
+/* Local AI bridge output. No model text is injected as markup. */
+#local-ai-status{font-size:13px;padding:12px;background:var(--bg);border-left:2px solid var(--accent);border-radius:0 9px 9px 0;color:var(--ink)}
+#local-ai-results{margin-top:14px;max-height:460px;overflow:auto;overflow-wrap:anywhere}
+#local-ai-results h3{margin:16px 0 8px}
+#local-ai-results .ai-answer{white-space:pre-wrap;font-size:13px;line-height:1.65}
+#local-ai-results ul{padding-left:20px;font-size:12px}
+#local-ai-results li{margin:7px 0}
