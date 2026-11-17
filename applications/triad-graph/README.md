@@ -39,6 +39,9 @@ Keep this local server running while using the prototype.
 ## Implemented
 
 - Separate conceptual and methodological process views (D-85–D-89).
+- Organic force-directed placement for Objects and their local neighborhoods,
+  a relaxed process arrangement and softly curved links in both views;
+  geometry carries no additional analytical meaning.
 - Objects, immutable explicit NEED/CAN concept kinds where present, versioned
   relation records, bearer/represented Object distinction, qualified links,
   conditions, constituent references, CAN affiliations and Scenario heads.
