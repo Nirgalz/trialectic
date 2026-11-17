@@ -40,6 +40,14 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 - `test_identity_attribution_v21.py` tests the 2.0.0/2.1.0 version gate, exclusive NEED/CAN identity, reference/type consistency, claims, established-only Puissance projections and requalification with a **new** Object ID.
 - `tools/validate_semantics.py` is a **scoped, experimental consistency validator**. It supports local identity, version, relation and claim references plus a cross-document immutability check; no claims about complete semantics, factual source adequacy, causal mechanisms or empirical proof are made.
 
+## D-84 CAN specialization and composition affiliations (Analysis v2.2.0)
+
+- `cases/can_affiliations_v22.json`: synthetic CAN network of general programming, a specialized Python skill, application development and specialized development roles. The Python CAN has two parents with different affiliation kinds; only explicitly recorded relations establish Subject possession. The fixture also retains a CAN with its own NEED.
+- `test_can_affiliations_v22.py`: twelve positive/negative tests for typed specialization/composition, several parents, independent CAN identity, absence of implicit child ownership or necessity/sufficiency, 2.0/2.1 compatibility, v2.2 required/empty affiliation collection, illegal shapes, dangling references, non-CAN endpoints, versioned claims/IDs, uncertainty and advisory cycles.
+- `tools/validate_semantics.py`: scoped D-84 affiliation consistency on top of D-83 attribution rules. Cycles in asserted established edges yield warnings pending conceptual validation; **no** automated composition/transitivity/necessity inference is authorized.
+
+The presence of these files is **not** evidence that the complete Python unittest suite or GitHub CI has passed. The synthetic corpus does not demonstrate empirical validity or complete semantic inference.
+
 ## T-01 identification corpus v1 (D-82; synthetic, non-empirical)
 
 - `cases/t01-identification-v1.json` is the **versioned** source of 26 independently authored *expected* classifications (10 positive / 7 negative / 9 boundary). Corpus v1.1 adds per-case Subject category metadata to avoid guessing the type of a person from the test rule. Every case identifies its principles, scoped stipulated premises, expected outcome, justification and limits. All T-01-A–M appear in this corpus.
