@@ -1,15 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:trialectic:schema:analysis:normative-v2",
-  "title": "Trialectic Analysis v2.0/v2.1 — normative exchange profiles (D-77/D-78/D-83)",
-  "description": "Versioned global structural contract. All inherited transport fields and enums are adopted for this profile under D-77, subject to documented semantic limits. Scenario Results follow D-78. See global-model.md. D-83 v2.1 extends Object conceptual identity, reclassification provenance and relation attribution; historical v2.0 documents remain supported without reinterpreting unqualified attributions.",
+  "title": "Trialectic Analysis v2.0/v2.1/v2.2 — normative exchange profiles (D-77/D-78/D-83/D-84)",
+  "description": "Versioned global structural contract. All inherited transport fields and enums are adopted for this profile under D-77, subject to documented semantic limits. Scenario Results follow D-78. See global-model.md. D-83 v2.1 extends Object conceptual identity, reclassification provenance and relation attribution; historical v2.0 documents remain supported without reinterpreting unqualified attributions. D-84 v2.2 separately represents CAN-to-CAN specialization/composition affiliations, without reinterpreting historical branching, dependence or possession.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "schema_version": {
       "enum": [
         "2.0.0",
-        "2.1.0"
+        "2.1.0",
+        "2.2.0"
       ]
     },
     "analysis_id": {
@@ -50,6 +51,13 @@
       "items": {
         "$ref": "#/$defs/relation"
       }
+    },
+    "can_affiliations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/canAffiliation"
+      },
+      "description": "D-84: separately typed, versioned CAN affiliations. Required (possibly empty) in Analysis 2.2.0; forbidden in 2.0.0/2.1.0."
     },
     "conditions": {
       "type": "array",
@@ -155,7 +163,7 @@
     "secondary_subjects",
     "environment"
   ],
-  "$comment": "This is a normative exchange profile, not a claim of physical identity, complete causal inference, external evidence verification or empirical validation. Historical v0 and normalized-v1 remain unchanged. v2.1 object concept_kind immutable per ID; context-qualified attribution claims are not Power or empirical truth. Old v2.0 unqualified attributions remain epistemically unknown.",
+  "$comment": "This is a normative exchange profile, not a claim of physical identity, complete causal inference, external evidence verification or empirical validation. Historical v0 and normalized-v1 remain unchanged. v2.1 object concept_kind immutable per ID; context-qualified attribution claims are not Power or empirical truth. Old v2.0 unqualified attributions remain epistemically unknown. D-84 v2.2 affiliations are CAN-CAN conceptual edges, not historical parent_id lineage; specialization/composition qualification alone does not infer possession or prerequisite logic.",
   "allOf": [
     {
       "if": {
@@ -197,6 +205,11 @@
               }
             }
           }
+        },
+        "not": {
+          "required": [
+            "can_affiliations"
+          ]
         }
       }
     },
@@ -212,6 +225,37 @@
         ]
       },
       "then": {
+        "properties": {
+          "relations": {
+            "items": {
+              "required": [
+                "attribution"
+              ]
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "can_affiliations"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "2.2.0"
+          }
+        },
+        "required": [
+          "schema_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "can_affiliations"
+        ],
         "properties": {
           "relations": {
             "items": {
