@@ -1,5 +1,5 @@
 const assert=require('node:assert/strict');
-const {hierarchyPositions}=require('./hierarchy-layout.js');
+const {hierarchyPositions,separatedEdgeRoutes}=require('./hierarchy-layout.js');
 const nodes=[{id:'subject',kind:'object'},{id:'can',kind:'CAN'},{id:'need',kind:'NEED'},
   {id:'r-can',kind:'relation'},{id:'r-need',kind:'relation'},
   {id:'context',kind:'object'},{id:'scenario',kind:'scenario'}];
@@ -20,3 +20,13 @@ assert.deepEqual(hierarchyPositions(nodes,edges,relations,'subject'),positions);
 // An inspected subset may omit the global Subject or relation record.
 assert.equal(hierarchyPositions([{id:'can',kind:'CAN'}],[],relations,'can').get('can').y,0);
 console.log('Hierarchy: center, CAN/NEED ranks, spacing, cycles and determinism OK.');
+const routingPositions=new Map([['a',{x:0,y:0}],['b',{x:300,y:0}],['c',{x:300,y:12}]]);
+const parallel=[{id:'e1',source:'a',target:'b'},{id:'e2',source:'a',target:'b'},{id:'e3',source:'b',target:'a'}];
+const routes=separatedEdgeRoutes(routingPositions,parallel);
+const midpoints=parallel.map(e=>routes.get(e.id).distance*(e.source==='a'?1:-1)/2);
+for(let i=0;i<midpoints.length;i++)for(let j=i+1;j<midpoints.length;j++)assert(Math.abs(midpoints[i]-midpoints[j])>=20);
+const fan=separatedEdgeRoutes(routingPositions,[{id:'f1',source:'a',target:'b'},{id:'f2',source:'a',target:'c'}]);
+assert.notEqual(fan.get('f1').distance,fan.get('f2').distance);
+assert.deepEqual(separatedEdgeRoutes(routingPositions,parallel),routes);
+assert.equal(separatedEdgeRoutes(routingPositions,[{id:'missing',source:'a',target:'absent'}]).size,0);
+console.log('Routing: separated parallel/reverse links, junction fan-out and determinism OK.');

@@ -54,6 +54,40 @@
     nodes.filter(n=>n.kind==='scenario').forEach(n=>positions.set(n.id,{x:right,y:metadataIndex++*150}));
     return positions;
   }
-  if(typeof module!=='undefined'&&module.exports)module.exports={hierarchyPositions};
-  else root.hierarchyPositions=hierarchyPositions;
+  function separatedEdgeRoutes(positions,edges) {
+    const routes=new Map(),accepted=[];
+    const pointSegment=(p,a,b)=>{
+      const dx=b.x-a.x,dy=b.y-a.y,den=dx*dx+dy*dy;
+      const t=den?Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/den)):0;
+      return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);
+    };
+    // Route busy junctions first; stable IDs keep identical graphs reproducible.
+    const degree=new Map();edges.forEach(e=>[e.source,e.target].forEach(id=>degree.set(id,(degree.get(id)||0)+1)));
+    const ordered=[...edges].sort((a,b)=>(degree.get(b.source)+degree.get(b.target))-(degree.get(a.source)+degree.get(a.target))||a.id.localeCompare(b.id));
+    ordered.forEach(e=>{
+      const a=positions.get(e.source),b=positions.get(e.target);if(!a||!b)return;
+      const length=Math.hypot(b.x-a.x,b.y-a.y)||1,nx=-(b.y-a.y)/length,ny=(b.x-a.x)/length;
+      let best;
+      for(const offset of [0,32,-32,64,-64,96,-96,128,-128,160,-160,192,-192]){
+        const c={x:(a.x+b.x)/2+nx*offset,y:(a.y+b.y)/2+ny*offset};
+        const points=Array.from({length:17},(_,i)=>{const t=i/16;return{x:(1-t)**2*a.x+2*(1-t)*t*c.x+t*t*b.x,y:(1-t)**2*a.y+2*(1-t)*t*c.y+t*t*b.y};});
+        let score=offset*offset*.003;
+        // Penalize sustained proximity, not just intersections. Shared exact
+        // endpoints are exempt: edges must still meet their actual Objects.
+        points.slice(3,-3).forEach(p=>{
+          accepted.forEach(path=>{
+            let distance=Infinity;
+            for(let i=2;i<path.length-3;i++)distance=Math.min(distance,pointSegment(p,path[i],path[i+1]));
+            score+=Math.max(0,26-distance)**2;
+          });
+          positions.forEach((node,id)=>{if(id!==e.source&&id!==e.target)score+=Math.max(0,42-Math.hypot(p.x-node.x,p.y-node.y))**2*3;});
+        });
+        if(!best||score<best.score)best={score,points,offset};
+      }
+      routes.set(e.id,{distance:best.offset,weight:.5});accepted.push(best.points);
+    });
+    return routes;
+  }
+  if(typeof module!=='undefined'&&module.exports)module.exports={hierarchyPositions,separatedEdgeRoutes};
+  else {root.hierarchyPositions=hierarchyPositions;root.separatedEdgeRoutes=separatedEdgeRoutes;}
 })(typeof window==='undefined'?globalThis:window);

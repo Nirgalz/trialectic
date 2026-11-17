@@ -47,6 +47,12 @@ Keep this local server running while using the prototype.
   Cycles and shared Objects retain a single identity; placement is a display
   convention, not proof of attribution, an acyclic ontology or a causal order.
   The methodological process remains a separate, relaxed arrangement.
+- Edge routing penalizes paths running close together and paths approaching
+  other nodes. Busy junctions are routed first, with distinct curved trajectories
+  for parallel, reverse and nearly aligned links. Routes are recalculated after
+  dragging a node, changing the local view or returning to the overview. The
+  clearance target is a soft constraint; shared endpoints and dense graphs
+  cannot guarantee separation everywhere.
 - Objects, immutable explicit NEED/CAN concept kinds where present, versioned
   relation records, bearer/represented Object distinction, qualified links,
   conditions, constituent references, CAN affiliations and Scenario heads.

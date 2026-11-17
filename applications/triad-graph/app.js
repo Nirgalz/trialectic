@@ -3,6 +3,11 @@ const $ = id => document.getElementById(id);
 let documentModel, cy, view = 'objects', selected = null, issues = [], records = new Map();
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null;
+function routeVisibleEdges(elements) {
+  const positions=new Map(elements.nodes().map(n=>[n.id(),{...n.position()}]));
+  const routes=separatedEdgeRoutes(positions,elements.edges().map(e=>({id:e.id(),source:e.source().id(),target:e.target().id()})));
+  elements.edges().forEach((e,i)=>{const r=routes.get(e.id());if(r)e.style({'control-point-distances':r.distance,'control-point-weights':r.weight,'text-margin-y':i%2?-10:10});});
+}
 function frameGraph(elements, anchor=null) {
   if(!anchor){cy.fit(elements,45);return;}
   const b=elements.boundingBox(),p=anchor.position();
@@ -16,6 +21,7 @@ function organicLayout(elements, anchor=null) {
   if(view==='process') {
     const positions=[{x:-150,y:50},{x:20,y:-115},{x:165,y:90}];
     elements.nodes().forEach((n,i)=>n.position(positions[i]));
+    routeVisibleEdges(elements);
     frameGraph(elements,anchor);return;
   }
   const subject=anchor&&records.get(anchor.id())?.family==='object'?anchor.id():key('object',documentModel.main_subject.id);
@@ -25,13 +31,7 @@ function organicLayout(elements, anchor=null) {
     documentModel.relations.map(r=>({id:key('relation',r.id,r.version),origin:key('object',r.origin_object.id),target:key('object',r.represented_object.id),type:r.type})),subject);
   const origin=anchor?positions.get(anchor.id()):{x:0,y:0};
   elements.nodes().forEach(n=>{const p=positions.get(n.id());n.position({x:p.x-(origin?.x||0),y:p.y-(origin?.y||0)});});
-  // Distinct curved lanes for parallel edges; opposite directions share a group.
-  const lanes=new Map();
-  elements.edges().forEach(e=>{const pair=[e.source().id(),e.target().id()].sort().join('|');if(!lanes.has(pair))lanes.set(pair,[]);lanes.get(pair).push(e);});
-  lanes.forEach(group=>group.forEach((e,i)=>{
-    const direction=e.source().id()<e.target().id()?1:-1;
-    e.style({'control-point-distances':direction*(22+(i-(group.length-1)/2)*42),'control-point-weights':.4+(i%3)*.1,'text-margin-y':i%2?-9:9});
-  }));
+  routeVisibleEdges(elements);
   frameGraph(elements,anchor||cy.getElementById(subject));
 }
 const text = (parent, tag, value, cls) => { const e = document.createElement(tag); e.textContent = value; if(cls)e.className=cls; parent.append(e); return e; };
@@ -95,6 +95,7 @@ function render() {
   organicLayout(cy.elements());
   cy.on('tap','node',e=>{inspect(e.target.id()); focusNode(e.target.id());});
   cy.on('tap','edge',e=>inspect(e.target.id()));
+  cy.on('dragfree','node',()=>routeVisibleEdges(cy.elements(':visible')));
   $('entity').replaceChildren(new Option('Choisir une entité…',''));
   for(const [id,r] of records)$('entity').add(new Option(`${r.family} · ${r.id}`,id));
   selected=null; orientation(); analyticalSummary();
@@ -125,6 +126,7 @@ function showOverview(){
   centeredNode=null;overviewPositions.clear();$('overview').disabled=true;$('scope').textContent='Tous les éléments';
   const subject=cy.getElementById(key('object',documentModel.main_subject.id));
   cy.nodes().removeClass('layout-center');if(view==='objects')subject.addClass('layout-center');
+  routeVisibleEdges(cy.elements());
   frameGraph(cy.elements(),view==='objects'?subject:null);
 }
 function orientation(){
