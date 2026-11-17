@@ -1,0 +1,441 @@
+{
+  "schema_version": "2.2.0",
+  "analysis_id": "A-can-affiliations-v22",
+  "main_subject": {
+    "id": "O-person-a",
+    "version": "v1"
+  },
+  "secondary_subjects": [
+    {
+      "id": "O-person-b",
+      "version": "v1"
+    }
+  ],
+  "focus": {
+    "type": "CAN",
+    "object_id": "O-can-programming"
+  },
+  "environment": [],
+  "objects": [
+    {
+      "id": "O-person-a",
+      "category": "individual",
+      "label": "Person A",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-person-b",
+      "category": "individual",
+      "label": "Person B",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-play-piano",
+      "category": "semantic_object",
+      "label": "CAN: play the piano",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-need-instrument",
+      "category": "semantic_object",
+      "label": "NEED: a suitable instrument available for the specified actualization",
+      "concept_kind": "NEED",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-programming",
+      "category": "semantic_object",
+      "label": "CAN: programming",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-python",
+      "category": "semantic_object",
+      "label": "CAN: programming in Python",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-appdev",
+      "category": "semantic_object",
+      "label": "CAN: developing an application",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-design",
+      "category": "semantic_object",
+      "label": "CAN: designing an interface",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-can-testing",
+      "category": "semantic_object",
+      "label": "CAN: testing an application",
+      "concept_kind": "CAN",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    }
+  ],
+  "definitions": [
+    {
+      "object_id": "O-person-a",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-a-can",
+          "version": "v1"
+        },
+        {
+          "id": "R-a-programming",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-person-b",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-b-can",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-can-play-piano",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-can-need",
+          "version": "v1"
+        }
+      ]
+    },
+    {
+      "object_id": "O-need-instrument",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-can-programming",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-can-python",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-can-appdev",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-can-design",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    },
+    {
+      "object_id": "O-can-testing",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": []
+    }
+  ],
+  "relations": [
+    {
+      "id": "R-a-can",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-person-a",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-can-play-piano",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "established_in_model",
+        "scope": "Illustrative synthetic attribution, not empirical observation",
+        "justification": "Stipulated constitutive grounding for this modeled case only.",
+        "claim_id": "CL-a-can",
+        "claim_version": "v1"
+      },
+      "relation": {
+        "nature": [
+          "contributive"
+        ],
+        "links": []
+      }
+    },
+    {
+      "id": "R-b-can",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-person-b",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-can-play-piano",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "indeterminate",
+        "scope": "Illustrative synthetic attribution, not empirical observation",
+        "justification": "Current constitutive grounding for this bearer has not been established.",
+        "claim_id": "CL-b-can",
+        "claim_version": "v1"
+      },
+      "relation": {
+        "nature": [
+          "contributive"
+        ],
+        "links": []
+      }
+    },
+    {
+      "id": "R-can-need",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-can-play-piano",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-need-instrument",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "established_in_model",
+        "scope": "Illustrative synthetic attribution, not empirical observation",
+        "justification": "Stipulated constitutive grounding for this modeled case only.",
+        "claim_id": "CL-can-need",
+        "claim_version": "v1"
+      },
+      "relation": {
+        "nature": [
+          "functional"
+        ],
+        "links": []
+      }
+    },
+    {
+      "id": "R-a-programming",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-person-a",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "O-can-programming",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": null,
+      "attribution": {
+        "status": "established_in_model",
+        "scope": "Stipulated competencies in synthetic example",
+        "justification": "The model stipulates a documented general programming skill, without inferring specialized or composite CANs.",
+        "claim_id": "CL-a-programming",
+        "claim_version": "v1"
+      },
+      "relation": {
+        "nature": [
+          "contributive"
+        ],
+        "links": []
+      }
+    }
+  ],
+  "conditions": [],
+  "pathways": [],
+  "inventories": [],
+  "scenarios": [],
+  "events": [],
+  "condition_assessments": [],
+  "power_assessments": [],
+  "effects": [],
+  "claims": [
+    {
+      "id": "CL-a-can",
+      "version": "v1",
+      "statement": "Synthetic assumption that Person A currently possesses the CAN to play piano.",
+      "scope": "Synthetic fixture only; evidence status unverified"
+    },
+    {
+      "id": "CL-b-can",
+      "version": "v1",
+      "statement": "Whether Person B currently possesses the CAN is unresolved.",
+      "scope": "Synthetic fixture only; evidence status unverified"
+    },
+    {
+      "id": "CL-can-need",
+      "version": "v1",
+      "statement": "In the stipulated context, playing piano requires access to a suitable instrument.",
+      "scope": "Synthetic fixture only; evidence status unverified"
+    },
+    {
+      "id": "CL-a-programming",
+      "version": "v1",
+      "statement": "For this synthetic case Person A possesses the general CAN of programming, but its children are not automatically attributed.",
+      "scope": "Synthetic example only; no independent verification."
+    },
+    {
+      "id": "CL-AF-specialized-python",
+      "version": "v1",
+      "statement": "Illustrative specialization: O-can-python belongs under O-can-programming.",
+      "scope": "Synthetic taxonomy; no empirical or necessary/sufficient inference."
+    },
+    {
+      "id": "CL-AF-composed-python",
+      "version": "v1",
+      "statement": "Illustrative composition: O-can-python belongs under O-can-appdev.",
+      "scope": "Synthetic taxonomy; no empirical or necessary/sufficient inference."
+    },
+    {
+      "id": "CL-AF-composed-design",
+      "version": "v1",
+      "statement": "Illustrative composition: O-can-design belongs under O-can-appdev.",
+      "scope": "Synthetic taxonomy; no empirical or necessary/sufficient inference."
+    },
+    {
+      "id": "CL-AF-composed-testing",
+      "version": "v1",
+      "statement": "Illustrative composition: O-can-testing belongs under O-can-appdev.",
+      "scope": "Synthetic taxonomy; no empirical or necessary/sufficient inference."
+    }
+  ],
+  "evidence_items": [],
+  "evidence_reviews": [],
+  "claim_assessments": [],
+  "can_affiliations": [
+    {
+      "id": "AF-specialized-python",
+      "version": "v1",
+      "kind": "specialization",
+      "parent_can": {
+        "id": "O-can-programming",
+        "version": "v1"
+      },
+      "child_can": {
+        "id": "O-can-python",
+        "version": "v1"
+      },
+      "qualification": {
+        "status": "established_in_model",
+        "scope": "Synthetic CAN taxonomy, not a necessary/sufficient composition proof",
+        "justification": "Illustrative specialization relationship only; no ownership, causal sufficiency or mandatory sub-CAN inferred.",
+        "claim_id": "CL-AF-specialized-python",
+        "claim_version": "v1"
+      }
+    },
+    {
+      "id": "AF-composed-python",
+      "version": "v1",
+      "kind": "composition",
+      "parent_can": {
+        "id": "O-can-appdev",
+        "version": "v1"
+      },
+      "child_can": {
+        "id": "O-can-python",
+        "version": "v1"
+      },
+      "qualification": {
+        "status": "established_in_model",
+        "scope": "Synthetic CAN taxonomy, not a necessary/sufficient composition proof",
+        "justification": "Illustrative composition relationship only; no ownership, causal sufficiency or mandatory sub-CAN inferred.",
+        "claim_id": "CL-AF-composed-python",
+        "claim_version": "v1"
+      }
+    },
+    {
+      "id": "AF-composed-design",
+      "version": "v1",
+      "kind": "composition",
+      "parent_can": {
+        "id": "O-can-appdev",
+        "version": "v1"
+      },
+      "child_can": {
+        "id": "O-can-design",
+        "version": "v1"
+      },
+      "qualification": {
+        "status": "established_in_model",
+        "scope": "Synthetic CAN taxonomy, not a necessary/sufficient composition proof",
+        "justification": "Illustrative composition relationship only; no ownership, causal sufficiency or mandatory sub-CAN inferred.",
+        "claim_id": "CL-AF-composed-design",
+        "claim_version": "v1"
+      }
+    },
+    {
+      "id": "AF-composed-testing",
+      "version": "v1",
+      "kind": "composition",
+      "parent_can": {
+        "id": "O-can-appdev",
+        "version": "v1"
+      },
+      "child_can": {
+        "id": "O-can-testing",
+        "version": "v1"
+      },
+      "qualification": {
+        "status": "established_in_model",
+        "scope": "Synthetic CAN taxonomy, not a necessary/sufficient composition proof",
+        "justification": "Illustrative composition relationship only; no ownership, causal sufficiency or mandatory sub-CAN inferred.",
+        "claim_id": "CL-AF-composed-testing",
+        "claim_version": "v1"
+      }
+    }
+  ]
+}
