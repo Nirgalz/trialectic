@@ -30,3 +30,5 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Check approved interactive prototype
         run: python applications/triad-graph/test_prototype.py
+      - name: Check graph hierarchy constraints
+        run: node applications/triad-graph/test-layout.cjs

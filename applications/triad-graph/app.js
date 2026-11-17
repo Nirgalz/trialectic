@@ -18,23 +18,21 @@ function organicLayout(elements, anchor=null) {
     elements.nodes().forEach((n,i)=>n.position(positions[i]));
     frameGraph(elements,anchor);return;
   }
-  // Deterministic sunflower seed: no rigid rows or perfectly regular rings.
-  elements.nodes().forEach((n,i)=>{
-    const angle=i*2.3999632297, radius=85*Math.sqrt(i);
-    n.position({x:radius*Math.cos(angle),y:radius*Math.sin(angle)});
-  });
-  activeLayout=elements.layout({name:'cose',randomize:false,animate:false,
-    nodeDimensionsIncludeLabels:false,nodeRepulsion:()=>3500,
-    idealEdgeLength:()=>90,edgeElasticity:()=>100,gravity:1.1,
-    componentSpacing:90,nodeOverlap:25,numIter:700,padding:55,
-    stop:()=>{
-      if(anchor){
-        const origin={...anchor.position()};
-        elements.nodes().forEach(n=>n.position({x:n.position('x')-origin.x,y:n.position('y')-origin.y}));
-      }
-      frameGraph(elements,anchor);
-    }});
-  activeLayout.run();
+  const subject=anchor&&records.get(anchor.id())?.family==='object'?anchor.id():key('object',documentModel.main_subject.id);
+  cy.nodes().removeClass('layout-center');cy.getElementById(subject).addClass('layout-center');
+  const positions=hierarchyPositions(elements.nodes().map(n=>({id:n.id(),kind:n.data('kind')})),
+    elements.edges().map(e=>({source:e.source().id(),target:e.target().id()})),
+    documentModel.relations.map(r=>({id:key('relation',r.id,r.version),origin:key('object',r.origin_object.id),target:key('object',r.represented_object.id),type:r.type})),subject);
+  const origin=anchor?positions.get(anchor.id()):{x:0,y:0};
+  elements.nodes().forEach(n=>{const p=positions.get(n.id());n.position({x:p.x-(origin?.x||0),y:p.y-(origin?.y||0)});});
+  // Distinct curved lanes for parallel edges; opposite directions share a group.
+  const lanes=new Map();
+  elements.edges().forEach(e=>{const pair=[e.source().id(),e.target().id()].sort().join('|');if(!lanes.has(pair))lanes.set(pair,[]);lanes.get(pair).push(e);});
+  lanes.forEach(group=>group.forEach((e,i)=>{
+    const direction=e.source().id()<e.target().id()?1:-1;
+    e.style({'control-point-distances':direction*(22+(i-(group.length-1)/2)*42),'control-point-weights':.4+(i%3)*.1,'text-margin-y':i%2?-9:9});
+  }));
+  frameGraph(elements,anchor||cy.getElementById(subject));
 }
 const text = (parent, tag, value, cls) => { const e = document.createElement(tag); e.textContent = value; if(cls)e.className=cls; parent.append(e); return e; };
 const pretty = x => JSON.stringify(x, null, 2);
@@ -86,7 +84,9 @@ function render() {
     {selector:'node[kind="scenario"],node[kind="process"]',style:{shape:'round-rectangle',width:100,height:38}},
     {selector:'node[kind="condition"]',style:{shape:'triangle','background-color':color('--need')}},
     {selector:'edge',style:{label:'data(label)','font-size':10,'color':color('--muted'),'text-wrap':'wrap','text-max-width':120,'text-background-color':color('--panel'),'text-background-opacity':.85,'text-background-padding':4,'curve-style':'unbundled-bezier','control-point-distances':24,'control-point-weights':.5,'line-cap':'round',width:1.5,'line-color':color('--muted'),'line-opacity':.55,'target-arrow-color':color('--muted'),'target-arrow-shape':'triangle','arrow-scale':.75}},
-    {selector:'edge[kind="context"]',style:{'line-style':'dashed'}},
+    {selector:'edge[kind="context"]',style:{'line-style':'dashed','label':'','line-opacity':.3}},
+    {selector:'node.layout-center',style:{width:46,height:46,'border-width':2,'border-color':color('--can'),'font-weight':'bold'}},
+    {selector:'edge:selected',style:{label:'data(label)','text-background-opacity':1}},
     {selector:'node[kind="process"]',style:{'text-valign':'center','text-margin-y':0,'background-opacity':.18,'border-width':1,'border-color':color('--accent')}},
     {selector:'edge#p01, edge#p12, edge#p20',style:{'control-point-distances':-50,'text-margin-y':-12,'text-background-opacity':1}},
     {selector:'.outside-neighborhood',style:{display:'none'}},
@@ -122,7 +122,10 @@ function focusNode(uid) {
 function showOverview(){
   activeLayout?.stop();cy.stop();
   cy.batch(()=>{cy.elements().removeClass('outside-neighborhood');cy.nodes().forEach(n=>{const p=overviewPositions.get(n.id());if(p)n.position(p);});});
-  centeredNode=null;overviewPositions.clear();$('overview').disabled=true;$('scope').textContent='Tous les éléments';cy.fit(undefined,45);
+  centeredNode=null;overviewPositions.clear();$('overview').disabled=true;$('scope').textContent='Tous les éléments';
+  const subject=cy.getElementById(key('object',documentModel.main_subject.id));
+  cy.nodes().removeClass('layout-center');if(view==='objects')subject.addClass('layout-center');
+  frameGraph(cy.elements(),view==='objects'?subject:null);
 }
 function orientation(){
   $('inspect-title').textContent='Orientation';$('inspector').replaceChildren();

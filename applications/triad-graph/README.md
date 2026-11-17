@@ -39,9 +39,14 @@ Keep this local server running while using the prototype.
 ## Implemented
 
 - Separate conceptual and methodological process views (D-85–D-89).
-- Organic force-directed placement for Objects and their local neighborhoods,
-  a relaxed process arrangement and softly curved links in both views;
-  geometry carries no additional analytical meaning.
+- Constrained Object hierarchy: main Subject centered, CANs above their bearer,
+  NEEDs below, relation records in intermediate layers and metadata to the side.
+  Repeated barycenter ordering reduces crossings, with minimum node spacing and
+  separate curved lanes for parallel links. Local inspection uses the selected
+  Object as center. Context edge labels appear on selection to reduce clutter.
+  Cycles and shared Objects retain a single identity; placement is a display
+  convention, not proof of attribution, an acyclic ontology or a causal order.
+  The methodological process remains a separate, relaxed arrangement.
 - Objects, immutable explicit NEED/CAN concept kinds where present, versioned
   relation records, bearer/represented Object distinction, qualified links,
   conditions, constituent references, CAN affiliations and Scenario heads.
