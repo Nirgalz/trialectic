@@ -36,6 +36,42 @@ referencing (the existing `.test-deps` directory is supported). Cytoscape.js
 3.30.4 is bundled locally; no runtime CDN or external AI calls are required.
 Keep this local server running while using the prototype.
 
+## Local OpenAI API experimentation (opt-in, no MCP)
+
+For rapid experiments with the **existing Cytoscape interface**, the prototype offers a small **server-side Responses API bridge**. It is separate from the ChatGPT conversation and is billed through the user's **OpenAI API account**, not a ChatGPT subscription. It is **not** automatic source/Scenario revision: AI suggestions appear in a read-only panel and must be reviewed before an imported Analysis is changed.
+
+### Secure setup on Windows / Configuration sécurisée
+
+1. Update your local checkout of the **`dev`** branch and install the existing Python validator dependencies:
+   ```powershell
+   git switch dev
+   git pull --ff-only
+   python -m pip install -r requirements-test.txt
+   ```
+2. Create a **dedicated project API key** using the OpenAI Platform and configure an appropriate project budget/usage monitoring. **Never paste the key into ChatGPT, GitHub, a screenshot, a terminal command or the browser interface.**
+3. From the repository root, run the masked-input launcher:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\applications\triad-graph\run-local.ps1
+   ```
+   PowerShell requests the key with **`Read-Host -AsSecureString`**. The launcher passes it **only as `OPENAI_API_KEY` in the temporary Python server process environment**, and removes the value when the server terminates. It does **not** create a `.env` file. The launcher also tries to install a local pre-commit secret guard without overwriting any existing custom hook.
+4. Open **http://127.0.0.1:8765**. Select a fixture, inspect an Object and click **Adopter l'Objet inspecté comme Focus**. Then use **Analyser le Sujet Focal avec l'IA**, or explicitly **Améliorer la résolution · C+ avec l'IA**. Each click causes one API request; the button stays disabled if the server has no key.
+5. Read the AI reply and suggested Object/relation/Scenario changes in the panel. **They do not modify the normative Analysis, change Power evaluations or automatically draw proven new edges.** You may continue with the original manual handoff/export flow.
+
+The default low-cost model is `gpt-6-luna`. For experiments with another accessible model, set the optional `TRIA_OPENAI_MODEL` environment variable **before** running the launcher. The API call uses `store: false`, bounds request context and output length, has no AI tools or external browsing, and never exposes its Authorization header to the browser. Neither `OPENAI_API_KEY` nor the full upstream error body is ever returned by the server. A response is produced by a *separate API session*, not by the existing ChatGPT conversation.
+
+### Secret protection / Protection de la clé
+
+- The repository-level and prototype-level `.gitignore` exclude `.env`, `.env.*` and common private-key filenames. **Ignoring a file does not protect against `git add -f`, pre-existing tracked files or copying credentials into ordinary source files.**
+- Run `python tools/install_secret_hook.py` once from the repository root if you do not use the launcher. It adds a pre-commit hook that runs `python tools/check_secrets.py --staged`. If you have a pre-existing hook, it is preserved and you must integrate the check manually.
+- GitHub Actions runs `python tools/check_secrets.py` on committed sources. This is a backstop, **not a substitute for local checking before pushing**. You can run `python tools/check_secrets.py --staged` manually. Never bypass a real secret finding.
+- Also enable **GitHub secret scanning / push protection** when your repository and account offer it. Push protection can block supported tokens before they reach the remote, whereas a CI check runs only after a commit arrives.
+- The Python HTTP server binds **only to 127.0.0.1:8765**, enforces a loopback Host and same-origin POST, disables directory listings and blocks hidden paths including `.env`. Keep it local; **do not expose it through a tunnel or public proxy**. Never open browser developer tools to paste the key there.
+- If a real key ever reaches GitHub or a public log, **revoke/rotate it immediately**. Deleting the file in a later commit is not sufficient to remove a leaked key from history.
+
+### Tests and current boundaries
+
+Run `python applications/triad-graph/test_ai_bridge.py` for mocked server-bridge tests (no real API request). GitHub Actions also executes this test and the secret scan. The browser uses an opt-in button, not an always-on connection. This experimental bridge has **no persistence, automatic claim-to-graph synchronization, provider-agnostic adapter, or guaranteed semantic validation** of the AI response. No actual paid API test is performed by the repository's deterministic tests.
+
 ## D-97 Focus cycle — PARTIAL EXPERIMENTAL IMPLEMENTATION
 
 The author validated the following behavior on November 17, 2026. The current client implements **read-only contextual exploration and manual AI handoff**, but **does not execute live AI reasoning**, infer facts, automatically update the source Analysis, or synchronize conversation turns. The graphical reasoning view is **carte** (FR) / **map** (EN).
