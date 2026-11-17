@@ -1,6 +1,18 @@
 /* UI translations only. Source records, JSON, identifiers and form values stay intact. */
 (function(root){
  const pairs=[
+ ['Échange local avec ChatGPT Work','Local exchange with ChatGPT Work'],
+ ['PONT DE FICHIERS LOCAL · SANS API NI MCP','LOCAL FILE BRIDGE · NO API OR MCP'],
+ ['Approfondir avec ChatGPT Work','Deepen with ChatGPT Work'],
+ ['Préparer le Focus pour Work','Prepare Focus for Work'],
+ ['Préparer C+ pour Work','Prepare C+ for Work'],
+ ['Vérifier la réponse','Check response'],
+ ['Copier les instructions Work','Copy Work instructions'],
+ ['Préparation du pont local…','Preparing local bridge…'],
+ ["Créer une demande enregistrée sur ton PC, puis demander explicitement à ChatGPT Work Local de la traiter. Le serveur Python ne peut pas déclencher lui-même GPT.",
+  "Create a request on your PC, then explicitly ask ChatGPT Work Local to process it. The Python server cannot trigger GPT itself."],
+ ["Work doit disposer d'un accès autorisé au dossier local du dépôt. L'échange est manuel côté Work et n'entraîne aucune modification automatique du document Analysis, des évaluations ou des Scénarios.",
+  "Work needs authorized access to the local repository folder. The Work step is manual and does not automatically change the Analysis document, assessments or Scenarios."],
  ['Vues de la carte','Map views'],['Carte des Objets et relations','Object and relationship map'],['Carte des scénarios','Scenario map'],['Carte interactive des Objets et des relations qualifiées','Interactive Object and qualified relationship map'],
  ['Carte détaillée · Objets et relations','Detailed map · Objects and relationships'],['Carte simple · sélection non exhaustive','Simple map · non-exhaustive selection'],
  ['Première réponse · carte','First response · map'],['Choisir une carte simple ou détaillée','Choose a simple or detailed map'],['Carte simple · A (texte puis carte)','Simple map · A (text then map)'],['Carte détaillée · B (structure puis texte)','Detailed map · B (structure then text)'],
