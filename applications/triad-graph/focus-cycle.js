@@ -5,7 +5,7 @@
   if(typeof module!=='undefined' && module.exports) module.exports=api;
   else root.TriaFocusCycle=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function() {
-  const unique=xs=>[...new Set(xs)];
+  const clone=value=>JSON.parse(JSON.stringify(value));
   function graph(doc) {
     const edges=new Map((doc.objects||[]).map(o=>[o.id,[]]));
     const known=new Set(edges.keys());
@@ -141,9 +141,9 @@
     }
     return {
       get mode(){return mode;},get focus(){return focus;},get refined(){return refined;},
-      get local(){return local?structuredClone(local):null;},
-      get review(){return structuredClone(review);},
-      get history(){return structuredClone(history);},
+      get local(){return local?clone(local):null;},
+      get review(){return clone(review);},
+      get history(){return clone(history);},
       setMode,adopt,returnOverview,refine,handoff,
       reset(){mode='detailed';focus=null;refined=false;local=null;review=[];history=[];discovered.clear();}
     };
