@@ -1,4 +1,4 @@
-"""Scoped D-65/D-83 semantic consistency checks for Analysis v2.0/v2.1.
+"""Scoped D-65/D-83/D-84 semantic checks for Analysis v2.0/v2.1/v2.2.
 
 No empirical, causal, epistemic-sufficiency or complete temporal inference is
 performed. Warning is not a rejection. Historical v2.0 lacks identity/attribution
@@ -110,7 +110,7 @@ def validate_semantics(document, previous_documents=()):
             if kind and kind != relation["type"]:
                 issue("relation_kind_mismatch", where,
                       relation["type"] + " -> " + kind)
-            if document["schema_version"] == "2.1.0" and kind is None:
+            if document["schema_version"] in ("2.1.0", "2.2.0") and kind is None:
                 issue("unidentified_represented_object", where, target["id"])
         owner = relation["origin_object"]
         if (owner["id"], owner["version"]) in definitions:
@@ -127,7 +127,7 @@ def validate_semantics(document, previous_documents=()):
             if (attribution["claim_id"], attribution["claim_version"]) not in claims:
                 issue("attribution_claim_unresolved", where,
                       attribution["claim_id"] + "@" + attribution["claim_version"])
-        if document["schema_version"] == "2.1.0" and attribution is None:
+        if document["schema_version"] in ("2.1.0", "2.2.0") and attribution is None:
             issue("unqualified_v21_relation", where, relation["id"])
         for index_link, link in enumerate(relation["relation"]["links"]):
             inventory = relation.get(link["source_list"])
@@ -136,6 +136,67 @@ def validate_semantics(document, previous_documents=()):
                 issue("link_outside_source_inventory",
                       where + f".relation.links[{index_link}]",
                       link["object_id"])
+
+    # D-84 conceptual CAN affiliations are NOT attribution relations and are
+    # not necessarily NEED prerequisites. Both endpoints must be CAN Objects.
+    affiliations = document.get("can_affiliations", [])
+    if document["schema_version"] == "2.2.0" and "can_affiliations" not in document:
+        issue("missing_can_affiliations", "can_affiliations",
+              "v2.2 requires an explicitly scoped, possibly empty inventory")
+    if document["schema_version"] != "2.2.0" and "can_affiliations" in document:
+        issue("unsupported_can_affiliations_version", "can_affiliations",
+              document["schema_version"])
+
+    affiliation_versions = set()
+    # Cycle detection is advisory, not a new normative ban on graph cycles.
+    established_graph = {}
+    for index, affiliation in enumerate(affiliations):
+        where = f"can_affiliations[{index}]"
+        key = (affiliation["id"], affiliation["version"])
+        if key in affiliation_versions:
+            issue("duplicate_affiliation_version", where, key)
+        affiliation_versions.add(key)
+        parent = affiliation["parent_can"]
+        child = affiliation["child_can"]
+        for role, ref in (("parent_can", parent), ("child_can", child)):
+            known_ref(ref, where + "." + role)
+            obj = objects.get(ref["id"])
+            if obj is not None and obj.get("concept_kind") != "CAN":
+                issue("affiliation_endpoint_not_can", where + "." + role,
+                      ref["id"] + ": " + str(obj.get("concept_kind")))
+        qualified = affiliation["qualification"]
+        if (qualified["claim_id"], qualified["claim_version"]) not in claims:
+            issue("affiliation_claim_unresolved", where,
+                  qualified["claim_id"] + "@" + qualified["claim_version"])
+        if parent["id"] == child["id"]:
+            issue("affiliation_self_loop", where,
+                  affiliation["id"] + ": self affiliation needs review", "warning")
+        if qualified["status"] == "established_in_model":
+            established_graph.setdefault(parent["id"], set()).add(child["id"])
+
+    # Warn once for each closed DFS path. We do not infer CAN possession,
+    # logical necessity, closure, or automatic cycle invalidity.
+    active = set()
+    finished = set()
+    reported = set()
+
+    def visit(node):
+        active.add(node)
+        for child_id in established_graph.get(node, ()):
+            if child_id in active:
+                witness = tuple(sorted((node, child_id)))
+                if witness not in reported:
+                    reported.add(witness)
+                    issue("can_affiliation_cycle", "can_affiliations",
+                          node + " -> " + child_id, "warning")
+            elif child_id not in finished:
+                visit(child_id)
+        active.remove(node)
+        finished.add(node)
+
+    for root_node in sorted(established_graph):
+        if root_node not in finished:
+            visit(root_node)
 
     for index, evaluation in enumerate(document.get("power_assessments", [])):
         subject = evaluation["Subject"]["object_id"]
@@ -147,7 +208,7 @@ def validate_semantics(document, previous_documents=()):
             if focus_obj is None:
                 issue("power_focus_unknown", f"power_assessments[{index}]",
                       focus["object_id"])
-            elif (document["schema_version"] == "2.1.0"
+            elif (document["schema_version"] in ("2.1.0", "2.2.0")
                   and focus_obj.get("concept_kind") != focus["type"]):
                 issue("power_focus_kind_mismatch", f"power_assessments[{index}]",
                       focus["object_id"])
