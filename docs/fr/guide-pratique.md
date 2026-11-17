@@ -4,7 +4,7 @@
 > **À découvrir :** [Présentation](presentation.md) · [Référentiel](../../reference/trialectic-method.md)
 
 # Guide pratique de la Méthode trialectique
-## Analyser une situation, comprendre ses mécanismes et explorer des solutions
+## Comprendre une problématique, explorer des possibilités et décider de manière éclairée
 
 ### À qui s'adresse ce guide ?
 
@@ -15,6 +15,12 @@ Il ne nécessite pas de connaissances particulières.
 Vous pouvez l'utiliser seul, avec d'autres personnes ou avec une intelligence artificielle.
 
 Il propose un déroulement progressif, à adapter selon la complexité de la situation. Il ne constitue pas un protocole scientifiquement validé.
+
+## Les trois phases — Comprendre, Explorer, Décider (D-85)
+
+La Méthode trialectique complète repose sur **Comprendre**, **Explorer** et **Décider**, avec des retours possibles vers les phases précédentes lorsque de nouvelles informations ou interprétations apparaissent. L'analyste peut légitimement **s'arrêter après Comprendre** ou **après Explorer** si cela suffit à son besoin ; il n'est **pas tenu de décider à chaque utilisation**. Lorsqu'une décision est recherchée, il s'agit de justifier un choix éclairé ou son report si les éléments manquent, sans prétendre identifier une solution universellement optimale.
+
+Les opérations numérotées ci-dessous décrivent un **parcours particulier centré sur les NEED/CAN et les Actualisations**, et non une procédure de départ obligatoire pour toutes les questions. Les trois grandes phases méthodologiques ne doivent **pas être confondues** avec ces opérations locales. Sujet, Environnement et dimensions sémantiques pertinentes interviennent tout au long de l'analyse. Le modèle informatique sert à formaliser le fonctionnement et la traçabilité de la Méthode, sans imposer ses finalités.
 
 ## Avant de commencer : choisir une question
 
@@ -37,7 +43,7 @@ Conservez votre question initiale : vous pourrez la reformuler si l'analyse rév
 
 ---
 
-# Première étape — Comprendre le Sujet
+# Parcours pratique A — Contextualiser le Sujet
 
 ## 1. Identifier ce que vous analysez
 
@@ -97,7 +103,7 @@ Inversement, une Potentialité indisponible aujourd'hui peut devenir accessible 
 
 ---
 
-# Deuxième étape — Examiner les nécessités et les potentialités
+# Parcours pratique B — Examiner les nécessités et les potentialités
 
 Vous devez maintenant choisir ce sur quoi porter votre attention : un **NEED** ou un **CAN**.
 
@@ -201,7 +207,7 @@ Et ce qui est indispensable dans un scénario peut ne pas l'être dans un autre.
 
 ---
 
-# Troisième étape — Explorer les Actualisations possibles
+# Parcours pratique C — Explorer les Actualisations possibles
 
 La troisième étape consiste à examiner les conditions permettant de mettre en œuvre certaines Potentialités, puis à construire et comparer plusieurs scénarios.
 
@@ -364,6 +370,14 @@ Vous pouvez conclure que plusieurs scénarios méritent d'être approfondis, qu'
 Si une décision doit être prise, explicitez les critères qui orientent le choix.
 
 Une recommandation peut alors être formulée sous conditions, sans prétendre qu'elle constitue universellement la meilleure solution.
+
+---
+
+# Décider — Lorsque l'analyste a besoin de choisir (D-85)
+
+Si l'analyse doit conduire à une décision, indiquez **quelle possibilité ou orientation est retenue**, **les objectifs et valeurs** pris en compte, **les critères et contraintes** déterminants ainsi que **les incertitudes** restantes. Explicitez les autres options, les compromis et les risques. Il peut être justifié de **reporter le choix**, de rechercher des informations supplémentaires ou de revenir à Comprendre et Explorer. Une comparaison ne démontre pas, à elle seule, l'optimalité objective d'une décision.
+
+Si l'objectif était simplement de comprendre ou d'explorer, cette phase peut être omise : l'utilisation de la Méthode demeure complète au regard du besoin initial.
 
 ---
 
@@ -565,16 +579,12 @@ Il est préférable de documenter ce qui reste inconnu et d'identifier les véri
 
 ## Conclusion
 
-La Méthode trialectique propose une démarche qui consiste à :
+La Méthode trialectique **complète** comporte trois phases essentielles et récursives :
 
-1. Identifier et contextualiser un Sujet.
-2. Examiner un NEED ou un CAN et ses relations avec d'autres Objets.
-3. Étudier les conditions d'Actualisation et plusieurs scénarios possibles.
-4. Comparer les scénarios, leurs conséquences et leurs incertitudes.
-5. Revenir au Sujet pour réévaluer la situation et poursuivre l'analyse lorsque cela reste pertinent.
+1. **Comprendre** une problématique en examinant le Sujet situé, son Environnement, les relations et la Sémantique pertinentes, ainsi que les interprétations, les éléments établis et les incertitudes.
+2. **Explorer** les possibilités, leurs conditions, les alternatives, les effets envisageables et les scénarios de résolution lorsque cela est pertinent.
+3. **Décider** en explicitant un choix éclairé à partir de critères et d'incertitudes identifiés, ou en justifiant son report.
 
-Le résultat n'est pas nécessairement une décision ou une solution.
+Les deux premières phases peuvent chacune constituer **une finalité suffisante** selon les besoins de l'analyste. Revenir sur les phases précédentes appartient au fonctionnement récursif de la Méthode. Le parcours NEED/CAN présenté dans ce guide est **un chemin possible**, non une séquence universellement imposée.
 
-Il peut s'agir d'une meilleure compréhension du problème, de la découverte d'une Potentialité, de l'identification d'une dépendance jusque-là ignorée ou de la clarification d'un désaccord.
-
-**Une analyse réussie n'est pas seulement celle qui conduit à une action : c'est aussi celle qui permet de mieux comprendre ce qui est nécessaire, ce qui est possible et ce que différentes transformations pourraient produire.**
+**La Méthode vise des analyses et des décisions mieux éclairées et révisables, sans promettre une réponse objectivement optimale ni exiger que chaque analyse aboutisse à une action.**
