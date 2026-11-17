@@ -104,6 +104,12 @@ existing **Préparer l'approfondissement pour l'IA** text handoff as a fallback.
 - `.tria-work` data persist locally until manually removed. They are not
   uploaded to GitHub by this bridge, but Work conversations may involve
   sharing context with OpenAI under the user's existing account terms.
+- If the earlier paid-API launcher was ever run on this computer, a Git
+  `.git/hooks/pre-commit` hook invoking the now-removed
+  `tools/check_secrets.py --staged` may still exist **locally**. Git does
+  not version hooks: inspect that file and remove **only** the obsolete hook
+  or the obsolete line; preserve unrelated custom hooks. The repository
+  cannot uninstall a hook already present on a user's computer.
 
 ### Verify the local bridge
 
