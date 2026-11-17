@@ -29,6 +29,25 @@ trIA's primary task is to make **reasoning explicitly presented by an AI** under
 
 The detailed methodological instructions in sections 2–4 below guide an **AI using the full Method where relevant**; they are **not mandatory rendering fields** for trIA. Technical exchange/export guidance in section 6 applies only when such a structured export is explicitly requested or technically necessary, not for ordinary visual explanations.
 
+## D-97 addendum — initial map modes, C+ refinement and Object-centred Focus (author-validated November 17, 2026)
+
+This is an **approved interaction/analytical-steering design**, not proof that the current interactive client has implemented it. The graphical view is named **carte** (French) / **map** (English).
+
+**First request — choose a map:**
+- **Carte simple / Simple map — A:** compose an appropriately direct natural-language answer and then a concise map representing the explanation the AI explicitly gives.
+- **Carte détaillée / Detailed map — B:** begin the *requested explanatory workflow* by articulating relevant Objects, relationships and contextual qualifications, then compose the user-facing answer and map from them. This is an output/protocol convention, not a claim to observe or control the model's private reasoning process.
+- Both choices apply the same Method and remain context-sensitive. They do not correspond to D-28's deferred Simple Mode, imply an exhaustive Object/NEED/CAN inventory, or require a fixed number of Scenarios. For a non-NEED/CAN question, use the pertinent conceptual perspectives without manufacturing such categories.
+
+**After map display:** expose **Améliorer la résolution de la carte / Improve map resolution** when the host supports a working action; otherwise offer an explicit text command. The action requests **C+**: proportionately revisit relevant omitted Objects/Subjects/relations, possible alternatives/Scenarios, underlying conditions and contextual/semantic ambiguities; communicate material changes and explicitly qualify unknowns or unsupported candidates. Map resolution is *analytical* resolution, not pixel resolution or a promise of a definitive solution. Trigger C+ only on the user's request, not automatically on every map draw or focus change.
+
+**Object Focus (distinct from transient inspection):** when an Object is **explicitly adopted as Focus**, the AI treats it as the local **Focal Subject** and recontextualizes three relevant perspectives: (1) the Subject and its known/unknown properties, NEEDs and CANs where applicable; (2) its Environment, initially the Objects and relations already connected to it, extended by relevant discovered direct or indirect relations; and (3) Semantics of the Focal Subject and Environment, including words, concepts, meanings, scope and ambiguity. Do not treat these three perspectives as symmetric, universal causal compartments or automatically create new normative Object kinds. Existing NEED/CAN IDs and attributions remain stable. A selected NEED/CAN Object can be examined as an Object without conflating it with its bearer. An eligible Scenario navigation Focus (D-92) remains distinct: it is not retyped as an Object.
+
+**Deepening and propagation:** the AI attempts a *proportionate local knowledge review* and articulates candidate new relations, omissions, contextual Definitions and uncertainty, without claiming to discover unavailable facts. A local change prompts **selective consideration** of affected global Objects, claims and Scenarios when the user returns to the global map or revisits another Focus; preserve unchanged independent assessments, history and existing Object identity. Navigation alone does not mutate `Analysis`, `Stage`, `PowerEvaluation.Focus` or simulate effective Actualization. Follow D-89's whole-problem and affected-Subjects safeguard even when locally focused. An explicit user-approved correction is an epistemic revision unless evidence shows a real-world change.
+
+**Minimal inspectable cycle:** map choice → answer and map → explicit Object Focus → local Subject/Environment/Semantics review → qualified findings → return to general map → check only materially affected Scenario assessments → optional C+ → trace retained. For the existing Cytoscape client, **this cycle is a test target, not a current feature claim**. A text/Mermaid fallback must remain available where a working map action cannot be mounted.
+
+**Remaining implementation questions:** how the host triggers an AI turn on selecting a Focus, whether users must explicitly confirm local deepening, persistence/history/version boundaries, synchronization between prose and map, accessibility, cost/latency and user-value comparisons. Preserve current D-17/D-91/D-92 Focus distinctions and the current normative schemas pending separate decisions.
+
 ## 1. Purpose and scope
 
 Specify an **approved portable dialogue design**, suitable for adaptation into an instruction document supplied by a user to a capable conversational AI, that guides AI-assisted application of the Trialectic Method. The same guidance should work in an ordinary text interface and, where the host genuinely supports them, richer interactive interfaces.
@@ -88,7 +107,7 @@ This is an **approved dialogue orchestration design**, not a replacement for the
 
 Use **progressive disclosure**, preserving meaning without overwhelming the primary view:
 
-1. **Simple map by default:** the relevant Objects and selected contextual NEED/CAN relationships. Clearly identify the main Object or current question if one is in use.
+1. **Map according to the initial user choice (D-97):** simple A or detailed B, representing relevant Objects and selected contextual NEED/CAN relationships at a proportionate depth; identify the main Object or current question. Do not imply that the detailed choice warrants exhaustive modeling.
 2. **Interpretation on inspection:** what a particular link means **in this context**, including any condition, assumption, qualification or uncertainty necessary to avoid misleading the reader.
 3. **Optional depth on request:** Scenarios, alternatives, methodological operations, Inferences, historical versions, sources or assessments when the human needs them. These are not mandatory additional node types or automatic trIA verdicts.
 4. **Human navigation:** inspect an Object/link, return to the overview, and follow another branch without altering the underlying analysis merely by navigating.
@@ -130,7 +149,7 @@ A user-supplied text document can guide response layout; it **cannot guarantee w
 | **Evidence** | Sources, claims, qualification and contradictions | Expandable cited claim inspector | Claim → source IDs → limitations |
 | **Learning** | Explain concepts and test understanding on request | Inline questions and revealable examples | Optional guided question and explanation |
 
-Actions to expose **only when genuinely implemented by the host**: **Inspect**, **Challenge**, **Change Focus**, **Alter assumption**, **Compare**, **Show evidence**, **Reassess**, **Export summary**. In text-only mode, offer these as concise natural-language requests, not inert pseudo-buttons. UI states and summaries must derive from the same analytical records; a graphical display is never a substitute for data-model validation.
+Actions to expose **only when genuinely implemented by the host**: **Inspect**, **Challenge**, **Change Focus**, **Improve map resolution (C+)**, **Alter assumption**, **Compare**, **Show evidence**, **Reassess**, **Export summary**. For an Object, explicit **Change Focus** requests AI-led local Subject/Environment/Semantics examination when such a host workflow is genuinely available; do not present simple graph inspection as automatic analytical execution. In text-only mode, offer these as concise natural-language requests, not inert pseudo-buttons. UI states and summaries must derive from the same analytical records; a graphical display is never a substitute for data-model validation.
 
 The display controller may show a small subset by default, while the **analytical rigor of Advanced Mode remains unchanged**. The amount of visible detail does not create a separate Simple Mode.
 
@@ -232,5 +251,7 @@ These are **author-approved test requirements**, not completed tests or evidence
 - **DIALOGUE-05:** What is the smallest faithful **standalone portable instruction document** and what reference subset must it embed to avoid undefined NEED/CAN/Power semantics?
 - **DIALOGUE-06:** How should snapshot export represent Object versions, contradictory branches, user corrections and unavailable evidence without overclaiming persistence?
 - **DIALOGUE-07:** What independent baseline tests demonstrate actual improvements or harms for users and analysts?
+
+**D-97 implementation priority (author-validated behavior; software still OPEN):** provide initial Simple map A / Detailed map B choices; an operative user-requested C+ resolution action; explicit Object-Focus local deepening through Subject/Environment/Semantics; selective return-to-overview reassessment. Verify a full focus-switch trace with an initially hidden indirect connection, semantic requalification and unaffected Scenario control, plus no-new-facts/irrelevant-NEED-CAN negative tests. Keep transient inspect distinct from adopted Focus; do not assert auto-sync until a host integration demonstrates it.
 
 **Next implementation work (not yet validated):** derive a compact standalone AI-instruction artifact from this approved design; test model/schema fidelity on synthetic fixtures and substantive dialogue examples; compare against non-trialectic baselines under T-04/T-20. Acceptance of the design does not close T-20 or establish educational benefit.
