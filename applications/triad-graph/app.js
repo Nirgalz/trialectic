@@ -10,7 +10,7 @@ let focusCycle = null, focusCycleReport = null; // D-97 read-only analytical ste
 function simpleMapElements(elements) {
   const main=documentModel.main_subject.id;
   const chosen=documentModel.relations.filter(r=>r.origin_object?.id===main ||
-    r.represented_object?.id===main).slice(0,3);
+    r.represented_object?.id===main);
   const allowed=new Set([key('object',main)]);
   for(const r of chosen){
     allowed.add(key('relation',r.id,r.version));
