@@ -31,7 +31,9 @@ Sources: earlier alpha 0.3 content (retrievable in Git history), the [decision l
 
 # 1. Definition, scope, and purpose
 
-The **Trialectic Method** is an interdisciplinary, contextual, systemic, and recursive analytical framework for examining **Objects**, their **NEEDs** and **CANs**, the conditions under which relevant Actualizations can be undertaken, the resulting effects, and relationships within and between Objects. A given analysis selects an Object as its **Subject** and may recursively examine other Objects as secondary Subjects. **[VALIDATED components; FORMALIZATION of the unified definition]**
+**[VALIDATED — D-85, November 17, 2026]** The **Trialectic Method** is an interdisciplinary, contextual, systemic and recursive **method of structured analysis**. Its complete process accompanies an analyst in **understanding a problem, exploring different possibilities, and making an informed decision**. It does not promise to identify one objectively or universally best decision. Each of the first two phases may also be a sufficient outcome for a particular analyst; performing the third phase is not required on every occasion.
+
+Its conceptual instruments include **Objects**, their **NEEDs** and **CANs**, conditions relevant to Actualization, possible effects, and relationships within and between Objects. An analysis examines an Object as a **Subject situated in its Environment** and may examine others as secondary Subjects. **[VALIDATED components; the use of each instrument depends on relevance.]**
 
 The relevant perspectives of **Subject, Environment, and Semantics** are mobilized according to the case. They are neither three universal causes nor three necessarily symmetrical or equally weighted components. The Method is **not a universal ontology**. **[VALIDATED]**
 
@@ -39,7 +41,21 @@ Objects include **Individuals, Groups, Technical Objects, Systems, and Semantic 
 
 One possible normative purpose is to reveal contradictions, seek alternatives, and examine how individuals may increase their Potency, Power, and Actualizations without reducing those of others. Such normative ambitions must be separated from descriptive results and empirically established effects. **[VALIDATED orientation / FORMALIZATION]**
 
-**[VALIDATED operational objective, November 15, 2026]** The Method's **default operation is Advanced Mode**: explore and present multiple relevant, diverse Resolution Scenarios for a complex problem, estimate their effects on the focal Subject and Objects in its Environment, compare feasibility, complexity, cost, temporality and expected effectiveness, and communicate uncertainty. The goal is **not** to impose a uniquely best Scenario. Explicit recommendation or selection is **optional**, dependent on declared decision criteria; it is not a mandatory methodological Stage. A possible Simple Mode is **deferred** for reassessment once the Method is stabilized, not part of the current default workflow.
+**[VALIDATED operational objective, November 15; clarified by D-85, November 17, 2026]** In problem-solving uses, the Method's **default Advanced Mode** explores and compares multiple relevant Resolution Scenarios, estimates their possible effects on Subjects and Environment Objects, and makes feasibility, complexity, cost, temporality, expected effectiveness and uncertainty explicit. **Decide is now recognized as the third essential phase of the complete Method**, but explicit recommendation or selection is **not mandatory in a particular analysis**. A possible Simple Mode remains **deferred** until the Method is better stabilized; this is a presentation/use-mode question, distinct from the three conceptual phases.
+
+## 1.1 Validated methodological phases: Understand, Explore, Decide (D-85)
+
+**[VALIDATED BY AUTHOR, November 17, 2026]** The complete Method consists of three **fundamental, progressive and recursive analytical phases**:
+
+1. **Understand / Comprendre** — examine and contextualize the **Subject**, its **Environment**, their relations, and the **semantic dimensions** relevant to how the problem is represented and interpreted. Clarify the initial question, hypotheses, mechanisms, contradictions, evidence, unknowns and uncertainty. The useful result can be a reformulated, more explicit and revisable understanding.
+2. **Explore / Explorer** — generate and examine multiple possibilities, transformations, alternatives and, where pertinent, **Resolution Scenarios**. Examine relevant NEED/CAN relationships, conditions, dependencies, hypothetical effects and uncertainties without prematurely assuming a single solution.
+3. **Decide / Décider** — assess the explored possibilities against **explicit goals, criteria, constraints, values and remaining uncertainties** to make and explain an informed orientation or choice, when justified. The result can also be a reasoned decision to **defer action or withhold selection** where the available information is inadequate. A universal optimum is not presumed.
+
+These are **phases of the complete Method**, not an obligation to complete all three every time. A valid use can end after **Understand**, or after **Understand + Explore**, if that meets the analyst's needs. The phases are **not strictly linear**: exploration and decision assessment may reveal new information or questionable interpretations that require returning to Understand or revisiting alternatives.
+
+**Cross-cutting perspectives:** Subject, Environment and Semantics are mobilized **according to relevance**, not as three equal, compulsory steps; Semantics can question the conceptual categories and interpretations shaping the problem. The broad **analytical focal concern** can be a question, phenomenon, situation, relation, contradiction or particular CAN/NEED; an explicitly selected **Potentiality focal** is therefore one possible case, not the universal starting point.
+
+**Relationship to technical representation [WORKING]:** the existing `Stage` and `Focus` records, the Subject → NEED/CAN → Actualization workflow, Power evaluations and Analysis JSON Schemas are **specific instruments/implementations**, not equivalent to the three phases. A Stage remains a **local methodological operation** within or across phases. The computer/data model should formalize the functioning, reasoning trace, uncertainty and revision of the Method *after* the pertinent operations have been specified. Specific phase inputs, outputs, stopping conditions, iteration rules, decision criteria and serialization remain **OPEN**; D-85 does **not** approve a new schema or automated decision optimizer.
 
 # 2. Objects, Subjects, Environment, Focus and Stages
 
@@ -96,7 +112,7 @@ For a candidate constituent Object, the adopted necessity question is: **"Withou
 - **Stage [VALIDATED]**: a methodological operation.
 - **Focus [VALIDATED]**: what receives the Method's attention during a Stage.
 
-The adopted recursive sequence is:
+**[D-85 clarification]** The following previously adopted recursive sequence is **a specialized NEED/CAN- and Actualization-focused workflow**, not a requirement to begin all problem analyses with a NEED or CAN. It can be used within **Understand** and **Explore**, and can inform **Decide** when needed. The broader methodological sequence is defined in §1.1. The specialized workflow is:
 
 1. **Stage 1 — Focus on the Subject**: select a Main Subject (an Object); delimit and contextualize it.
 2. **Stage 2 — Focus on a NEED or a CAN**: select a NEED **or** CAN for analysis, examine relevant Objects, properties, and dependencies. The older exclusive focus on a Focal Potentiality is no longer mandatory.
@@ -1333,7 +1349,7 @@ Compare internal coherence, robustness, adaptability, complementarities, synergi
 
 ## 6.3 Recursive analytical workflow
 
-**[FORMALIZATION — revised synthesis of the alpha 0.3 protocol and validated Focus sequence]**
+**[FORMALIZATION — revised synthesis of the alpha 0.3 protocol and validated Focus sequence; scoped after D-85]** This is a **NEED/CAN-focused example**, not a compulsory complete-process checklist for analyses ending after Understand or Explore. The overarching method phases are defined in §1.1; phase-3 decision deliberation must be explicitly justified if the analyst proceeds that far.
 
 1. Choose and contextualize the **Main Subject** (Object), with its relevant parts, Environment and relationships.
 2. Inventory relevant **NEEDs and CANs**, including uncertainty and gaps; choose one **NEED or CAN** as Focus.
@@ -1402,6 +1418,8 @@ This index is **not** a probability and does not replace binary Power. Criteria,
 **[OPEN — important consistency question]** Define the exact scope of **CAN actionable** and its action conditions in a particular relationship versus full **Power** for an identified Actualization. Earlier 'mobilizable CAN' was superseded as a separate current label, but historical D-20/D-21 distinctions must be preserved without silently defining actionable as positive Power. Also resolve meaningful statistical uncertainty measures, shared-Object propagation through branched historical Definitions, and branch ID allocation.
 
 # 10. Use modes and possible applications
+
+**[D-85 clarification, November 17, 2026]** **Understand → Explore → Decide** defines the complete Method's phases. **Decide is fundamental but not always executed**; an analyst may stop at a documented understanding or after comparing possibilities. A final choice, when sought, is reasoned against declared criteria and uncertainty, not claimed as an objectively optimum solution. The existing Advanced Mode concerns the depth of Scenario analysis within this framework; it is **not a substitute for the three-phase definition**.
 
 **[VALIDATED, November 15, 2026]** **Advanced Mode is the current default operation.** It explores and compares multiple relevant Resolution Scenarios for complex problems, with assessed effects on the initial Subject and its Environment, uncertainty, feasibility, complexity, cost, temporality and effectiveness; users may inspect and adjust scenarios, dependencies and indirect effects. It does **not** seek to identify one universally best solution or require a final selection. The shared methodological core is not to be weakened merely to simplify presentation.
 
