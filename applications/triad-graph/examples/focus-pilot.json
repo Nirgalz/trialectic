@@ -1,0 +1,1315 @@
+{
+  "schema_version": "2.0.0",
+  "analysis_id": "A-focus-six-ecoles-pilot",
+  "main_subject": {
+    "id": "O-commune",
+    "version": "v1"
+  },
+  "secondary_subjects": [
+    {
+      "id": "O-eleves",
+      "version": "v1"
+    },
+    {
+      "id": "O-agents",
+      "version": "v1"
+    },
+    {
+      "id": "O-riverains",
+      "version": "v1"
+    }
+  ],
+  "environment": [
+    {
+      "id": "O-ecoles",
+      "version": "v1"
+    },
+    {
+      "id": "O-reseau",
+      "version": "v1"
+    },
+    {
+      "id": "O-prestataire",
+      "version": "v1"
+    }
+  ],
+  "focus": {
+    "type": "Scenario",
+    "scenario_id": "S-02"
+  },
+  "objects": [
+    {
+      "id": "O-commune",
+      "category": "system",
+      "label": "Commune · six écoles",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-ecoles",
+      "category": "group",
+      "label": "Six écoles · continuité scolaire",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-eleves",
+      "category": "group",
+      "label": "Élèves · dont 120 vulnérables (hypothèse)",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-agents",
+      "category": "group",
+      "label": "Agents et enseignants",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-riverains",
+      "category": "group",
+      "label": "Riverains des écoles",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-reseau",
+      "category": "system",
+      "label": "Réseau électrique local",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "O-prestataire",
+      "category": "group",
+      "label": "Prestataire technique",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "N-continuite",
+      "category": "semantic_object",
+      "label": "NEED · continuité scolaire",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "N-budget",
+      "category": "semantic_object",
+      "label": "NEED · préserver la capacité budgétaire",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "N-sante",
+      "category": "semantic_object",
+      "label": "NEED · protéger les élèves de la chaleur",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "N-charge",
+      "category": "semantic_object",
+      "label": "NEED · charge de travail soutenable",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "N-calme",
+      "category": "semantic_object",
+      "label": "NEED · repos des riverains",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "N-reserve",
+      "category": "semantic_object",
+      "label": "NEED · maintenir la réserve électrique",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "C-horaires",
+      "category": "semantic_object",
+      "label": "CAN · décaler les horaires",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "C-clim",
+      "category": "semantic_object",
+      "label": "CAN · installer un refroidissement actif",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "C-ombre",
+      "category": "semantic_object",
+      "label": "CAN · ombrager et ventiler",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    },
+    {
+      "id": "C-renover",
+      "category": "semantic_object",
+      "label": "CAN · rénover les bâtiments",
+      "parent_id": null,
+      "temporary_child_ids": [],
+      "actualised_child_ids": []
+    }
+  ],
+  "definitions": [
+    {
+      "object_id": "O-commune",
+      "version": "v1",
+      "constituents": [
+        {
+          "id": "O-ecoles",
+          "version": "v1"
+        }
+      ],
+      "properties": {
+        "financement_disponible": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        },
+        "transport_compatible": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        }
+      },
+      "relation_refs": [
+        {
+          "id": "R-continuite",
+          "version": "v1"
+        },
+        {
+          "id": "R-budget",
+          "version": "v1"
+        },
+        {
+          "id": "R-horaires",
+          "version": "v1"
+        },
+        {
+          "id": "R-clim",
+          "version": "v1"
+        },
+        {
+          "id": "R-ombre",
+          "version": "v1"
+        },
+        {
+          "id": "R-renover",
+          "version": "v1"
+        }
+      ],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "O-ecoles",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "ventilation_nuit_sure": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        }
+      },
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "O-eleves",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [
+        {
+          "id": "R-sante",
+          "version": "v1"
+        }
+      ],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "O-agents",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "accord_personnel": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        }
+      },
+      "relation_refs": [
+        {
+          "id": "R-charge",
+          "version": "v1"
+        }
+      ],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "O-riverains",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "bruit_acceptable": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        }
+      },
+      "relation_refs": [
+        {
+          "id": "R-calme",
+          "version": "v1"
+        }
+      ],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "O-reseau",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "reserve_suffisante": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        }
+      },
+      "relation_refs": [
+        {
+          "id": "R-reserve",
+          "version": "v1"
+        }
+      ],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "O-prestataire",
+      "version": "v1",
+      "constituents": [],
+      "properties": {
+        "livraison_avant_canicule": {
+          "description": "Prérequis fictif à vérifier dans ce pilote."
+        }
+      },
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "N-continuite",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "N-budget",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "N-sante",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "N-charge",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "N-calme",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "N-reserve",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "C-horaires",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "C-clim",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "C-ombre",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    },
+    {
+      "object_id": "C-renover",
+      "version": "v1",
+      "constituents": [],
+      "properties": {},
+      "relation_refs": [],
+      "notes": "Identité synthétique locale ; aucune constatation réelle."
+    }
+  ],
+  "relations": [
+    {
+      "id": "R-continuite",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-commune",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "N-continuite",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "C-horaires",
+          "version": "v1"
+        },
+        {
+          "id": "C-clim",
+          "version": "v1"
+        },
+        {
+          "id": "C-ombre",
+          "version": "v1"
+        }
+      ],
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-continuite-0",
+            "object_id": "C-horaires",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          },
+          {
+            "id": "L-R-continuite-1",
+            "object_id": "C-clim",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          },
+          {
+            "id": "L-R-continuite-2",
+            "object_id": "C-ombre",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-budget",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-commune",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "N-budget",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "C-clim",
+          "version": "v1"
+        },
+        {
+          "id": "C-renover",
+          "version": "v1"
+        }
+      ],
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-budget-0",
+            "object_id": "C-clim",
+            "source_list": "CANs",
+            "roles": [
+              "inhibitory"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          },
+          {
+            "id": "L-R-budget-1",
+            "object_id": "C-renover",
+            "source_list": "CANs",
+            "roles": [
+              "inhibitory"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-sante",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-eleves",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "N-sante",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "C-clim",
+          "version": "v1"
+        },
+        {
+          "id": "C-ombre",
+          "version": "v1"
+        },
+        {
+          "id": "C-horaires",
+          "version": "v1"
+        }
+      ],
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-sante-0",
+            "object_id": "C-clim",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          },
+          {
+            "id": "L-R-sante-1",
+            "object_id": "C-ombre",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          },
+          {
+            "id": "L-R-sante-2",
+            "object_id": "C-horaires",
+            "source_list": "CANs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-charge",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-agents",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "N-charge",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "C-horaires",
+          "version": "v1"
+        }
+      ],
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-charge-0",
+            "object_id": "C-horaires",
+            "source_list": "CANs",
+            "roles": [
+              "inhibitory"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-calme",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-riverains",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "N-calme",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "C-clim",
+          "version": "v1"
+        }
+      ],
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-calme-0",
+            "object_id": "C-clim",
+            "source_list": "CANs",
+            "roles": [
+              "inhibitory"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-reserve",
+      "version": "v1",
+      "type": "NEED",
+      "origin_object": {
+        "id": "O-reseau",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "N-reserve",
+        "version": "v1"
+      },
+      "NEEDs": null,
+      "CANs": [
+        {
+          "id": "C-clim",
+          "version": "v1"
+        }
+      ],
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-reserve-0",
+            "object_id": "C-clim",
+            "source_list": "CANs",
+            "roles": [
+              "inhibitory"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-horaires",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-commune",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "C-horaires",
+        "version": "v1"
+      },
+      "NEEDs": [
+        {
+          "id": "N-continuite",
+          "version": "v1"
+        }
+      ],
+      "CANs": null,
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-horaires-0",
+            "object_id": "N-continuite",
+            "source_list": "NEEDs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-clim",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-commune",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "C-clim",
+        "version": "v1"
+      },
+      "NEEDs": [
+        {
+          "id": "N-sante",
+          "version": "v1"
+        },
+        {
+          "id": "N-continuite",
+          "version": "v1"
+        }
+      ],
+      "CANs": null,
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-clim-0",
+            "object_id": "N-sante",
+            "source_list": "NEEDs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          },
+          {
+            "id": "L-R-clim-1",
+            "object_id": "N-continuite",
+            "source_list": "NEEDs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-ombre",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-commune",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "C-ombre",
+        "version": "v1"
+      },
+      "NEEDs": [
+        {
+          "id": "N-sante",
+          "version": "v1"
+        }
+      ],
+      "CANs": null,
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-ombre-0",
+            "object_id": "N-sante",
+            "source_list": "NEEDs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-renover",
+      "version": "v1",
+      "type": "CAN",
+      "origin_object": {
+        "id": "O-commune",
+        "version": "v1"
+      },
+      "represented_object": {
+        "id": "C-renover",
+        "version": "v1"
+      },
+      "NEEDs": [
+        {
+          "id": "N-sante",
+          "version": "v1"
+        }
+      ],
+      "CANs": null,
+      "description": "Hypothèse de travail du cas fictif ; attribution non établie empiriquement.",
+      "relation": {
+        "nature": [],
+        "links": [
+          {
+            "id": "L-R-renover-0",
+            "object_id": "N-sante",
+            "source_list": "NEEDs",
+            "roles": [
+              "contributive"
+            ],
+            "causality": "indeterminate",
+            "mechanism": "Contribution ou contrainte postulée pour le test ; à examiner."
+          }
+        ]
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "K-puissance",
+      "owner_relation": {
+        "id": "R-clim",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-reseau",
+          "version": "v1"
+        },
+        "property": "reserve_suffisante",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    },
+    {
+      "id": "K-delai",
+      "owner_relation": {
+        "id": "R-clim",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-prestataire",
+          "version": "v1"
+        },
+        "property": "livraison_avant_canicule",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    },
+    {
+      "id": "K-bruit",
+      "owner_relation": {
+        "id": "R-clim",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-riverains",
+          "version": "v1"
+        },
+        "property": "bruit_acceptable",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    },
+    {
+      "id": "K-finance",
+      "owner_relation": {
+        "id": "R-clim",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-commune",
+          "version": "v1"
+        },
+        "property": "financement_disponible",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    },
+    {
+      "id": "K-transport",
+      "owner_relation": {
+        "id": "R-horaires",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-commune",
+          "version": "v1"
+        },
+        "property": "transport_compatible",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    },
+    {
+      "id": "K-personnel",
+      "owner_relation": {
+        "id": "R-horaires",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-agents",
+          "version": "v1"
+        },
+        "property": "accord_personnel",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    },
+    {
+      "id": "K-ventilation",
+      "owner_relation": {
+        "id": "R-ombre",
+        "version": "v1"
+      },
+      "target": "actionability",
+      "predicate": {
+        "object": {
+          "id": "O-ecoles",
+          "version": "v1"
+        },
+        "property": "ventilation_nuit_sure",
+        "operator": "equals",
+        "value": true
+      },
+      "notes": "Prérequis proposé ; inventaire incomplet."
+    }
+  ],
+  "pathways": [],
+  "inventories": [],
+  "scenarios": [
+    {
+      "id": "S-01",
+      "parent_scenario_id": null,
+      "mode": "hypothetical",
+      "object_heads": [
+        {
+          "id": "O-commune",
+          "version": "v1"
+        },
+        {
+          "id": "O-ecoles",
+          "version": "v1"
+        },
+        {
+          "id": "O-eleves",
+          "version": "v1"
+        },
+        {
+          "id": "O-agents",
+          "version": "v1"
+        },
+        {
+          "id": "N-continuite",
+          "version": "v1"
+        },
+        {
+          "id": "N-budget",
+          "version": "v1"
+        },
+        {
+          "id": "N-sante",
+          "version": "v1"
+        },
+        {
+          "id": "N-charge",
+          "version": "v1"
+        },
+        {
+          "id": "C-horaires",
+          "version": "v1"
+        }
+      ],
+      "states": [],
+      "event_ids": [],
+      "assumptions": [
+        "Tout le cas est fictif ; chiffres non documentés, destinés à tester le pilotage.",
+        "Horaires décalés ; coût supposé limité, transport et accord du personnel à vérifier."
+      ],
+      "notes": "Périmètre exploratoire explicitement délimité pour ce cas ; révisable. Aucune Actualisation ni conclusion de Puissance enregistrée."
+    },
+    {
+      "id": "S-02",
+      "parent_scenario_id": null,
+      "mode": "hypothetical",
+      "object_heads": [
+        {
+          "id": "O-commune",
+          "version": "v1"
+        },
+        {
+          "id": "O-ecoles",
+          "version": "v1"
+        },
+        {
+          "id": "O-eleves",
+          "version": "v1"
+        },
+        {
+          "id": "O-riverains",
+          "version": "v1"
+        },
+        {
+          "id": "O-reseau",
+          "version": "v1"
+        },
+        {
+          "id": "O-prestataire",
+          "version": "v1"
+        },
+        {
+          "id": "N-continuite",
+          "version": "v1"
+        },
+        {
+          "id": "N-budget",
+          "version": "v1"
+        },
+        {
+          "id": "N-sante",
+          "version": "v1"
+        },
+        {
+          "id": "N-calme",
+          "version": "v1"
+        },
+        {
+          "id": "N-reserve",
+          "version": "v1"
+        },
+        {
+          "id": "C-clim",
+          "version": "v1"
+        }
+      ],
+      "states": [],
+      "event_ids": [],
+      "assumptions": [
+        "Tout le cas est fictif ; chiffres non documentés, destinés à tester le pilotage.",
+        "Refroidissement actif des six écoles. Coût fictif : 420 000 € ; enveloppe supposée : 300 000 €. Délai supposé : 8 semaines ; épisode chaud supposé dans 3 semaines. Réserve électrique, bruit et efficacité non vérifiés."
+      ],
+      "notes": "Périmètre exploratoire explicitement délimité pour ce cas ; révisable. Aucune Actualisation ni conclusion de Puissance enregistrée."
+    },
+    {
+      "id": "S-03",
+      "parent_scenario_id": null,
+      "mode": "hypothetical",
+      "object_heads": [
+        {
+          "id": "O-commune",
+          "version": "v1"
+        },
+        {
+          "id": "O-ecoles",
+          "version": "v1"
+        },
+        {
+          "id": "O-eleves",
+          "version": "v1"
+        },
+        {
+          "id": "O-agents",
+          "version": "v1"
+        },
+        {
+          "id": "N-continuite",
+          "version": "v1"
+        },
+        {
+          "id": "N-budget",
+          "version": "v1"
+        },
+        {
+          "id": "N-sante",
+          "version": "v1"
+        },
+        {
+          "id": "N-charge",
+          "version": "v1"
+        },
+        {
+          "id": "C-ombre",
+          "version": "v1"
+        }
+      ],
+      "states": [],
+      "event_ids": [],
+      "assumptions": [
+        "Tout le cas est fictif ; chiffres non documentés, destinés à tester le pilotage.",
+        "Ombrage et ventilation. Coût fictif : 90 000 € ; délai supposé : 2 semaines. Efficacité dans les salles les plus exposées non établie."
+      ],
+      "notes": "Périmètre exploratoire explicitement délimité pour ce cas ; révisable. Aucune Actualisation ni conclusion de Puissance enregistrée."
+    },
+    {
+      "id": "S-04",
+      "parent_scenario_id": null,
+      "mode": "hypothetical",
+      "object_heads": [
+        {
+          "id": "O-commune",
+          "version": "v1"
+        },
+        {
+          "id": "O-ecoles",
+          "version": "v1"
+        },
+        {
+          "id": "O-eleves",
+          "version": "v1"
+        },
+        {
+          "id": "O-agents",
+          "version": "v1"
+        },
+        {
+          "id": "O-riverains",
+          "version": "v1"
+        },
+        {
+          "id": "O-reseau",
+          "version": "v1"
+        },
+        {
+          "id": "O-prestataire",
+          "version": "v1"
+        },
+        {
+          "id": "N-continuite",
+          "version": "v1"
+        },
+        {
+          "id": "N-budget",
+          "version": "v1"
+        },
+        {
+          "id": "N-sante",
+          "version": "v1"
+        },
+        {
+          "id": "N-charge",
+          "version": "v1"
+        },
+        {
+          "id": "N-calme",
+          "version": "v1"
+        },
+        {
+          "id": "N-reserve",
+          "version": "v1"
+        },
+        {
+          "id": "C-horaires",
+          "version": "v1"
+        },
+        {
+          "id": "C-clim",
+          "version": "v1"
+        },
+        {
+          "id": "C-ombre",
+          "version": "v1"
+        },
+        {
+          "id": "C-renover",
+          "version": "v1"
+        }
+      ],
+      "states": [],
+      "event_ids": [],
+      "assumptions": [
+        "Tout le cas est fictif ; chiffres non documentés, destinés à tester le pilotage.",
+        "Combinaison : ombrage immédiat, horaires adaptés localement, refroidissement ciblé des salles prioritaires, rénovation ultérieure. Coût, périmètre, charge des agents et efficacité restent à examiner."
+      ],
+      "notes": "Périmètre exploratoire explicitement délimité pour ce cas ; révisable. Aucune Actualisation ni conclusion de Puissance enregistrée."
+    }
+  ],
+  "events": [],
+  "condition_assessments": [
+    {
+      "id": "CA-K-puissance",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-puissance",
+        "owner_id": "R-clim",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "indeterminate",
+      "evidence_ids": []
+    },
+    {
+      "id": "CA-K-delai",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-delai",
+        "owner_id": "R-clim",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "unsatisfied",
+      "evidence_ids": []
+    },
+    {
+      "id": "CA-K-bruit",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-bruit",
+        "owner_id": "R-clim",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "indeterminate",
+      "evidence_ids": []
+    },
+    {
+      "id": "CA-K-finance",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-finance",
+        "owner_id": "R-clim",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "unsatisfied",
+      "evidence_ids": []
+    },
+    {
+      "id": "CA-K-transport",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-transport",
+        "owner_id": "R-horaires",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "indeterminate",
+      "evidence_ids": []
+    },
+    {
+      "id": "CA-K-personnel",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-personnel",
+        "owner_id": "R-horaires",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "indeterminate",
+      "evidence_ids": []
+    },
+    {
+      "id": "CA-K-ventilation",
+      "scenario_id": "S-02",
+      "condition": {
+        "kind": "condition",
+        "id": "K-ventilation",
+        "owner_id": "R-ombre",
+        "version": "v1"
+      },
+      "at": "2026-11-17T10:00:00+01:00",
+      "status": "indeterminate",
+      "evidence_ids": []
+    }
+  ],
+  "power_assessments": [],
+  "effects": [],
+  "claims": [],
+  "evidence_items": [],
+  "evidence_reviews": [],
+  "claim_assessments": []
+}

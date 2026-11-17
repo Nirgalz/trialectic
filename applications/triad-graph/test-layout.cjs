@@ -52,3 +52,10 @@ assert.equal(linkAppearance({roles:['contributive']},'CAN').arrowEnd,'target');
 assert.equal(linkAppearance({roles:['enabling','inhibitory']},'CAN').functionName,'qualified');
 assert.equal(linkAppearance({},'CAN').functionName,'qualified');
 console.log('Symbols: absent/conflicting assessments stay unknown; mixed roles keep qualifications.');
+const {scenarioAssociatedObjects}=require('./visual-semantics.js');
+const associated=scenarioAssociatedObjects({effects:[{scenario_id:'S-a',target_object:{id:'affected'}},{scenario_id:'S-b',target_object:{id:'other'}}]},
+ {id:'S-a',object_heads:[{id:'a',version:'v1'}],states:[{object:{id:'b',version:'v1'}}]});
+assert.deepEqual([...associated].sort(),['a','affected','b']);
+assert(!associated.has('other'));
+assert.equal(scenarioAssociatedObjects({}, {id:'empty'}).size,0);
+console.log('Scenario scope: heads, states and effects without cross-branch leakage OK.');
