@@ -4,20 +4,27 @@ Exposes a fixed allowlist of public Method references and assembled JSON schemas
 It does not accept Analysis documents, change files, run models, or make requests.
 Supports MCP 2026-07-28 and the 2025-11-25 initialization protocol.
 """
+import argparse
 import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from local_analysis import ApprovedAnalyses, AnalysisError
+
 ROOT = Path(__file__).resolve().parents[2]
 MODEL = ROOT / "schemas" / "model"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 MODERN = "2026-07-28"
 LEGACY = "2025-11-25"
 SUPPORTED = [MODERN, LEGACY]
 MAX_FRAME = 65536
 MAX_RESOURCE = 750000
-SERVER_INFO = {"name": "tria-reference", "version": VERSION}
+SERVER_INFO = {"name": "tria-reference", "version": "0.2.0"}
+APPROVED = ApprovedAnalyses()
 INSTRUCTIONS = (
+    "Only analyses selected at launch may be read. MCP clients may forward their content to an external AI. "
+    "Proposed revisions are previews only, never applied or persisted. "
     "Use these public, version-controlled documents as source material. "
     "Understand, Explore and Decide are recursive phases, not compulsory "
     "steps in every analysis. Subject, Environment and Semantics are contextual "
@@ -126,6 +133,63 @@ TOOLS = [
 ]
 
 
+# These tools are visible even when no files have been allowed. In that case
+# list returns [], and all reads are rejected. No path is accepted from the client.
+TOOLS.extend([
+    {
+        "name": "tria_list_analyses",
+        "description": "List only locally approved Analysis snapshots and their hashes; no arbitrary file discovery.",
+        "inputSchema": {"type": "object", "additionalProperties": False},
+    },
+    {
+        "name": "tria_read_analysis_section",
+        "description": "Read a bounded section of an explicitly approved Analysis at the exact snapshot hash. Use header or an approved v2 collection name.",
+        "inputSchema": {"type": "object", "required": ["analysis_ref", "snapshot_hash", "section"],
+                        "properties": {
+                            "analysis_ref": {"type": "string"},
+                            "snapshot_hash": {"type": "string"},
+                            "section": {"type": "string", "enum": [
+                                "header", "objects", "definitions", "relations", "can_affiliations",
+                                "conditions", "pathways", "inventories", "scenarios", "events",
+                                "condition_assessments", "power_assessments", "effects",
+                                "claims", "evidence_items", "evidence_reviews", "claim_assessments"]},
+                            "offset": {"type": "integer", "minimum": 0},
+                            "limit": {"type": "integer", "minimum": 1, "maximum": 25},
+                        }, "additionalProperties": False},
+    },
+    {
+        "name": "tria_explore_focus",
+        "description": "Read a structurally related Object Focus (versioned Definitions, linked NEED/CAN Relations and candidate Scenarios) without making a new causal claim.",
+        "inputSchema": {"type": "object", "required": ["analysis_ref", "snapshot_hash", "object_id"],
+                        "properties": {
+                            "analysis_ref": {"type": "string"},
+                            "snapshot_hash": {"type": "string"},
+                            "object_id": {"type": "string"},
+                        }, "additionalProperties": False},
+    },
+    {
+        "name": "tria_prepare_proposal",
+        "description": "Return an ephemeral, explicitly hypothetical revision proposal preview for human review. Does not store or apply changes.",
+        "inputSchema": {"type": "object", "required": [
+                            "analysis_ref", "snapshot_hash", "kind", "description",
+                            "epistemic_status", "rationale"],
+                        "properties": {
+                            "analysis_ref": {"type": "string"},
+                            "snapshot_hash": {"type": "string"},
+                            "kind": {"type": "string", "enum": ["object", "relation", "condition", "scenario", "other"]},
+                            "target_id": {"type": ["string", "null"]},
+                            "description": {"type": "string", "minLength": 1, "maxLength": 3000},
+                            "epistemic_status": {"type": "string", "enum": ["hypothesis", "question", "interpretation"]},
+                            "rationale": {"type": "string", "minLength": 1, "maxLength": 3000},
+                        }, "additionalProperties": False},
+    },
+])
+for tool in TOOLS[2:]:
+    tool["annotations"] = {"readOnlyHint": True, "destructiveHint": False,
+                           "idempotentHint": True, "openWorldHint": False}
+
+
+
 def result_for_era(payload, modern):
     if modern:
         return {
@@ -222,12 +286,26 @@ def handle(message, state):
                 text = json.dumps(resources(), ensure_ascii=False, indent=2)
             elif name == "tria_read_reference" and set(arguments) == {"uri"}:
                 text = read_resource(arguments["uri"])["text"]
+            elif name == "tria_list_analyses" and not arguments:
+                text = json.dumps(APPROVED.list_analyses(), ensure_ascii=False)
+            elif name == "tria_read_analysis_section" and {"analysis_ref", "snapshot_hash", "section"} <= set(arguments) and set(arguments) <= {"analysis_ref", "snapshot_hash", "section", "offset", "limit"}:
+                text = json.dumps(APPROVED.section(arguments["analysis_ref"], arguments["snapshot_hash"],
+                    arguments["section"], arguments.get("offset", 0), arguments.get("limit", 20)), ensure_ascii=False)
+            elif name == "tria_explore_focus" and set(arguments) == {"analysis_ref", "snapshot_hash", "object_id"}:
+                text = json.dumps(APPROVED.focus(arguments["analysis_ref"], arguments["snapshot_hash"],
+                    arguments["object_id"]), ensure_ascii=False)
+            elif name == "tria_prepare_proposal" and {"analysis_ref", "snapshot_hash", "kind", "description", "epistemic_status", "rationale"} <= set(arguments) and set(arguments) <= {"analysis_ref", "snapshot_hash", "kind", "target_id", "description", "epistemic_status", "rationale"}:
+                text = json.dumps(APPROVED.proposal(arguments["analysis_ref"], arguments["snapshot_hash"],
+                    arguments["kind"], arguments.get("target_id"), arguments["description"],
+                    arguments["epistemic_status"], arguments["rationale"]), ensure_ascii=False)
             else:
                 raise ProtocolError(-32602, "Unknown tool or invalid arguments")
             payload = {"content": [{"type": "text", "text": text}], "isError": False}
         else:
             raise ProtocolError(-32601, "Method not found")
         return response(identifier, result_for_era(payload, modern))
+    except AnalysisError as exc:
+        return response(identifier, error=ProtocolError(-32602, str(exc)))
     except ProtocolError as exc:
         return response(identifier, error=exc)
     except (OSError, ValueError, UnicodeError, TypeError, KeyError):
@@ -261,4 +339,15 @@ def serve(stdin=None, stdout=None):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--allow-analysis", action="append", default=[],
+                        metavar="ABSOLUTE_FILE.json",
+                        help="Explicitly authorize one local Analysis JSON file; repeat as needed")
+    args = parser.parse_args()
+    if len(args.allow_analysis) > 10:
+        parser.error("At most ten Analysis files can be allowed per MCP process")
+    try:
+        APPROVED = ApprovedAnalyses(args.allow_analysis)
+    except AnalysisError as exc:
+        parser.error(str(exc))
     serve()
