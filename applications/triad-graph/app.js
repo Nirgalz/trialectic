@@ -238,7 +238,7 @@ function render() {
   const es=view==='objects'&&focusCycle?.mode==='simple'&&!focusCycle.refined?simpleMapElements(all):all;
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
   $('scope').textContent=view==='objects'?(focusCycle?.mode==='simple'&&!focusCycle.refined?'Carte simple · sélection non exhaustive':'Carte détaillée · Objets et relations'):scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
-  $('cy').setAttribute('aria-label',view==='objects'?'Graphe des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Graphe des scénarios');
+  $('cy').setAttribute('aria-label',view==='objects'?'Carte des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Carte des scénarios');
   $('view-guide').textContent=view==='objects'?'Branches CAN ↑ · Racines NEED ↓':scenarioFocus?'Contexte du scénario choisi':'Cliquer pour choisir un Focus';
   activeLayout?.stop(); activeLayout=null;
   if(cy)cy.destroy();
