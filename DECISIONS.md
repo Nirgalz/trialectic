@@ -1741,5 +1741,18 @@ Date: November 17, 2026 | Status: **VALIDATED by author for trIA steering behavi
 
 **Boundaries / OPEN.** This approves the trIA **steering-layer** behavior and related author preferences, not its UI persistence, a new normative Object/Stage schema, a universal Focus ranking function, a full investigation-link data model, concurrency mechanics or independently measured usefulness. The distinct utility of a standalone conceptual primitive remains open; existing D-17 and `PowerEvaluation.Focus` contracts are preserved. Related tasks: T-03, T-04, T-15, T-20, T-21, T-26, T-27, T-30.
 
+## D-92 · Navigation Focus may target an Object or a Scenario (amends D-91)
+Date: November 17, 2026 | Status: **VALIDATED correction by author** | Branch: `dev`
+
+**Correction to D-91's target restriction.** An optional trIA navigation Focus can select **either an Object or a Resolution Scenario** as its target; it cannot select a relation as such. A Scenario is an eligible target **by its Scenario identity**, without needing to be reclassified as an Object. NEED and CAN remain eligible as Objects. A maximum of **one** navigation Focus is active per Analyst at any time (or none).
+
+**Unchanged D-91 rules.** Navigation is Analyst-controlled by default, with explicitly scoped and revocable AI delegation; AI can recommend several Object or Scenario candidates using contextual estimates of importance, urgency and relevance. The selected target serves to direct attention and retrieve associated investigations. Examination continuation, suspension, proportionate completion and reopening remain independent of navigation changes. D-89 global relevance still applies.
+
+**Boundaries.** This modifies **only the eligibility of navigation Focus targets**, not the type or semantics of `PowerEvaluation.Focus` (NEED/CAN/Scenario), D-17's general Stage-attention concept, Object/Scenario identity, the analytical data contracts, or the state of prototype implementation. D-91 is retained unchanged above as historical record; for allowed navigation targets, **D-92 supersedes its Object-only restriction**.
+
+**Rationale:** The Analyst should be able to steer attention directly toward an existing Scenario as well as an Object, without creating fictitious Object identities or changing the rest of the pilot's steering rules.
+
+Related tasks: T-03, T-20, T-26, T-27, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
