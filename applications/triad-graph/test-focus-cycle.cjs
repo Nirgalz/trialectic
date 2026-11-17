@@ -1,0 +1,72 @@
+/* D-97 Focus cycle regression: deterministic source-derived results, not AI efficacy. */
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const {graph,explore,createCycle}=require('./focus-cycle.js');
+const doc=JSON.parse(fs.readFileSync(path.join(__dirname,'examples/focus-pilot.json'),'utf8'));
+const frozen=JSON.stringify(doc);
+const ids=new Set(doc.objects.map(o=>o.id));
+const edges=graph(doc);
+assert(ids.has('O-eleves'));
+assert(edges.get('O-eleves').some(e=>e.id==='N-sante'));
+const fromPupils=explore(doc,'O-eleves');
+assert.equal(fromPupils.subject.id,'O-eleves');
+assert(fromPupils.direct.some(x=>x.id==='N-sante'));
+assert(fromPupils.indirect.some(x=>x.id==='C-clim'));
+assert(fromPupils.indirect.find(x=>x.id==='C-clim').via.every(v=>v.reason));
+assert(fromPupils.semantics.definitions.length>0);
+assert(fromPupils.scenarios.some(s=>s.id==='S-02'));
+assert.equal(explore(doc,'missing'),null);
+const cycle=createCycle(doc);
+assert.equal(cycle.mode,'detailed');
+assert.equal(cycle.focus,null);
+assert.equal(cycle.adopt('missing'),false);
+cycle.setMode('simple');
+assert.equal(cycle.mode,'simple');
+assert.equal(cycle.adopt('O-eleves'),true);
+assert.equal(cycle.focus,'O-eleves');
+const previous=cycle.local;
+previous.subject.id='tampered';
+assert.equal(cycle.local.subject.id,'O-eleves');
+const before=JSON.stringify(doc.power_assessments);
+const review=cycle.returnOverview();
+assert.equal(cycle.focus,null);
+assert(review.some(x=>x.id==='S-02'));
+assert(review.every(x=>x.status==='requires_human_or_AI_review'));
+assert.deepEqual(cycle.review,review);
+assert.equal(JSON.stringify(doc.power_assessments),before);
+assert.equal(cycle.adopt('O-reseau'),true);
+const second=cycle.local;
+assert(second.subject.id==='O-reseau');
+assert(second.semantics.definitions.length>0);
+assert(!second.indirect.some(x=>x.id==='unrecorded-object'));
+const report=cycle.refine();
+assert.equal(cycle.refined,true);
+assert(report.candidates.every(x=>ids.has(x.id)));
+assert(report.unassessedConditions.every(x=>doc.conditions.some(c=>c.id===x.id)));
+assert(report.disclaimer.includes('pas de nouvelles connaissances'));
+assert(cycle.handoff(report).includes('Environnement direct'));
+assert(cycle.handoff(report).includes('Exploration C+ demandée'));
+assert.equal(JSON.stringify(doc),frozen,'UI state must never mutate source Analysis');
+cycle.setMode('detailed');
+assert.equal(cycle.focus,null);
+assert.equal(cycle.refined,false);
+cycle.reset();
+assert.equal(cycle.history.length,0);
+assert.equal(cycle.mode,'detailed');
+
+const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
+const app=fs.readFileSync(path.join(__dirname,'app.js'),'utf8');
+new Function(app); // syntax check only (DOM browser glue is not executed by this Node test)
+for(const id of ['map-depth','d97-focus','adopt-object-focus','return-object-overview','improve-resolution',
+ 'focus-ai-handoff','focus-cycle-context','focus-cycle-review','focus-cycle-status','focus-cycle-history']){
+  assert(html.includes('id="'+id+'"'),'Missing D-97 HTML control: '+id);
+  assert(app.includes("'"+id+"'"),'Missing D-97 JS wiring: '+id);
+}
+assert(html.includes('src="focus-cycle.js"'));
+assert(app.includes('focusCycle=TriaFocusCycle.createCycle(doc)'));
+assert(app.includes('focusCycle.refine()'));
+assert(app.includes("r.family!=='object'"));
+assert(!app.includes('documentModel.focus ='));
+console.log('D-97: Object Focus context, indirect paths, conditional Scenario review, user C+, history, source isolation, map modes and static UI wiring OK.');
