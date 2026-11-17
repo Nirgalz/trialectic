@@ -69,7 +69,7 @@ function projection(a) {
   a.definitions.forEach(d=>d.constituents.forEach(c=>edge(obj.get(d.object_id),obj.get(c.id),`constituant · ${d.version}`,d,'composition')));
   const s=currentScenario();
   if(s){const n=addNode(es,'scenario',s.id,`${s.id} · ${s.mode}`,s);s.object_heads.forEach(h=>edge(n,obj.get(h.id),`tête · ${h.version}`,h,'membership'));}
-  a.conditions.forEach(c=>{ const assessments=a.condition_assessments.filter(x=>x.scenario_id===s?.id&&x.condition.id===c.id&&x.condition.owner_id===c.owner_relation.id); const n=addNode(es,'condition',`${c.owner_relation.id}/${c.id}`,`${conditionSymbol(assessments)} ${c.id}\n${assessments.map(x=>x.status).join(', ')||'non évaluée'}`,{condition:c,assessments}); edge(n,key('relation',c.owner_relation.id,c.owner_relation.version),c.target,c,'condition'); });
+  a.conditions.forEach(c=>{ const assessments=a.condition_assessments.filter(x=>x.scenario_id===s?.id&&x.condition.id===c.id&&x.condition.owner_id===c.owner_relation.id); const mark=conditionSymbol(assessments); const n=addNode(es,'condition',`${c.owner_relation.id}/${c.id}`,`${mark} ${c.id}\n${assessments.map(x=>x.status).join(', ')||'non évaluée'}`,{condition:c,assessments}); es[es.length-1].data.statusTone=mark==='✓'?'positive':mark==='×'?'negative':'unknown'; edge(n,key('relation',c.owner_relation.id,c.owner_relation.version),c.target,c,'condition'); });
   return es;
 }
 function processProjection() {
@@ -86,11 +86,14 @@ function render() {
   const css=getComputedStyle(document.documentElement),color=n=>css.getPropertyValue(n).trim();
   cy=cytoscape({container:$('cy'),elements:es,layout:{name:'preset'},style:[
     {selector:'node',style:{'label':'data(label)','background-color':color('--accent'),'color':color('--ink'),'font-size':12,'text-wrap':'wrap','text-max-width':155,'text-valign':'bottom','text-margin-y':8,'width':32,'height':32}},
-    {selector:'node[visualKind="NEED"]',style:{shape:'polygon','shape-polygon-points':'0 1 -.65 .25 -.85 -.35 -.5 -.85 0 -1 .5 -.85 .85 -.35 .65 .25',width:35,height:42,'background-color':color('--need')}},
-    {selector:'node[visualKind="CAN"]',style:{shape:'polygon','shape-polygon-points':'0 -1 .65 -.25 .85 .35 .5 .85 0 1 -.5 .85 -.85 .35 -.65 -.25',width:35,height:42,'background-color':color('--can')}},
+    {selector:'node[visualKind="NEED"]',style:{shape:'triangle',width:36,height:38,'background-color':color('--need')}},
+    {selector:'node[visualKind="CAN"]',style:{shape:'polygon','shape-polygon-points':'-1 -1 1 -1 0 1',width:36,height:38,'background-color':color('--can')}},
     {selector:'node[kind="relation"]',style:{shape:'ellipse',width:12,height:12,'background-color':color('--muted')}},
     {selector:'node[kind="scenario"],node[kind="process"]',style:{shape:'round-rectangle',width:100,height:38}},
     {selector:'node[kind="condition"]',style:{shape:'diamond',width:28,height:32,'background-color':color('--need')}},
+    {selector:'node[statusTone="positive"]',style:{color:color('--positive')}},
+    {selector:'node[statusTone="negative"]',style:{color:color('--negative')}},
+    {selector:'node[statusTone="unknown"]',style:{color:color('--unknown')}},
     {selector:'edge',style:{label:'data(label)','font-size':10,'color':color('--muted'),'text-wrap':'wrap','text-max-width':120,'text-background-color':color('--panel'),'text-background-opacity':.85,'text-background-padding':4,'curve-style':'unbundled-bezier','control-point-distances':24,'control-point-weights':.5,'line-cap':'round',width:1.5,'line-color':color('--muted'),'line-opacity':.55,'target-arrow-color':color('--muted'),'target-arrow-shape':'triangle','arrow-scale':.75}},
     {selector:'edge',style:{'target-arrow-shape':'none','source-arrow-shape':'none','source-arrow-color':color('--muted')}},
     {selector:'edge[kind="attribution"],edge[kind="representation"]',style:{'line-style':'solid','label':'','line-opacity':.4,width:1}},

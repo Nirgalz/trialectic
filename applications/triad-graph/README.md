@@ -39,8 +39,9 @@ Keep this local server running while using the prototype.
 ## Implemented
 
 - Author-approved visual vocabulary: double-contour main Subject, circular
-  Objects, downward NEED drops, upward CAN leaves, condition diamonds with
-  explicit ✓/×/? marks, Scenario cards and small relation connectors. Historical
+  Objects, upward NEED triangles, downward CAN triangles, condition diamonds
+  with explicit green ✓ / red × / amber ? marks, Scenario cards and small
+  relation connectors. Historical
   relation-derived shapes are contextual presentation, not added concept_kind
   annotations. Missing/conflicting condition assessments display `?`.
 - Solid undirected attribution; full arrows for contribution, open arrows for
