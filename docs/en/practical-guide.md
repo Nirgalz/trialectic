@@ -4,7 +4,7 @@
 > **Discover:** [Overview](overview.md) · [Reference](../../reference/trialectic-method.md)
 
 # Practical Guide to the Trialectic Method
-## Analyze a situation, understand its mechanisms, and explore solutions
+## Understand a problem, explore possibilities, and make an informed decision
 
 ### Who is this guide for?
 
@@ -15,6 +15,12 @@ No specialist knowledge is required.
 You can use it on your own, with other people, or with artificial intelligence.
 
 It offers a gradual workflow that should be adapted to the situation's complexity. It is not a scientifically validated protocol.
+
+## The three phases — Understand, Explore, Decide (D-85)
+
+The complete Trialectic Method comprises **Understand**, **Explore**, and **Decide**, with possible returns to earlier phases as new information or interpretations emerge. An analyst may legitimately **stop after Understand** or **after Explore** if that answers the analytical need; a final decision is **not mandatory in every use**. When a decision is needed, articulate a justified choice or defer it transparently if the available grounds are inadequate. The Method does not guarantee a universally optimal choice.
+
+The numbered operations below give a **worked NEED/CAN- and Actualization-focused procedure**, not a mandatory starting path for every question. The three broad methodological phases are **not identical** to these local operations. Subject, Environment and relevant Semantics shape the inquiry throughout. The information model serves to formalize the functioning and traceability of the Method, not to prescribe its aims.
 
 ## Before starting: choose a question
 
@@ -37,7 +43,7 @@ Keep your original question: you can reformulate it if the analysis reveals that
 
 ---
 
-# Stage One — Understand the Subject
+# Worked procedure A — Contextualize the Subject
 
 ## 1. Identify what you are analyzing
 
@@ -97,7 +103,7 @@ Conversely, a Potentiality that is not presently accessible may become accessibl
 
 ---
 
-# Stage Two — Examine necessities and potentialities
+# Worked procedure B — Examine necessities and potentialities
 
 You must now choose what to focus on: a **NEED** or a **CAN**.
 
@@ -201,7 +207,7 @@ And what is indispensable in one scenario may not be indispensable in another.
 
 ---
 
-# Stage Three — Explore possible Actualizations
+# Worked procedure C — Explore possible Actualizations
 
 The third stage examines the conditions under which certain Potentialities can be implemented, then builds and compares several scenarios.
 
@@ -364,6 +370,14 @@ You may conclude that several scenarios deserve further investigation, that none
 If a decision must be made, state the criteria guiding the choice.
 
 A recommendation may then be made conditionally, without claiming that it is universally the best solution.
+
+---
+
+# Decide — When the analyst needs a choice (D-85)
+
+If the analysis is intended to lead to a decision, explicitly state **which possibility or course of action is chosen**, **whose goals and values** inform the choice, **which criteria and constraints** are decisive, and **what remains uncertain**. Explain plausible alternatives, trade-offs and risks. It can be reasonable to **defer the choice**, seek more information or reopen Understanding and Exploration. Do not claim objective optimality merely from a comparison.
+
+If only understanding or exploration is needed, this phase may be omitted: the result remains a valid use of the Method.
 
 ---
 
@@ -565,16 +579,12 @@ It is preferable to document what remains unknown and identify useful checks.
 
 ## Conclusion
 
-The Trialectic Method proposes a process that involves:
+The **complete** Trialectic Method involves three essential, recursive phases:
 
-1. Identifying and contextualizing a Subject.
-2. Examining a NEED or CAN and its relationships with other Objects.
-3. Studying the conditions for Actualization and several possible scenarios.
-4. Comparing scenarios, their consequences, and their uncertainties.
-5. Returning to the Subject to reassess the situation and continue the analysis when relevant.
+1. **Understand** a problem by examining the situated Subject, its Environment, relevant relations and Semantics, together with evidence, interpretations and uncertainty.
+2. **Explore** possibilities, conditions, alternatives, possible effects and Resolution Scenarios when appropriate.
+3. **Decide** by explaining an informed choice against stated criteria and uncertainty, or justify deferring the choice.
 
-The result is not necessarily a decision or a solution.
+Each of the first two phases is a legitimate **stopping point** for a particular analytical need. Revisiting earlier phases is part of the Method, not a failure. The detailed NEED/CAN procedure in this guide illustrates **one possible path through the phases**, not a universal mandatory sequence.
 
-It may be a better understanding of the problem, the discovery of a Potentiality, the identification of a previously overlooked dependency, or the clarification of a disagreement.
-
-**A successful analysis is not only one that leads to action: it can also be one that helps us better understand what is necessary, what is possible, and what different transformations might produce.**
+**The Method supports better-informed, revisable analysis and decisions, without promising an objectively best answer or requiring that every analysis result in action.**
