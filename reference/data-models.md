@@ -145,6 +145,12 @@ An Object has at most one immutable NEED/CAN conceptual kind per permanent ID. A
 
 The transport profile 2.1.0 adds optional `Object.concept_kind`, `Object.requalification` and version-required `Relation.attribution`, explicitly separating concept identity from context-specific attribution. Earlier 2.0.0 documents remain valid but their unqualified relations are **not** established by default. Details: [global-model.md](../schemas/global-model.md), D-83 and the scoped semantic checker. Operational completeness and empirical evidence are still OPEN.
 
+### D-84 — CAN affiliations: specialization and composition (Analysis v2.2)
+
+A CAN can have child CANs through *specialization* (more specific Potentiality) or *composition* (complex Potentiality involving child CANs), with multiple parents permitted. Each CAN is an independently identified Object, can possess NEEDs and can itself have children. CAN affiliations are **not** D-83 attributions or D-25 historical Object branching; they do not automatically establish possession, actionability, necessity or sufficiency.
+
+The `2.2.0` exchange profile records these relations as independent `can_affiliations[]` entries containing versioned parent/child CAN Object refs, a specialized/composed kind and an epistemically scoped, versioned Claim. The two earlier `2.0.0` and `2.1.0` profiles remain unchanged and forbid the new collection. Semantic checks of references and kinds are implemented, but cycles have only advisory detection and compositional/inheritance rules remain OPEN. See [global-model.md](../schemas/global-model.md), D-84 and the dedicated synthetic tests.
+
 ## 5. `relation`, `relation.links`, interactions and weights
 
 **Rationale.** Plain lists of Object IDs conceal *why* a link matters. Links need individual roles, conditions, causal hypotheses, relative importance and possible link-to-link effects; logical composition must be explicit rather than inferred from list membership.
