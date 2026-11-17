@@ -71,7 +71,9 @@ The `tria_explore_focus` operation performs **structural extraction** only. It p
 - `tria://schema/analysis-v2`
 - `tria://schema/power-evaluation-v2`
 
-The Analysis reader checks only a limited envelope and collection types; it **does not** run full JSON Schema validation, referential integrity checks or semantic verification. Validate source files separately with `tools/validate_analysis.py` and `tools/validate_semantics.py` before drawing conclusions.\n\nThe JSON Schemas are assembled in memory from the modular sources used by `tools/validate_analysis.py`. They are **normative for the v2 exchange profile**, not a complete computational implementation of the three recursive phases **Understand → Explore → Decide**. Validation of a schema alone never establishes semantic or factual correctness.
+The Analysis reader checks only a limited envelope and collection types; it **does not** run full JSON Schema validation, referential integrity checks or semantic verification. Validate source files separately with `tools/validate_analysis.py` and `tools/validate_semantics.py` before drawing conclusions.
+
+The JSON Schemas are assembled in memory from the modular sources used by `tools/validate_analysis.py`. They are **normative for the v2 exchange profile**, not a complete computational implementation of the three recursive phases **Understand → Explore → Decide**. Validation of a schema alone never establishes semantic or factual correctness.
 
 ## Protocol and tests
 
