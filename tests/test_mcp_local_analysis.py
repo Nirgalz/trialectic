@@ -138,6 +138,11 @@ class ApprovedAnalysisMCPTests(unittest.TestCase):
             "epistemic_status": "established", "description": "unverified claim",
             "rationale": "none"})
         self.assertEqual(bad["error"]["code"], -32602)
+        wrong_kind = self.call(proc, "tria_prepare_proposal", {
+            **base, "kind": "object", "target_id": "R-sante",
+            "epistemic_status": "hypothesis", "description": "wrong kind",
+            "rationale": "The Relation ID is not an Object ID"})
+        self.assertEqual(wrong_kind["error"]["code"], -32602)
 
     def test_approved_path_validation(self):
         sys.path.insert(0, str(SERVER.parent))
