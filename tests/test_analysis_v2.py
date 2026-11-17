@@ -60,7 +60,9 @@ class AnalysisV2Tests(unittest.TestCase):
     def test_empty_collections_are_structurally_valid(self):
         schema = self.analysis_validator.schema
         for key, value in schema['properties'].items():
-            if value.get('type') == 'array':
+            # Empty this profile's existing collections, without introducing
+            # fields forbidden in historical profiles (e.g. v2.2 affiliations).
+            if value.get('type') == 'array' and key in self.analysis:
                 self.analysis[key] = []
         self.analysis_validator.validate(self.analysis)  # local shape, not reference validity
 

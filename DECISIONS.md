@@ -1693,5 +1693,38 @@ Date: November 17, 2026 | Status: **VALIDATED principle by author; operational p
 
 Related tasks: T-03, T-04, T-15, T-19, T-20, T-21, T-24, T-27, T-28, T-30.
 
+## D-90 · Approved Cytoscape prototype and -c invocation suffix
+Date: November 17, 2026 | Status: **VALIDATED by author in this project conversation** | Branch: `dev`
+
+**Author approval:** After inspecting the interactive prototype and requesting
+node-centered navigation with a return to the general view, the author approved
+the prototype and explicitly requested its integration into `dev`.
+
+**Adopted invocation:** `use trIA-c` requests standard trIA using the Cytoscape.js
+prototype in `applications/triad-graph/`; `use trIAd-c` requests the same
+interactive presentation in trIA-dev, as in the present environment.
+`use trIA-dev-c` follows the existing long-form alias. The `-c` suffix selects
+the graphical presentation, without changing conceptual rules or data schemas.
+Unsuffixed commands retain their existing convention, including D-88 where
+applicable.
+
+**Approved interaction:** Selecting a node centers the graph on it and shows
+the linked Objects and the corresponding relations. Relation-record nodes are
+retained where needed to preserve qualifications. Selecting a neighbor supports
+continued navigation; **Vue générale** restores the full graph. Conceptual
+Objects and methodological process operations remain separate views.
+
+**Implementation and limits:** Repository instructions record this convention
+for assistants that load them. Open an adjacent preview where actually
+supported, otherwise disclose the host limit and use a text/Mermaid fallback.
+Neither this decision nor a queued panel request guarantees sidebar placement,
+cross-chat activation, automatic conversation synchronization or persistence.
+Approval of the prototype is not empirical validation, an endorsement of new
+methodological rules, or completion of the semantic/causal engine.
+
+**Rationale:** Preserve the author-tested interface and make the requested
+interactive presentation explicitly selectable without changing default modes.
+Related tasks: T-20, T-26, T-27, T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

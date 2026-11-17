@@ -80,6 +80,14 @@ These are **potential applications, not validated use cases**. Comparative value
 
 ## Working conventions
 
+The author-approved [Cytoscape.js prototype](applications/triad-graph/README.md)
+can inspect Objects, qualified relations and Scenarios. `use trIA-c` requests
+standard trIA with this view; `use trIAd-c` (or `use trIA-dev-c`) requests
+trIA-dev with it. The `-c` suffix selects presentation only (D-90). An interactive
+preview beside the conversation depends on host capabilities; otherwise use the
+documented fallback. No automatic chat synchronization or empirical validation
+is implied. Unsuffixed commands retain their existing convention.
+
 - **Explicit approval:** no conceptual modification is integrated into the main reference without the author's explicit validation.
 - **Language:** English is the reference-document language; discussion may take place in French or English.
 - **Evidence:** conceptual approval is not scientific validation. Hypotheses, formalizations, and unresolved questions remain clearly distinguished.

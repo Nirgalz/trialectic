@@ -1,5 +1,22 @@
 # AI-assisted Trialectic Method — Adaptive dialogue protocol
 
+## Interactive presentation invocation (D-90, November 17, 2026)
+
+The author-approved commands `use trIA-c` and `use trIAd-c` select the
+[Cytoscape.js prototype](../triad-graph/README.md) for standard trIA and trIA-dev
+respectively; `use trIA-dev-c` is the long-form development alias. The `-c`
+suffix changes presentation only. Use the current analytical records, inspect
+local relations by clicking a node, and restore the complete map with
+**Vue générale**. Keep conceptual and methodological graphs separate.
+
+Reuse/start the local prototype and request an adjacent preview when the host
+permits it. Verify actual display; queued opening is not success. If interactive
+execution is unavailable, disclose that limit and use text/Mermaid fallback.
+There is no automatic conversation synchronization or universal persistence.
+Commands without the suffix retain their existing visualization convention.
+Prototype approval does not change the normative data contracts or validate
+causal reasoning, scientific claims or general usability.
+
 **Status: VALIDATED DIALOGUE DESIGN — revision 1.0, November 16, 2026 (D-80).** The author has approved this AI-assisted dialogue protocol for the **`dev`** branch. Its interaction requirements are adopted as design guidance; this does **not** certify a working AI implementation, demonstrate educational or analytical benefit, alter the Method's concepts, or resolve open evaluation algorithms. The [working reference](../../reference/trialectic-method.md) is the conceptual authority; the [normative v2 exchange contract](../../schemas/global-model.md) and modular [`schemas/model/`](../../schemas/model/README.md) files govern structured data. Related work: [T-20](../../TODO.md), T-03, T-04, T-15, T-16, T-21, T-24, T-27 and T-30.
 
 ## 1. Purpose and scope
