@@ -84,7 +84,9 @@ def _linked_ids(record):
             if isinstance(item, dict):
                 if isinstance(item.get("object_id"), str):
                     ids.add(item["object_id"])
-                ids.update(v for v in item.get("affects", []) if isinstance(v, str))
+                affects = item.get("affects", [])
+                if isinstance(affects, list):
+                    ids.update(v for v in affects if isinstance(v, str))
     return ids
 
 
@@ -232,6 +234,13 @@ class ApprovedAnalyses:
                     if isinstance(x, dict) and isinstance(x.get("id"), str)}
         if target_id is not None and target_id not in existing:
             raise AnalysisError("Unknown target ID; use null for a proposed new object")
+        target_collections = {"object": "objects", "relation": "relations",
+                              "condition": "conditions", "scenario": "scenarios"}
+        if target_id is not None and kind in target_collections:
+            valid = {x.get("id") for x in doc.get(target_collections[kind], [])
+                     if isinstance(x, dict)}
+            if target_id not in valid:
+                raise AnalysisError("Proposal target ID has an incompatible record kind")
         proposal = {
             "kind": kind, "target_id": target_id, "description": description,
             "epistemic_status": epistemic_status, "rationale": rationale,
