@@ -125,6 +125,7 @@
       return [
         'use trIAd-c',
         `Analyse : ${doc.analysis_id}; mode carte : ${mode}; objet focal : ${body.subject.id}.`,
+        mode==='simple' ? 'Carte simple / A : réponds d’abord en langage naturel, puis représente une sélection fidèle des Objects et relations explicitement justifiés par ta réponse.' : 'Carte détaillée / B : expose d’abord les Objects, relations et qualifications pertinents à la question, puis rédige la réponse correspondante et sa carte détaillée.',
         'Demande à l\'IA : approfondis explicitement ce Sujet Focal, son Environnement et sa Sémantique.',
         'Évalue la pertinence locale ET pour le problème global et les autres Sujets affectés (D-89).',
         `Sujet focal : ${JSON.stringify(body.subject)}.`,
