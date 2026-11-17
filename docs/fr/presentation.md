@@ -22,7 +22,19 @@ Cette démarche peut être utile, mais elle devient insuffisante lorsque les dif
 
 **La Méthode trialectique propose un cadre d'analyse pour comprendre ces relations, identifier les possibilités de transformation et explorer plusieurs scénarios de résolution.**
 
-Son objectif n'est pas de fournir automatiquement une réponse, mais de permettre une compréhension plus structurée et approfondie des situations étudiées.
+Son objectif est de rendre plus explicites et révisables la compréhension de la problématique, l'exploration des possibilités et la prise de décisions éclairées, sans prescrire automatiquement une solution universellement optimale.
+
+## Trois phases — Comprendre, Explorer, Décider (D-85)
+
+La Méthode complète repose sur **trois phases essentielles et récursives**, sans imposer leur réalisation intégrale à chaque usage :
+
+1. **Comprendre :** clarifier la problématique, examiner le Sujet dans son Environnement, les relations et dimensions sémantiques pertinentes, questionner les interprétations et distinguer les connaissances, les hypothèses et les inconnues.
+2. **Explorer :** étudier différentes possibilités et, lorsque cela est pertinent, des scénarios de résolution, leurs conditions, leurs effets possibles et leurs incertitudes.
+3. **Décider :** choisir une orientation ou une action à partir d'objectifs, valeurs, critères, contraintes et incertitudes explicites, ou justifier le report d'un choix lorsque l'analyse ne le permet pas encore.
+
+Une utilisation peut **s'arrêter après Comprendre** ou **après Explorer**, dès lors que cela répond au besoin de l'analyste. L'exploration et la délibération peuvent aussi conduire à revoir la question initiale, les hypothèses ou le contexte : les phases ne forment pas une chaîne strictement linéaire.
+
+**La décision est la finalité possible du processus complet, mais elle n'est ni obligatoire à chaque usage ni présentée comme objectivement optimale.** Le modèle informatique sert à formaliser le fonctionnement de la Méthode ; il n'en définit pas la finalité. Les procédures centrées sur NEED/CAN et l'Actualisation restent mobilisables lorsqu'elles sont pertinentes, sans constituer le point de départ obligatoire de toute analyse.
 
 ## Une méthode applicable à différents domaines
 
