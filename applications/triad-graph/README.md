@@ -36,6 +36,31 @@ referencing (the existing `.test-deps` directory is supported). Cytoscape.js
 3.30.4 is bundled locally; no runtime CDN or external AI calls are required.
 Keep this local server running while using the prototype.
 
+## D-97 validated interaction target — NOT YET IMPLEMENTED
+
+The author validated the following **future behavior** on November 17, 2026. This is a **test specification**, not a claim of existing Cytoscape or live AI integration. The graphical reasoning view is **carte** (FR) / **map** (EN).
+
+- On a user's first request, offer **Carte simple / Simple map (A)**, using a natural-language answer before a concise explanatory map, or **Carte détaillée / Detailed map (B)**, requesting an explicit Object/relation structure before the answer and map. These are presentation/response strategies using the same Method, not the Method's deferred Simple Mode and not proof of access to model-internal deliberation.
+- Once the map is displayed, offer **Améliorer la résolution de la carte / Improve map resolution**, which invokes **C+** only upon user action. C+ requests a proportionate search for neglected relevant Objects, affected Subjects, relations, semantics and alternative Scenarios; "resolution" is analytical, not image density. A host without operative controls must use a text/Mermaid alternative.
+- When the user **explicitly adopts an Object as Focus**, treat it analytically as the **Focal Subject**. Examine its relevant properties and known/unknown NEED/CAN, connected **Environment** (expandable to indirect/missing links), and **Semantics** (words, meanings, Definitions, ambiguities). This deepening is an AI action and must not be implied by an ordinary click-to-inspect. Revisions to contextual knowledge do not constitute effective Actualization.
+- On returning to the global map or selecting another Focus, identify materially affected relations and Scenario conclusions, review selectively, preserve unrelated results and prior revisions, and retain D-89's global relevance safeguard. Do not mutate the Object ID or normative `PowerEvaluation.Focus` when navigation changes. **A Scenario remains an eligible navigation Focus per D-92** and is not converted into an Object; the Subject/Environment/Semantics routine described here is specific to Object Focus.
+- Existing **A/B navigation controls** below compare *temporary inspection versus explicit pinning*. Their letters **A/B are unrelated to the newly approved simple/detailed map-production protocols A/B**. The current prototype does not execute live AI deepening, user-requested C+, automatic text–graph generation or revision propagation.
+
+### Proposed browser + AI integration acceptance trace (OPEN)
+
+| Step | User action / fixture | Expected observation |
+| --- | --- | --- |
+| 1 | New session, select Simple A then Detailed B on frozen equivalent cases | Distinct response/representation depths and preserved qualifications; same Method, no forced NEED/CAN |
+| 2 | Inspect an Object without adopting it as Focus | Only display navigation changes; no AI evaluation or source mutation |
+| 3 | Explicitly adopt Commune B as Object Focus | Local Subject/Environment/Semantics context is requested and attributed to the chosen Object |
+| 4 | Supply a new, qualified shared-electricity dependency | Graph/explanation show its source/uncertainty; prior IDs and historical claims preserved |
+| 5 | Return to Commune A's general map | Only relevant water-transfer Scenario assessments identified for review; unrelated alternatives remain unchanged |
+| 6 | Explicitly invoke C+ | Omission/alternate-pathway investigation occurs and qualified additions become inspectable |
+| 7 | Select an eligible Scenario Focus; run no-new-evidence and semantic-only controls | No false Object reclassification, fabricated CAN, fake Actualization, or unsupported success |
+| 8 | Reload/switch modes and test host fallback | State retention claims match actual host; text/Mermaid works when live map actions are unavailable |
+
+**Pass/fail boundaries:** source identity/version stability; no silent replacement of old evaluations; explicit factual versus hypothesized distinction; no "correctness" attributed to graph alone; no independent-Scenario collateral change; working control feedback, focus keyboard accessibility and return navigation. A scripted fixture or same-author walk-through is not a controlled usability study, and this table is not a record of passing tests. See [the D-97 decision](../../DECISIONS.md), [dialogue protocol](../ai-assisted-analysis/dialogue-protocol.md) and [T-20/T-26/T-24/T-27](../../TODO.md).
+
 ## Implemented
 
 - Author-approved visual vocabulary: double-contour main Subject, circular
