@@ -1599,5 +1599,30 @@ Date: November 17, 2026 | Status: **VALIDATED conceptual principles by author in
 
 Related tasks: T-01, T-02, T-03, T-16, T-24, T-27, T-28, T-30.
 
+## D-85 · Three recursive analytical phases: Understand, Explore, Decide
+Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** | Branch: `dev`
+
+**Validated purpose.** The **Trialectic Method** is a structured, contextual and recursive analytical method for accompanying an analyst through **understanding a problem, exploring relevant possibilities, and making an informed decision**. The objective of the complete process is to enable a decision *after* examination of the problem and alternatives, **not** to compute or impose a universally or objectively best decision.
+
+**Three essential phases of the complete Method:**
+
+1. **Understand / Comprendre:** examine the situated Subject, relevant parts of its Environment, their relations and the semantic dimensions pertinent to their representation and interpretation. Make questions, assumptions, mechanisms, contradictions, unknowns and uncertainty explicit; the understanding is contextual and revisable.
+2. **Explore / Explorer:** identify possible changes, alternatives and Resolution Scenarios; analyze their conditions, possible consequences, interdependencies, relative merits and uncertainties. Do not prematurely reduce exploration to one solution.
+3. **Decide / Décider:** consider the explored possibilities in light of explicit goals, values, criteria, constraints and uncertainty; choose or justify an orientation/action **when sufficiently warranted**. An informed decision can include deferral or not selecting an action when evidence or conditions are inadequate. No universal optimality guarantee follows.
+
+**Use depth.** The three phases are constituent elements of the **complete Method**, but a particular use **may legitimately end after Understand**, or **after Understand + Explore**, when that suffices for the analyst. Completing all three is *not* a condition of an analytically useful result.
+
+**Recursion and epistemic safeguards.** The phases are not a rigid one-way sequence: exploration or decision deliberation can require returning to Understand, reviewing the problem statement, Subject/Environment, semantics, assumptions and evidence; a new understanding can reopen exploration or decision. Distinguish an observed effect, a conjectured effect and a justified causal attribution. The method supports reasoned choice, not unexamined or automatically optimized prescription.
+
+**Relation to validated conceptual architecture.** Subject, Environment and Semantics are **pertinent, not necessarily symmetrical/equally weighted analytical perspectives**; Semantics is not artificially imposed as an equal standalone step. An analysis can begin with a **problem/question/phenomenon as analytical focal concern**; NEED, CAN, Potentiality, Power and Actualization are domain-specific analytical instruments when pertinent, **not mandatory universal entry points for every inquiry**. The previously validated Subject → NEED/CAN → Actualization → reassessment sequence remains available as a **specialized, recursive workflow inside the phases**, rather than defining the scope of every problem. This distinction is methodological, not a reclassification of NEED or CAN Objects.
+
+**Role of computation.** The information model's purpose is to **formalize the Method's functioning, traces and epistemic distinctions**; it should follow the methodology rather than determine its conceptual purpose. Existing JSON Schema 2.0–2.2 records and tests remain **experimental and scoped**, not proof of conceptual or empirical validity. Detailed phase operations, stop/restart criteria, decision assessment and any formal transport mapping are **OPEN**; no new schema contract or automated decision engine is validated by D-85.
+
+**Relationship to earlier decisions.** D-28's Advanced Mode and multi-Scenario exploration, D-48 Power, and D-83/D-84 NEED/CAN identity/affiliation remain in force. D-85 **clarifies** earlier statements that final selection was "optional": deciding is a **third essential phase of the complete Method**, but executing it is **optional in a particular use**. This supersedes any interpretation of earlier workflow descriptions that would exclude decision from the complete Method, or require every analysis to be NEED/CAN-focused. Historical decisions are preserved, not silently edited.
+
+**Rationale:** Better understanding and alternative exploration are legitimate independent analytical outcomes, while an informed decision is the intended culminating outcome for analysts who need to decide. The Method's value should be assessed by improved understanding, explicit alternatives, decision traceability, relevant uncertainty and proportional analytic effort—not merely by software conformance.
+
+Related tasks: T-03, T-04, T-15, T-16, T-17, T-19, T-20, T-21, T-24, T-26, T-27, T-28, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
