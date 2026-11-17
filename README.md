@@ -88,6 +88,13 @@ preview beside the conversation depends on host capabilities; otherwise use the
 documented fallback. No automatic chat synchronization or empirical validation
 is implied. Unsuffixed commands retain their existing convention.
 
+**Experimental UI comparison:** The prototype can now compare simple node inspection
+with an explicitly retained Analyst navigation Focus. This is an optional
+presentation-layer experiment, not a new approved Method-level Focus primitive,
+not a change to `PowerEvaluation.Focus`, and not evidence of comparative usability.
+See the [A/B protocol](applications/triad-graph/README.md) and
+[exploratory report](research/tria-dev-focus-cytoscape-ab-2026-11-17.md).
+
 - **Explicit approval:** no conceptual modification is integrated into the main reference without the author's explicit validation.
 - **Language:** English is the reference-document language; discussion may take place in French or English.
 - **Evidence:** conceptual approval is not scientific validation. Hypotheses, formalizations, and unresolved questions remain clearly distinguished.
