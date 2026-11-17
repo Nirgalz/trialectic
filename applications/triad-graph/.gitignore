@@ -1,3 +1,14 @@
 # Local research snapshot used during prototyping; use repository sources now.
 source/
 __pycache__/
+
+# API credential and local secret protection
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.secret
+credentials.local.json
+secrets.local.json
