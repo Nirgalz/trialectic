@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const {translate,initialLanguage}=require('./i18n.js');
+assert.equal(translate('Comprendre/Explorer','en'),'Understand/Explore');
+assert.equal(translate('Scénario : S-02 · 12 Objets dans le périmètre','en'),'Scenario: S-02 · 12 Objects in scope');
+assert.equal(translate('Focus choisi : aucun · contexte actuel · contexte enregistré : S-01.','en'),'Chosen Focus: none · current context · recorded context: S-01.');
+assert.equal(translate('Objet O-eleves','en'),'Object O-eleves');
+assert.equal(translate('Un texte source inconnu reste intact.','en'),'Un texte source inconnu reste intact.');
+const json='{"focus":{"type":"Scenario","scenario_id":"S-02"}}';
+assert.equal(translate(json,'en'),json);
+assert.equal(translate('Scénarios','fr'),'Scénarios');
+assert.equal(initialLanguage('http://localhost/?lang=en','fr'),'en');
+assert.equal(initialLanguage('http://localhost/?lang=fr','en'),'fr');
+assert.equal(initialLanguage('http://localhost/?lang=de','fr'),'fr');
+assert.equal(initialLanguage('http://localhost/','en'),'en');
+console.log('UI language: French/English labels, templates, explicit discussion language and source preservation OK.');

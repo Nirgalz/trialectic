@@ -1,0 +1,26 @@
+const assert=require('node:assert/strict');
+const {createGraphHistory,bindGraphMouseHistory}=require('./graph-history.js');
+const h=createGraphHistory();
+const home={view:'objects',center:null,zoom:.5,pan:{x:1,y:2},positions:[['A',{x:0,y:0}]]};
+const a={...home,center:'A',zoom:1,pan:{x:20,y:30}};
+const b={...home,center:'B',zoom:2,pan:{x:-30,y:40}};
+h.reset(home);h.commit(home,a);h.commit(a,b);
+const zoomed={...b,zoom:3,pan:{x:7,y:9}};
+assert.deepEqual(h.move(-1,zoomed),a);
+assert.deepEqual(h.move(-1,a),home);
+assert.equal(h.move(-1,home),null);
+assert.deepEqual(h.move(1,home),a);
+const next=h.move(1,a);assert.deepEqual(next,zoomed);
+next.pan.x=999;next.positions[0][1].x=999;
+assert.deepEqual(h.move(-1,zoomed),a);assert.deepEqual(h.move(1,a),zoomed);
+h.move(-1,zoomed);const c={...a,center:'C'};h.commit(a,c);
+assert.equal(h.canForward,false);assert.equal(h.move(1,c),null);
+h.reset(home);assert.equal(h.canBack,false);assert.equal(h.canForward,false);
+const target=new EventTarget(),moves=[];const remove=bindGraphMouseHistory(target,n=>moves.push(n));
+function emit(name,button){const e=new Event(name,{cancelable:true});Object.defineProperty(e,'button',{value:button});target.dispatchEvent(e);return e.defaultPrevented;}
+for(const name of ['pointerdown','mousedown','pointerup','mouseup','auxclick'])assert(emit(name,3));
+assert.deepEqual(moves,[-1]);
+for(const name of ['pointerdown','mousedown','pointerup','mouseup','auxclick'])assert(emit(name,4));
+assert.deepEqual(moves,[-1,1]);assert.equal(emit('mouseup',0),false);
+remove();emit('auxclick',3);assert.deepEqual(moves,[-1,1]);
+console.log('Graph history: multi-step back/forward, exact zoom/pan, detached snapshots, branching, reset and one action per side-button gesture OK.');

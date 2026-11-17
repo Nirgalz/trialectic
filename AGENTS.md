@@ -20,6 +20,13 @@ If interactive display is unavailable, explain the limitation and use the
 documented text/Mermaid fallback. Commands without `-c` retain their existing
 presentation convention.
 
+When opening the prototype, pass `?lang=fr` or `?lang=en` in its URL to match
+the current discussion language, unless the Analyst explicitly chooses another
+interface language. The FR/EN button changes the interface without changing
+the analytical records, active Focus or theme. The prototype cannot read chat
+language itself; the launch URL supplies this context. Explicit button choices
+are retained in that preview's URL across reloads.
+
 The author's approval covers the prototype and these invocation conventions,
 not unrequested changes to normative models, automated causal inference, or
 empirical validation. Preserve unknowns, provenance, scenario isolation, and

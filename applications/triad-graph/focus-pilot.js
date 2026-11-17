@@ -15,14 +15,14 @@
  const el=id=>document.getElementById(id);
  function context(){return{scenario_id:api.scenario(),definition_versions:Object.fromEntries(model.definitions.map(d=>[d.object_id,d.version]))};}
  function record(action,detail){nav.log.push({action,detail,at:new Date().toISOString()});}
- function select(id,reason,mode='current',saved=null){
+ function select(id,reason,mode='current',saved=null){return api.transaction(()=>{
    nav.selected=id;nav.mode=mode;
    api.adopt(id);
    api.navigate(id,mode==='historical'?saved?.scenario_id:null);
    nav.context=saved||context();
    nav.history.push({id,mode,context:structuredClone(nav.context)});record(reason,id);
    draw();api.summary();
- }
+ });}
  function draw(){
    el('pilot-active').textContent=`Focus choisi : ${nav.selected||'aucun'} · ${nav.mode==='historical'?'relecture historique':'contexte actuel'} · contexte enregistré : ${nav.context.scenario_id}.`;
    el('pilot-candidate').value=nav.selected;
@@ -35,6 +35,7 @@
  }
  window.focusPilot={
   syncNavigation(focus){if(!nav)return;nav.selected=focus?.id||null;nav.mode='current';nav.context=context();record('navigation_controls_selection',nav.selected);draw();},
+  summaryEnglish(){return nav?`Experimental steering (outside Analysis): Analyst Focus ${nav.selected||'none'}, mode ${nav.mode}, context ${nav.context.scenario_id}. Comparison targets: ${nav.targets.join(', ')}. Pupils suggestion: ${nav.pending?'pending':UII18n.translate(nav.proposalStatus)}. Other Subjects remain in scope.\nLog: ${JSON.stringify(nav.log)}`:'';},
   adoptScenario(id){if(!nav)return false;select(id,'analyst_scenario_graph_selection');return true;},
   install(doc,callbacks){
     model=doc;api=callbacks;nav=null;

@@ -32,5 +32,13 @@ jobs:
         run: python applications/triad-graph/test_prototype.py
       - name: Check graph hierarchy constraints
         run: node applications/triad-graph/test-layout.cjs
+      - name: Check French and English interface labels
+        run: node applications/triad-graph/test-i18n.cjs
+      - name: Check graph back and forward history
+        run: node applications/triad-graph/test-graph-history.cjs
+      - name: Graph view transitions
+        run: node applications/triad-graph/test-view-transitions.cjs
+      - name: Check Object preview metadata and placement
+        run: node applications/triad-graph/test-object-preview.cjs
       - name: Check Focus navigation controls
         run: node applications/triad-graph/test-focus-navigation.cjs
