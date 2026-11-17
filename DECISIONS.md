@@ -1754,5 +1754,20 @@ Date: November 17, 2026 | Status: **VALIDATED correction by author** | Branch: `
 
 Related tasks: T-03, T-20, T-26, T-27, T-30.
 
+## D-93 · Contextual validity, contextual robustness and proportionate examination of conclusions
+Date: November 17, 2026 | Status: **VALIDATED principles by author; detailed operationalization OPEN** | Branch: `dev`
+
+**Both dimensions required where relevant.** The Method must consider **(1) the contextual validity/justification of an analytical conclusion under its stated premises, evidence, relations and conditions**, and **(2) its contextual robustness under relevant possible variations of those conditions**. Validity in one specified context does not imply robustness in other contexts. Robustness is not a guarantee of universal truth or an unqualified empirical claim.
+
+**Relevant variations and recursive relevance.** Identify plausible or otherwise consequential variations of Object properties, Environment, relationships/dependencies, timing, assumptions and evidence, **according to relevance**. Select variations by their potential to affect the conclusion, the uncertainty of their premises, their plausibility or degree of possibility, and the importance of potential consequences. Do **not** automatically discard a low-probability or difficult-to-quantify variation with potentially severe consequences. Examine interacting variations when they matter. Apply recursive relevance and the global D-89 safeguard; distinguish examined variations from identified but unexamined variations and acknowledge that unknown variations may remain.
+
+**Proportional depth.** **Adapt the depth of robustness examination to the conclusion's importance for the analysis**, considering its role in subsequent inferences/decisions, stakes, uncertainties, fragility and possible consequences if invalid. Secondary low-stakes conclusions can receive limited checks; decisive, fragile or high-consequence conclusions warrant deeper probing of assumptions, counterexamples, dependencies and adverse cases. Reassess the required depth recursively when new evidence, contradictions or context changes arise. Greater scrutiny does **not** itself change the truth or evidential strength of a claim (consistent with D-47).
+
+**Reporting and limits.** State which conditions sustain, weaken or defeat the conclusion, what was actually examined, which uncertainties remain, and why the depth is proportionate. Do not require a universal score, probability, exhaustive combinatorial search, three fixed levels, new mandatory schema fields or a compulsory separate Method Stage. The illustrative school-shade experiments in the discussion were synthetic reasoning tests only, not empirical demonstrations of the Method's effectiveness.
+
+**Rationale:** Prevent an apparently sound local inference from being treated as stable across changing circumstances while focusing verification effort where an invalid conclusion could materially alter the analysis or expose affected Subjects to serious harm.
+
+Related decisions: D-02, D-07, D-31, D-46, D-47, D-85, D-89. Related tasks: T-03, T-04, T-15, T-16, T-20, T-21, T-27, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
