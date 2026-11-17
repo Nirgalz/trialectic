@@ -1,6 +1,6 @@
 /* Presentation constraints only: attribution remains in the source records. */
 (function(root){
-  function hierarchyPositions(nodes, edges, relations, rootId) {
+  function hierarchyPositions(nodes, edges, relations, rootId, {tree=false}={}) {
     const byId=new Map(nodes.map(n=>[n.id,n]));
     const rank=new Map(), neighbors=new Map(nodes.map(n=>[n.id,[]]));
     edges.forEach(e=>{neighbors.get(e.source)?.push(e.target);neighbors.get(e.target)?.push(e.source);});
@@ -18,8 +18,21 @@
     nodes.filter(n=>n.kind==='object'||n.kind==='CAN'||n.kind==='NEED').forEach(n=>{
       if(!rank.has(n.id))rank.set(n.id,n.kind==='CAN'?-2:n.kind==='NEED'?2:0);
     });
+    if(tree){
+      // In the overview, roots and branches occupy distinct hemispheres,
+      // including historical Objects whose kind exists only on a relation.
+      // This is presentation, not a new conceptual identity annotation.
+      const roles=new Map();relations.forEach(r=>{if(!roles.has(r.target))roles.set(r.target,r.type);});
+      nodes.forEach(n=>{
+        if(n.id===rootId)return;
+        const kind=['NEED','CAN'].includes(n.kind)?n.kind:roles.get(n.id);
+        if(kind)rank.set(n.id,(kind==='NEED'?1:-1)*Math.max(2,Math.abs(rank.get(n.id)||0)));
+      });
+    }
     relations.forEach(r=>{
-      if(byId.has(r.id))rank.set(r.id,((rank.get(r.origin)||0)+(rank.get(r.target)??(r.type==='CAN'?-2:2)))/2);
+      if(byId.has(r.id))rank.set(r.id,tree?
+        (r.type==='NEED'?1:-1)*Math.max(1,Math.abs(rank.get(r.target)||2)-1):
+        ((rank.get(r.origin)||0)+(rank.get(r.target)??(r.type==='CAN'?-2:2)))/2);
     });
     nodes.forEach(n=>{
       if(!rank.has(n.id)){
@@ -29,7 +42,7 @@
     });
     const rows=new Map();nodes.filter(n=>n.kind!=='scenario').forEach(n=>{const r=rank.get(n.id);if(!rows.has(r))rows.set(r,[]);rows.get(r).push(n.id);});
     const levels=[...rows.keys()].sort((a,b)=>a-b),positions=new Map();
-    function place(){rows.forEach(ids=>{const middle=ids.includes(rootId)?ids.indexOf(rootId):(ids.length-1)/2;ids.forEach((id,i)=>positions.set(id,{x:(i-middle)*205,y:rank.get(id)*125}));});}
+    function place(){rows.forEach(ids=>{const middle=ids.includes(rootId)?ids.indexOf(rootId):(ids.length-1)/2;ids.forEach((id,i)=>positions.set(id,{x:(i-middle)*205*(tree?1+Math.abs(rank.get(id))*.1:1),y:rank.get(id)*125}));});}
     // Barycenter sweeps reduce crossings while keeping every vertical rank fixed.
     place();
     for(let sweep=0;sweep<8;sweep++){

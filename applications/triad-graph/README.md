@@ -47,6 +47,13 @@ Keep this local server running while using the prototype.
   Cycles and shared Objects retain a single identity; placement is a display
   convention, not proof of attribution, an acyclic ontology or a causal order.
   The methodological process remains a separate, relaxed arrangement.
+- The overview uses a tree metaphor: the main Subject is the trunk, all
+  recorded NEEDs form roots below it and CANs form branches above it, including
+  NEEDs of secondary Subjects and historical relation-identified Objects.
+  Layers fan out away from the trunk. A NEED attributed to a CAN still appears
+  below the trunk in the overview; its actual bearer remains inspectable.
+  Cross-links, shared identities and cycles are preserved, so this view is not
+  a claim that the analytical graph is a mathematical tree.
 - Edge routing penalizes paths running close together and paths approaching
   other nodes. Busy junctions are routed first, with distinct curved trajectories
   for parallel, reverse and nearly aligned links. Routes are recalculated after

@@ -28,7 +28,7 @@ function organicLayout(elements, anchor=null) {
   cy.nodes().removeClass('layout-center');cy.getElementById(subject).addClass('layout-center');
   const positions=hierarchyPositions(elements.nodes().map(n=>({id:n.id(),kind:n.data('kind')})),
     elements.edges().map(e=>({source:e.source().id(),target:e.target().id()})),
-    documentModel.relations.map(r=>({id:key('relation',r.id,r.version),origin:key('object',r.origin_object.id),target:key('object',r.represented_object.id),type:r.type})),subject);
+    documentModel.relations.map(r=>({id:key('relation',r.id,r.version),origin:key('object',r.origin_object.id),target:key('object',r.represented_object.id),type:r.type})),subject,{tree:!anchor});
   const origin=anchor?positions.get(anchor.id()):{x:0,y:0};
   elements.nodes().forEach(n=>{const p=positions.get(n.id());n.position({x:p.x-(origin?.x||0),y:p.y-(origin?.y||0)});});
   routeVisibleEdges(elements);

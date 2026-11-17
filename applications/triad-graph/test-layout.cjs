@@ -20,6 +20,17 @@ assert.deepEqual(hierarchyPositions(nodes,edges,relations,'subject'),positions);
 // An inspected subset may omit the global Subject or relation record.
 assert.equal(hierarchyPositions([{id:'can',kind:'CAN'}],[],relations,'can').get('can').y,0);
 console.log('Hierarchy: center, CAN/NEED ranks, spacing, cycles and determinism OK.');
+// Historical 2.0 Objects may lack concept_kind and belong to secondary Subjects.
+// Every displayed NEED still goes below the trunk in the overview.
+const treeNodes=[...nodes,{id:'secondary',kind:'object'},{id:'legacy-need',kind:'object'},
+  {id:'nested-need',kind:'NEED'},{id:'r-legacy',kind:'relation'},{id:'r-nested',kind:'relation'}];
+const treeRelations=[...relations,{id:'r-legacy',origin:'secondary',target:'legacy-need',type:'NEED'},
+  {id:'r-nested',origin:'can',target:'nested-need',type:'NEED'}];
+const tree=hierarchyPositions(treeNodes,edges,treeRelations,'subject',{tree:true});
+assert.equal(tree.get('subject').y,0);
+for(const id of ['need','legacy-need','nested-need','r-legacy','r-nested'])assert(tree.get(id).y>0,id);
+assert(tree.get('can').y<0);
+console.log('Overview tree: secondary and nested NEEDs remain below the trunk.');
 const routingPositions=new Map([['a',{x:0,y:0}],['b',{x:300,y:0}],['c',{x:300,y:12}]]);
 const parallel=[{id:'e1',source:'a',target:'b'},{id:'e2',source:'a',target:'b'},{id:'e3',source:'b',target:'a'}];
 const routes=separatedEdgeRoutes(routingPositions,parallel);
