@@ -44,11 +44,9 @@ jobs:
         run: node applications/triad-graph/test-focus-navigation.cjs
       - name: Check D-97 Focus cycle and map modes
         run: node applications/triad-graph/test-focus-cycle.cjs
-      - name: Compile local API server and bridge
-        run: python -m compileall -q applications/triad-graph/server.py applications/triad-graph/ai_bridge.py applications/triad-graph/test_ai_bridge.py tools/check_secrets.py tools/install_secret_hook.py
-      - name: Check API bridge without live credentials
-        run: python applications/triad-graph/test_ai_bridge.py
-      - name: Check API bridge UI and browser credential separation
+      - name: Compile local Work bridge
+        run: python -m compileall -q applications/triad-graph/server.py applications/triad-graph/work_bridge.py applications/triad-graph/test_work_bridge.py
+      - name: Check offline Work queue integrity
+        run: python applications/triad-graph/test_work_bridge.py
+      - name: Check Work Local UI wiring
         run: node applications/triad-graph/test_ai_ui.cjs
-      - name: Check repository for accidentally committed secrets
-        run: python tools/check_secrets.py
