@@ -63,7 +63,9 @@ class MCPIntegrationTests(unittest.TestCase):
     def test_modern_tool_access(self):
         listed = self.send(modern("tools/list", 1))
         names = {tool["name"] for tool in listed["result"]["tools"]}
-        self.assertEqual(names, {"tria_read_reference", "tria_list_references"})
+        self.assertTrue({"tria_read_reference", "tria_list_references", "tria_list_analyses",
+                         "tria_read_analysis_section", "tria_explore_focus",
+                         "tria_prepare_proposal"}.issubset(names))
         called = self.send(modern("tools/call", 2, {
             "name": "tria_read_reference",
             "arguments": {"uri": "tria://method/fr/overview"},
