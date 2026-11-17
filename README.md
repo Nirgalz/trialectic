@@ -72,6 +72,7 @@ These are **potential applications, not validated use cases**. Comparative value
 - [Canonical reference](reference/trialectic-method.md) — current working document; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements. Version snapshots are managed with Git tags rather than numbered filenames; prior revisions can be recovered from Git history.
 - [Data models and rationale](reference/data-models.md) — comprehensive cross-reference of current conceptual and data models, why each is distinct, their validation status, and open serialization questions. An explanatory catalogue, **not a new normative schema**.
 - [AI-assisted dialogue protocol](applications/ai-assisted-analysis/dialogue-protocol.md) — approved AI interaction design aligned with the current Method and normative data models; implementation and empirical evaluation remain open.
+- [AI collaboration workflow](AGENTS.md#collaboration-workflow-author-approved-2026-11-17) — approved working convention for discussing, testing, concluding, proposing and authorizing scoped GitHub updates; not a conceptual Method rule.
 - [TODO](TODO.md) — 30 research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
 - [Contribution guidelines](CONTRIBUTING.md) — how to propose changes, submit pull requests, and document decisions.
@@ -87,6 +88,13 @@ trIA-dev with it. The `-c` suffix selects presentation only (D-90). An interacti
 preview beside the conversation depends on host capabilities; otherwise use the
 documented fallback. No automatic chat synchronization or empirical validation
 is implied. Unsuffixed commands retain their existing convention.
+
+**Experimental UI comparison:** The prototype can now compare simple node inspection
+with an explicitly retained Analyst navigation Focus. This is an optional
+presentation-layer experiment, not a new approved Method-level Focus primitive,
+not a change to `PowerEvaluation.Focus`, and not evidence of comparative usability.
+See the [A/B protocol](applications/triad-graph/README.md) and
+[exploratory report](research/tria-dev-focus-cytoscape-ab-2026-11-17.md).
 
 - **Explicit approval:** no conceptual modification is integrated into the main reference without the author's explicit validation.
 - **Language:** English is the reference-document language; discussion may take place in French or English.

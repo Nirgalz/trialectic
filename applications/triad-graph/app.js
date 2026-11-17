@@ -3,6 +3,55 @@ const $ = id => document.getElementById(id);
 let documentModel, cy, view = 'objects', selected = null, issues = [], records = new Map();
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null, scenarioFocus = null;
+const navigation = TriaFocusNavigation.createNavigationState();
+function navigationRefLabel(ref) {
+  return ref ? `${ref.family === 'object' ? 'Objet' : 'Scénario'} ${ref.id}${ref.version ? '@' + ref.version : ''}` : 'Aucun';
+}
+function refreshNavigationControls() {
+  const enabled = navigation.mode === 'persistent';
+  const focus = navigation.focus, inspected = records.get(selected);
+  const validInspected = inspected && ['object','scenario'].includes(inspected.family);
+  $('navigation-mode').value = navigation.mode;
+  $('pin-focus').disabled = !enabled || !validInspected;
+  $('return-focus').disabled = !enabled || !focus;
+  $('clear-focus').disabled = !enabled || !focus;
+  const visible = focus && cy &&
+    cy.getElementById(key(focus.family, focus.id)).isNode();
+  $('focus-status').textContent = !enabled
+    ? 'Mode A : inspection ponctuelle, sans Focus conservé.'
+    : focus ? `Mode B : Focus de navigation = ${navigationRefLabel(focus)}${focus.family==='scenario'&&scenarioFocus===focus.id?' (contexte affiché, sans nœud scénario)':visible ? ' (présent dans le graphe)' : ' (hors de la vue courante)'} · ${navigation.selectionCount} sélection(s) explicite(s) dans cette session.`
+      : 'Mode B : aucun Focus sélectionné. Inspecter un Objet ou un Scénario, puis utiliser « Conserver ».';
+  if(cy) {
+    cy.nodes().removeClass('nav-focus');
+    if(enabled && visible) cy.getElementById(key(focus.family, focus.id)).addClass('nav-focus');
+  }
+  const list = $('focus-history');list.replaceChildren();
+  const labels = {select:'Focus choisi',clear:'Focus effacé',inspect:'Inspection',mode:'Mode',ui_operation:'Opération d’interface'};
+  navigation.history.slice(-8).forEach(event => {
+    const item=document.createElement('li');
+    item.textContent = `#${event.seq} · ${labels[event.type] || event.type}${event.target ? ' · '+navigationRefLabel(event.target) : ''}${event.detail ? ' · '+event.detail : ''}`;
+    list.append(item);
+  });
+}
+function returnToNavigationFocus() {
+  const focus=navigation.focus;
+  if(!focus || navigation.mode !== 'persistent') return;
+  if(focus.family === 'scenario') {
+    if(!documentModel.scenarios.some(s=>s.id===focus.id)){$('focus-status').textContent='Scénario du Focus absent du document.';return;}
+    navigation.operation('retour au Focus scénario');openScenario(focus.id,false);refreshNavigationControls();return;
+  }
+  if(view!=='objects')switchView('objects');
+  const uid=key(focus.family,focus.id);
+  if(!cy.getElementById(uid).isNode()) {
+    $('focus-status').textContent='Focus introuvable dans cette projection : vérifier son identité et sa version.';
+    return;
+  }
+  navigation.operation('retour au Focus');
+  inspect(uid);
+  focusNode(uid);
+  refreshNavigationControls();
+  handoff();
+}
 function routeVisibleEdges(elements) {
   const positions=new Map(elements.nodes().map(n=>[n.id(),{...n.position()}]));
   const routes=separatedEdgeRoutes(positions,elements.edges().map(e=>({id:e.id(),source:e.source().id(),target:e.target().id()})));
@@ -96,10 +145,11 @@ function openScenario(id,adopt=true){
   view='scenarios';scenarioFocus=id;$('scenario').value=id;
   $('objects').setAttribute('aria-pressed','false');$('scenarios').setAttribute('aria-pressed','true');
   render();
+  if(adopt){navigation.setMode('persistent');navigation.select({family:'scenario',id});}
   const scenario=currentScenario();
   $('inspect-title').textContent=`Focus : ${id}`;$('inspector').replaceChildren();
   text($('inspector'),'p',`${scenario.mode} · ${(scenario.assumptions||[]).join(' / ')}`);
-  $('raw').textContent=pretty(scenario);handoff();
+  $('raw').textContent=pretty(scenario);refreshNavigationControls();handoff();
 }
 function activateNode(uid){
   const r=records.get(uid);if(r?.family==='scenario'){openScenario(r.id);return;}
@@ -110,7 +160,7 @@ function render() {
   $('overview').disabled=true; $('scope').textContent='Tous les éléments';
   const es=view==='objects'?projection(documentModel):scenarioFocus?scenarioProjection():scenariosProjection();
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
-  $('scope').textContent=view==='objects'?'Comprendre/Explorer · Objets et relations':scenarioFocus?`Focus : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
+  $('scope').textContent=view==='objects'?'Comprendre/Explorer · Objets et relations':scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
   $('cy').setAttribute('aria-label',view==='objects'?'Graphe des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Graphe des scénarios');
   $('view-guide').textContent=view==='objects'?'Branches CAN ↑ · Racines NEED ↓':scenarioFocus?'Contexte du scénario choisi':'Cliquer pour choisir un Focus';
   activeLayout?.stop(); activeLayout=null;
@@ -138,6 +188,7 @@ function render() {
     {selector:'edge[functionName="inhibitory"]',style:{'source-arrow-shape':'tee'}},
     {selector:'edge[kind="condition"]',style:{'target-arrow-shape':'chevron','target-arrow-fill':'hollow','label':''}},
     {selector:'node.layout-center',style:{width:46,height:46,'border-width':2,'border-color':color('--can'),'font-weight':'bold'}},
+    {selector:'node.nav-focus',style:{'border-width':5,'border-color':color('--unknown'),'border-style':'dashed'}},
     {selector:'node.main-subject',style:{shape:'ellipse','border-style':'double','border-width':6,'border-color':color('--accent'),width:48,height:48}},
     {selector:'edge:selected',style:{label:'data(label)','text-background-opacity':1}},
     {selector:'.outside-neighborhood',style:{display:'none'}},
@@ -150,7 +201,7 @@ function render() {
   cy.on('dragfree','node',()=>routeVisibleEdges(cy.elements(':visible')));
   $('entity').replaceChildren(new Option('Choisir une entité…',''));
   for(const [id,r] of records)$('entity').add(new Option(`${r.family} · ${r.id}`,id));
-  selected=null; orientation(); analyticalSummary();
+  selected=null; orientation(); analyticalSummary();refreshNavigationControls();
 }
 function focusNode(uid) {
   const node=cy.getElementById(uid); if(!node.isNode())return;
@@ -203,7 +254,7 @@ function inspect(uid){
   if(raw.attribution)text($('inspector'),'p',`Attribution : ${pretty(raw.attribution)}`);
   if(raw.roles)text($('inspector'),'p',`Rôles : ${raw.roles.join(', ')} · causalité : ${raw.causality||'non renseignée'}`);
   if(raw.qualification)text($('inspector'),'p',pretty(raw.qualification));
-  $('raw').textContent=pretty(raw);
+  $('raw').textContent=pretty(raw);navigation.inspect({family:r.family,id:r.id});refreshNavigationControls();
 }
 function analyticalSummary(){
   const p=$('analysis');p.replaceChildren();const s=currentScenario();
@@ -218,10 +269,11 @@ function analyticalSummary(){
 }
 function handoff(challenge=false){
   const r=records.get(selected),s=currentScenario();
-  $('handoff').value=[`use trIAd-c`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',window.focusPilot?.summary(),scenarioFocus?`Focus de navigation graphique : Scénario ${scenarioFocus}.`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
+  $('handoff').value=[`use trIAd-c`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',`Mode de navigation : ${navigation.mode}. Focus choisi par l’Analyste : ${navigation.mode==='persistent'?navigationRefLabel(navigation.focus):'aucun'}.`,window.focusPilot?.summary(),scenarioFocus?`Contexte graphique : Scénario ${scenarioFocus}.`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
 }
 async function install(doc,reported){
-  documentModel=doc;issues=reported;view='objects';scenarioFocus=null;
+  documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
+  if(doc.analysis_id==='A-focus-six-ecoles-pilot'){navigation.setMode('persistent');navigation.select({family:'scenario',id:'S-02'});}
   $('objects').setAttribute('aria-pressed','true');$('scenarios').setAttribute('aria-pressed','false');
   $('focus-link').hidden=doc.analysis_id!=='A-focus-six-ecoles-pilot';
   if(doc.analysis_id==='A-focus-six-ecoles-pilot')$('phase').value='Explorer';
@@ -229,7 +281,7 @@ async function install(doc,reported){
   if(doc.focus.type==='Scenario')$('scenario').value=doc.focus.scenario_id;
   $('status').textContent=`${doc.analysis_id} · profil ${doc.schema_version} · structure acceptée · ${issues.length} avertissement(s) sémantique(s). Contrôles limités ; aucune preuve empirique.`;
   $('status').title=pretty(issues);render();
-  window.focusPilot?.install(doc,{scenario:()=>$('scenario').value,summary:()=>handoff(),navigate:(id,historicalScenario)=>{
+  window.focusPilot?.install(doc,{adopt:(id)=>{navigation.setMode('persistent');navigation.select({family:doc.scenarios.some(s=>s.id===id)?'scenario':'object',id});refreshNavigationControls();},scenario:()=>$('scenario').value,summary:()=>handoff(),navigate:(id,historicalScenario)=>{
     const scenario=doc.scenarios.find(s=>s.id===id);
     if(scenario)$('scenario').value=scenario.id;
     else if(historicalScenario)$('scenario').value=historicalScenario;
@@ -244,16 +296,24 @@ async function load(){try{
  if(pilot){const document=p;const check=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(document)});const result=await check.json();if(!check.ok)throw Error(result.error||'Validation impossible');p={document,issues:result.issues};}
  if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(p.document,p.issues);
  }catch(e){$('status').textContent=e.message;}}
+
+$('navigation-mode').onchange=()=>{navigation.setMode($('navigation-mode').value);window.focusPilot?.syncNavigation(navigation.focus);refreshNavigationControls();handoff();};
+$('pin-focus').onclick=()=>{
+ const r=records.get(selected);if(!r||!navigation.select({family:r.family,id:r.id}))return;
+ window.focusPilot?.syncNavigation(navigation.focus);refreshNavigationControls();handoff();
+};
+$('clear-focus').onclick=()=>{navigation.clear();window.focusPilot?.syncNavigation(null);refreshNavigationControls();handoff();};
+$('return-focus').onclick=returnToNavigationFocus;
 $('dataset').onchange=load;$('scenario').onchange=()=>{if(view==='scenarios')openScenario($('scenario').value);else{render();handoff();}};
 $('objects').onclick=()=>switchView('objects');$('scenarios').onclick=()=>switchView('scenarios');
-function switchView(v){view=v;scenarioFocus=null;$('objects').setAttribute('aria-pressed',v==='objects');$('scenarios').setAttribute('aria-pressed',v==='scenarios');render();}
+function switchView(v){navigation.operation('vue '+v);view=v;scenarioFocus=null;$('objects').setAttribute('aria-pressed',v==='objects');$('scenarios').setAttribute('aria-pressed',v==='scenarios');render();}
 $('fit').onclick=()=>frameGraph(cy.elements(':visible'),centeredNode?cy.getElementById(centeredNode):null);
-$('overview').onclick=showOverview;
+$('overview').onclick=()=>{navigation.operation('vue générale');showOverview();refreshNavigationControls();};
 $('zoom-in').onclick=()=>cy.zoom({level:cy.zoom()*1.25,renderedPosition:{x:cy.width()/2,y:cy.height()/2}});
 $('zoom-out').onclick=()=>cy.zoom({level:cy.zoom()/1.25,renderedPosition:{x:cy.width()/2,y:cy.height()/2}});
 $('entity').onchange=()=>activateNode($('entity').value);
-$('phase').onchange=()=>handoff();
-$('challenge').onclick=()=>handoff(true);$('summary').onclick=()=>handoff();
+$('phase').onchange=()=>{navigation.operation('phase '+$('phase').value);refreshNavigationControls();handoff();};
+$('challenge').onclick=()=>{navigation.operation('préparer une question');handoff(true);refreshNavigationControls();};$('summary').onclick=()=>{navigation.operation('préparer un résumé');handoff();refreshNavigationControls();};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('handoff').value);$('copy').textContent='Copié';}catch{$('handoff').focus();$('handoff').select();$('copy').textContent='Sélectionné : Ctrl+C';}};
 $('import').onclick=()=>$('file').click();
 $('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;if(f.size>2000000)throw Error('Limite : 2 Mo');const doc=JSON.parse(await f.text());const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(doc)});const p=await r.json();if(!r.ok||p.error)throw Error(p.error||'Validation impossible');if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(doc,p.issues);}catch(e){$('status').textContent='Import refusé ; analyse conservée. '+e.message;}finally{$('file').value='';}};

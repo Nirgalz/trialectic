@@ -16,12 +16,15 @@
  function context(){return{scenario_id:api.scenario(),definition_versions:Object.fromEntries(model.definitions.map(d=>[d.object_id,d.version]))};}
  function record(action,detail){nav.log.push({action,detail,at:new Date().toISOString()});}
  function select(id,reason,mode='current',saved=null){
-   nav.selected=id;nav.mode=mode;nav.context=saved||context();
+   nav.selected=id;nav.mode=mode;
+   api.adopt(id);
+   api.navigate(id,mode==='historical'?saved?.scenario_id:null);
+   nav.context=saved||context();
    nav.history.push({id,mode,context:structuredClone(nav.context)});record(reason,id);
-   api.navigate(id,mode==='historical'?nav.context.scenario_id:null);draw();api.summary();
+   draw();api.summary();
  }
  function draw(){
-   el('pilot-active').textContent=`Focus choisi : ${nav.selected} · ${nav.mode==='historical'?'relecture historique':'contexte actuel'} · contexte enregistré : ${nav.context.scenario_id}.`;
+   el('pilot-active').textContent=`Focus choisi : ${nav.selected||'aucun'} · ${nav.mode==='historical'?'relecture historique':'contexte actuel'} · contexte enregistré : ${nav.context.scenario_id}.`;
    el('pilot-candidate').value=nav.selected;
    el('pilot-target-list').textContent='Cibles conservées : '+nav.targets.join(', ');
    el('pilot-proposal').textContent=nav.pending?'Je propose O-eleves : vérifier les 120 élèves supposés vulnérables et l’efficacité des solutions avant de privilégier les contraintes techniques. Ce changement attend ton choix.':nav.proposalStatus;
@@ -31,6 +34,7 @@
    el('pilot-log').textContent=JSON.stringify(nav.log,null,2);
  }
  window.focusPilot={
+  syncNavigation(focus){if(!nav)return;nav.selected=focus?.id||null;nav.mode='current';nav.context=context();record('navigation_controls_selection',nav.selected);draw();},
   adoptScenario(id){if(!nav)return false;select(id,'analyst_scenario_graph_selection');return true;},
   install(doc,callbacks){
     model=doc;api=callbacks;nav=null;

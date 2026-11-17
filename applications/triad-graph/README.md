@@ -95,7 +95,32 @@ Keep this local server running while using the prototype.
 - Copyable inspection/question/summary text links analysis and conversation.
   It contains selected IDs and source records. Copying does not send a message.
 
+## Experimental A/B navigation comparison — 17 November 2026
+
+**Status: exploratory interface behavior, not author validation of a new conceptual Focus rule.** The comparison intentionally operates on the **loaded validated synthetic Analysis fixture** (for example the `generator` case), **not** an automatically synchronized six-schools case. No new Object, Scenario, Actualization or `PowerEvaluation` is written to the source record.
+
+Use the **Mode de navigation** selector above the graph:
+
+- **A · Inspection ponctuelle:** click an Object or a Scenario node to inspect its source record and display its local relations. Clicking elsewhere or changing the view does not retain a separately selected navigation Focus. `Vue générale` restores the complete graph.
+- **B · Focus de navigation:** click an Object or Scenario node, then press **Conserver le nœud inspecté comme Focus**. Subsequent UI operations, including inspecting another Object, switching to the process view, changing the displayed phase or Scenario, leave the explicitly chosen navigation Focus in place. Its identity is visible independently of the current inspection; the local journal distinguishes `inspect`, `select`, `clear`, and presentation operations.
+- Press **Revenir au Focus** to navigate back to the pinned Object or Scenario. If the stored Scenario differs from the currently displayed Scenario, the prototype restores its displayed Scenario. **Effacer le Focus** clears the explicit selection. Switching to A also clears it. Loading/importing another Analysis resets the experiment.
+
+**Comparison procedure:** Choose A, inspect two nodes, switch phases/views, and observe that there is no pinned Focus. Choose B, inspect a node, explicitly pin it, inspect a second node and change phases/views; observe that the original Focus remains independently identifiable and can be revisited. Repeat with a displayed Scenario node. Note interaction count and conceptual clarity rather than treating UI event counts as proof of analytical utility.
+
+**Layer separation:** This navigation Focus is **temporary client UI state**, not the source `Analysis.focus`, the typed `PowerEvaluation.Focus` field, a new Stage target contract, an Object, or an evaluation-revision trigger. Imported `Analysis` is not modified by navigation; exporting preserves source data. D-89's broader problem and affected-Subjects relevance remains a methodological responsibility, not a guaranteed inference implemented by clicking a node.
+
+**Limits:** No cross-session persistence, automatic conversation or graph synchronization, multi-user concurrency, real analytical Stage execution, automated re-evaluation, source version compatibility checking or real-world usability measurement is implemented. An absent/stale target in the current projection may not be navigable until its reference is made available. The journal is local and ephemeral.
+
+**Regression checks:** `node applications/triad-graph/test-focus-navigation.cjs` exercises navigation state and static UI wiring. The GitHub workflow also runs this alongside the previous hierarchy and Python fixture checks; browser interaction and comparative Analyst studies remain OPEN.
+
 ## Limits and observed host behavior
+
+The A/B navigation controls from `dev` are retained in a collapsible section
+and use the same active navigation pointer as the six-school pilot. Explicit
+pinning/clearing and pilot adoption stay synchronized. Returning to a Scenario
+opens its scoped Object view without restoring a Scenario node. The displayed
+Scenario context can remain on screen even when navigation Focus is cleared;
+display context and active Analyst selection are separate.
 
 ### Exploratory Focus steering pilot (local working implementation)
 

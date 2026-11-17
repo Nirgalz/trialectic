@@ -6,3 +6,18 @@
 :root[data-theme="light"]{color-scheme:light;--bg:#f7f7f7;--panel:#fff;--raised:#eeeeee;--ink:#242424;--muted:#606060;--line:#d6d6d6;--accent:#454545;--need:#a86c20;--can:#326c9e;--positive:#24733c;--negative:#b02b34;--unknown:#936215;--wash:transparent}
 body,.map{background:var(--bg)}.map{background:var(--panel)}button.primary:hover:enabled,button[aria-pressed="true"]:hover:enabled{background:var(--accent);color:var(--bg)}header>.button-row{flex-shrink:0}#theme-toggle{white-space:nowrap}.workspace{box-shadow:0 12px 35px #00000010}
 @media(max-width:760px){header>.button-row .badge{display:none}}
+
+/* A/B navigation comparison: no edits to the underlying Analysis model. */
+.focus-workbench{border-bottom:1px solid var(--line);padding:12px 16px;background:var(--bg)}
+.focus-heading{display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.focus-heading h3{font-size:14px;margin:0 0 4px}
+.focus-heading label{min-width:220px}
+.focus-heading .muted{margin:3px 0 8px}
+.focus-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.focus-actions button{padding:6px 9px}
+.focus-actions button:disabled{opacity:.45;cursor:not-allowed}
+#focus-status{margin:6px 0;font-weight:600}
+#focus-history{font-size:12px;padding-left:23px;max-height:150px;overflow:auto;margin:8px 0}
+#focus-history li{margin-bottom:4px}
+
+.navigation-experiment{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-top:20px}.focus-workbench{border:0;border-radius:10px}.focus-actions{align-items:center}

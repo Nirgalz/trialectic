@@ -1726,5 +1726,33 @@ methodological rules, or completion of the semantic/causal engine.
 interactive presentation explicitly selectable without changing default modes.
 Related tasks: T-20, T-26, T-27, T-28.
 
+## D-91 · Optional trIA navigation Focus: Object selection, Analyst control and proportional closure
+Date: November 17, 2026 | Status: **VALIDATED by author for trIA steering behavior; technical formalization OPEN** | Branch: `dev`
+
+**Scope and identity.** The `Focus` of **trIA's Analyst steering/navigation layer** is optional and selects **an Object only**, never a relation as such. Only **one Focus can be active per Analyst**; none is also valid. NEEDs and CANs are eligible because they have Object identities; an independent Scenario ID is not automatically an Object identity. This does not redefine D-17's general attention-of-a-Stage notion or the separately typed D-57/D-67 `PowerEvaluation.Focus` (NEED/CAN/Scenario). A Stage can address multiple Objects and relations while one Object remains the chosen navigation Focus.
+
+**Two functions.** The navigation Focus (1) selects an Object as an attention target and (2) allows the Analyst to **retrieve associated investigations** and their questions, operations, conclusions, uncertainties and histories. It does not itself own or duplicate their data. Exact association structures and persistence are not settled here.
+
+**Suggestions and control.** trIA **may suggest multiple candidate Object Focuses** using reasoned estimates of **importance, urgency or contextual relevance**, with uncertainties and the global D-89 safeguard visible. Suggestions are not selections or objectively verified rankings. The **Analyst chooses and changes the active Focus by default**. They may **explicitly delegate** selection changes to AI within a defined scope and **revoke** that delegation at any time; absent valid delegation, AI proposals must not silently replace the Analyst's choice. Independently, AI continues to signal significant issues beyond the local Focus under D-89.
+
+**Examination life cycle.** An examination linked to a Focus may be **to continue, suspended or completed**. Status attaches to an objective-bound examination, not permanently to an Object. Switching Focus does not close an examination; suspension retains reasons, uncertainties and reentry conditions. **Completion is proportionate to its objective**, not exhaustive, and can preserve secondary open questions. New material information or changed context may justify reopening. AI may recommend a status or a switch with reasons, under the Analyst's authority/delegation. A navigation selection is neither a PowerEvaluation revision nor an effective Actualization.
+
+**Rationale.** Preserve Analyst autonomy, useful context-sensitive AI suggestions and the ability to return to previously explored Objects, without conflating navigation state with analytical operations or their evidence. Keep the Method effective without an explicitly active navigation Focus and without weakening D-89's global relevance requirement.
+
+**Boundaries / OPEN.** This approves the trIA **steering-layer** behavior and related author preferences, not its UI persistence, a new normative Object/Stage schema, a universal Focus ranking function, a full investigation-link data model, concurrency mechanics or independently measured usefulness. The distinct utility of a standalone conceptual primitive remains open; existing D-17 and `PowerEvaluation.Focus` contracts are preserved. Related tasks: T-03, T-04, T-15, T-20, T-21, T-26, T-27, T-30.
+
+## D-92 · Navigation Focus may target an Object or a Scenario (amends D-91)
+Date: November 17, 2026 | Status: **VALIDATED correction by author** | Branch: `dev`
+
+**Correction to D-91's target restriction.** An optional trIA navigation Focus can select **either an Object or a Resolution Scenario** as its target; it cannot select a relation as such. A Scenario is an eligible target **by its Scenario identity**, without needing to be reclassified as an Object. NEED and CAN remain eligible as Objects. A maximum of **one** navigation Focus is active per Analyst at any time (or none).
+
+**Unchanged D-91 rules.** Navigation is Analyst-controlled by default, with explicitly scoped and revocable AI delegation; AI can recommend several Object or Scenario candidates using contextual estimates of importance, urgency and relevance. The selected target serves to direct attention and retrieve associated investigations. Examination continuation, suspension, proportionate completion and reopening remain independent of navigation changes. D-89 global relevance still applies.
+
+**Boundaries.** This modifies **only the eligibility of navigation Focus targets**, not the type or semantics of `PowerEvaluation.Focus` (NEED/CAN/Scenario), D-17's general Stage-attention concept, Object/Scenario identity, the analytical data contracts, or the state of prototype implementation. D-91 is retained unchanged above as historical record; for allowed navigation targets, **D-92 supersedes its Object-only restriction**.
+
+**Rationale:** The Analyst should be able to steer attention directly toward an existing Scenario as well as an Object, without creating fictitious Object identities or changing the rest of the pilot's steering rules.
+
+Related tasks: T-03, T-20, T-26, T-27, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.

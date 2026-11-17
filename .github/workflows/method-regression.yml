@@ -32,3 +32,5 @@ jobs:
         run: python applications/triad-graph/test_prototype.py
       - name: Check graph hierarchy constraints
         run: node applications/triad-graph/test-layout.cjs
+      - name: Check Focus navigation controls
+        run: node applications/triad-graph/test-focus-navigation.cjs
