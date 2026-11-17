@@ -3,6 +3,57 @@ const $ = id => document.getElementById(id);
 let documentModel, cy, view = 'objects', selected = null, issues = [], records = new Map();
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null;
+const navigation = TriaFocusNavigation.createNavigationState();
+function navigationRefLabel(ref) {
+  return ref ? `${ref.family === 'object' ? 'Objet' : 'Scénario'} ${ref.id}${ref.version ? '@' + ref.version : ''}` : 'Aucun';
+}
+function refreshNavigationControls() {
+  const enabled = navigation.mode === 'persistent';
+  const focus = navigation.focus, inspected = records.get(selected);
+  const validInspected = inspected && ['object','scenario'].includes(inspected.family);
+  $('navigation-mode').value = navigation.mode;
+  $('pin-focus').disabled = !enabled || !validInspected;
+  $('return-focus').disabled = !enabled || !focus;
+  $('clear-focus').disabled = !enabled || !focus;
+  const visible = focus && view === 'objects' && cy &&
+    cy.getElementById(key(focus.family, focus.id, focus.version || '')).isNode();
+  $('focus-status').textContent = !enabled
+    ? 'Mode A : inspection ponctuelle, sans Focus conservé.'
+    : focus ? `Mode B : Focus de navigation = ${navigationRefLabel(focus)}${visible ? ' (présent dans le graphe)' : ' (hors de la vue courante)'} · ${navigation.selectionCount} sélection(s) explicite(s) dans cette session.`
+      : 'Mode B : aucun Focus sélectionné. Inspecter un Objet ou un Scénario, puis utiliser « Conserver ».';
+  if(cy) {
+    cy.nodes().removeClass('nav-focus');
+    if(enabled && visible) cy.getElementById(key(focus.family, focus.id, focus.version || '')).addClass('nav-focus');
+  }
+  const list = $('focus-history');list.replaceChildren();
+  const labels = {select:'Focus choisi',clear:'Focus effacé',inspect:'Inspection',mode:'Mode',ui_operation:'Opération d’interface'};
+  navigation.history.slice(-8).forEach(event => {
+    const item=document.createElement('li');
+    item.textContent = `#${event.seq} · ${labels[event.type] || event.type}${event.target ? ' · '+navigationRefLabel(event.target) : ''}${event.detail ? ' · '+event.detail : ''}`;
+    list.append(item);
+  });
+}
+function returnToNavigationFocus() {
+  const focus=navigation.focus;
+  if(!focus || navigation.mode !== 'persistent') return;
+  if(focus.family === 'scenario' && $('scenario').value !== focus.id) {
+    const exists=Array.from($('scenario').options).some(o=>o.value===focus.id);
+    if(!exists) { $('focus-status').textContent='Scénario du Focus absent du document chargé.';return; }
+    $('scenario').value=focus.id;
+    render();
+  }
+  if(view !== 'objects') switchView('objects');
+  const uid=key(focus.family,focus.id,focus.version || '');
+  if(!cy.getElementById(uid).isNode()) {
+    $('focus-status').textContent='Focus introuvable dans cette projection : vérifier son identité et sa version.';
+    return;
+  }
+  navigation.operation('retour au Focus');
+  inspect(uid);
+  focusNode(uid);
+  refreshNavigationControls();
+  handoff();
+}
 function routeVisibleEdges(elements) {
   const positions=new Map(elements.nodes().map(n=>[n.id(),{...n.position()}]));
   const routes=separatedEdgeRoutes(positions,elements.edges().map(e=>({id:e.id(),source:e.source().id(),target:e.target().id()})));
@@ -106,6 +157,7 @@ function render() {
     {selector:'edge[functionName="inhibitory"]',style:{'source-arrow-shape':'tee'}},
     {selector:'edge[kind="condition"]',style:{'target-arrow-shape':'chevron','target-arrow-fill':'hollow','label':''}},
     {selector:'node.layout-center',style:{width:46,height:46,'border-width':2,'border-color':color('--can'),'font-weight':'bold'}},
+    {selector:'node.nav-focus',style:{'border-width':5,'border-color':color('--unknown'),'border-style':'dashed'}},
     {selector:'node.main-subject',style:{shape:'ellipse','border-style':'double','border-width':6,'border-color':color('--accent'),width:48,height:48}},
     {selector:'edge:selected',style:{label:'data(label)','text-background-opacity':1}},
     {selector:'node[kind="process"]',style:{'text-valign':'center','text-margin-y':0,'background-opacity':.18,'border-width':1,'border-color':color('--accent')}},
@@ -120,7 +172,7 @@ function render() {
   cy.on('dragfree','node',()=>routeVisibleEdges(cy.elements(':visible')));
   $('entity').replaceChildren(new Option('Choisir une entité…',''));
   for(const [id,r] of records)$('entity').add(new Option(`${r.family} · ${r.id}`,id));
-  selected=null; orientation(); analyticalSummary();
+  selected=null; orientation(); analyticalSummary(); refreshNavigationControls();
 }
 function focusNode(uid) {
   const node=cy.getElementById(uid); if(!node.isNode())return;
@@ -173,6 +225,8 @@ function inspect(uid){
   if(raw.roles)text($('inspector'),'p',`Rôles : ${raw.roles.join(', ')} · causalité : ${raw.causality||'non renseignée'}`);
   if(raw.qualification)text($('inspector'),'p',pretty(raw.qualification));
   $('raw').textContent=pretty(raw);
+  navigation.inspect({family:r.family,id:r.id});
+  refreshNavigationControls();
 }
 function analyticalSummary(){
   const p=$('analysis');p.replaceChildren();const s=currentScenario();
@@ -187,23 +241,34 @@ function analyticalSummary(){
 }
 function handoff(challenge=false){
   const r=records.get(selected),s=currentScenario();
-  $('handoff').value=[`use trIAd`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
+  const nav=navigation.mode==='persistent' ? navigationRefLabel(navigation.focus) : 'Aucune sélection conservée (inspection ponctuelle)';
+  $('handoff').value=[`use trIAd`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Mode de navigation : ${navigation.mode}. Focus choisi par l’Analyste : ${nav}. Ce Focus est un état local d’interface distinct des Stage targets et de PowerEvaluation.Focus.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
 }
 async function install(doc,reported){
   documentModel=doc;issues=reported;
+  // A new imported/source Analysis starts an independent navigation exercise.
+  navigation.reset();
   $('scenario').replaceChildren(...doc.scenarios.map(s=>new Option(`${s.id} · ${s.mode}`,s.id)));
   $('status').textContent=`${doc.analysis_id} · profil ${doc.schema_version} · structure acceptée · ${issues.length} avertissement(s) sémantique(s). Contrôles limités ; aucune preuve empirique.`;
   $('status').title=pretty(issues);render();handoff();
 }
 async function load(){try{const r=await fetch('/api/fixture/'+$('dataset').value);if(!r.ok)throw Error('Chargement impossible');const p=await r.json();if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(p.document,p.issues);}catch(e){$('status').textContent=e.message;}}
-$('dataset').onchange=load;$('scenario').onchange=()=>{render();handoff();};
+$('dataset').onchange=load;$('scenario').onchange=()=>{navigation.operation('changement de Scénario');render();handoff();};
+$('navigation-mode').onchange=()=>{navigation.setMode($('navigation-mode').value);refreshNavigationControls();handoff();};
+$('pin-focus').onclick=()=>{
+  const r=records.get(selected);
+  if(!r || !navigation.select({family:r.family,id:r.id}))return;
+  refreshNavigationControls();handoff();
+};
+$('clear-focus').onclick=()=>{navigation.clear();refreshNavigationControls();handoff();};
+$('return-focus').onclick=returnToNavigationFocus;
 $('objects').onclick=()=>switchView('objects');$('process').onclick=()=>switchView('process');
-function switchView(v){view=v;$('objects').setAttribute('aria-pressed',v==='objects');$('process').setAttribute('aria-pressed',v==='process');render();}
+function switchView(v){navigation.operation('vue '+v);view=v;$('objects').setAttribute('aria-pressed',v==='objects');$('process').setAttribute('aria-pressed',v==='process');render();}
 $('fit').onclick=()=>frameGraph(cy.elements(':visible'),centeredNode?cy.getElementById(centeredNode):null);
-$('overview').onclick=showOverview;
+$('overview').onclick=()=>{navigation.operation('vue générale');showOverview();refreshNavigationControls();};
 $('entity').onchange=()=>{const uid=$('entity').value;inspect(uid);if(cy.getElementById(uid).isNode())focusNode(uid);};
-$('phase').onchange=()=>{if(view==='process')render();handoff();};
-$('challenge').onclick=()=>handoff(true);$('summary').onclick=()=>handoff();
+$('phase').onchange=()=>{navigation.operation('phase affichée '+$('phase').value);if(view==='process')render();refreshNavigationControls();handoff();};
+$('challenge').onclick=()=>{navigation.operation('préparer une question');handoff(true);refreshNavigationControls();};$('summary').onclick=()=>{navigation.operation('préparer un résumé');handoff();refreshNavigationControls();};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('handoff').value);$('copy').textContent='Copié';}catch{$('handoff').focus();$('handoff').select();$('copy').textContent='Sélectionné : Ctrl+C';}};
 $('import').onclick=()=>$('file').click();
 $('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;if(f.size>2000000)throw Error('Limite : 2 Mo');const doc=JSON.parse(await f.text());const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(doc)});const p=await r.json();if(!r.ok||p.error)throw Error(p.error||'Validation impossible');if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(doc,p.issues);}catch(e){$('status').textContent='Import refusé ; analyse conservée. '+e.message;}finally{$('file').value='';}};
