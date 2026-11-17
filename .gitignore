@@ -3,13 +3,5 @@
 .DS_Store
 __pycache__/
 
-# API credential and local secret protection
-.env
-.env.*
-!.env.example
-*.pem
-*.p12
-*.pfx
-*.secret
-credentials.local.json
-secrets.local.json
+# Unversioned Work Local request/response files
+.tria-work/
