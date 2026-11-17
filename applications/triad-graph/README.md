@@ -36,41 +36,86 @@ referencing (the existing `.test-deps` directory is supported). Cytoscape.js
 3.30.4 is bundled locally; no runtime CDN or external AI calls are required.
 Keep this local server running while using the prototype.
 
-## Local OpenAI API experimentation (opt-in, no MCP)
+## Free Work Local bridge (no OpenAI API key and no MCP)
 
-For rapid experiments with the **existing Cytoscape interface**, the prototype offers a small **server-side Responses API bridge**. It is separate from the ChatGPT conversation and is billed through the user's **OpenAI API account**, not a ChatGPT subscription. It is **not** automatic source/Scenario revision: AI suggestions appear in a read-only panel and must be reviewed before an imported Analysis is changed.
+The local Python server now exchanges **versioned JSON files** with ChatGPT Work Local,
+which must be initiated by the analyst. Cytoscape does **not** directly invoke GPT.
+No API credentials, external AI requests, model subscriptions or background agent are
+used by the Python server. ChatGPT Work availability and limits remain governed by
+the user's existing account; this bridge makes no claim of independent API access.
 
-### Secure setup on Windows / Configuration sécurisée
+### Quick experiment — Windows
 
-1. Update your local checkout of the **`dev`** branch and install the existing Python validator dependencies:
+1. Fetch the latest development version from a **local repository checkout**:
    ```powershell
    git switch dev
    git pull --ff-only
    python -m pip install -r requirements-test.txt
+   python applications/triad-graph/server.py
    ```
-2. Create a **dedicated project API key** using the OpenAI Platform and configure an appropriate project budget/usage monitoring. **Never paste the key into ChatGPT, GitHub, a screenshot, a terminal command or the browser interface.**
-3. From the repository root, run the masked-input launcher:
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\applications\triad-graph\run-local.ps1
-   ```
-   PowerShell requests the key with **`Read-Host -AsSecureString`**. The launcher passes it **only as `OPENAI_API_KEY` in the temporary Python server process environment**, and removes the value when the server terminates. It does **not** create a `.env` file. The launcher also tries to install a local pre-commit secret guard without overwriting any existing custom hook.
-4. Open **http://127.0.0.1:8765**. Select a fixture, inspect an Object and click **Adopter l'Objet inspecté comme Focus**. Then use **Analyser le Sujet Focal avec l'IA**, or explicitly **Améliorer la résolution · C+ avec l'IA**. Each click causes one API request; the button stays disabled if the server has no key.
-5. Read the AI reply and suggested Object/relation/Scenario changes in the panel. **They do not modify the normative Analysis, change Power evaluations or automatically draw proven new edges.** You may continue with the original manual handoff/export flow.
+   Do **not** run the old `run-local.ps1`: that API-key launcher was deleted.
+2. Open **http://127.0.0.1:8765** in a browser. Choose a demo Analysis, inspect an
+   Object and **Adopter l'Objet inspecté comme Focus**. In the new **Approfondir avec
+   ChatGPT Work** panel click **Préparer le Focus pour Work** or **Préparer C+ pour Work**.
+3. The server writes a JSON file to `.tria-work/requests/<request_id>.json` and
+   expects a matching JSON response in `.tria-work/responses/<request_id>.json`.
+   This `.tria-work/` folder is **outside** the HTTP-served prototype folder,
+   and is intentionally **Git-ignored**. It may contain analysis data; do not
+   commit or share it indiscriminately.
+4. Click **Copier les instructions Work** in Cytoscape. In a **ChatGPT Work Local**
+   conversation with authorized access to the same repository checkout, paste the
+   instruction. Work should read the exact request file, analyze its embedded
+   document while preserving the focal/global relevance distinction, and **write
+   a response JSON file in the response path**. The `response_contract` stored
+   in the request is an example shape and includes mandatory request/version IDs;
+   Work must **replace all example text** with actual analysis.
+5. Return to Cytoscape and select **Vérifier la réponse**. Pending means that
+   Work has not yet created a complete JSON response. Completed results display
+   in a read-only panel, after matching the exact request ID, analysis ID and
+   SHA-256 of the source Analysis. No source Analysis is changed and no scenario
+   evaluation is automatically validated or updated.
 
-The default low-cost model is `gpt-6-luna`. For experiments with another accessible model, set the optional `TRIA_OPENAI_MODEL` environment variable **before** running the launcher. The API call uses `store: false`, bounds request context and output length, has no AI tools or external browsing, and never exposes its Authorization header to the browser. Neither `OPENAI_API_KEY` nor the full upstream error body is ever returned by the server. A response is produced by a *separate API session*, not by the existing ChatGPT conversation.
+If Work Local cannot actually access files from this Windows installation,
+the response must be prepared manually in the required JSON format and placed
+in the `.tria-work/responses/` directory. **Do not assume the app has direct
+access without verifying the permission and path**. You can always use the
+existing **Préparer l'approfondissement pour l'IA** text handoff as a fallback.
 
-### Secret protection / Protection de la clé
+### Format and safeguards
 
-- The repository-level and prototype-level `.gitignore` exclude `.env`, `.env.*` and common private-key filenames. **Ignoring a file does not protect against `git add -f`, pre-existing tracked files or copying credentials into ordinary source files.**
-- Run `python tools/install_secret_hook.py` once from the repository root if you do not use the launcher. It adds a pre-commit hook that runs `python tools/check_secrets.py --staged`. If you have a pre-existing hook, it is preserved and you must integrate the check manually.
-- GitHub Actions runs `python tools/check_secrets.py` on committed sources. This is a backstop, **not a substitute for local checking before pushing**. You can run `python tools/check_secrets.py --staged` manually. Never bypass a real secret finding.
-- Also enable **GitHub secret scanning / push protection** when your repository and account offer it. Push protection can block supported tokens before they reach the remote, whereas a CI check runs only after a commit arrives.
-- The Python HTTP server binds **only to 127.0.0.1:8765**, enforces a loopback Host and same-origin POST, disables directory listings and blocks hidden paths including `.env`. Keep it local; **do not expose it through a tunnel or public proxy**. Never open browser developer tools to paste the key there.
-- If a real key ever reaches GitHub or a public log, **revoke/rotate it immediately**. Deleting the file in a later commit is not sufficient to remove a leaked key from history.
+- POST `/api/work/request` validates the incoming Analysis and stores the
+  request in the ignored local folder. GET `/api/work/status/<32-hex-request-id>`
+  reads a corresponding file if present. Both endpoints are on the existing
+  loopback-only Python server. There is **no automatic ChatGPT event listener**.
+- Request records include `request_id`, `analysis_id`, `analysis_hash`,
+  `action` (`focus` or `refine`), `focus_id`, `map_mode`,
+  the complete source Analysis, author note and response template.
+- Response records must contain `schema: "tria-work-response-v1"`, matching
+  `request_id`, `analysis_id`, `analysis_hash`, and a `summary` string;
+  `semantic_findings` and `open_questions` are bounded lists of strings,
+  `proposals` and `scenario_reviews` are bounded lists of simple objects.
+- A version mismatch, invalid response shape, malformed request ID, symbolic
+  link, or oversized response is rejected, not silently integrated. Work-authored
+  content is rendered as **plain text**, not executable HTML.
+- The bridge keeps existing local-only Host/Origin and hidden-file HTTP
+  protections, but deliberately removes the **previous API-key-specific**
+  Git ignore entries, scanner, commit hook, credential launcher, and CI scan,
+  at the author's request. Existing generic protections remain.
+- `.tria-work` data persist locally until manually removed. They are not
+  uploaded to GitHub by this bridge, but Work conversations may involve
+  sharing context with OpenAI under the user's existing account terms.
 
-### Tests and current boundaries
+### Verify the local bridge
 
-Run `python applications/triad-graph/test_ai_bridge.py` for mocked server-bridge tests (no real API request). GitHub Actions also executes this test and the secret scan. The browser uses an opt-in button, not an always-on connection. This experimental bridge has **no persistence, automatic claim-to-graph synchronization, provider-agnostic adapter, or guaranteed semantic validation** of the AI response. No actual paid API test is performed by the repository's deterministic tests.
+```powershell
+python applications/triad-graph/test_work_bridge.py
+node applications/triad-graph/test_ai_ui.cjs
+```
+
+The Python tests use a temporary test directory and do not make API calls.
+A passing deterministic test is not evidence of a working Work Local
+permission grant or end-to-end collaboration; perform one user-triggered
+file exchange to verify that separately.
 
 ## D-97 Focus cycle — PARTIAL EXPERIMENTAL IMPLEMENTATION
 
