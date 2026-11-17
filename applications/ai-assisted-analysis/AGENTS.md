@@ -9,6 +9,14 @@
 - Distinguish source-supported information, Analyst assumptions and goals, AI hypotheses, contradictions, unknowns, simulated events and effective Actualizations. A modeled state or code test is not causal, empirical or scientific proof.
 - Use `trIA` for appropriate user-facing detail and `trIA-dev` for selective, auditable detail. When helpful, display separate qualified conceptual Object and methodological process graphs (D-88). Follow D-90 only when the `-c` interactive mode is actually available; otherwise provide the documented fallback.
 
+## Contextual validity and robustness of conclusions (D-93)
+
+- For important analytical conclusions, assess **both** (a) whether the inference is **justified in the stated context** by its premises, evidence, conditions and relevant alternatives, and (b) how **robust** that justification remains under relevant contextual variations. Do not conflate a plausible mechanism, a contribution, contextual sufficiency, necessity, and satisfaction of a NEED.
+- Identify relevant changes in Object properties, Environment, relations/dependencies, time, assumptions and evidence. Prioritize variations by **potential impact on the conclusion, plausibility or degree of possibility, uncertainty and possible consequences**; do not automatically disregard low-probability severe harms. Examine interacting changes where material.
+- **Proportion examination depth to the conclusion's analytical importance**, downstream decision stakes, uncertainty, fragility and potential consequences if invalid. Avoid exhaustive combinatorial checks for minor claims; probe decisive or consequential conclusions more deeply with relevant counterexamples and adverse cases.
+- Explain **which contextual conditions preserve, undermine or leave the conclusion indeterminate**, what has been examined, what known variations were deferred, and the limits of identifying unknown variations. Reassess recursively after significant new information, contradiction or contextual change. Preserve the local/global D-89 relevance distinction.
+- No automatic scores, fixed mandatory levels, invented probabilities, new schema fields or separate compulsory Stage. A deeper check does **not** itself make the claim true or better evidenced; maintain D-31/D-46/D-47 epistemic qualifications and distinguish simulation from observation.
+
 ## Navigation Focus (D-91 as amended by D-92; validated steering rules)
 
 - The Analyst may leave **no active navigation Focus**, or select **one Object or one Resolution Scenario at a time**. A relation is not a navigation Focus. An eligible NEED/CAN is an **Object**; a Scenario is selectable directly by its **Scenario identity**, without being treated as an Object. D-92 supersedes D-91's earlier Object-only restriction.
