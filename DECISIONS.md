@@ -1578,5 +1578,26 @@ Date: November 16, 2026 | Status: **VALIDATED conceptual principles by author in
 
 Related tasks: T-01, T-02, T-24, T-27, T-28, T-30.
 
+## D-84 · CAN child affiliations: specialization and composition
+Date: November 17, 2026 | Status: **VALIDATED conceptual principles by author in project discussion** | Branch: `dev`
+
+**Validated principles:**
+
+1. A **CAN may have child CANs**, at different levels of generality or complexity. Each CAN retains its **own permanent Object ID, Definition, NEEDs and possible child CANs**; a CAN parent may itself be the child of another CAN.
+2. Two different parent–child affiliation semantics are explicitly supported:
+   - **Specialization:** a child CAN denotes a more specific Potentiality than its parent (e.g. *programmer en Python* relative to *programmer*).
+   - **Composition:** a parent CAN denotes a complex Potentiality involving several child CANs, whose contribution, complementarity, alternatives and possible indispensability must be characterized in context (e.g. *développer une application* involving design, programming and testing).
+3. Affiliations may be **multiple**: a child CAN may have more than one parent. Consequently, the representation is not assumed to be a single-parent tree; it may be a graph.
+4. An affiliation does **not itself** establish logical necessity, causal contribution, sufficiency, satisfaction of NEEDs, actionability, Power, actualization or attribution to a bearer Object. In particular, possession of a parent CAN does not automatically imply possession of **all** child CANs. A logically justified implication from a specialized CAN to a broader CAN may be established through their Definitions, but must **not be inferred merely from the existence of the affiliation link**.
+5. **Conceptual affiliation is distinct from historical Object lineage:** the pre-existing `Object.parent_id`, `temporary_child_ids` and `actualised_child_ids` track Object branching/lineage and must not be repurposed as CAN specialization or composition edges. It is also distinct from a CAN's own NEEDs and from contextual NEED/CAN attribution (D-83).
+
+**Rationale:** A domain-level Potentiality can be refined into specialized skills or described as a composite of other Potentialities without collapsing each CAN's identity or automatically projecting their attribution to every bearer.
+
+**Implementation boundary / OPEN:** Record the specialization/composition affiliation as an explicit, separately typed relation in a future versioned data-contract extension, with multiple-parent support, referenced child/parent CAN identity checks and scoped compositional semantics. Define and test cycle treatment, invalid link rejection, edge versioning, relation interplay with existing `relation` records (D-36–D-38), partial composition, and context-dependent logical inference before claiming executable conformance. No v2.1 schema change or complete semantic validation is authorized merely by this conceptual decision.
+
+**Compatibility:** Preserves D-25 Object identity, D-36–D-38 qualified NEED/CAN relations, D-48 Potency, D-50 CAN Object ownership/NEEDs, D-77 exchange format, D-82 tests and D-83 immutable identity and separate attribution. No historical decision is silently modified.
+
+Related tasks: T-01, T-02, T-03, T-16, T-24, T-27, T-28, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
