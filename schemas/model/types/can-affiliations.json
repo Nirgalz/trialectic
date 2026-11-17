@@ -1,0 +1,69 @@
+{
+  "canAffiliation": {
+    "type": "object",
+    "additionalProperties": false,
+    "description": "D-84 / Analysis v2.2: a versioned conceptual CAN-to-CAN affiliation. It neither encodes a NEED prerequisite nor automatically transfers attribution, necessity, sufficiency or Power.",
+    "properties": {
+      "id": {
+        "$ref": "#/$defs/id"
+      },
+      "version": {
+        "$ref": "#/$defs/version"
+      },
+      "kind": {
+        "enum": [
+          "specialization",
+          "composition"
+        ]
+      },
+      "parent_can": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "child_can": {
+        "$ref": "#/$defs/objectRef"
+      },
+      "qualification": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "established_in_model",
+              "refuted_in_context",
+              "indeterminate"
+            ]
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "justification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_id": {
+            "$ref": "#/$defs/id"
+          },
+          "claim_version": {
+            "$ref": "#/$defs/version"
+          }
+        },
+        "required": [
+          "status",
+          "scope",
+          "justification",
+          "claim_id",
+          "claim_version"
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "version",
+      "kind",
+      "parent_can",
+      "child_can",
+      "qualification"
+    ]
+  }
+}
