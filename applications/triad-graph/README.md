@@ -38,6 +38,18 @@ Keep this local server running while using the prototype.
 
 ## Implemented
 
+- Author-approved visual vocabulary: double-contour main Subject, circular
+  Objects, downward NEED drops, upward CAN leaves, condition diamonds with
+  explicit ✓/×/? marks, Scenario cards and small relation connectors. Historical
+  relation-derived shapes are contextual presentation, not added concept_kind
+  annotations. Missing/conflicting condition assessments display `?`.
+- Solid undirected attribution; full arrows for contribution, open arrows for
+  enabling, bars for inhibition, hollow triangles towards general CANs for
+  specialization, diamonds at the whole for composition, dotted Scenario
+  membership and dashed process links. Mixed roles keep their full labels
+  without selecting a single directional glyph. `?` marks unqualified or
+  indeterminate attributions and stays distinct from Scenario dotted lines.
+
 - Separate conceptual and methodological process views (D-85–D-89).
 - Constrained Object hierarchy: main Subject centered, CANs above their bearer,
   NEEDs below, relation records in intermediate layers and metadata to the side.

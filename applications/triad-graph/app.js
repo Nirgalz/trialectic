@@ -44,24 +44,32 @@ function addNode(elements, family, id, label, raw, kind=family, version='') {
 }
 function projection(a) {
   records = new Map(); const es=[], obj = new Map();
-  a.objects.forEach(o=>obj.set(o.id,addNode(es,'object',o.id,o.label||o.id,o,o.concept_kind||'object')));
+  a.objects.forEach(o=>{
+    obj.set(o.id,addNode(es,'object',o.id,o.label||o.id,o,o.concept_kind||'object'));
+    const roles=[...new Set(a.relations.filter(r=>r.represented_object.id===o.id).map(r=>r.type))];
+    es[es.length-1].data.visualKind=o.concept_kind||(roles.length===1?roles[0]:'object');
+  });
   let edgeCount=0;
-  function edge(source,target,label,raw,kind='context') {
+  function edge(source,target,label,raw,kind='context',appearance={}) {
     if(!source||!target)return;
     const id='edge:'+(++edgeCount); records.set(id,{family:kind,id:raw.id||id,raw});
-    es.push({data:{id,source,target,label,kind}});
+    es.push({data:{id,source,target,label,kind,...appearance}});
   }
   a.relations.forEach(r=>{
-    const n=addNode(es,'relation',r.id,`${r.type} · ${r.id}\n${r.attribution?.status||'attribution non qualifiée'}`,r,'relation',r.version);
-    edge(obj.get(r.origin_object.id),n,'porteur',r);
-    edge(n,obj.get(r.represented_object.id),'Objet représenté',r);
-    r.relation.links.forEach(l=>edge(n,obj.get(l.object_id),`${l.source_list}: ${(l.roles||[]).join(', ')||'rôle non précisé'}`,{...l,relation_record:{id:r.id,version:r.version}},'qualified'));
+    const uncertain=!r.attribution||r.attribution.status==='indeterminate';
+    const n=addNode(es,'relation',r.id,`${uncertain?'? ':''}${r.type} · ${r.id}`,r,'relation',r.version);
+    edge(obj.get(r.origin_object.id),n,'attribution'+(uncertain?' ?':''),r,'attribution');
+    edge(n,obj.get(r.represented_object.id),'Objet représenté',r,'representation');
+    r.relation.links.forEach(l=>{
+      const appearance=linkAppearance(l,r.type);
+      edge(n,obj.get(l.object_id),`${appearance.label}${uncertain?' ?':''}`,{...l,relation_record:{id:r.id,version:r.version}},'qualified',appearance);
+    });
   });
-  (a.can_affiliations||[]).forEach(f=>edge(obj.get(f.parent_can.id),obj.get(f.child_can.id),`${f.kind} · ${f.qualification.status}`,f,'affiliation'));
-  a.definitions.forEach(d=>d.constituents.forEach(c=>edge(obj.get(d.object_id),obj.get(c.id),`constituant · ${d.version}`,d)));
+  (a.can_affiliations||[]).forEach(f=>edge(obj.get(f.parent_can.id),obj.get(f.child_can.id),`${f.kind}${f.qualification.status==='indeterminate'?' ?':''}`,f,'affiliation',{functionName:f.kind}));
+  a.definitions.forEach(d=>d.constituents.forEach(c=>edge(obj.get(d.object_id),obj.get(c.id),`constituant · ${d.version}`,d,'composition')));
   const s=currentScenario();
-  if(s){const n=addNode(es,'scenario',s.id,`${s.id} · ${s.mode}`,s);s.object_heads.forEach(h=>edge(n,obj.get(h.id),`tête · ${h.version}`,h));}
-  a.conditions.forEach(c=>{ const assessments=a.condition_assessments.filter(x=>x.scenario_id===s?.id&&x.condition.id===c.id&&x.condition.owner_id===c.owner_relation.id); const n=addNode(es,'condition',`${c.owner_relation.id}/${c.id}`,`${c.id}\n${assessments.map(x=>x.status).join(', ')||'non évaluée'}`,{condition:c,assessments}); edge(n,key('relation',c.owner_relation.id,c.owner_relation.version),c.target,c); });
+  if(s){const n=addNode(es,'scenario',s.id,`${s.id} · ${s.mode}`,s);s.object_heads.forEach(h=>edge(n,obj.get(h.id),`tête · ${h.version}`,h,'membership'));}
+  a.conditions.forEach(c=>{ const assessments=a.condition_assessments.filter(x=>x.scenario_id===s?.id&&x.condition.id===c.id&&x.condition.owner_id===c.owner_relation.id); const n=addNode(es,'condition',`${c.owner_relation.id}/${c.id}`,`${conditionSymbol(assessments)} ${c.id}\n${assessments.map(x=>x.status).join(', ')||'non évaluée'}`,{condition:c,assessments}); edge(n,key('relation',c.owner_relation.id,c.owner_relation.version),c.target,c,'condition'); });
   return es;
 }
 function processProjection() {
@@ -78,20 +86,31 @@ function render() {
   const css=getComputedStyle(document.documentElement),color=n=>css.getPropertyValue(n).trim();
   cy=cytoscape({container:$('cy'),elements:es,layout:{name:'preset'},style:[
     {selector:'node',style:{'label':'data(label)','background-color':color('--accent'),'color':color('--ink'),'font-size':12,'text-wrap':'wrap','text-max-width':155,'text-valign':'bottom','text-margin-y':8,'width':32,'height':32}},
-    {selector:'node[kind="NEED"]',style:{shape:'diamond','background-color':color('--need')}},
-    {selector:'node[kind="CAN"]',style:{shape:'hexagon','background-color':color('--can')}},
-    {selector:'node[kind="relation"]',style:{shape:'round-rectangle',width:24,height:24,'background-color':color('--muted')}},
+    {selector:'node[visualKind="NEED"]',style:{shape:'polygon','shape-polygon-points':'0 1 -.65 .25 -.85 -.35 -.5 -.85 0 -1 .5 -.85 .85 -.35 .65 .25',width:35,height:42,'background-color':color('--need')}},
+    {selector:'node[visualKind="CAN"]',style:{shape:'polygon','shape-polygon-points':'0 -1 .65 -.25 .85 .35 .5 .85 0 1 -.5 .85 -.85 .35 -.65 -.25',width:35,height:42,'background-color':color('--can')}},
+    {selector:'node[kind="relation"]',style:{shape:'ellipse',width:12,height:12,'background-color':color('--muted')}},
     {selector:'node[kind="scenario"],node[kind="process"]',style:{shape:'round-rectangle',width:100,height:38}},
-    {selector:'node[kind="condition"]',style:{shape:'triangle','background-color':color('--need')}},
+    {selector:'node[kind="condition"]',style:{shape:'diamond',width:28,height:32,'background-color':color('--need')}},
     {selector:'edge',style:{label:'data(label)','font-size':10,'color':color('--muted'),'text-wrap':'wrap','text-max-width':120,'text-background-color':color('--panel'),'text-background-opacity':.85,'text-background-padding':4,'curve-style':'unbundled-bezier','control-point-distances':24,'control-point-weights':.5,'line-cap':'round',width:1.5,'line-color':color('--muted'),'line-opacity':.55,'target-arrow-color':color('--muted'),'target-arrow-shape':'triangle','arrow-scale':.75}},
-    {selector:'edge[kind="context"]',style:{'line-style':'dashed','label':'','line-opacity':.3}},
+    {selector:'edge',style:{'target-arrow-shape':'none','source-arrow-shape':'none','source-arrow-color':color('--muted')}},
+    {selector:'edge[kind="attribution"],edge[kind="representation"]',style:{'line-style':'solid','label':'','line-opacity':.4,width:1}},
+    {selector:'edge[kind="membership"]',style:{'line-style':'dotted','label':'','line-opacity':.25,width:1}},
+    {selector:'edge[kind="composition"],edge[functionName="composition"]',style:{'source-arrow-shape':'diamond','source-arrow-fill':'hollow'}},
+    {selector:'edge[functionName="specialization"]',style:{'source-arrow-shape':'triangle','source-arrow-fill':'hollow'}},
+    {selector:'edge[functionName="contributive"][arrowEnd="source"]',style:{'source-arrow-shape':'triangle','source-arrow-fill':'filled'}},
+    {selector:'edge[functionName="contributive"][arrowEnd="target"]',style:{'target-arrow-shape':'triangle','target-arrow-fill':'filled'}},
+    {selector:'edge[functionName="enabling"]',style:{'source-arrow-shape':'chevron','source-arrow-fill':'hollow'}},
+    {selector:'edge[functionName="inhibitory"]',style:{'source-arrow-shape':'tee'}},
+    {selector:'edge[kind="condition"]',style:{'target-arrow-shape':'chevron','target-arrow-fill':'hollow','label':''}},
     {selector:'node.layout-center',style:{width:46,height:46,'border-width':2,'border-color':color('--can'),'font-weight':'bold'}},
+    {selector:'node.main-subject',style:{shape:'ellipse','border-style':'double','border-width':6,'border-color':color('--accent'),width:48,height:48}},
     {selector:'edge:selected',style:{label:'data(label)','text-background-opacity':1}},
     {selector:'node[kind="process"]',style:{'text-valign':'center','text-margin-y':0,'background-opacity':.18,'border-width':1,'border-color':color('--accent')}},
-    {selector:'edge#p01, edge#p12, edge#p20',style:{'control-point-distances':-50,'text-margin-y':-12,'text-background-opacity':1}},
+    {selector:'edge#p01, edge#p12, edge#p20',style:{'control-point-distances':-50,'text-margin-y':-12,'text-background-opacity':1,'line-style':'dashed','target-arrow-shape':'triangle'}},
     {selector:'.outside-neighborhood',style:{display:'none'}},
     {selector:':selected',style:{'border-width':3,'border-color':color('--can'),'line-color':color('--can'),'target-arrow-color':color('--can')}}
   ]});
+  if(view==='objects')cy.getElementById(key('object',documentModel.main_subject.id)).addClass('main-subject');
   organicLayout(cy.elements());
   cy.on('tap','node',e=>{inspect(e.target.id()); focusNode(e.target.id());});
   cy.on('tap','edge',e=>inspect(e.target.id()));
