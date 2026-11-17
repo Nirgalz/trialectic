@@ -50,7 +50,7 @@ The author validated the following behavior on November 17, 2026. The current cl
 ### Experimental usage (implemented subset)
 
 1. Run the local server as above and load the six-schools fixture or another validated Analysis.
-2. Choose **Carte simple · A** or **Carte détaillée · B**. A currently projects only up to three main-Subject relations and their referenced Objects, clearly labeled as **non-exhaustive**; B projects the full recorded graph.
+2. Choose **Carte simple · A** or **Carte détaillée · B**. A currently projects the main Subject's directly attributed relation records and their referenced Objects, clearly labeled as **non-exhaustive**; B projects the full recorded graph.
 3. Inspect an Object in the graph or through **Accéder à un objet ou un lien**, then choose **Adopter l'Objet inspecté comme Focus**. Its Subject, direct/indirect Environment paths, recorded semantic Definitions and relevant conditions appear in the D-97 panel. **Inspection alone does not adopt Focus**.
 4. Use **Retour à la carte générale** to see Scenario candidates for reassessment. No source `Analysis` or `PowerEvaluation` changes.
 5. Click **Améliorer la résolution de la carte · C+** to expose all recorded relations and candidate omissions; then **Préparer l'approfondissement pour l'IA** and copy the read-only request in the conversation panel. Import a new validated Analysis only after the AI/Analyst has actually supplied one.
