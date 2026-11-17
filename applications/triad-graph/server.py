@@ -1,9 +1,7 @@
-"""Local trIAd prototype with an opt-in, server-only AI bridge. No source Analysis is written."""
+"""Loopback trIAd server with local Work request/response files; no AI API calls."""
 import json
 import copy
 import sys
-import os
-import threading
 from urllib.parse import urlsplit, unquote
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -15,10 +13,9 @@ sys.path.insert(0, str(SOURCE))
 sys.path.insert(0, str(ROOT.parents[1] / '.test-deps'))
 from tools.validate_analysis import validator
 from tools.validate_semantics import validate_semantics
-from ai_bridge import configured, analyze, BridgeError, DEFAULT_MODEL
+from work_bridge import create_request, request_status, WorkBridgeError
 
 CHECK = validator()
-AI_SINGLE_REQUEST = threading.BoundedSemaphore(value=1)
 ALLOWED_HOSTS = {'127.0.0.1:8765', 'localhost:8765'}
 FIXTURES = {'generator': 'analysis_v2.json', 'affiliations': 'can_affiliations_v22.json',
             'identity': 'identity_attribution_v21.json'}
@@ -89,11 +86,14 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if self.secret_path():
             return self.reply({'error': 'Sensitive paths are not served'}, 403)
-        if self.path == '/api/ai/status':
-            return self.reply({'configured': configured(),
-                               'model': os.environ.get('TRIA_OPENAI_MODEL', DEFAULT_MODEL)})
-        key = self.path.removeprefix('/api/fixture/')
-        if self.path.startswith('/api/fixture/'):
+        path = urlsplit(self.path).path
+        if path.startswith('/api/work/status/'):
+            try:
+                return self.reply(request_status(path.removeprefix('/api/work/status/')))
+            except WorkBridgeError as exc:
+                return self.reply({'error': str(exc)}, exc.status)
+        key = path.removeprefix('/api/fixture/')
+        if path.startswith('/api/fixture/'):
             if key not in FIXTURES:
                 return self.reply({'error': 'Unknown fixture'}, 404)
             doc = fixture(key)
@@ -103,7 +103,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if not self.trusted_request():
             return
-        if self.path not in ('/api/validate', '/api/ai/analyze'):
+        if self.path not in ('/api/validate', '/api/work/request'):
             return self.reply({'error': 'Unknown endpoint'}, 404)
         if self.headers.get('Content-Type', '').split(';')[0].strip() != 'application/json':
             return self.reply({'error': 'JSON content type required'}, 415)
@@ -115,30 +115,22 @@ class Handler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(size))
             if self.path == '/api/validate':
                 return self.reply({'issues': validate(body)})
-            if not configured():
-                return self.reply({'error': 'Aucune clé API configurée dans le serveur local.'}, 503)
             if not isinstance(body, dict) or not isinstance(body.get('document'), dict):
                 return self.reply({'error': 'Document Analysis required'}, 400)
             doc = body['document']
             detected = validate(doc)
             if any(x.get('severity') == 'error' for x in detected):
                 return self.reply({'error': 'Document Analysis invalide.'}, 400)
-            if not AI_SINGLE_REQUEST.acquire(blocking=False):
-                return self.reply({'error': 'Une analyse API est déjà en cours.'}, 429)
-            try:
-                result = analyze(doc, body.get('action'), body.get('focus_id'),
-                                 body.get('map_mode'), body.get('note', ''))
-            finally:
-                AI_SINGLE_REQUEST.release()
-            return self.reply({'result': result,
-                               'notice': "Hypothèses et suggestions de l'IA : aucune modification du document source."})
-        except BridgeError as exc:
+            queued = create_request(doc, body.get('action'), body.get('focus_id'),
+                                    body.get('map_mode'), body.get('note', ''))
+            return self.reply(queued, 201)
+        except WorkBridgeError as exc:
             return self.reply({'error': str(exc)}, exc.status)
         except (ValueError, TypeError, KeyError):
             return self.reply({'error': 'Requête JSON invalide.'}, 400)
         except Exception:
-            # Do not expose outbound error objects, request bodies or credentials.
-            return self.reply({'error': 'Erreur interne du pont API ; aucun document modifié.'}, 500)
+            # No raw request bodies, paths, environment or filesystem errors exposed.
+            return self.reply({'error': 'Erreur locale ; aucune analyse modifiée.'}, 500)
 
 
 if __name__ == '__main__':
