@@ -1786,5 +1786,22 @@ Date: November 17, 2026 | Status: **VALIDATED principles by author; formal infer
 
 **Boundaries / OPEN.** This records author-approved **conceptual/operational principles only**. It does not approve a new Object type, Stage, mandatory Inference JSON record, extension of v2 Analysis or PowerEvaluation, or a specific algorithm for propagation. Final reference syntax, multi-justification sufficiency, context/version compatibility, self-supporting/cyclic justification detection and resolution of competing Inferences still require analysis and testing. Existing D-42, D-43, D-46, D-47 and D-93 remain applicable. Related tasks: T-02, T-03, T-04, T-16, T-20, T-24, T-27, T-30.
 
+## D-95 · trIA as a contextual representation layer; proportional treatment of justificatory cycles
+Date: November 17, 2026 | Status: **VALIDATED scope clarification by author; interface details OPEN** | Branch: `dev`
+
+**Purpose and boundaries.** trIA is the AI-assisted representation of explicitly presented reasoning, intended to make an AI's analysis more understandable, navigable and usable by a human. trIA **structures and presents** the reasoning supplied by an AI; it does **not** replace the AI, reconstruct inaccessible internal deliberation, or constitute an autonomous inference, proof, claim-verification or scientific-validation engine. The user retains interpretive and navigational control.
+
+**Minimal representation.** Prioritize intelligible Objects and contextual NEED/CAN relations, with sufficient contextual qualifications accessible on inspection rather than requiring every evaluation, evidence record, methodological operation or history to appear in the default view. **NEED and CAN are contextual relationships whose interpretation depends on the represented Objects and analytical context**, not universal logical operators or certificates of causal necessity/sufficiency. Preserve useful nuance in inspectable detail; do not erase it to obtain a simpler picture.
+
+**Justificatory cycles (clarifies the previously accepted D-95 discussion).** A cyclical dependency may be represented and made visible, including by inspection, without treating the cycle as a proof of its own conclusions. There is **no trIA requirement** to detect every such cycle, resolve it algorithmically, calculate independent evidential support or invalidate dependent conclusions automatically. The AI and human may critically examine the reasoning when useful. Distinguish cycles in reasoning justification from cycles among the phenomena studied.
+
+**Boundary with the Method and prior decisions.** D-93's critical examination and D-94's inference/evaluation principles remain part of the Method's research and analytical scope; they are **not mandatory automatic evaluation features of trIA's graphical representation**. The author has not approved a separate required Inference record, provenance/admissibility engine, cycle solver or new exchange schema for trIA. The previously discussed **D-96 provenance model** was a proposal, is **not adopted**, and shall not be implemented as a requirement. This is a scope correction, not retroactive deletion of validated decisions or of the Method's broader models.
+
+**Implementation direction.** Update trIA-facing documentation and presentation guidance first. Preserve existing reference, schemas, tests and experimental prototype while comparing a minimal view with optional detail; consider technical removals only after demonstrated redundancy and separate approval.
+
+**Rationale.** Avoid turning a human-facing representation tool into a complex automated reasoning auditor, while retaining the Method's analytical depth and trIA's contextual interpretability.
+
+Related decisions: D-85–D-94. Related tasks: T-20, T-26, T-27, T-28, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
