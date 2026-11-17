@@ -7,6 +7,10 @@ retroactively to D-63 or earlier approvals. Normative applies to this **versione
 exchange profile**, not a claim that every Method application uses this storage
 layout or that structural validity proves analytical/empirical truth.
 
+## D-85 methodological boundary — Understanding, Exploration, Decision
+
+**[VALIDATED methodology, November 17, 2026; data-model coverage remains PARTIAL]** The complete Method has three recursive phases: **Understand → Explore → Decide**. An analysis can legitimately stop after understanding or after exploration without selecting a Scenario. The JSON Schema 2.0–2.2 records below formalize **selected NEED/CAN, Power, Scenario and attribution/affiliation operations**; they are **not an exhaustive normative representation of the three newly clarified methodological phases**, nor a universal prescribed workflow. A new schema version, decision optimizer, or universal passage through NEED/CAN Focus **does not follow** from D-85. Formal phase operations, early stopping, epistemic revision and optional decision tracing remain conceptual/technical tasks to develop.
+
 ## Entry points and versioning
 
 | Document | Schema | Identity |
