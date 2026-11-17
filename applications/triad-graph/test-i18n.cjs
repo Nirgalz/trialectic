@@ -13,3 +13,5 @@ assert.equal(initialLanguage('http://localhost/?lang=fr','en'),'fr');
 assert.equal(initialLanguage('http://localhost/?lang=de','fr'),'fr');
 assert.equal(initialLanguage('http://localhost/','en'),'en');
 console.log('UI language: French/English labels, templates, explicit discussion language and source preservation OK.');
+
+assert.equal(translate('Carte détaillée · Objets et relations','en'),'Detailed map · Objects and relationships');

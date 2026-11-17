@@ -36,6 +36,41 @@ referencing (the existing `.test-deps` directory is supported). Cytoscape.js
 3.30.4 is bundled locally; no runtime CDN or external AI calls are required.
 Keep this local server running while using the prototype.
 
+## D-97 Focus cycle — PARTIAL EXPERIMENTAL IMPLEMENTATION
+
+The author validated the following behavior on November 17, 2026. The current client implements **read-only contextual exploration and manual AI handoff**, but **does not execute live AI reasoning**, infer facts, automatically update the source Analysis, or synchronize conversation turns. The graphical reasoning view is **carte** (FR) / **map** (EN).
+
+- The **Première réponse · carte** selector offers **Carte simple / Simple map (A)** (a smaller source-derived map) and **Carte détaillée / Detailed map (B)** (the full source-derived map). For a connected AI, A requests natural-language answer before map and B structure before answer. **The local client implements only the map depth and a corresponding handoff prompt**; it does not generate the AI's initial response. These are presentation/response strategies using the same Method, not the Method's deferred Simple Mode and not proof of access to model-internal deliberation.
+- The **Améliorer la résolution de la carte / Improve map resolution** button triggers a **source-only C+ preparation**: expands a simple map to all recorded Objects/relations, lists additional Object candidates and unassessed conditions, then produces a copyable structured request for the AI. It **does not perform the full AI-led C+ reasoning**, create new Objects or score Scenarios; "resolution" is analytical, not image density. A host without operative controls must use a text/Mermaid alternative.
+- The **Adopter l'Objet inspecté comme Focus** button adopts a real Object from the loaded Analysis. The independent `focus-cycle.js` module derives its **Focal Subject**, direct and two-step indirect **Environment** connections, declared **Semantics** (labels, Definitions, relation wording), condition records and Scenarios containing affected Objects. It does **not discover new empirical facts or interpret semantic ambiguity with an AI**. This deepening is an AI action and must not be implied by an ordinary click-to-inspect. Revisions to contextual knowledge do not constitute effective Actualization.
+- **Retour à la carte générale** clears the local Object Focus and lists **candidate Scenarios for later review**, based on their references to the examined Object/context. No normative PowerEvaluation or Scenario conclusions are automatically revised; a truly **selective knowledge-dependent reassessment requires an AI host integration**. Read-only navigation history and existing Analysis histories remain distinct. Do not mutate the Object ID or normative `PowerEvaluation.Focus` when navigation changes. **A Scenario remains an eligible navigation Focus per D-92** and is not converted into an Object; the Subject/Environment/Semantics routine described here is specific to Object Focus.
+- Existing **A/B navigation controls** below compare *temporary inspection versus explicit pinning*. Their letters **A/B are unrelated to the newly approved simple/detailed map-production protocols A/B**. The current prototype does not execute live AI deepening, a full AI-led C+, automatic text–graph generation or justified revision propagation. The test harness `test-focus-cycle.cjs` checks deterministic context navigation and source immutability, not browser usability.
+
+
+### Experimental usage (implemented subset)
+
+1. Run the local server as above and load the six-schools fixture or another validated Analysis.
+2. Choose **Carte simple · A** or **Carte détaillée · B**. A currently projects the main Subject's directly attributed relation records and their referenced Objects, clearly labeled as **non-exhaustive**; B projects the full recorded graph.
+3. Inspect an Object in the graph or through **Accéder à un objet ou un lien**, then choose **Adopter l'Objet inspecté comme Focus**. Its Subject, direct/indirect Environment paths, recorded semantic Definitions and relevant conditions appear in the D-97 panel. **Inspection alone does not adopt Focus**.
+4. Use **Retour à la carte générale** to see Scenario candidates for reassessment. No source `Analysis` or `PowerEvaluation` changes.
+5. Click **Améliorer la résolution de la carte · C+** to expose all recorded relations and candidate omissions; then **Préparer l'approfondissement pour l'IA** and copy the read-only request in the conversation panel. Import a new validated Analysis only after the AI/Analyst has actually supplied one.
+6. Run `node applications/triad-graph/test-focus-cycle.cjs` for deterministic structural checks. CI also runs this test. Browser behavior and external AI-host integration require separate verification.
+
+### Browser + AI integration acceptance trace (OPEN beyond current source-only pilot)
+
+| Step | User action / fixture | Expected observation |
+| --- | --- | --- |
+| 1 | New session, select Simple A then Detailed B on frozen equivalent cases | Source-derived visible depth differs (implemented); AI production order and completeness still need host testing |
+| 2 | Inspect an Object without adopting it as Focus | Only display navigation changes; no AI evaluation or source mutation |
+| 3 | Explicitly adopt a connected Object, e.g. O-eleves in six-school pilot, as Focus | Read-only Subject/Environment/Semantics context appears; AI deepening remains an external handoff |
+| 4 | Supply a new, qualified indirect dependency through a separately validated import/AI exchange | Updated graph reflects the new source (import exists); auto-synchronization and claim-to-graph correspondence remain open |
+| 5 | Return to the main Subject's general map | Linked Scenarios listed **as review candidates**; no result is automatically recalculated or changed |
+| 6 | Explicitly invoke C+ | Omission/alternate-pathway investigation occurs and qualified additions become inspectable |
+| 7 | Select an eligible Scenario Focus; run no-new-evidence and semantic-only controls | No false Object reclassification, fabricated CAN, fake Actualization, or unsupported success |
+| 8 | Reload/switch modes and test host fallback | State retention claims match actual host; text/Mermaid works when live map actions are unavailable |
+
+**Pass/fail boundaries:** source identity/version stability; no silent replacement of old evaluations; explicit factual versus hypothesized distinction; no "correctness" attributed to graph alone; no independent-Scenario collateral change; working control feedback, focus keyboard accessibility and return navigation. A scripted fixture or same-author walk-through is not a controlled usability study, and this table is not a record of passing tests. See [the D-97 decision](../../DECISIONS.md), [dialogue protocol](../ai-assisted-analysis/dialogue-protocol.md) and [T-20/T-26/T-24/T-27](../../TODO.md).
+
 ## Implemented
 
 - Hover boxes now contain a single contextual paragraph instead of headings,

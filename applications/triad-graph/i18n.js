@@ -1,6 +1,11 @@
 /* UI translations only. Source records, JSON, identifiers and form values stay intact. */
 (function(root){
  const pairs=[
+ ['Vues de la carte','Map views'],['Carte des Objets et relations','Object and relationship map'],['Carte des scénarios','Scenario map'],['Carte interactive des Objets et des relations qualifiées','Interactive Object and qualified relationship map'],
+ ['Carte détaillée · Objets et relations','Detailed map · Objects and relationships'],['Carte simple · sélection non exhaustive','Simple map · non-exhaustive selection'],
+ ['Première réponse · carte','First response · map'],['Choisir une carte simple ou détaillée','Choose a simple or detailed map'],['Carte simple · A (texte puis carte)','Simple map · A (text then map)'],['Carte détaillée · B (structure puis texte)','Detailed map · B (structure then text)'],
+ ["Adopter l'Objet inspecté comme Focus",'Adopt the inspected Object as Focus'],['Retour à la carte générale','Return to the map overview'],['Améliorer la résolution de la carte · C+','Improve map resolution · C+'],["Préparer l'approfondissement pour l'IA",'Prepare further exploration for AI'],['Explorer un Sujet Focal','Explore a Focal Subject'],
+
  ['Survoler pour un aperçu · cliquer pour explorer les liens.','Hover for a preview · click to explore relationships.'],
  ["L'atelier des possibles",'The possibilities workshop'],['Explorer. Relier. Comprendre.','Explore. Connect. Understand.'],['Prototype · mode exploratoire','Prototype · exploratory mode'],
  ['Contexte de travail','Working context'],['Terrain d’exploration','Exploration case'],['Scénario','Scenario'],['Scénarios','Scenarios'],['Comprendre/Explorer','Understand/Explore'],
@@ -108,7 +113,7 @@
    }attributes.set(el,saved);
   });
   document.documentElement.lang=language;
-  document.title=language==='fr'?'trIAd · Atelier de graphes':'trIAd · Graph workshop';
+  document.title=language==='fr'?'trIAd · Atelier de cartes':'trIAd · Map workshop';
   const button=document.getElementById('language-toggle');
   if(button){button.textContent=language==='fr'?'EN':'FR';button.setAttribute('aria-label',language==='fr'?'Switch interface to English':'Passer l’interface en français');}
   observer?.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','placeholder','title']});

@@ -42,7 +42,8 @@ function graphSnapshot(){
  return {view,scenarioFocus,scenario:renderedScenario,selected,centeredNode,
   overview:[...overviewPositions],positions:cy.nodes().map(n=>[n.id(),{...n.position()}]),
   hidden:cy.elements('.outside-neighborhood').map(e=>e.id()),centers:cy.nodes('.layout-center').map(n=>n.id()),
-  zoom:cy.zoom(),pan:{...cy.pan()},focus:navigation.focus,mode:navigation.mode};
+  zoom:cy.zoom(),pan:{...cy.pan()},focus:navigation.focus,mode:navigation.mode,
+  focusCycle:focusCycle?.snapshotPresentation(),focusCycleReport:structuredClone(focusCycleReport)};
 }
 function updateGraphHistoryControls(){
  $('graph-back').disabled=!graphHistory.canBack;$('graph-forward').disabled=!graphHistory.canForward;
@@ -66,6 +67,7 @@ function moveGraphHistory(direction){
    if(saved.focus)navigation.select(saved.focus);else navigation.clear();
   }
   navigation.operation(direction<0?'vue précédente':'vue suivante');
+  if(saved.focusCycle)focusCycle.restorePresentation(saved.focusCycle);focusCycleReport=structuredClone(saved.focusCycleReport);
   render();
   cy.batch(()=>{
    saved.positions.forEach(([id,p])=>cy.getElementById(id).position(p));
@@ -86,6 +88,82 @@ function moveGraphHistory(direction){
  }finally{restoringGraph=false;updateGraphHistoryControls();}
  viewTransitions.play(visualBefore,viewTransitions.capture(cy));
 }
+let focusCycle = null, focusCycleReport = null; // D-97 read-only analytical steering, separate from legacy navigation.
+
+/* D-97: only the source Analysis is projected; no results or new facts are fabricated. */
+function simpleMapElements(elements) {
+  const main=documentModel.main_subject.id;
+  const chosen=documentModel.relations.filter(r=>r.origin_object?.id===main ||
+    r.represented_object?.id===main);
+  const allowed=new Set([key('object',main)]);
+  for(const r of chosen){
+    allowed.add(key('relation',r.id,r.version));
+    allowed.add(key('object',r.origin_object.id));
+    allowed.add(key('object',r.represented_object.id));
+    for(const link of r.relation?.links||[])allowed.add(key('object',link.object_id));
+    for(const c of documentModel.conditions.filter(c=>c.owner_relation.id===r.id &&
+      c.owner_relation.version===r.version))allowed.add(key('condition',r.id+'/'+c.id));
+  }
+  return elements.filter(e=>allowed.has(e.data.id)||
+    (e.data.source&&allowed.has(e.data.source)&&allowed.has(e.data.target)));
+}
+function renderFocusCycle() {
+  if(!focusCycle)return;
+  const selectedRecord=records.get(selected);
+  const adoptable=selectedRecord?.family==='object' && documentModel.objects.some(o=>o.id===selectedRecord.id);
+  $('adopt-object-focus').disabled=!adoptable;
+  $('return-object-overview').disabled=!focusCycle.focus;
+  $('map-depth').value=focusCycle.mode;
+  const active=focusCycle.local,ctx=$('focus-cycle-context'),review=$('focus-cycle-review');
+  ctx.replaceChildren();review.replaceChildren();
+  const title=active?active.subject.label:'Aucun Objet adopté comme Sujet Focal';
+  $('focus-cycle-status').textContent=`Mode ${focusCycle.mode==='simple'?'Carte simple (A)':'Carte détaillée (B)'} · ${title} · ${focusCycle.refined?'résolution C+ demandée':'résolution initiale'}. Projection déterministe : aucune inférence IA exécutée.`;
+  function block(parent,heading,items,format) {
+    const section=document.createElement('div');section.className='focus-cycle-piece';
+    text(section,'h3',heading);
+    if(!items.length)text(section,'p','Aucune donnée source pertinente enregistrée ; ne pas inférer une impossibilité.','muted');
+    const list=document.createElement('ul');
+    items.slice(0,14).forEach(x=>text(list,'li',format(x)));
+    if(items.length)section.append(list);
+    if(items.length>14)text(section,'p',`${items.length-14} autre(s) élément(s) ; ouvrir les données source pour inspection.`,'muted');
+    parent.append(section);
+  }
+  if(active){
+    block(ctx,'Sujet Focal',[active.subject],x=>`${x.id} · ${x.label} · type : ${x.concept_kind||'non renseigné'}`);
+    block(ctx,'Environnement direct',active.direct,x=>`${x.id} · ${x.label} (${x.via.map(y=>y.reason).join('; ')})`);
+    block(ctx,'Environnement indirect (à examiner)',active.indirect,x=>`${x.label} · via ${x.via.map(y=>y.to).join(' → ')} (relation connue dans les données, pertinence à vérifier)`);
+    const semantics=[...active.semantics.definitions.map(d=>`Définition ${d.version} : ${d.notes||'aucune note'}; propriétés : ${d.properties.map(p=>p.name+' ('+p.description+')').join(', ')||'aucune'}`),
+      ...active.semantics.relationStatements.map(r=>`${r.id} · ${r.type} : ${r.description||'aucune précision'} · qualification : ${r.qualified}`)];
+    block(ctx,'Sémantique et Définitions déclarées',semantics,x=>x);
+    block(ctx,'Conditions et incertitudes',active.conditions,x=>`${x.id} (${x.owner}) · ${x.description} · ${x.assessed?'au moins une évaluation source':'aucune évaluation source'}`);
+    block(review,'Scénarios possiblement concernés (sans réévaluation)',active.scenarios,x=>`${x.id} · ${x.reason}`);
+  }else{
+    text(ctx,'p','Inspecter un Objet sur la carte, puis cliquer sur « Adopter … comme Focus ». Un simple clic ne déclenche ni approfondissement ni changement du Focus des évaluations.','muted');
+    if(focusCycle.review.length)block(review,'Retour global · candidats à réexaminer',focusCycle.review,x=>`${x.id} · ${x.reason}`);
+  }
+  if(focusCycleReport){
+    const rep=focusCycleReport;
+    text(review,'h3','Contrôle C+ · pistes présentes dans les données');
+    text(review,'p',`${rep.candidates.length} Object(s) hors voisinage immédiat du Sujet choisi · ${rep.unassessedConditions.length} condition(s) sans évaluation enregistrée · ${rep.scenarios.length} Scénario(s) dans la source. Ces nombres ne mesurent ni des découvertes IA ni la pertinence effective.`);
+    block(review,'Objects à examiner selon la question',rep.candidates,x=>`${x.id} · ${x.label} — ${x.reason}`);
+  }
+  $('focus-cycle-history').replaceChildren(...focusCycle.history.slice(-14).map(event=>{
+    const li=document.createElement('li');
+    li.textContent=`#${event.seq} · ${event.type} · ${JSON.stringify(event.detail)}`;return li;
+  }));
+  if(cy){
+    cy.nodes().removeClass('analytic-focus context-candidate');
+    if(active){
+      const node=cy.getElementById(key('object',active.subject.id));
+      if(node.isNode())node.addClass('analytic-focus');
+      for(const indirect of active.indirect){
+        const other=cy.getElementById(key('object',indirect.id));
+        if(other.isNode())other.addClass('context-candidate');
+      }
+    }
+  }
+}
+
 function navigationRefLabel(ref) {
   return ref ? `${ref.family === 'object' ? 'Objet' : 'Scénario'} ${ref.id}${ref.version ? '@' + ref.version : ''}` : 'Aucun';
 }
@@ -243,10 +321,11 @@ function render() {
   renderedScenario=$('scenario').value;
   centeredNode=null; overviewPositions=new Map();
   $('overview').disabled=true; $('scope').textContent='Tous les éléments';
-  const es=view==='objects'?projection(documentModel):scenarioFocus?scenarioProjection():scenariosProjection();
+  const all=view==='objects'?projection(documentModel):scenarioFocus?scenarioProjection():scenariosProjection();
+  const es=view==='objects'&&focusCycle?.mode==='simple'&&!focusCycle.refined?simpleMapElements(all):all;
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
-  $('scope').textContent=view==='objects'?'Comprendre/Explorer · Objets et relations':scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
-  $('cy').setAttribute('aria-label',view==='objects'?'Graphe des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Graphe des scénarios');
+  $('scope').textContent=view==='objects'?(focusCycle?.mode==='simple'&&!focusCycle.refined?'Carte simple · sélection non exhaustive':'Carte détaillée · Objets et relations'):scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
+  $('cy').setAttribute('aria-label',view==='objects'?'Carte des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Carte des scénarios');
   $('view-guide').textContent=view==='objects'?'Branches CAN ↑ · Racines NEED ↓':scenarioFocus?'Contexte du scénario choisi':'Cliquer pour choisir un Focus';
   activeLayout?.stop(); activeLayout=null;
   if(cy)cy.destroy();
@@ -274,6 +353,8 @@ function render() {
     {selector:'edge[kind="condition"]',style:{'target-arrow-shape':'chevron','target-arrow-fill':'hollow','label':''}},
     {selector:'node.layout-center',style:{width:46,height:46,'border-width':2,'border-color':color('--can'),'font-weight':'bold'}},
     {selector:'node.nav-focus',style:{'border-width':5,'border-color':color('--unknown'),'border-style':'dashed'}},
+    {selector:'node.analytic-focus',style:{'border-width':6,'border-color':color('--positive'),'border-style':'double'}},
+    {selector:'node.context-candidate',style:{'border-width':3,'border-color':color('--unknown'),'border-style':'dotted'}},
     {selector:'node.main-subject',style:{shape:'ellipse','border-style':'double','border-width':6,'border-color':color('--accent'),width:48,height:48}},
     {selector:'edge:selected',style:{label:'data(label)','text-background-opacity':1}},
     {selector:'.outside-neighborhood',style:{display:'none'}},
@@ -289,8 +370,8 @@ function render() {
   cy.on('tap','edge',e=>inspect(e.target.id()));
   cy.on('dragfree','node',()=>routeVisibleEdges(cy.elements(':visible')));
   $('entity').replaceChildren(new Option('Choisir une entité…',''));
-  for(const [id,r] of records)$('entity').add(new Option(`${r.family} · ${r.id}`,id));
-  selected=null; orientation(); analyticalSummary();refreshNavigationControls();
+  for(const [id,r] of records)if(cy.getElementById(id).length)$('entity').add(new Option(`${r.family} · ${r.id}`,id));
+  selected=null; orientation(); analyticalSummary();refreshNavigationControls();renderFocusCycle();
 }
 function focusNode(uid) {
   const node=cy.getElementById(uid); if(!node.isNode())return;
@@ -321,6 +402,7 @@ function showOverview(){return visitGraph(()=>{
   cy.nodes().removeClass('layout-center');if(view==='objects')subject.addClass('layout-center');
   routeVisibleEdges(cy.elements());
   frameGraph(cy.elements(),view==='objects'?subject:null);
+  renderFocusCycle();
 });}
 function orientation(){
   $('inspect-title').textContent='Orientation';$('inspector').replaceChildren();
@@ -350,7 +432,7 @@ function inspect(uid,recordInspection=true){
   if(raw.attribution)text($('inspector'),'p',`Attribution : ${pretty(raw.attribution)}`);
   if(raw.roles)text($('inspector'),'p',`Rôles : ${raw.roles.join(', ')} · causalité : ${raw.causality||'non renseignée'}`);
   if(raw.qualification)text($('inspector'),'p',pretty(raw.qualification));
-  $('raw').textContent=pretty(raw);if(recordInspection)navigation.inspect({family:r.family,id:r.id});refreshNavigationControls();
+  $('raw').textContent=pretty(raw);if(recordInspection)navigation.inspect({family:r.family,id:r.id});refreshNavigationControls();renderFocusCycle();
 }
 function analyticalSummary(){
   const p=$('analysis');p.replaceChildren();const s=currentScenario();
@@ -365,7 +447,7 @@ function analyticalSummary(){
 }
 function handoff(challenge=false){
   const r=records.get(selected),s=currentScenario();
-  $('handoff').value=[`use trIAd-c`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',`Mode de navigation : ${navigation.mode}. Focus choisi par l’Analyste : ${navigation.mode==='persistent'?navigationRefLabel(navigation.focus):'aucun'}.`,window.focusPilot?.summary(),scenarioFocus?`Contexte graphique : Scénario ${scenarioFocus}.`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
+  $('handoff').value=[`use trIAd-c`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',`Mode de navigation : ${navigation.mode}. Focus choisi par l’Analyste : ${navigation.mode==='persistent'?navigationRefLabel(navigation.focus):'aucun'}.`,window.focusPilot?.summary(),focusCycle?focusCycle.handoff(focusCycleReport):'',scenarioFocus?`Contexte graphique : Scénario ${scenarioFocus}.`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
   if(UII18n.language==='en'){
     $('handoff').value=[`use trIAd-c`,`Analysis: ${documentModel.analysis_id} (profile ${documentModel.schema_version}).`,
       `Subject: ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,
@@ -373,7 +455,7 @@ function handoff(challenge=false){
       `Scenario: ${s?.id||'none'} (${s?.mode||'unspecified'}).`,
       r?`Requested inspection: ${r.family} ${r.id}\n${pretty(r.raw)}`:'',
       `Navigation mode: ${navigation.mode}. Analyst Focus: ${navigation.mode==='persistent'?UII18n.translate(navigationRefLabel(navigation.focus)):'none'}.`,
-      window.focusPilot?.summaryEnglish(),scenarioFocus?`Graph context: Scenario ${scenarioFocus}.`:'',
+      window.focusPilot?.summaryEnglish(),focusCycle?focusCycle.handoff(focusCycleReport):'',scenarioFocus?`Graph context: Scenario ${scenarioFocus}.`:'',
       challenge?'Examine the qualifications, assumptions and missing information for this selection.':'',
       `User question / correction: ${$('note').value||'To be specified.'}`,
       'Preserve IDs, versions and distinctions between facts and assumptions. Consider other Subjects and the overall problem. Do not infer an effective event from this interaction.',
@@ -384,6 +466,8 @@ function handoff(challenge=false){
 async function install(doc,reported){
   viewTransitions.finish();
   documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
+  const selectedDepth=$('map-depth').value||'detailed';
+  focusCycle=TriaFocusCycle.createCycle(doc);focusCycle.setMode(selectedDepth);focusCycleReport=null;
   if(doc.analysis_id==='A-focus-six-ecoles-pilot'){navigation.setMode('persistent');navigation.select({family:'scenario',id:'S-02'});}
   $('objects').setAttribute('aria-pressed','true');$('scenarios').setAttribute('aria-pressed','false');
   if(doc.analysis_id==='A-focus-six-ecoles-pilot')$('phase').value='Explorer';
@@ -406,6 +490,45 @@ async function load(){try{
  if(pilot){const document=p;const check=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(document)});const result=await check.json();if(!check.ok)throw Error(result.error||'Validation impossible');p={document,issues:result.issues};}
  if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(p.document,p.issues);
  }catch(e){$('status').textContent=e.message;}}
+
+
+$('map-depth').onchange=()=>visitGraph(()=>{
+  if(!focusCycle)return;
+  focusCycle.setMode($('map-depth').value);
+  focusCycleReport=null;render();handoff();
+});
+$('adopt-object-focus').onclick=()=>visitGraph(()=>{
+  const r=records.get(selected);
+  if(!r||r.family!=='object'||!focusCycle?.adopt(r.id))return;
+  if(view!=='objects')switchView('objects');
+  const uid=key('object',r.id);
+  if(cy.getElementById(uid).isNode()){inspect(uid);focusNode(uid);}
+  renderFocusCycle();handoff();
+});
+$('return-object-overview').onclick=()=>visitGraph(()=>{
+  if(!focusCycle)return;
+  focusCycle.returnOverview();
+  if(view!=='objects')switchView('objects');
+  else showOverview();
+  renderFocusCycle();handoff();
+});
+$('improve-resolution').onclick=()=>visitGraph(()=>{
+  if(!focusCycle)return;
+  focusCycleReport=focusCycle.refine();
+  const active=focusCycle.focus;
+  render();
+  if(active){
+    const uid=key('object',active);
+    if(cy.getElementById(uid).isNode()){inspect(uid);focusNode(uid);}
+  }
+  renderFocusCycle();handoff();
+});
+$('focus-ai-handoff').onclick=()=>{
+  if(!focusCycle)return;
+  handoff(true);
+  $('handoff').focus();$('handoff').select();
+  $('focus-cycle-status').textContent='Demande structurée préparée dans « Revenir à la conversation ». Copier le texte et le soumettre à une IA. Aucune requête IA n’a été exécutée ici.';
+};
 
 $('navigation-mode').onchange=()=>{navigation.setMode($('navigation-mode').value);window.focusPilot?.syncNavigation(navigation.focus);refreshNavigationControls();handoff();};
 $('pin-focus').onclick=()=>{

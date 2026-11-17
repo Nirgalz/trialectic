@@ -32,15 +32,19 @@ The exact procedures for contextual NEED/CAN identification, actionability/Power
 
 ## AI-assisted modes: trIA and trIA-dev (D-86/D-87)
 
-**trIA** is the shorthand for the **AI-assisted Trialectic Method**. The two invocation modes share the Method's same concepts and recursive **Understand → Explore → Decide** process; a given use may conclude after understanding or exploration.
+**trIA** is the shorthand for the **AI-assisted Trialectic Method** (D-86). Its **representation layer** makes an AI's explicitly presented analysis easier for a human to read, navigate, question and reuse (D-95). The AI conducts and explains the analysis; trIA organizes its visible representation; the human interprets and steers it. This does not expose inaccessible private AI deliberation and does not turn trIA into a proof or inference-verification engine.
+
+The primary view should be a **simple, contextual map of Objects and relevant NEED/CAN connections**. NEED and CAN retain their existing conceptual Object identities; the *meaning of a displayed connection* is clarified by its specific context rather than being reduced to a universally fixed logical operator. Provide qualifications, assumptions, conditions, sources and history **on inspection when useful**, instead of showing all record families by default. Loops may be displayed as such; detecting or solving justificatory circularity is not a prerequisite of the representation.
+
+Both invocation modes use the same underlying Method, including its recursive **Understand → Explore → Decide** phases when relevant; an analysis may stop after understanding or exploration.
 
 | Command | Mode | User-facing purpose |
 |---|---|---|
-| `use trIA` | **trIA** | Apply the Method with a practical, user-appropriate explanation |
-| `use trIAd` | **trIA-dev** | Apply the same Method and expose its Objects, relations, semantic interpretations, phases, Focus, assessments and epistemic qualifications where relevant |
+| `use trIA` | **trIA** | Present the AI-assisted analysis with a readable, context-sensitive Object/NEED/CAN representation and selective explanation |
+| `use trIAd` | **trIA-dev** | Inspect the same representation in greater technical detail to develop and test the Method and its interface |
 | `use trIA-dev` | **trIA-dev** | Alias for `use trIAd` |
 
-**trIA-dev** helps examine the Method during concrete case analyses by surfacing unresolved definitions, ambiguities, contradictions and representation difficulties. It must not assume that structured data proves a claim, invent unnecessary NEED/CAN categories, or treat model compliance as scientific validation. These command conventions describe **AI-assisted use**, not an implemented standalone application or a finalized technical trace format.
+**trIA-dev** helps examine the Method during concrete case analyses by surfacing unresolved definitions, ambiguities, contradictions and representation difficulties, without making automated inference appraisal obligatory. It must not assume that structured data proves a claim, invent unnecessary NEED/CAN categories, or treat model compliance as scientific validation. These command conventions describe **AI-assisted use**, not an implemented standalone application or a finalized technical trace format.
 
 ### Mermaid visualizations in trIA-dev (D-88)
 
