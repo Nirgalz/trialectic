@@ -30,6 +30,18 @@ The exact procedures for contextual NEED/CAN identification, actionability/Power
 
 - **PowerEvaluation data model (D-64):** the validated common six-field structure (`ID`, `Subject`, `Focus`, `Context`, `Dependencies`, `Results`) has specialized NEED, CAN and Resolution Scenario results, explicit revision provenance and context-aware reuse. See the [integrated model](reference/power-evaluation.md) and the [synthetic regression fixtures](tests/cases/power_evaluation.json). The [global Analysis and Scenario Results v2 contracts](schemas/global-model.md) are now normative under D-77/D-78. The semantic/causal Power computation engine and empirical evaluation remain separate work.
 
+## AI-assisted modes: trIA and trIA-dev (D-86/D-87)
+
+**trIA** is the shorthand for the **AI-assisted Trialectic Method**. The two invocation modes share the Method's same concepts and recursive **Understand → Explore → Decide** process; a given use may conclude after understanding or exploration.
+
+| Command | Mode | User-facing purpose |
+|---|---|---|
+| `use trIA` | **trIA** | Apply the Method with a practical, user-appropriate explanation |
+| `use trIAd` | **trIA-dev** | Apply the same Method and expose its Objects, relations, semantic interpretations, phases, Focus, assessments and epistemic qualifications where relevant |
+| `use trIA-dev` | **trIA-dev** | Alias for `use trIAd` |
+
+**trIA-dev** helps examine the Method during concrete case analyses by surfacing unresolved definitions, ambiguities, contradictions and representation difficulties. It must not assume that structured data proves a claim, invent unnecessary NEED/CAN categories, or treat model compliance as scientific validation. These command conventions describe **AI-assisted use**, not an implemented standalone application or a finalized technical trace format.
+
 ## Current development
 
 The Method is currently being **developed, formalized, and critically examined** through:
