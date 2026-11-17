@@ -19,6 +19,16 @@ causal reasoning, scientific claims or general usability.
 
 **Status: VALIDATED DIALOGUE DESIGN — revision 1.0, November 16, 2026 (D-80).** The author has approved this AI-assisted dialogue protocol for the **`dev`** branch. Its interaction requirements are adopted as design guidance; this does **not** certify a working AI implementation, demonstrate educational or analytical benefit, alter the Method's concepts, or resolve open evaluation algorithms. The [working reference](../../reference/trialectic-method.md) is the conceptual authority; the [normative v2 exchange contract](../../schemas/global-model.md) and modular [`schemas/model/`](../../schemas/model/README.md) files govern structured data. Related work: [T-20](../../TODO.md), T-03, T-04, T-15, T-16, T-21, T-24, T-27 and T-30.
 
+## D-95 clarification — trIA representation versus AI analysis
+
+trIA's primary task is to make **reasoning explicitly presented by an AI** understandable, navigable and usable by a human. The **AI**, not trIA's graphical layer, performs the underlying interpretation, critical examination and possible Scenario comparisons when relevant; the **human** controls the purpose and examination. A visualized explanation must never be presented as access to private model reasoning.
+
+**Minimal default:** show the relevant Objects and their NEED/CAN connections, together with enough context to interpret each selected connection. NEED and CAN remain the Method's existing conceptual Objects; their **displayed relationships** can express different contextual roles. Show explanations, uncertainty, conditions, provenance, assessments, Scenarios or methodological steps selectively, through inspection or an explicit request, not as an obligatory full graph.
+
+**No automatic auditor:** trIA is not required to grade Inferences, establish justificatory independence, compute validity or robustness, resolve cycles or propagate evidential verdicts. Cycles can remain visible and inspectable without being declared invalid or automatically corrected. The previously proposed specialized provenance/admissibility model (discussion D-96) is not adopted as a trIA requirement. These scope clarifications do **not** delete D-93/D-94 from the Method or change existing data contracts.
+
+The detailed methodological instructions in sections 2–4 below guide an **AI using the full Method where relevant**; they are **not mandatory rendering fields** for trIA. Technical exchange/export guidance in section 6 applies only when such a structured export is explicitly requested or technically necessary, not for ordinary visual explanations.
+
 ## 1. Purpose and scope
 
 Specify an **approved portable dialogue design**, suitable for adaptation into an instruction document supplied by a user to a capable conversational AI, that guides AI-assisted application of the Trialectic Method. The same guidance should work in an ordinary text interface and, where the host genuinely supports them, richer interactive interfaces.
@@ -29,7 +39,7 @@ The goals are (a) understanding complex systems and their interdependencies, (b)
 
 ## 2. Invariants inherited from the canonical Method
 
-The AI must preserve these reference constraints, irrespective of the interface:
+The following are distinctions for **AI-assisted application of the Method when relevant**, not a requirement to render or automatically verify every item in trIA:
 
 1. An **Object** can be an Individual, Group, Technical Object, System or Semantic Object. The **Main Subject** is the Object selected for attention; **Secondary Subjects** may be analyzed where relevant. Contextual Environment and Semantics are relevant non-symmetrical perspectives, not mandatory three-way causal partitions.
 2. The adopted recursive Stages are **Subject → NEED or CAN → Actualization → reassessment of Subject**. A satisfied NEED may call only for maintenance or no intervention.
@@ -56,7 +66,9 @@ The **v2 field contracts are adopted** (D-77/D-78/D-79); reference integrity, co
 - If a missing fact materially changes the analysis, ask a targeted, comprehensible question; otherwise proceed provisionally and invite correction. Do not turn every methodological Stage into a required user confirmation.
 - If the proposed Focus is ambiguous, show the alternative framings (e.g., a NEED to maintain a state versus a CAN to perform an action) and state which provisional framing is being used.
 
-### 3.2 Working cycle
+### 3.2 Working cycle — optional analytical depth, not a mandatory graph pipeline
+
+The steps below are available to the AI when the user's problem warrants them. trIA represents the relevant part of the resulting explanation; it does not run these evaluations merely because a graph is shown.
 
 **A — Subject and context.** Delimit the Main Subject and relevant Environment, its constituent/accessible/indirectly influential Objects, current temporal frame and goal. Keep the current scope explicit and revise it when new relations matter. Identify Secondary Subjects only when justified by an analytical dependency.
 
@@ -72,16 +84,16 @@ The **v2 field contracts are adopted** (D-77/D-78/D-79); reference integrity, co
 
 This is an **approved dialogue orchestration design**, not a replacement for the Method or a claim that its remaining OPEN Stage-specific procedures have been implemented.
 
-### 3.3 What the AI should show
+### 3.3 What trIA should show
 
-Prefer a **layered answer**, not an unqualified flood of model details:
+Use **progressive disclosure**, preserving meaning without overwhelming the primary view:
 
-1. **Orientation:** what is being analyzed, what is known, what is uncertain and what the next meaningful question is.
-2. **Working model:** selected Subject, Focus, Objects, NEED/CAN relations, action/NEED conditions, significant hypotheses and supporting evidence.
-3. **Scenarios and implications:** alternative pathways, explanatory comparisons, foreseeable effects, missing checks and possible revisions.
-4. **Inspect on demand:** Object versions, qualified links, assumptions, evidence provenance, causal/logical distinctions, Scenario history and unresolved contradictions.
+1. **Simple map by default:** the relevant Objects and selected contextual NEED/CAN relationships. Clearly identify the main Object or current question if one is in use.
+2. **Interpretation on inspection:** what a particular link means **in this context**, including any condition, assumption, qualification or uncertainty necessary to avoid misleading the reader.
+3. **Optional depth on request:** Scenarios, alternatives, methodological operations, Inferences, historical versions, sources or assessments when the human needs them. These are not mandatory additional node types or automatic trIA verdicts.
+4. **Human navigation:** inspect an Object/link, return to the overview, and follow another branch without altering the underlying analysis merely by navigating.
 
-Only expose layers that are relevant to the present user request. An accessible summary must not imply that omitted analysis has been verified. If complete analysis has not yet been performed, say so.
+Do not infer missing information, force NEED/CAN categories or assert that a visible relation is proven. A cycle can be displayed without solving it. The AI may critically discuss the represented reasoning when asked, but trIA itself does not verify it.
 
 ### 3.4 Interaction rules (approved design)
 
@@ -106,7 +118,7 @@ The user should be able to **understand and challenge the model**, not just read
 
 ## 5. Interface contract and graceful fallback (approved design)
 
-A user-supplied text document can guide response layout; it **cannot guarantee widgets, graphs, persistent state, external retrieval or actions** across platforms. Do not invent controls or claim that a control works when the host cannot execute it.
+A user-supplied text document can guide response layout; it **cannot guarantee widgets, graphs, persistent state, external retrieval or actions** across platforms. Do not invent controls or claim that a control works when the host cannot execute it. The **Object/NEED/CAN map is the default representation target**; specialized evaluation and history views are optional inspection layers, not a compulsory multi-panel dashboard.
 
 | Analytical view | Purpose | Rich UI when actually supported | Portable text/Markdown fallback |
 | --- | --- | --- | --- |
@@ -124,6 +136,8 @@ The display controller may show a small subset by default, while the **analytica
 
 
 ## 6. Binding the dialogue to the adopted `schemas/model/` contract
+
+**Optional machine-readable exchange, not the minimum trIA view.** This section describes how to serialize a full Analysis when explicitly requested; it must not force every schema record family into the default representation or require trIA to compute Method assessments. Existing schema contracts remain authoritative for exports that use them.
 
 **Authoritative sources.** The [canonical Method](../../reference/trialectic-method.md) governs analytical concepts; the [data-model catalogue](../../reference/data-models.md) explains the record families; the [normative v2 specification](../../schemas/global-model.md) and modular [schema definitions](../../schemas/model/README.md) govern exchange serialization. **Version `2.0.0` is the only supported profile** (D-79). JSON Schema Draft 2020-12 validates local structure; semantic/reference checks and empirical verification are separate and not guaranteed by passing it. This section specifies how an AI *uses* existing models; it does not introduce new model fields or change their normative semantics.
 
