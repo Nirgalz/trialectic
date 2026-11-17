@@ -1,8 +1,8 @@
 # Trialectic Method
 
-**The Trialectic Method** is an interdisciplinary, contextual, systemic, and recursive analytical framework for examining **Objects**, their **NEEDs** and **CANs**, relevant Conditions of Actualization, and effects on Objects and their relationships. The Method selects an **Object as Subject**, and can examine other Objects as Secondary Subjects. Subject, Environment, and Semantics are relevant, non-symmetrical analytical perspectives rather than universal causes.
+**The Trialectic Method** is a structured, contextual and recursive analytical method to help an analyst **Understand → Explore → Decide**: understand a problem, explore relevant possibilities, and make an informed, argued decision when needed. The three phases form the **complete Method**, while a particular analysis may legitimately end after understanding or after exploration. It examines a **Subject situated in its Environment**, their relationships, and relevant **Semantics**. These perspectives are not three symmetrical or equally mandatory causes. **Objects**, their **NEEDs** and **CANs**, conditions of Actualization and effects are analytical instruments mobilized when relevant. **[D-85, validated November 17, 2026]**
 
-The Method is **an analytical framework, not a universal ontology**. Its **default Advanced Mode explores and compares multiple relevant Resolution Scenarios** for complex problems, rather than prescribing a uniquely best solution. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
+The Method is **an analytical framework, not a universal ontology**. Its **default Advanced Mode explores and compares multiple relevant Resolution Scenarios** where warranted; decisions are supported by transparent reasons, **not** prescribed as uniquely best solutions. The computer/data model serves to **formalize the Method's operations**, not to dictate its purpose. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
 
 ## Start here / Commencer ici
 
@@ -15,7 +15,7 @@ The public-facing documentation is available in **English and French**. The over
 
 ## How it works
 
-A methodological **Stage** determines the current **Focus**. The adopted analytical sequence is: **Subject** (Main Subject selected) → **NEED or CAN** → **Actualization** → reassessment of the **Subject**, with parallel analyses of Secondary Subjects where useful.
+The **three phases** are **Understand** (contextualize and critically examine the problem), **Explore** (develop and compare possibilities and Resolution Scenarios), and **Decide** (make a reasoned choice in light of explicit criteria, constraints and uncertainty, or justify deferral). The phases are **recursive**, so a later inquiry may reopen an earlier understanding. The earlier sequence **Subject → NEED/CAN → Actualization → Subject reassessment** remains a *specialized workflow* for relevant problems, not the definition of every analysis. A methodological **Stage** is a local operation; it is not synonymous with these three overarching phases.
 
 - **Object:** an Individual, Group, Technical Object, System, or Semantic Object.
 - **NEED:** a necessity attributable to an Object for the existence, maintenance, or realization of a specified state. It may be existential, structural, or both, and may be satisfied without any identifiable CAN Actualization.
