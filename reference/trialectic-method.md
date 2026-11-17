@@ -1425,6 +1425,8 @@ This index is **not** a probability and does not replace binary Power. Criteria,
 
 **[VALIDATED current scope decision]** The previously contemplated **Simple Mode is suspended**, with its usefulness to be reconsidered **after the Method is stabilized**. No separate Simple Mode protocol, default ranking criterion or Simple Mode implementation is presumed active. If revisited later, it should preserve the same analytical rigor rather than omit material dependencies or consequences.
 
+**[VALIDATED NAMING CONVENTION — D-86, November 17, 2026]** **trIA** (exact capitalization) is the shorthand for **the Trialectic Method assisted by AI** (*Méthode trialectique assistée par IA*). It refers to applying **the same Method** with AI assistance, not a distinct methodology. AI-assisted case analyses may help *critically examine* the Method's principles and practical behavior, but do not alone establish empirical validation. The specific assistance and testing protocol remain to be developed (T-03/T-04/T-20/T-27).
+
 **[POTENTIAL APPLICATIONS, NOT VALIDATED USE CASES]** Analysis of individual behavior and group dynamics; clarification of conflicts; individual support; institutions and public policy; organizational and technical design; philosophical and semantic clarification; and AI systems able to conduct adaptive trialectic dialogue.
 
 The Method's comparative value, reproducibility, benefits and limitations remain research questions. Conceptual approval must not be represented as scientific validation.
