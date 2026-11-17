@@ -1635,5 +1635,32 @@ Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** 
 
 Related tasks: T-03, T-04, T-20, T-24, T-27, T-28.
 
+## D-87 · trIA / trIA-dev invocation and development transparency
+Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** | Branch: `dev`
+
+**Validated activation commands and behavior:**
+
+- **`use trIA`** activates the standard **trIA** mode: apply the AI-assisted Trialectic Method, with an analysis and presentation appropriate to the user's question.
+- **`use trIAd`** or **`use trIA-dev`** activates the same **trIA-dev** development mode. The two forms are aliases, preserving their exact capitalization as approved.
+- A new activation command switches the active mode. These modes change how the Method is **made visible to the user**, not its conceptual rules or final purpose.
+
+**trIA-dev purpose:** Enable hands-on development, testing and critical review of the Method through concrete AI-assisted analyses by **making the analytical representation and methodological operations more explicit**. When relevant, its user-facing output exposes:
+
+1. **Objects and contextualization**: IDs, Definitions, relevant properties, roles and the situated Subject.
+2. **Relations**: Subject/Environment, NEEDs, CANs, relevant dependencies and CAN affiliations.
+3. **Semantics**: pertinent concepts, interpretations, ambiguity and representations.
+4. **Methodological operations**: the Understand / Explore / Decide phase, Focus, analytical operations and revisable outcomes.
+5. **Assessments**: applicable conditions, Power, possible Scenarios and effects, explicit criteria for decision where relevant.
+6. **Epistemic qualifications**: established information, hypotheses, sources/justifications, uncertainties and contradictions.
+7. **Methodological problems encountered**: undefined concepts, ambiguous rules, unworkable operations, missing representation fields, and mismatches between the Method and the case.
+
+**Safeguards:** This structured trace describes **explicit analytical steps and claims**, not undisclosed internal AI deliberation. The existence of a structured Object or Relation does **not** validate it empirically. Neither mode should mechanically invent NEEDs, CANs or Semantics where they do not add analytical value. Both modes follow D-85: **Understand → Explore → Decide** are recursive phases of the complete Method; a particular use can end after Understand or Explore. trIA-dev is a **development/diagnostic presentation**, not a separate Method, new data schema, validated implementation or assertion that exploratory tests prove the Method sound.
+
+**Implementation status:** These user-level invocation conventions and presentation expectations are adopted. Precise rendering, consistency across distinct chat sessions, formal computerized trace format and comparative evaluation remain **OPEN**; no runtime app, autonomous agent or new model schema is implied by this decision.
+
+**Rationale:** Preserve the user's efficient everyday AI-assisted analysis while enabling an inspectable, more detailed development view to discover and correct shortcomings of the Method through concrete examples.
+
+Related tasks: T-03, T-04, T-20, T-24, T-26, T-27, T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
