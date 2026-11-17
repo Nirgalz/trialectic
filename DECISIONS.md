@@ -1624,5 +1624,16 @@ Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** 
 
 Related tasks: T-03, T-04, T-15, T-16, T-17, T-19, T-20, T-21, T-24, T-26, T-27, T-28, T-30.
 
+## D-86 · trIA — shorthand for the AI-assisted Trialectic Method
+Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** | Branch: `dev`
+
+**Decision:** Use **`trIA`** (exact capitalization) as the short name for **the Trialectic Method when used with the assistance of artificial intelligence** (*Méthode trialectique assistée par IA*). This is a naming convention for an **AI-assisted application of the same Method**, not the establishment of a separate methodology or a change in D-85's Understand → Explore → Decide phases.
+
+**Intended context:** AI-assisted analyses can serve as concrete exploratory case studies to investigate and critically test the Method's foundational principles, ambiguities, robustness and practical use. The shorthand alone approves neither an AI implementation nor an experimental protocol, and it does not constitute empirical validation of the Method.
+
+**Rationale:** A distinct, concise name makes AI-assisted applications easy to reference while preserving the conceptual identity of the underlying Method.
+
+Related tasks: T-03, T-04, T-20, T-24, T-27, T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
