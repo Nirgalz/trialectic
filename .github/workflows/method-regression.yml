@@ -44,3 +44,7 @@ jobs:
         run: node applications/triad-graph/test-focus-navigation.cjs
       - name: Check D-97 Focus cycle and map modes
         run: node applications/triad-graph/test-focus-cycle.cjs
+      - name: Check API bridge without live credentials
+        run: python applications/triad-graph/test_ai_bridge.py
+      - name: Check repository for accidentally committed secrets
+        run: python tools/check_secrets.py
