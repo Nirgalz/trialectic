@@ -1662,5 +1662,21 @@ Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** 
 
 Related tasks: T-03, T-04, T-20, T-24, T-26, T-27, T-28.
 
+## D-88 · Mermaid dual-graph visualizations for trIA-dev
+Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** | Branch: `dev`
+
+**Decision:** For the time being, **trIA-dev** (`use trIAd` / `use trIA-dev`) uses **Mermaid diagrams**, with **two distinct representations** in relevant analyses:
+
+1. **Conceptual Object graph:** display the relevant **Objects** and their **relationships**, such as the situated Subject, Environment Objects, candidate or established NEED/CAN Objects, dependencies, affiliations and contextual relations, where justified. Identify nodes consistently and qualify relations where evidence/attribution is uncertain. A visual edge does not establish NEED/CAN attribution, necessity, sufficiency, Power or Actualization.
+2. **Methodological process graph:** display the **analytical workflow**, including the relevant **Understand → Explore → Decide phases**, methodological operations, Focus, decision points and recursive returns/reassessment. A given analysis can legitimately stop after Understand or Explore, as permitted by D-85.
+
+**Visual semantics and scope:** These two graphs depict **different kinds of information** and must not conflate relations between studied Objects with relations between analytical operations. Keep diagrams legible and **relevant to the case**; do not create fictitious conceptual entities or require every NEED, CAN or phase to be exhaustively displayed. Clearly distinguish established assertions, hypotheses, conditions and unknowns in diagrams or adjacent explanatory text. Where a graphic cannot adequately express uncertainty or supporting qualifications, pair it with a short legend or structured notes. Mermaid is the **temporary visualization format** for trIA-dev and may be revisited in light of trials, not an ontological, methodological, or JSON Schema restriction.
+
+**Status and boundaries:** This validates the user-facing visualization convention and the dual-view principle, not a particular graph grammar, a complete mapping to schemas, new software/plugins, automated graph verification, or scientific validation. Existing D-85–D-87 principles and the experimental role of trIA-dev remain unchanged. The detailed rendering conventions and real-case usability tests remain **OPEN**.
+
+**Rationale:** Showing the conceptual graph next to the process graph helps inspect *what* the Method describes separately from *how* it proceeds, making potential gaps or ambiguities easier to identify during concrete AI-assisted tests.
+
+Related tasks: T-03, T-04, T-20, T-24, T-26, T-27, T-28.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
