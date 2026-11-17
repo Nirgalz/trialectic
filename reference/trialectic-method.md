@@ -684,6 +684,14 @@ The ZIP was extracted and the script rerun; output JSON was byte-identical (SHA-
 
 **[OPEN]** Domain-specific expert checklists and held-out real studies, review of source credibility/provenance, valid comparisons and transportability across contexts, causal inference and calibrated statistical synthesis, handling retracted/missing sources, decision-stakes verification criteria, D-46 revision history integration, independently authored test oracles, final JSON Schema and repository CI. Related tasks T-01, T-02, T-03, T-16, T-18, T-24, T-30 remain OPEN.
 
+### 2.1.14 Contextual validity and robustness of conclusions (D-93)
+
+**[VALIDATED principles — November 17, 2026]** For an analytically significant conclusion, distinguish **contextual validity** (whether the inference is warranted by the available premises/evidence and the conditions explicitly examined) from **contextual robustness** (to what extent that conclusion remains justified across relevant variations of those conditions). A defensible conclusion in one context is not necessarily robust under changed circumstances. Examine both dimensions at a depth **proportionate to the conclusion's importance for the analysis**, its role in further inferences or decisions, uncertainty, possible fragility and consequences if false.
+
+**Selection and examination of variations.** According to relevance, consider changes to Object properties, Environment, dependencies and relationships, time, assumptions and evidential conditions. Choose variations by potential influence on the conclusion, plausibility or degree of possibility, uncertainty and possible consequences. Do not automatically dismiss consequential low-probability or poorly quantified adverse cases. Examine interactions when pertinent. Record what was tested, what was identified but not tested, the conditions under which a conclusion holds or fails, and the limits of an inevitably nonexhaustive search. Reassess conclusions and analytical depth recursively as relevant evidence, contradictions or context change. Maintain the **D-89 global relevance** safeguard beyond the active navigation Focus.
+
+**[SCOPE / OPEN]** These are validated **reasoning and scrutiny principles**, not a new ontological Object or Stage, a universal numerical robustness metric, prescribed risk score, fixed three-level verification taxonomy, exhaustive sensitivity analysis, or automatic rewriting of Power/Scenario data contracts. Existing D-31/D-46/D-47 evidential qualifications and D-07 complexity controls still apply. In particular, examining a hypothesis more deeply cannot alone improve its empirical support; simulated variation is not observation or effective Actualization.
+
 ## 3.1 NEED — explicitly approved definition
 
 **[VALIDATED — exact author-approved French wording]**
