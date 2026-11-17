@@ -1,4 +1,4 @@
-# Normative Analysis and Scenario data contracts v2.0 / v2.1
+# Normative Analysis and Scenario data contracts v2.0 / v2.1 / v2.2
 
 **Status: adopted under the author's instruction to validate the global model and
 Scenario Results, November 16, 2026 (D-77/D-78).** The new serialization choices
@@ -14,9 +14,9 @@ layout or that structural validity proves analytical/empirical truth.
 | One complete Analysis exchange document | [analysis.json](model/analysis.json) | `urn:trialectic:schema:analysis:normative-v2` |
 | One NEED, CAN or Scenario evaluation | [power-evaluation.json](model/power-evaluation.json) | `urn:trialectic:schema:power-evaluation:normative-v2` |
 
-Both use Draft 2020-12. The global Analysis document accepts `schema_version: "2.0.0"` (unchanged historical contract) and `"2.1.0"` (D-83 identity/attribution extension). The PowerEvaluation six-field contract is unchanged. Old v2.0 records are accepted without inferring an established attribution.
+Both use Draft 2020-12. The global Analysis document accepts `schema_version: "2.0.0"` (unchanged historical contract) and `"2.1.0"` (D-83 identity/attribution extension), and `"2.2.0"` (D-84 CAN affiliations extension). The PowerEvaluation six-field contract is unchanged. Old v2.0 records are accepted without inferring an established attribution.
 PowerEvaluation retains exactly its six fields and is selected by its schema URI,
-without adding a seventh version field. Version 2.0.0 is the sole supported exchange profile.
+without adding a seventh version field. The accepted Analysis exchange versions are 2.0.0, 2.1.0, and 2.2.0; the PowerEvaluation document schema remains independent.
 
 ## D-77 global Analysis envelope
 
@@ -88,6 +88,18 @@ transport vocabulary, not a universal theory of Conditions.
 - Established Puissance for a bearer Object may enumerate only CANs with an explicit `established_in_model` attribution and matching `concept_kind` within the considered model; the status is epistemic, not a substitute for real-world evidence.
 
 **Validation boundary:** the Draft 2020-12 schema verifies local types, version gates and required fields. `tools/validate_semantics.py` adds limited reference-resolution, owner/type consistency, claim links and cross-document identity-change checks. Neither constitutes exhaustive semantic, causal, temporal or empirical validation. Compatibility with historical unannotated Documents requires review, not an inference of attribution.
+
+### D-84 CAN affiliation extension — v2.2.0
+
+**Transport implementation of the author's validated D-84 distinction, not an additional philosophical decision.** Analysis `2.2.0` adds the required (possibly empty) top-level collection `can_affiliations`, whose entries use the modular type [`canAffiliation`](model/types/can-affiliations.json). The collection is forbidden in `2.0.0` and `2.1.0`, which continue to validate unchanged.
+
+A CAN affiliation has separate versioned identity `id` / `version`, two version-pinned Object references `parent_can` and `child_can`, and `kind` in `specialization` / `composition`. Its `qualification` contains a scoped `status` (`established_in_model`, `refuted_in_context` or `indeterminate`), `justification`, and version-pinned `claim_id` / `claim_version`. Both Object endpoints must have `concept_kind: "CAN"` and resolve to existing Definition versions; the separate semantic validator checks this. **Several parent edges can point to the same child.**
+
+This conceptual relationship is **not** historical Object lineage (`parent_id` and child-ID fields), a D-36 NEED/CAN attribution record, a CAN's prerequisite NEED, a proof of causal contribution, or a rule automatically transferring Subject possession. The optional future ability to determine whether child CANs are necessary, sufficient, jointly required or alternative contributors is **not** built into this affiliation edge. Those claims require separately justified Conditions, Pathways, Scenarios or evaluations.
+
+The scoped semantic validator rejects invalid/missing CAN endpoint references, incorrect conceptual kinds, missing versioned claims and duplicate affiliation IDs/versions; it **warns** about cycles in established affiliation edges but does **not** declare them impossible or automatically invalid. Full treatment of cycles, transitivity, semantic equivalence, closure of compositions, evidence adequacy and historical edge revision remains **OPEN**.
+
+Synthetic test case: [`can_affiliations_v22.json`](../tests/cases/can_affiliations_v22.json). Tests: [`test_can_affiliations_v22.py`](../tests/test_can_affiliations_v22.py). Neither creates empirical evidence or actualizes a CAN.
 
 ### Semantic obligations remain distinct from local shape
 
