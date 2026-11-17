@@ -1678,5 +1678,20 @@ Date: November 17, 2026 | Status: **VALIDATED by author in project discussion** 
 
 Related tasks: T-03, T-04, T-20, T-24, T-26, T-27, T-28.
 
+## D-89 · Relevance assessed beyond current Focus; evaluate Focus usefulness
+Date: November 17, 2026 | Status: **VALIDATED principle by author; operational protocol and Focus evaluation OPEN** | Branch: `dev`
+
+**Author-validated principle:** The pertinence of an Object, relation, hypothesis, effect or analytical investigation **must not be judged solely in relation to the current Focus**. Assess its relevance **both** in relation to (1) the **current Focus**, where one is used, and (2) the **overall problem/question, analytical objectives and other Subjects potentially affected**, including Subjects not yet included in the current Environment. A narrow Focus must not justify silently excluding important contradictions, indirect effects, hidden secondary Subjects or serious risks. The assessment is contextual, revisable and epistemically qualified; relevance alone is neither proof of an Object/NEED/CAN classification nor evidence of a causal relationship.
+
+**Context and continuity:** This clarifies the application of D-02 recursive relevance, D-07 complexity management, D-15/T-15 contextualization and D-85's broader analytical focal concern. It does **not** replace the current definition of `Focus` (the Method's current object of attention in a `Stage`, D-17), nor automatically require a NEED or CAN Focus. The conceptual/operational usefulness of retaining **Focus as a separate construct** is explicitly **OPEN FOR EVALUATION**, not validated or rejected by this decision.
+
+**Approved development direction:** Test the proposed analytical relevance/stopping protocol through **human-readable trIA-dev case analyses** before adding new schema fields or technical types. Use contrasting cases, including a simple low-stakes problem, an interacting multi-Subject case, and a hidden/serious-harm counterexample. Compare **with explicit Focus versus without a separately named Focus**, examining attention control, omitted affected Subjects/relations, interpretive flexibility, traceability, analyst effort and ease of revision. Label all such pilot findings as **exploratory**, not as independent or empirical validation.
+
+**Unapproved proposals remain OPEN:** The assistant's six proposed relevance criteria, four investigation actions (deepen, monitor, suspend, exclude), stopping-condition wording, any scoring, mandatory relevance record/decision engine, and exact Focus-to-problem relationship. They may be used provisionally for tests but are **not author-validated methodological rules**.
+
+**Rationale:** A Focus can aid attention and traceability, but an exclusive Focus-based relevance filter could obscure significant consequences for the broader problem or other Subjects. Its practical marginal value should be demonstrated rather than assumed.
+
+Related tasks: T-03, T-04, T-15, T-19, T-20, T-21, T-24, T-27, T-28, T-30.
+
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
