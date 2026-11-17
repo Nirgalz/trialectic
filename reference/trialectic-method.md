@@ -1044,6 +1044,21 @@ Lorsqu'une exigence indispensable est insatisfaite ou indéterminée, cette info
 
 **[OPEN]** Operational identification criteria, evidence sufficiency thresholds, semantic engine, cross-analysis identity registry, full historical migration and blind/empirical tests. T-01/T-02/T-24/T-27/T-30 remain open.
 
+## 3.7 CAN affiliation: specialization and composition (D-84)
+
+**[VALIDATED BY AUTHOR — conceptual principles, November 17, 2026]**
+
+A CAN (Potentialité) can have **child CANs**. The parent–child relation supports two distinct meanings:
+
+- **Specialization**: a child CAN expresses a more specific Potentiality within a more general parent CAN (e.g. programming → programming in Python).
+- **Composition**: a parent CAN expresses a complex Potentiality involving several child CANs (e.g. developing an application → interface design, programming and testing); the actual combination may involve indispensable, alternative, complementary or otherwise context-dependent contributions.
+
+Each parent/child CAN remains an **independently identified Object**, with its own Definition, possible NEEDs and possible child CANs. One CAN may have **multiple affiliated parents**; the structure is therefore potentially a graph rather than a rooted tree.
+
+**Independent inferences and safeguards:** affiliation alone does not establish that (i) the child is necessary or sufficient to actualize the parent, (ii) the parent and child are both attributable to a Subject, (iii) all children are possessed when a parent is possessed, or (iv) any NEED is satisfied or Actualization performed. An implication from possession of a specialized CAN to possession of a more general CAN may be demonstrated from explicit Definitions, **not automatically** from the affiliation edge. Distinguish CAN conceptual affiliation from both NEED prerequisites and contextual attribution (D-83).
+
+**[MODEL BOUNDARY]** The existing `Object.parent_id` and other child lineage fields represent historical branching/lineage, **not** conceptual CAN child affiliation. A versioned, separately typed affiliation relation is needed in the exchange profile; multiple-parent links and specialization/composition semantics have not yet been implemented or fully tested. Graph cycles, exact composition inference and interaction with D-36–D-38 relation records remain **OPEN**; this validated principle alone does not establish empirical or causal correctness.
+
 # 4. NEED–CAN relations and dependencies
 
 ## 4.1 Relational principles
