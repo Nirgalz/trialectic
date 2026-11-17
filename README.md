@@ -42,6 +42,10 @@ The exact procedures for contextual NEED/CAN identification, actionability/Power
 
 **trIA-dev** helps examine the Method during concrete case analyses by surfacing unresolved definitions, ambiguities, contradictions and representation difficulties. It must not assume that structured data proves a claim, invent unnecessary NEED/CAN categories, or treat model compliance as scientific validation. These command conventions describe **AI-assisted use**, not an implemented standalone application or a finalized technical trace format.
 
+### Mermaid visualizations in trIA-dev (D-88)
+
+For the time being, trIA-dev presents **two separate Mermaid graphs** when relevant: a **conceptual graph** of the analyzed Objects and their qualified relationships, and a **methodological graph** of the Understand / Explore / Decide phases, operations, Focus and recursive returns. The two views keep *what is being analyzed* distinct from *how it is analyzed*. Labels, legends and accompanying text must distinguish established claims from assumptions and uncertainty. This is a provisional **visualization convention**, not a change in data models or a requirement to invent inapplicable Objects.
+
 ## Current development
 
 The Method is currently being **developed, formalized, and critically examined** through:
