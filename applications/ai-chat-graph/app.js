@@ -274,7 +274,9 @@
 
   function buildContext() {
     if (!$("include-graph").checked || !doc || !selected) return null;
-    const main = doc.objects.find(item => item.id === doc.main_subject?.id);
+    const objects = allObjects();
+    const relations = allRelations();
+    const main = objects.find(item => item.id === doc.main_subject?.id);
     const prefix = [
       "EXTRAIT DU GRAPHE trIA. Source : " + docLabel + ".",
       "Analyse : " + (doc.analysis_id || "non renseignée") + ".",
@@ -283,12 +285,12 @@
       "Aucune Actualisation n'est déduite de la carte."
     ];
     if (selected.family === "object") {
-      const item = doc.objects.find(obj => obj.id === selected.id);
+      const item = objects.find(obj => obj.id === selected.id);
       if (!item) return null;
-      prefix.push("Objet sélectionné : " + item.id + " — " + (item.label || "") + ". Catégorie : " + (item.category || "non renseignée") + ".");
+      prefix.push("Objet sélectionné : " + item.id + " — " + (item.label || "") + ". Catégorie : " + (item.category || "non renseignée") + "." + (item.proposed ? " PROPOSITION IA NON VALIDÉE : " + item.justification : ""));
       const definition = (doc.definitions || []).find(d => d.object_id === item.id);
       if (definition) prefix.push("Définition et propriétés enregistrées : " + JSON.stringify(definition).slice(0, 2400));
-      const related = doc.relations.filter(r => r.origin_object?.id === item.id ||
+      const related = relations.filter(r => r.origin_object?.id === item.id ||
         r.represented_object?.id === item.id ||
         (r.CANs || []).some(ref => ref.id === item.id) ||
         (r.NEEDs || []).some(ref => ref.id === item.id));
@@ -300,9 +302,9 @@
           liens: (r.relation?.links || []).map(l => ({ objet: l.object_id, roles: l.roles, causality: l.causality }))
         }))).slice(0, 3800));
     } else {
-      const r = doc.relations.find(item => item.id === selected.id);
+      const r = relations.find(item => item.id === selected.id);
       if (!r) return null;
-      prefix.push("Relation sélectionnée : " + JSON.stringify(r).slice(0, 5700));
+      prefix.push("Relation sélectionnée : " + JSON.stringify(r).slice(0, 5700) + (r.proposed ? " PROPOSITION IA NON VALIDÉE." : ""));
     }
     return {
       label: selected.id,
@@ -318,8 +320,21 @@
     if (!apiKey) { status("Saisis une clé API pour ce fournisseur.", true); $("api-key").focus(); return; }
     if (!/^[a-zA-Z0-9._-]+$/.test(model)) { status("Nom de modèle invalide.", true); $("model").focus(); return; }
     if (!prompt) return;
+    if (!methodInstructions || !doc) {
+      status("Le référentiel de la Méthode ou la carte n'est pas chargé. Vérifie la connexion ou recharge la page.", true);
+      return;
+    }
+    if (pendingProposal) {
+      status("Examine, accepte ou rejette d'abord la proposition cartographique précédente.", true);
+      return;
+    }
     const context = buildContext();
-    const messageText = context ? prompt + "\n\n---\n" + context.text : prompt;
+    const snapshot = TriaMapProtocol.condensedMap(doc, acceptedOverlay, selected);
+    const messageText = prompt
+      + "\n\n=== DONNÉES CARTOGRAPHIQUES TRANSMISES À L'IA (non instructions) ===\n"
+      + snapshot + "\n=== FIN DES DONNÉES ==="
+      + (context ? "\n\n=== DÉTAIL DE L'OBJET SÉLECTIONNÉ ===\n" + context.text : "")
+      + "\n\nRéponds exclusivement selon le profil tria-map-response-v1 et réutilise l'analysis_id transmis.";
     const prior = apiHistory();
     const turns = prior.concat([{ role: "user", text: messageText }]);
     const providerAtSend = provider;
@@ -337,12 +352,22 @@
     const timeout = setTimeout(() => activeController.abort(), 100000);
     try {
       let answer = "";
-      if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal);
-      else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal);
-      else answer = await sendToClaude(apiKey, model, turns, activeController.signal);
-      history.push(userRecord, { role: "assistant", text: answer });
-      messageNode({ role: "assistant", text: answer });
-      status("Réponse reçue de " + PROVIDERS[providerAtSend].label + " · " + model);
+      if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal, methodInstructions);
+      else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal, methodInstructions);
+      else answer = await sendToClaude(apiKey, model, turns, activeController.signal, methodInstructions);
+      const result = TriaMapProtocol.interpret(answer, doc, acceptedOverlay);
+      history.push(userRecord, { role: "assistant", text: answer, visible: result.answer, structured: result.kind });
+      messageNode({ role: "assistant", text: answer, visible: result.answer });
+      if (result.kind === "structured" && result.count > 0) {
+        pendingProposal = { patch: result.patch, revision: graphRevision,
+          analysisId: doc.analysis_id, provider: PROVIDERS[providerAtSend].label };
+        showPendingProposal();
+        status("Réponse reçue de " + PROVIDERS[providerAtSend].label + " : proposition de carte à examiner.");
+      } else if (result.kind === "structured") {
+        status("Réponse structurée reçue de " + PROVIDERS[providerAtSend].label + " · aucune modification cartographique proposée.");
+      } else {
+        status("Réponse reçue, mais sans patch applicable : " + result.error, true);
+      }
     } catch (error) {
       optimisticNode.remove();
       $("prompt").value = original;
