@@ -1,27 +1,19 @@
 # Trialectic Method — Data models, roles and rationale
 
-**Current serialization authority — D-77/D-78, November 16, 2026:** The
-[global Analysis model and Scenario Results v2](../schemas/global-model.md) are now
-**normative, adopted under the author's explicit instruction**. Use
-[Analysis v2](../schemas/model/analysis.json) and
-[PowerEvaluation v2](../schemas/model/power-evaluation.json). All root keys,
-record-family contracts and nested Scenario fields are specified there; the five
-Scenario dimensions stay independent and no winner or aggregate score is required.
-D-75's separate Object/relation identities and D-76's reconciliation remain in force.
-Earlier statements below that the global envelope or Scenario serialization is OPEN
-are superseded for v2; v0/v1 remain historical profiles. Complete semantic/reference,
-lifecycle, temporal and causal algorithms and empirical validation are still separate
-work, not guarantees provided by these structural contracts.
-
-
+**Scope and source-of-truth boundary:** This is a catalogue of model roles,
+not an alternative field contract. The adopted v2.0–v2.2 Analysis and
+PowerEvaluation exchange profiles are specified in
+[schemas/global-model.md](../schemas/global-model.md) and implemented in
+[schemas/model/](../schemas/model/README.md). Earlier statements below describing
+the global envelope or Scenario serialization as OPEN predate D-77/D-78 and are
+superseded for the adopted v2 profiles. Semantic, lifecycle, causal and empirical
+verification remain separate work.
 
 **Status:** reference **catalogue and explanatory map** for the `dev` branch, established 2026-11-16 after D-74. **This document is not a new data-model decision, a normative JSON Schema, a new ontology, or scientific validation.** It records what the existing Method models, *why each distinction exists*, its level of approval and where its authoritative specification is maintained.
 
 **Language:** English explanations, consistent with the maintained repository reference; preserve exact identifiers from the existing definitions and JSON. The original author-approved French NEED definition is reproduced verbatim, while all explanatory English text is a working rendering, **not** an independently approved bilingual equivalence.
 
-**Current normative serialization:** [Analysis/Scenario v2](../schemas/global-model.md).
-
-**Sources of authority, in order:** [the canonical working reference](trialectic-method.md), [validated decisions](../DECISIONS.md), [the integrated PowerEvaluation companion](power-evaluation.md), [the executable partial boundary schema](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json), then the explicitly [OPEN normalized proposal](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/README.md) and synthetic [test fixtures](../tests/README.md). Consult the *latest `dev` version* and the decision log before editing. Where this catalogue and an approved decision disagree, the approved decision prevails.
+**Authority by concern:** [Validated decisions](../DECISIONS.md) and the maintained [Method reference](trialectic-method.md) govern concepts; [schemas/model/](../schemas/model/README.md) governs the adopted v2 exchange shapes; this catalogue and the [PowerEvaluation companion](power-evaluation.md) explain why the models are distinct. [Historical schema experiments](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/power-evaluation.boundaries.schema.json), [proposals](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/README.md) and [synthetic fixtures](../tests/README.md) are not higher-priority current specifications. Resolve discrepancies against validated decisions and current contracts; do not silently infer new normative rules.
 
 ## 0. How to read the models
 
