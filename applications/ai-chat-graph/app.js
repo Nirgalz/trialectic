@@ -385,6 +385,8 @@
   }
   function resetChat() {
     if (pending) return;
+    pendingProposal = null;
+    showPendingProposal();
     conversations.set(provider, []);
     renderConversation();
     status("Discussion " + PROVIDERS[provider].label + " effacée en mémoire.");
@@ -603,7 +605,10 @@
       graphStatus("Chargement du pilote fictif…");
       const res = await fetch("../triad-graph/examples/focus-pilot.json", { cache: "no-store" });
       if (!res.ok) throw new Error("HTTP " + res.status);
-      doc = validateDocument(await res.json());
+      const loaded = validateDocument(await res.json());
+      doc = loaded;
+      graphRevision++;
+      resetProposals();
       docLabel = "Pilote six écoles (fictif, non validé empiriquement)";
       $("graph-source").textContent = docLabel;
       showGraph();
@@ -619,6 +624,8 @@
       if (file.size > 2_000_000) throw new Error("Fichier de plus de 2 Mo.");
       const candidate = validateDocument(JSON.parse(await file.text()));
       doc = candidate;
+      graphRevision++;
+      resetProposals();
       docLabel = "Document importé : " + file.name + " (structure minimale seulement vérifiée)";
       $("graph-source").textContent = docLabel;
       showGraph();
@@ -660,6 +667,9 @@
     $("cancel-request").addEventListener("click", () => controller?.abort());
     $("chat-reset").addEventListener("click", resetChat);
     $("chat-export").addEventListener("click", exportChat);
+    $("proposal-accept").addEventListener("click", acceptProposal);
+    $("proposal-reject").addEventListener("click", rejectProposal);
+    $("overlay-clear").addEventListener("click", clearOverlay);
     $("graph-reset").addEventListener("click", loadExample);
     $("graph-import").addEventListener("click", () => $("graph-file").click());
     $("graph-file").addEventListener("change", importGraph);
@@ -685,6 +695,7 @@
     });
     $("model-hint").textContent = PROVIDERS.gemini.hint;
     renderConversation();
+    loadMethodInstructions();
     loadExample();
   }
   setup();
