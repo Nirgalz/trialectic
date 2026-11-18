@@ -128,3 +128,15 @@ button.primary { color:#09241d; background:var(--accent); border-color:var(--acc
   .graph-detail{min-height:165px}
   .site-footer{font-size:9px}
 }
+
+/* Human approval gate for model-generated candidates */
+.reference-line{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:11px;color:var(--muted)}
+.reference-line a{font-size:11px}.reference-line span{overflow-wrap:anywhere}
+.proposal-panel{padding:12px 18px;border-top:1px solid #6b6b48;background:#212a26;max-height:240px;overflow:auto}
+.proposal-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px}
+.proposal-heading span{font-size:11px;color:var(--warning)}
+.proposal-panel p{font-size:11px;color:#d5cbb2;margin:6px 0}
+.proposal-detail{white-space:pre-wrap;overflow-wrap:anywhere;max-height:90px;overflow:auto;background:#101c1b;border:1px solid #48594d;padding:7px;border-radius:7px;font-size:11px;color:#c5d8d4}
+.proposal-panel .button-row{margin-top:8px}
+.dot-proposed{background:#d7d67e;border:2px dashed #f9eea9}
+@media(max-width:510px){.proposal-panel{padding:10px 12px;max-height:215px}}
