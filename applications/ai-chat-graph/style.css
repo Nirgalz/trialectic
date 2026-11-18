@@ -140,3 +140,5 @@ button.primary { color:#09241d; background:var(--accent); border-color:var(--acc
 .proposal-panel .button-row{margin-top:8px}
 .dot-proposed{background:#d7d67e;border:2px dashed #f9eea9}
 @media(max-width:510px){.proposal-panel{padding:10px 12px;max-height:215px}}
+
+.context-disclosure{margin:0 0 8px;font-size:10px;color:var(--muted);line-height:1.4}
