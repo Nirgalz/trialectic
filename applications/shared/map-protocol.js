@@ -34,7 +34,7 @@
     }
     return values;
   }
-  function validate(document, response, accepted = { objects: [], relations: [] }) {
+  function validate(document, response, accepted = { objects: [], relations: [] }, { inventory = false } = {}) {
     exactKeys(response, ["schema", "analysis_id", "answer", "tria_instruction_check", "map_patch"], "la réponse");
     if (response.schema !== "tria-map-response-v2") fail("identifiant de protocole incompatible.");
     if (!document || typeof document.analysis_id !== "string" || response.analysis_id !== document.analysis_id) {
@@ -48,8 +48,10 @@
     boundedString(compliance.message, "tria_instruction_check.message", 1200);
     const patch = response.map_patch;
     exactKeys(patch, ["objects", "relations"], "map_patch");
-    if (!Array.isArray(patch.objects) || patch.objects.length > 20) fail("objects doit contenir 20 entrées au plus.");
-    if (!Array.isArray(patch.relations) || patch.relations.length > 30) fail("relations doit contenir 30 entrées au plus.");
+    for (const [field, limit] of [["objects", 20], ["relations", 30]]) {
+      if (!Array.isArray(patch[field])) fail(field + " doit être un tableau.");
+      if (!inventory && patch[field].length > limit) fail(field + " doit contenir " + limit + " entrées au plus.");
+    }
 
     const sourceObjects = new Map((document.objects || []).map(o => [o.id, o]));
     const existingObjectIds = new Set(sourceObjects.keys());
@@ -90,7 +92,9 @@
         sourceObjects.get(relation.represented_object_id);
       if (represented?.concept_kind && represented.concept_kind !== relation.type)
         fail("Le concept_kind de l'Objet représenté est incompatible avec le type de la relation " + relation.id);
-      if (newObjects.has(relation.represented_object_id) && represented.concept_kind !== relation.type)
+      // A saved inventory may include Objects imported in earlier turns. Only
+      // Objects introduced by the same live response require an explicit kind.
+      if (!inventory && newObjects.has(relation.represented_object_id) && represented.concept_kind !== relation.type)
         fail("Un Objet représenté nouvellement créé doit avoir concept_kind=" + relation.type);
       pendingRelationIds.add(relation.id);
     }

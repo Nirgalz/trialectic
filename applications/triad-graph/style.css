@@ -62,4 +62,9 @@ body,.map{background:var(--bg)}.map{background:var(--panel)}button.primary:hover
 .ai-connection[data-status="checking"] .ai-connection-dot{background:var(--unknown)}
 .ai-connection[data-status="ready"] .ai-connection-dot{background:var(--positive)}
 .ai-connection[data-status="unavailable"] .ai-connection-dot{background:var(--negative)}
+
+.example-picker{display:flex;align-items:end;flex-wrap:wrap;gap:10px;min-width:0}
+.example-picker>label{flex:1 1 180px;min-width:0}
+.example-picker select{width:100%}
+.session-bar>.example-picker{flex:1 1 260px}
 #ai-connection-label{overflow-wrap:anywhere}

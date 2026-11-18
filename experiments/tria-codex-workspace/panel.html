@@ -7,7 +7,7 @@
     <p id="codex-context" class="muted">Chargement du Focus…</p>
     <label for="codex-question">Question, hypothèse ou contradiction à explorer</label>
     <textarea id="codex-question" rows="3" maxlength="6000" placeholder="Quelles conditions, contradictions, alternatives ou décisions examiner ?" required></textarea>
-    <div class="button-row">
+    <div id="codex-discussion-actions" class="button-row">
       <button type="submit" class="primary" id="codex-send">Envoyer</button>
       <button type="button" id="codex-reset">Nouvelle discussion</button>
     </div>
@@ -19,14 +19,16 @@
     <button type="button" id="codex-clear-preview">Retirer l’aperçu IA</button>
   </div>
   <details id="codex-dev">
-    <summary>Dev panel</summary>
-  <div class="button-row codex-note">
+    <summary id="codex-dev-toggle">Dev panel</summary>
+    <!-- map-example-picker -->
+    <!-- analysis-file-actions -->
+  <div id="codex-test-shortcuts" class="button-row codex-note">
     <button id="codex-test-library" type="button">Test · Neighborhood Library</button>
     <button id="codex-test-three-objects" type="button">Test · Three Objects</button>
     <button id="codex-test-instruction-memory" type="button">Test · Instruction Memory</button>
     <button id="codex-ask-instructions" type="button">Ask Which Instructions Are Known</button>
   </div>
-  <div class="button-row codex-note">
+  <div id="codex-test-controls" class="button-row codex-note">
     <label>Method instruction test
       <select id="codex-method-case" disabled><option value="">Loading test catalog…</option></select>
     </label>

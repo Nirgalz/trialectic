@@ -17,6 +17,7 @@ from server import ASSETS, Handler, serve, validate
 UI_ASSETS = {
     '/workspace/codex.css': ('codex.css', 'text/css'),
     '/workspace/codex-ui.js': ('codex-ui.js', 'text/javascript'),
+    '/workspace/analysis-draft.js': ('analysis-draft.js', 'text/javascript'),
     '/workspace/method-tests.js': ('method-tests.js', 'text/javascript'),
     '/workspace/instruction-map.js': ('instruction-map.js', 'text/javascript'),
     '/workspace/live-reload.js': ('live-reload.js', 'text/javascript'),
@@ -113,19 +114,37 @@ class WorkspaceHandler(Handler):
     def render_page(self):
         revision = ui_revision()
         page = super().render_page()
+        session_start = page.index('<section id="analysis-session-controls"')
+        session_end = page.index('</section>', session_start) + len('</section>')
+        session = page[session_start:session_end]
+        controls = {}
+        for tag, control_id in (
+            ('div', 'example-picker'),
+            ('details', 'analysis-file-actions'),
+        ):
+            start = session.index(f'<{tag} id="{control_id}"')
+            end_tag = f'</{tag}>'
+            end = session.index(end_tag, start) + len(end_tag)
+            controls[control_id] = session[start:end]
+        page = page[:session_start] + page[session_end:]
         head = (
             '<link rel="stylesheet" href="/workspace/codex.css">'
             '<script defer src="/workspace/method-tests.js"></script>'
             '<script defer src="/workspace/instruction-map.js"></script>'
+            '<script defer src="/workspace/analysis-draft.js"></script>'
             '<script defer src="/workspace/codex-ui.js"></script>'
             '<script defer src="/workspace/live-reload.js"></script>'
         )
         panel = (WORKSPACE / 'panel.html').read_text(encoding='utf-8')
+        panel = panel.replace('<!-- map-example-picker -->', controls['example-picker'], 1)
+        panel = panel.replace('<!-- analysis-file-actions -->', controls['analysis-file-actions'], 1)
         instruction_map = (WORKSPACE / 'instruction-map.html').read_text(encoding='utf-8')
+        map_start = '<section id="analysis-map-workspace"'
         page = (
             page.replace('</head>', head + '</head>', 1)
-            .replace('<main>', '<main class="codex-workspace">' + panel + '<div class="codex-map">', 1)
-            .replace('<section class="workspace">', instruction_map + '<section class="workspace">', 1)
+            .replace('<main>', '<main id="codex-workspace" class="codex-workspace">' + panel
+                     + '<div id="codex-map-column" class="codex-map">', 1)
+            .replace(map_start, instruction_map + map_start, 1)
             .replace('</main>', '</div></main>', 1)
         )
         # A new revision uses fresh URLs even for assets served by the base handler.
@@ -180,7 +199,10 @@ class WorkspaceHandler(Handler):
             if body.get('use_method_instructions') is True:
                 instructions = load_method_instructions()
                 instruction = method_bundle(instructions, instructions)
-            return self.reply(run_turn(body, instruction=instruction))
+            return self.reply(run_turn(
+                body, instruction=instruction, working_map=body.get('working_map'),
+                match_analyst_language=True, analyze_dialogue=body.get('instruction_query') is not True
+            ))
         except CodexBridgeError as exc:
             return self.reply({'error': str(exc)}, exc.status)
         except MethodCatalogError as exc:
@@ -248,7 +270,8 @@ class WorkspaceHandler(Handler):
             ],
         }
         if identity_test:
-            second = run_turn(second_request, instruction=instruction, working_map={'objects': previous_objects})
+            second = run_turn(second_request, instruction=instruction,
+                              working_map={'objects': previous_objects, 'relations': []})
         else:
             second = run_turn(second_request)
         return self.reply({'turns': [first, second]})

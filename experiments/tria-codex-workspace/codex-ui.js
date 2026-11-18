@@ -6,6 +6,8 @@
   const messages = [];
   let sourceRevision = null, pending = false;
   let methodAcknowledged = null;
+  let initialQuestion = null;
+  let draftRevision = null, loadingDraft = false;
   // This adapter alone knows Codex CLI. The reference map only displays a generic status.
   const connectionLabels = {
     checking: {
@@ -64,6 +66,7 @@
   }
   function reset() {
     messages.length = 0;
+    initialQuestion = null;
     TriaGraph.clearProposalPreview();
     $("codex-history").replaceChildren();
     $("codex-proposals").hidden = true;
@@ -75,15 +78,20 @@
     if (!pending) state();
   }
   function getContext() {
-    const { analysisRevision, focusId, inspectedObjectId, subjectId, scenarioId } = TriaGraph.getContext();
-    const targetId = focusId || inspectedObjectId || subjectId || null;
+    const { analysisRevision, focusId, viewObjectFocusId, inspectedObjectId, subjectId, scenarioId } = TriaGraph.getContext();
+    const targetId = viewObjectFocusId || focusId || inspectedObjectId || subjectId || null;
     if (sourceRevision !== analysisRevision) {
       const previousRevision = sourceRevision;
       sourceRevision = analysisRevision;
-      if (previousRevision !== null) reset();
+      if (previousRevision !== null && !loadingDraft) {
+        draftRevision = null;
+        reset();
+      }
     }
-    $("codex-context").textContent = analysisRevision
-      ? "Focus : " + targetId + (scenarioId ? " · Scénario : " + scenarioId : "")
+    const draftLabel = draftRevision === analysisRevision
+      ? (document.documentElement.lang === "fr" ? "Analysis de travail · " : "Working Analysis · ") : "";
+    $("codex-context").textContent = targetId
+      ? draftLabel + "Focus : " + targetId + (scenarioId ? " · Scénario : " + scenarioId : "")
       : "Discussion sans analyse chargée";
     return { analysisRevision, focusId: targetId, scenarioId };
   }
@@ -119,7 +127,7 @@
       schema: "tria-map-response-v2", analysis_id: "discovery-preview", answer: envelope.answer,
       tria_instruction_check: envelope.tria_instruction_check, map_patch: envelope.map_patch
     } : envelope;
-    if (!TriaGraph.previewProposals(response)) return false;
+    if (!TriaGraph.previewProposals(response, { extend: true })) return false;
     window.TriaInstructionMap?.showAnalysis();
     return true;
   }
@@ -149,12 +157,13 @@
   }
   $("codex-reset").addEventListener("click", async () => {
     if (pending) return;
-    reset();
     $("codex-question").value = "";
     methodAcknowledged = false;
     setPending(true);
     state("Transmission of trIA instructions");
     try {
+      if (draftRevision === TriaGraph.getContext().analysisRevision) await TriaGraph.clearAnalysis();
+      else reset();
       const data = await requestTurn({}, "/api/codex/instructions");
       if (data.acknowledged !== true) throw Error("Codex did not acknowledge the trIA instructions.");
       methodAcknowledged = true;
@@ -180,6 +189,7 @@
         document: null, focus_id: null, scenario_id: null,
         phase: $("phase").value, history: messages.slice(-12),
         use_method_instructions: methodAcknowledged === true,
+        instruction_query: true,
         question: "Which explicitly supplied Trialectic Method instructions can you identify in this conversation? " +
           "Briefly report those instructions and which you applied. Exclude the exchange format and execution rules. " +
           "If you recognize none, say so. Leave the map data empty."
@@ -411,31 +421,31 @@
   $("codex-run-all-tests").addEventListener("click", () => runTestSequence(methodCases, { allInstructions: true }));
   $("codex-test-three-objects").addEventListener("click", () => runTest(loadThreeObjects));
   $("codex-test-instruction-memory").addEventListener("click", () => runTest(loadThreeObjects, { followUp: true }));
-  $("codex-form").addEventListener("submit", async event => {
-    event.preventDefault();
-    if ($("codex-send").disabled) return;
+  async function sendDiscussionTurn(question, objectFocus = null) {
     const context = getContext();
-    const question = $("codex-question").value.trim();
-    if (!question) return;
     const phase = $("phase").value, originalDoc = TriaGraph.getAnalysis();
+    const workingMap = TriaGraph.getProposalInventory();
     setPending(true);
-    state("Waiting for response…");
+    state(objectFocus ? "Waiting for response · Focus: " + objectFocus.label : "Waiting for response…");
     try {
       const data = await requestTurn({
-        document: originalDoc, phase, focus_id: context.focusId,
+        document: originalDoc, phase, focus_id: objectFocus?.id ?? context.focusId,
         scenario_id: context.scenarioId, question, history: messages.slice(-12),
+        working_map: workingMap, initial_question: initialQuestion,
+        focus_request: Boolean(objectFocus), interface_language: document.documentElement.lang,
         use_method_instructions: methodAcknowledged === true
       });
       if (TriaGraph.getContext().analysisRevision !== context.analysisRevision)
         throw Error("L'Analysis a changé pendant le tour : résultat écarté.");
-      show("user", null, question);
+      show("user", null, objectFocus ? "Focus · " + objectFocus.label : question);
       show("assistant", null, data.answer);
       const report = data.envelope?.tria_instruction_check?.message;
       const instructionReport = typeof report === "string" ? report.slice(0, 1200) : "";
-      messages.push({ role: "user", text: question.slice(0, 4500) },
+      if (!objectFocus && initialQuestion === null) initialQuestion = question;
+      messages.push({ role: "user", text: question.slice(0, 4500), kind: objectFocus ? "object_focus" : "message" },
         { role: "assistant", text: data.answer.slice(0, 4500), instruction_report: instructionReport });
       if (messages.length > 12) messages.splice(0, messages.length - 12);
-      $("codex-question").value = "";
+      if (!objectFocus && $("codex-question").value.trim() === question) $("codex-question").value = "";
       const patch = data.envelope?.map_patch;
       $("codex-instruction-report").textContent = instructionReport || "No instruction reported.";
       $("codex-instruction-report").hidden = false;
@@ -445,6 +455,25 @@
       connectionIndicator("verified");
       state();
       try {
+        if (JSON.stringify(workingMap) !== JSON.stringify(TriaGraph.getProposalInventory())) {
+          state("Réponse reçue · la carte a changé pendant la requête.");
+          return;
+        }
+        if (data.envelope?.schema === TriaAnalysisDraft.schema) {
+          if (!data.envelope.analysis_draft) return;
+          const analysis = TriaAnalysisDraft.build(data.envelope, TriaMapProtocol, "A-draft-" + crypto.randomUUID());
+          loadingDraft = true;
+          try {
+            await TriaGraph.loadAnalysis(analysis);
+            draftRevision = TriaGraph.getContext().analysisRevision;
+          } finally {
+            loadingDraft = false;
+          }
+          window.TriaInstructionMap?.showAnalysis();
+          $("codex-map-data").textContent = JSON.stringify(analysis, null, 2);
+          state(document.documentElement.lang === "fr" ? "Analysis de travail chargée." : "Working Analysis loaded.");
+          return;
+        }
         if (!displayPreview(data.envelope)) state("Réponse reçue · aucune nouvelle proposition de carte.");
       } catch (error) {
         state("Aperçu de la carte indisponible · " + String(error.message || error), true);
@@ -456,9 +485,19 @@
       setPending(false);
       getContext();
     }
+  }
+  $("codex-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const question = $("codex-question").value.trim();
+    if (!$("codex-send").disabled && question) sendDiscussionTurn(question);
+  });
+  TriaGraph.setObjectFocusHandler(object => {
+    if ($("codex-send").disabled) return false;
+    sendDiscussionTurn("Review the selected Object and its relevance to the analysis.", object);
+    return true;
   });
   for (const id of ["scenario", "entity", "dataset"]) {
-    $(id).addEventListener("change", () => { if (!pending) getContext(); });
+    $(id)?.addEventListener("change", () => { if (!pending) getContext(); });
   }
   document.addEventListener("tria-analysis-loaded", getContext);
   getContext();
