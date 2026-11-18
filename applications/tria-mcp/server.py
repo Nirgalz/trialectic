@@ -1,7 +1,9 @@
 """Read-only trIA MCP server (stdio, Python standard library only).
 
-Exposes a fixed allowlist of public Method references and assembled JSON schemas.
-It does not accept Analysis documents, change files, run models, or make requests.
+Exposes public Method references, assembled schemas and optional, explicitly
+approved local Analysis snapshots. The optional --enable-panel flag exposes a
+synthetic Cytoscape MCP Apps conversation panel. The server never changes user
+Analysis files, runs language models or makes external AI requests.
 Supports MCP 2026-07-28 and the 2025-11-25 initialization protocol.
 """
 import argparse
