@@ -30,6 +30,7 @@
   let docLabel = "";
   let selected = null;
   let cy = null;
+  let graphResizeObserver = null;
   let layoutIsGrid = false;
 
   function status(message, error = false) {
@@ -419,6 +420,7 @@
       graphStatus("Erreur : bibliothèque Cytoscape.js indisponible.");
       return;
     }
+    if (graphResizeObserver) graphResizeObserver.disconnect();
     if (cy) cy.destroy();
     const elements = graphElements();
     cy = cytoscape({
@@ -442,8 +444,8 @@
     graphStatus("Carte interactive, en lecture seule · " + elements.length + " éléments.");
     if (typeof ResizeObserver !== "undefined") {
       const parent = $("cy");
-      const observer = new ResizeObserver(() => { if (cy && cy.container() === parent) cy.resize(); else observer.disconnect(); });
-      observer.observe(parent);
+      graphResizeObserver = new ResizeObserver(() => { if (cy && cy.container() === parent) cy.resize(); });
+      graphResizeObserver.observe(parent);
     }
     requestAnimationFrame(() => { cy?.resize(); cy?.fit(undefined, 34); });
   }
