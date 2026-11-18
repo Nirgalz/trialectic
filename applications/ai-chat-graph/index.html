@@ -8,6 +8,7 @@
   <title>trIA · Discussion et carte Cytoscape</title>
   <link rel="stylesheet" href="./style.css">
   <script defer src="../triad-graph/cytoscape.min.js"></script>
+  <script defer src="./map-protocol.js"></script>
   <script defer src="./app.js"></script>
 </head>
 <body>
@@ -69,11 +70,21 @@
           <p>Sélectionne un fournisseur, saisis ta clé et envoie un message. Pour soumettre une partie de la carte à l'IA, sélectionne un objet puis active « Joindre le contexte ».</p>
         </div>
       </div>
+      <section id="proposal-panel" class="proposal-panel" aria-label="Propositions de l'IA pour la carte" hidden>
+        <div class="proposal-heading"><strong>Propositions cartographiques à examiner</strong><span id="proposal-count"></span></div>
+        <p>Ces suggestions de l'IA ne sont pas des faits validés et ne modifient pas l'Analysis source.</p>
+        <pre id="proposal-detail" class="proposal-detail"></pre>
+        <div class="button-row">
+          <button type="button" class="primary" id="proposal-accept">Ajouter à la carte (provisoire)</button>
+          <button type="button" id="proposal-reject">Rejeter</button>
+        </div>
+      </section>
       <div class="chat-compose">
         <div class="context-row">
           <label class="checkline"><input type="checkbox" id="include-graph"> Joindre le contexte de l'objet sélectionné</label>
           <span id="context-indicator">Aucun objet sélectionné</span>
         </div>
+        <div class="reference-line"><a href="../../reference/tria-ai-instructions.md" target="_blank" rel="noopener noreferrer">Instructions de la Méthode trIA ↗</a><span id="method-state" role="status">Chargement…</span></div>
         <div id="status" class="status" role="status" aria-live="polite">Prêt · aucun appel API effectué</div>
         <form id="chat-form">
           <label for="prompt" class="sr-only">Message à l'IA</label>
@@ -95,6 +106,7 @@
           <button type="button" id="graph-import">Importer JSON</button>
           <input id="graph-file" type="file" accept=".json,application/json" hidden>
           <button type="button" id="graph-reset">Exemple initial</button>
+          <button type="button" id="overlay-clear" title="Effacer uniquement les propositions ajoutées à la carte">Retirer propositions</button>
         </div>
       </div>
       <div class="graph-toolbar">
@@ -103,6 +115,7 @@
           <span><i class="dot dot-can"></i>CAN</span>
           <span><i class="dot dot-need"></i>NEED</span>
           <span><i class="dot dot-other"></i>Autres objets</span>
+          <span><i class="dot dot-proposed"></i>Propositions IA</span>
         </div>
         <div class="button-row graph-tools">
           <button type="button" id="graph-zoom-in" title="Zoom avant" aria-label="Zoom avant">＋</button>
@@ -121,7 +134,7 @@
       </div>
     </section>
   </main>
-  <footer class="site-footer">Prototype sans serveur applicatif · La carte présente des enregistrements, pas des faits validés ni des Actualisations automatiques. <span id="graph-status" role="status">Initialisation…</span></footer>
+  <footer class="site-footer">Prototype sans serveur applicatif · Les ajouts IA sont des propositions temporaires et non des enregistrements validés. <span id="graph-status" role="status">Initialisation…</span></footer>
 </div>
 </body>
 </html>
