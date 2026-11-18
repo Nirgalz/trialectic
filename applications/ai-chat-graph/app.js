@@ -184,6 +184,94 @@
     if (!text) throw new Error("Claude n'a pas renvoyé de texte (arrêt : " + (data.stop_reason || "inconnu") + ").");
     return text;
   }
+
+  async function loadMethodInstructions() {
+    try {
+      const response = await fetch("../../reference/tria-ai-instructions.md", { cache: "no-store" });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const source = await response.text();
+      if (!source.includes("tria-map-response-v1") || !source.includes("Méthode trialectique"))
+        throw new Error("Le contenu du référentiel ne correspond pas au protocole attendu.");
+      methodInstructions = source;
+      methodLoadError = "";
+      $("method-state").textContent = "Référentiel chargé · " + source.length + " caractères";
+    } catch (error) {
+      methodInstructions = "";
+      methodLoadError = String(error.message || error);
+      $("method-state").textContent = "Référentiel indisponible";
+      status("Impossible de charger les instructions de la Méthode : " + methodLoadError, true);
+    }
+  }
+  function resetProposals() {
+    pendingProposal = null;
+    acceptedOverlay = { objects: [], relations: [] };
+    $("proposal-panel").hidden = true;
+    $("proposal-detail").textContent = "";
+  }
+  function showPendingProposal() {
+    const panel = $("proposal-panel");
+    panel.hidden = !pendingProposal;
+    if (!pendingProposal) return;
+    const patch = pendingProposal.patch;
+    $("proposal-count").textContent = patch.objects.length + " objets · " + patch.relations.length + " relations";
+    const details = [
+      "Fournisseur : " + pendingProposal.provider,
+      "ANALYSE : " + pendingProposal.analysisId,
+      "NOUVEAUX OBJETS :",
+      ...patch.objects.map(o => "• " + o.id + " · " + o.label + "\n  " + o.justification),
+      "NOUVELLES RELATIONS :",
+      ...patch.relations.map(r => "• " + r.id + " [" + r.type + "] " + r.origin_object_id + " → " + r.represented_object_id + "\n  " + r.description + "\n  " + r.justification)
+    ];
+    $("proposal-detail").textContent = details.join("\n");
+  }
+  function acceptProposal() {
+    if (!pendingProposal || !doc) return;
+    if (pendingProposal.revision !== graphRevision || pendingProposal.analysisId !== doc.analysis_id) {
+      pendingProposal = null;
+      showPendingProposal();
+      status("Proposition devenue incompatible avec la carte courante : refusée.", true);
+      return;
+    }
+    try {
+      // Revalidate immediately before modification, including previously accepted IDs.
+      const source = { schema: "tria-map-response-v1", analysis_id: doc.analysis_id,
+        answer: "Proposition locale confirmée pour affichage.", map_patch: pendingProposal.patch };
+      TriaMapProtocol.validate(doc, source, acceptedOverlay);
+      acceptedOverlay.objects.push(...pendingProposal.patch.objects);
+      acceptedOverlay.relations.push(...pendingProposal.patch.relations);
+      pendingProposal = null;
+      showPendingProposal();
+      showGraph();
+      status("Propositions ajoutées à la carte en surcouche provisoire. L'Analysis source reste intacte.");
+    } catch (error) {
+      status(String(error.message || error), true);
+    }
+  }
+  function rejectProposal() {
+    if (!pendingProposal) return;
+    pendingProposal = null;
+    showPendingProposal();
+    status("Proposition cartographique rejetée ; aucune modification de la carte.");
+  }
+  function clearOverlay() {
+    resetProposals();
+    if (doc) showGraph();
+    status("Surcouche de propositions effacée. Les données de référence n'ont pas changé.");
+  }
+  function allObjects() {
+    return doc.objects.concat(acceptedOverlay.objects.map(o => ({ ...o, proposed: true })));
+  }
+  function allRelations() {
+    return doc.relations.concat(acceptedOverlay.relations.map(r => ({
+      id: r.id, version: "candidate", type: r.type, proposed: true,
+      origin_object: { id: r.origin_object_id },
+      represented_object: { id: r.represented_object_id },
+      CANs: r.can_object_ids.map(id => ({ id })),
+      NEEDs: r.need_object_ids.map(id => ({ id })),
+      description: r.description, justification: r.justification, relation: { links: [] }
+    })));
+  }
+
   function buildContext() {
     if (!$("include-graph").checked || !doc || !selected) return null;
     const main = doc.objects.find(item => item.id === doc.main_subject?.id);
