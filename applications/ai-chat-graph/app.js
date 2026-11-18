@@ -210,20 +210,29 @@
   }
 
   async function loadMethodInstructions() {
+    // The behavioral prompt and UI response contract have different owners.
+    // Preserve the existing first-turn payload: send both together only once.
     try {
-      const response = await fetch("../../reference/tria-ai-instructions.md", { cache: "no-store" });
-      if (!response.ok) throw new Error("HTTP " + response.status);
-      const source = await response.text();
-      if (!source.includes("tria-map-response-v2") || !source.includes("Trialectic Method"))
-        throw new Error("Le contenu du référentiel ne correspond pas au protocole attendu.");
-      methodInstructions = source;
+      const paths = [
+        "../../reference/tria-ai-instructions.md",
+        "../../protocols/tria/map-response-contract.md"
+      ];
+      const responses = await Promise.all(paths.map(path => fetch(path, { cache: "no-store" })));
+      for (let i = 0; i < responses.length; i++) {
+        if (!responses[i].ok) throw new Error("HTTP " + responses[i].status + " : " + paths[i]);
+      }
+      const [behavior, transport] = await Promise.all(responses.map(response => response.text()));
+      if (!behavior.includes("Trialectic Method") || !transport.includes("tria-map-response-v2") ||
+          !transport.includes("map_patch") || !transport.includes("tria_instruction_check"))
+        throw new Error("Les instructions trIA et leur contrat de réponse sont incompatibles.");
+      methodInstructions = behavior + "\n\n" + transport;
       methodLoadError = "";
-      $("method-state").textContent = "Référentiel chargé · " + source.length + " caractères";
+      $("method-state").textContent = "Instructions trIA chargées · " + methodInstructions.length + " caractères";
     } catch (error) {
       methodInstructions = "";
       methodLoadError = String(error.message || error);
-      $("method-state").textContent = "Référentiel indisponible";
-      status("Impossible de charger les instructions de la Méthode : " + methodLoadError, true);
+      $("method-state").textContent = "Instructions trIA indisponibles";
+      status("Impossible de charger les instructions trIA et leur contrat : " + methodLoadError, true);
     }
   }
   function resetProposals() {
