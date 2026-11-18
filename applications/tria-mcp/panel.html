@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>trIA — Carte des Objets</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--fg:#1e293b;--muted:#64748b;--line:#cbd5e1;--panel:#f1f5f9;--blue:#2563eb}
+@media(prefers-color-scheme:dark){:root{--bg:#161b22;--fg:#e2e8f0;--muted:#94a3b8;--line:#475569;--panel:#222b36;--blue:#60a5fa}}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+h1{font-size:17px;margin:0}h2{font-size:14px;margin:12px 0 6px}
+small,.muted{color:var(--muted)}.tag{font-size:11px;border:1px solid var(--line);border-radius:20px;padding:3px 7px;white-space:nowrap}
+#graph{height:min(48vh,360px);min-height:210px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.detail{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px}
+.detail p{margin:4px 0}.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:10px 12px;border-radius:8px;font:inherit;cursor:pointer}
+button.primary{background:#2563eb;color:#fff;border-color:#2563eb}
+button:disabled{opacity:.55;cursor:not-allowed}
+button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+#status{margin-top:12px;color:var(--muted);font-size:12px;min-height:18px}
+.notice{margin-top:10px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>trIA · Focus</h1><span class="tag">Démonstration synthétique</span></header>
+<div id="graph" role="img" aria-label="Carte interactive de trois Objets et deux relations hypothétiques"></div>
+<div class="detail">
+  <div class="label">Focus de navigation</div>
+  <h2 id="focus-title">Association</h2>
+  <p id="focus-desc">Sélectionne un Objet pour examiner ses relations.</p>
+  <p class="muted" id="focus-id"></p>
+</div>
+<div class="controls">
+  <button id="investigate" class="primary" disabled>Approfondir ce Focus dans ChatGPT</button>
+  <button id="copy">Copier la demande</button>
+  <button id="reset">Recentrer</button>
+</div>
+<div id="status" role="status">Initialisation de la carte…</div>
+<p class="notice">Cliquer sur un Objet change uniquement le Focus de navigation. Les liens sont hypothétiques. Aucun CAN ni aucune révision de l'analyse n'est validé ou enregistré.</p>
+<script>
+/*__TRIA_CYTOSCAPE__*/
+</script>
+<script>
+(function(){
+"use strict";
+const byId={
+ "O-association":{label:"Association",kind:"Groupe",description:"Organisation qui souhaite créer un lieu partagé."},
+ "O-mairie":{label:"Mairie",kind:"Institution / système",description:"Institution susceptible de mettre un local à disposition."},
+ "O-habitants":{label:"Habitants",kind:"Groupe",description:"Personnes susceptibles de participer à l'usage et à l'organisation du lieu."}
+};
+const status=document.getElementById("status");
+const title=document.getElementById("focus-title");
+const desc=document.getElementById("focus-desc");
+const focusId=document.getElementById("focus-id");
+const investigate=document.getElementById("investigate");
+let focus="O-association", connected=false, hostCaps={};
+let nextId=1;
+const pending=new Map();
+function request(method,params){
+  if(window.parent===window)return Promise.reject(new Error("Aucun hôte MCP Apps"));
+  return new Promise((resolve,reject)=>{
+    const id=nextId++;
+    const timeout=setTimeout(()=>{pending.delete(id);reject(new Error("L'hôte ne répond pas"));},12000);
+    pending.set(id,{resolve,reject,timeout});
+    window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");
+  });
+}
+function notify(method,params){
+  if(window.parent!==window)window.parent.postMessage({jsonrpc:"2.0",method,params:params||{}},"*");
+}
+window.addEventListener("message",(event)=>{
+  if(event.source!==window.parent)return;
+  const m=event.data;
+  if(!m||m.jsonrpc!=="2.0")return;
+  if(Object.prototype.hasOwnProperty.call(m,"id")&&pending.has(m.id)){
+    const p=pending.get(m.id);pending.delete(m.id);clearTimeout(p.timeout);
+    if(m.error)p.reject(new Error(String(m.error.message||"Erreur MCP")));
+    else p.resolve(m.result);
+  }
+  if(m.method==="ui/notifications/tool-result"){
+    // This first prototype deliberately does not apply arbitrary tool results.
+    status.textContent="Résultat reçu ; aucune modification automatique de la carte.";
+  }
+});
+function prompt(){
+  const item=byId[focus];
+  return "trIA — Approfondir le Focus de navigation : "+item.label+" ("+focus+").\n"+
+    "Scénario FICTIF : une association souhaite créer un lieu partagé avec l'appui éventuel d'une mairie et la participation possible d'habitants.\n"+
+    "Description de l'Objet : "+item.description+"\n"+
+    "Applique les phases pertinentes de la Méthode trialectique. Identifie les données fournies, les hypothèses, les inconnues, des NEEDs et CANs candidats, leurs conditions et les relations pertinentes pour l'Objet et le problème global. "+
+    "Propose des enrichissements structurés à soumettre à l'analyste ; n'applique ni n'approuve aucune modification sans validation explicite. "+
+    "Ne confonds pas le Focus de navigation et le Focus typé d'une évaluation du Pouvoir.";
+}
+async function publishContext(){
+  if(!connected)return;
+  try{
+    await request("ui/update-model-context",{
+      content:[{type:"text",text:"trIA : Focus de navigation = "+byId[focus].label+" ("+focus+"). Démonstration fictive ; aucune révision approuvée."}],
+      structuredContent:{source:"synthetic-demo",navigation_focus:focus,analysis_modified:false}
+    });
+  }catch(e){status.textContent="Focus local sélectionné ; synchronisation du contexte non disponible : "+e.message;}
+}
+function select(id){
+  if(!byId[id])return;
+  focus=id;
+  title.textContent=byId[id].label;
+  desc.textContent=byId[id].description;
+  focusId.textContent=id+" · "+byId[id].kind;
+  if(window.triaCy){
+    window.triaCy.nodes().removeClass("focused");
+    window.triaCy.getElementById(id).addClass("focused");
+  }
+  publishContext();
+}
+if(typeof window.cytoscape==="function"){
+  const cy=window.cytoscape({
+    container:document.getElementById("graph"),
+    elements:[
+      {data:{id:"O-association",label:"Association"},position:{x:140,y:75}},
+      {data:{id:"O-mairie",label:"Mairie"},position:{x:55,y:210}},
+      {data:{id:"O-habitants",label:"Habitants"},position:{x:225,y:210}},
+      {data:{id:"relation-1",source:"O-association",target:"O-mairie"}},
+      {data:{id:"relation-2",source:"O-association",target:"O-habitants"}}
+    ],
+    layout:{name:"preset",fit:true,padding:25},
+    style:[
+      {selector:"node",style:{label:"data(label)","background-color":"#64748b",color:"#ffffff","text-valign":"center","text-halign":"center","font-size":12,"text-wrap":"wrap",width:90,height:43,shape:"round-rectangle"}},
+      {selector:"node.focused",style:{"background-color":"#2563eb","border-width":2,"border-color":"#93c5fd"}},
+      {selector:"edge",style:{"line-style":"dashed","line-color":"#94a3b8",width:2,"curve-style":"bezier"}}
+    ]
+  });
+  window.triaCy=cy;
+  cy.on("tap","node",(event)=>select(event.target.id()));
+  document.getElementById("reset").onclick=()=>cy.fit(undefined,25);
+  select(focus);
+  status.textContent="Carte prête · vérification de la connexion ChatGPT…";
+}else{
+  status.textContent="Cytoscape indisponible. Vérifier la ressource HTML fournie par le serveur.";
+}
+document.getElementById("copy").onclick=async()=>{
+  try{await navigator.clipboard.writeText(prompt());status.textContent="Demande copiée ; colle-la dans la conversation.";}
+  catch(e){status.textContent="Copie indisponible : "+e.message;}
+};
+investigate.onclick=async()=>{
+  investigate.disabled=true;
+  try{
+    // Explicit user action: never create a new model turn on node selection alone.
+    await request("ui/message",{role:"user",content:{type:"text",text:prompt()}});
+    status.textContent="Demande transmise à la conversation. La carte reste inchangée.";
+  }catch(e){status.textContent="Envoi impossible : "+e.message;}
+  finally{investigate.disabled=!connected;}
+};
+async function connect(){
+  if(window.parent===window){status.textContent="Carte autonome : aucune conversation ChatGPT connectée.";return;}
+  try{
+    const result=await request("ui/initialize",{
+      appInfo:{name:"tria-focus-panel",version:"0.1.0"},
+      appCapabilities:{availableDisplayModes:["inline"]}
+    });
+    hostCaps=result&&result.hostCapabilities||{};
+    notify("ui/notifications/initialized");
+    connected=true;
+    investigate.disabled=false;
+    status.textContent="Connecté au client MCP Apps. Sélectionne un Objet puis clique sur Approfondir.";
+    publishContext();
+  }catch(e){status.textContent="Carte prête, mais le canal MCP Apps n'est pas disponible : "+e.message;}
+}
+connect();
+})();
+</script>
+</body>
+</html>
