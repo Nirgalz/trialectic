@@ -142,3 +142,9 @@ button.primary { color:#09241d; background:var(--accent); border-color:var(--acc
 @media(max-width:510px){.proposal-panel{padding:10px 12px;max-height:215px}}
 
 .context-disclosure{margin:0 0 8px;font-size:10px;color:var(--muted);line-height:1.4}
+
+
+/* The compliance flag is an AI self-report, never independent verification. */
+.tria-error { margin:12px 0; border:1px solid #ad655b; border-left:4px solid #e6a097;
+  background:#372325; color:#ffd2c9; padding:10px 12px; border-radius:8px; font-size:12px; }
+.message-meta { overflow-wrap:anywhere; }
