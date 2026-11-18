@@ -1,19 +1,13 @@
 # PowerEvaluation — validated conceptual data model
 
-**Current serialization authority — D-77/D-78, November 16, 2026:** The
-[global Analysis model and Scenario Results v2](../schemas/global-model.md) are now
-**normative, adopted under the author's explicit instruction**. Use
-[Analysis v2](../schemas/model/analysis.json) and
-[PowerEvaluation v2](../schemas/model/power-evaluation.json). All root keys,
-record-family contracts and nested Scenario fields are specified there; the five
-Scenario dimensions stay independent and no winner or aggregate score is required.
-D-75's separate Object/relation identities and D-76's reconciliation remain in force.
-Earlier statements below that the global envelope or Scenario serialization is OPEN
-are superseded for v2; v0/v1 remain historical profiles. Complete semantic/reference,
-lifecycle, temporal and causal algorithms and empirical validation are still separate
-work, not guarantees provided by these structural contracts.
-
-
+**Scope and source-of-truth boundary:** This companion explains the approved
+conceptual distinctions of PowerEvaluation; it is not an independently
+maintained serialization contract. The adopted v2 Analysis and
+PowerEvaluation shapes are defined in
+[schemas/global-model.md](../schemas/global-model.md) and
+[schemas/model/](../schemas/model/README.md). Semantic, causal and empirical
+evaluation remain separate from schema validation. Historical OPEN statements
+about the v2 exchange shape are superseded by D-77/D-78.
 
 **Status:** **VALIDATED by author — November 16, 2026 (D-64)**, consolidating D-48–D-63.  
 **Branch:** `dev`.  
