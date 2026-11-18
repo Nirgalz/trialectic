@@ -1,4 +1,4 @@
-"""Loopback trIAd server with local Work request/response files; no AI API calls."""
+"""Loopback trIAd server with read-only Codex CLI and Work file bridge; no API keys."""
 import json
 import copy
 import sys
@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT.parents[1] / '.test-deps'))
 from tools.validate_analysis import validator
 from tools.validate_semantics import validate_semantics
 from work_bridge import create_request, request_status, WorkBridgeError
+from codex_bridge import CodexBridgeError, run_turn as run_codex_turn, status as codex_status
 
 CHECK = validator()
 ALLOWED_HOSTS = {'127.0.0.1:8765', 'localhost:8765'}
@@ -99,6 +100,8 @@ class Handler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(content)
             return
+        if path == '/api/codex/status':
+            return self.reply(codex_status())
         if path.startswith('/api/work/status/'):
             try:
                 return self.reply(request_status(path.removeprefix('/api/work/status/')))
@@ -115,7 +118,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if not self.trusted_request():
             return
-        if self.path not in ('/api/validate', '/api/work/request'):
+        if self.path not in ('/api/validate', '/api/work/request', '/api/codex/turn'):
             return self.reply({'error': 'Unknown endpoint'}, 404)
         if self.headers.get('Content-Type', '').split(';')[0].strip() != 'application/json':
             return self.reply({'error': 'JSON content type required'}, 415)
@@ -133,10 +136,14 @@ class Handler(SimpleHTTPRequestHandler):
             detected = validate(doc)
             if any(x.get('severity') == 'error' for x in detected):
                 return self.reply({'error': 'Document Analysis invalide.'}, 400)
+            if self.path == '/api/codex/turn':
+                return self.reply(run_codex_turn(body))
             queued = create_request(doc, body.get('action'), body.get('focus_id'),
                                     body.get('map_mode'), body.get('note', ''))
             return self.reply(queued, 201)
         except WorkBridgeError as exc:
+            return self.reply({'error': str(exc)}, exc.status)
+        except CodexBridgeError as exc:
             return self.reply({'error': str(exc)}, exc.status)
         except (ValueError, TypeError, KeyError):
             return self.reply({'error': 'Requête JSON invalide.'}, 400)

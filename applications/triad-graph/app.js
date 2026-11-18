@@ -562,6 +562,17 @@ function refreshProposalOverlay(){
   // they never enter the source Analysis or effective-event history.
   if(visualBefore)viewTransitions.play(visualBefore,viewTransitions.capture(cy));
 }
+function stageCandidateEnvelope(envelope){
+ if(!documentModel)throw Error('Aucune Analysis chargée.');
+ TriaMapProtocol.validate(documentModel,envelope,acceptedOverlay);
+ if(!envelope.map_patch.objects.length&&!envelope.map_patch.relations.length)
+  throw Error('Aucune proposition à afficher.');
+ acceptedOverlay.objects.push(...envelope.map_patch.objects);
+ acceptedOverlay.relations.push(...envelope.map_patch.relations);
+ $('clear-proposals').disabled=false;
+ refreshProposalOverlay();
+}
+window.triaStageCandidateEnvelope=stageCandidateEnvelope;
 $('import-proposals').onclick=()=>$('proposals-file').click();
 $('proposals-file').onchange=async()=>{
  try {
@@ -570,13 +581,7 @@ $('proposals-file').onchange=async()=>{
   if(file.size>200000)throw Error('Fichier de propositions supérieur à 200 Ko.');
   if(!documentModel)throw Error('Importer une Analysis avant ses propositions.');
   const envelope=JSON.parse(await file.text());
-  TriaMapProtocol.validate(documentModel,envelope,acceptedOverlay);
-  if(!envelope.map_patch.objects.length&&!envelope.map_patch.relations.length)
-   throw Error('Aucune proposition à afficher.');
-  acceptedOverlay.objects.push(...envelope.map_patch.objects);
-  acceptedOverlay.relations.push(...envelope.map_patch.relations);
-  $('clear-proposals').disabled=false;
-  refreshProposalOverlay();
+  stageCandidateEnvelope(envelope);
   $('status').textContent='Propositions IA importées pour inspection uniquement. Ni l’Analysis ni les évaluations n’ont été modifiées.';
  } catch(e){
   $('status').textContent='Import des propositions refusé : '+String(e.message||e);

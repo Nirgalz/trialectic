@@ -17,6 +17,23 @@ The map can import temporary `tria-map-response-v2` JSON proposals via
 **Importer propositions IA** and discard them via **Retirer propositions**.
 These candidates are non-normative and never change the source Analysis.
 
+## Codex local development cycle — no API key
+
+With `codex` installed and signed into a **ChatGPT account** using
+`codex login`, start `python applications/triad-graph/server.py` and open
+`http://127.0.0.1:8765`. The **Cycle trIA avec Codex** panel sends
+Analyst-controlled Comprendre / Explorer / Décider turns to the local
+Codex CLI using `codex exec` in read-only mode. Recent in-page dialogue
+history is included with each new turn. It does not access or synchronize
+this existing ChatGPT Web conversation.
+
+Codex uses its own ChatGPT-plan authentication and limits, not a direct
+OpenAI API key. Codex can transmit supplied Analysis content to its model.
+Candidates require explicit user approval before display and the normal
+contextual map checks. No Analysis files or normative Scenarios are modified.
+
+See [local workspace guide](../../docs/local-codex-workspace.md).
+
 ## Invocation convention (D-90)
 
 `use trIA-c` invokes standard trIA with this interactive Cytoscape presentation.

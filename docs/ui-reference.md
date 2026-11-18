@@ -50,6 +50,14 @@ Focus is not `PowerEvaluation.Focus`.
    proportionate checks for material risks; do not create regression tests by
    default while contracts are still exploratory.
 
+## Local Codex cycle (exploratory)
+
+The same animated reference map includes a local dialogue bridge for the
+Comprendre → Explorer → Décider cycle, authenticated through Codex CLI
+with the ChatGPT account (not an API key).
+See [local workspace instructions](local-codex-workspace.md).
+This does not synchronize chatgpt.com and the local UI.
+
 ## Future host adapters
 
 - The current Work Local exchange is deliberately manual.
