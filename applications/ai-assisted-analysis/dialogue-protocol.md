@@ -54,7 +54,7 @@ Specify an **approved portable dialogue design**, suitable for adaptation into a
 
 The goals are (a) understanding complex systems and their interdependencies, (b) comparing materially distinct Resolution Scenarios and their consequences, and (c) helping the user progressively learn to reason about complex systems themselves. The AI assists analysis; it must not substitute an unwarranted claim of authority for the user's judgment. The approved protocol is a set of **requirements to implement and evaluate**, not a verified product or an empirical success claim.
 
-**Design separation:** the canonical Method defines the analytical concepts and validated distinctions; this protocol specifies the approved user–AI interaction; optional UI components present or manipulate the results. Presentation depth is not a separate simplified analytical Method. **Advanced Mode remains the default**; Simple Mode remains deferred.
+**Design separation:** the canonical Method defines the analytical concepts and validated distinctions; this protocol specifies the approved user–AI interaction; optional UI components present or manipulate the results. The experimental [map-response transport contract](../../protocols/tria/map-response-contract.md) concerns only an individual browser client's response envelope; it is not an additional approved dialogue requirement. Presentation depth is not a separate simplified analytical Method. **Advanced Mode remains the default**; Simple Mode remains deferred.
 
 ## 2. Invariants inherited from the canonical Method
 
