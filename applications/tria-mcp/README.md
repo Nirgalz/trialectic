@@ -72,8 +72,14 @@ handshake. Only clicking **Approfondir ce Focus dans ChatGPT** explicitly sends
 a `ui/message` request. This request asks for a qualified investigation,
 preserving the distinction between the navigation Focus and a typed
 PowerEvaluation Focus. **No response is automatically applied to the graph**.
-No user Analysis file is required or read for this demonstration. The existing
-six MCP tools and eight public resources are unchanged.
+The **Simuler un CAN candidat** button adds a visually distinct, hypothetical
+CAN to the same graph, and **Effacer la proposition** removes it. This tests
+preview/reversal only, not an LLM-produced update. A well-formed
+`tria-candidate-preview` result can also be staged by the panel's
+`ui/notifications/tool-result` handler; ordinary ChatGPT replies are **not**
+currently connected to that handler. No user Analysis file is required or read
+for this demonstration. The existing six MCP tools and eight public resources
+are unchanged.
 
 The panel communicates over MCP Apps `postMessage` and requires a **compatible
 MCP Apps host** with the server correctly installed/connected. It cannot
