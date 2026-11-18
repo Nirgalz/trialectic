@@ -190,7 +190,7 @@
       const response = await fetch("../../reference/tria-ai-instructions.md", { cache: "no-store" });
       if (!response.ok) throw new Error("HTTP " + response.status);
       const source = await response.text();
-      if (!source.includes("tria-map-response-v1") || !source.includes("Méthode trialectique"))
+      if (!source.includes("tria-map-response-v1") || !source.includes("Trialectic Method"))
         throw new Error("Le contenu du référentiel ne correspond pas au protocole attendu.");
       methodInstructions = source;
       methodLoadError = "";
