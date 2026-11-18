@@ -5,13 +5,17 @@ Run: python tools/validate_analysis.py DOCUMENT [--evaluation]
 """
 import argparse
 import json
+import sys
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+# Direct invocation via `python tools/validate_analysis.py` omits the repo root.
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.schema_loader import assemble_schemas
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
-
-ROOT = Path(__file__).resolve().parents[1]
-
 
 MODEL = ROOT / "schemas" / "model"
 
@@ -21,20 +25,7 @@ def read(path):
 
 
 def load_schemas():
-    analysis = read(MODEL / "analysis.json")
-    evaluation = read(MODEL / "power-evaluation.json")
-    evaluation["properties"].update(read(MODEL / "evaluation-context.json"))
-    analysis_defs = {}
-    evaluation_defs = {}
-    for path in sorted((MODEL / "types").rglob("*.json")):
-        target = evaluation_defs if path.parent.name == "evaluation" else analysis_defs
-        for key, value in read(path).items():
-            if key in target:
-                raise ValueError(f"Duplicate definition {key} in {path}")
-            target[key] = value
-    analysis["$defs"] = analysis_defs
-    evaluation["$defs"] = evaluation_defs
-    return analysis, evaluation
+    return assemble_schemas(MODEL, read)
 
 
 def validator(evaluation=False):
