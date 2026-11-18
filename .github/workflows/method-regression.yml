@@ -28,6 +28,10 @@ jobs:
         run: python -m compileall -q tests tools core
       - name: Run normative schema and reference regression tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Check experimental trIA map proposal transport
+        run: node applications/ai-chat-graph/test-map-protocol.cjs
+      - name: Check multi-provider first-turn instructions and sessions (mock API)
+        run: node applications/ai-chat-graph/test-ai-session.cjs
       - name: Check approved interactive prototype
         run: python applications/triad-graph/test_prototype.py
       - name: Check graph hierarchy constraints
