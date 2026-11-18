@@ -68,7 +68,7 @@
   }
   function setPending(value) {
     pending = value;
-    ["provider", "model", "api-key", "chat-reset", "chat-export", "show-key"].forEach(id => $(id).disabled = value);
+    ["provider", "model", "api-key", "chat-reset", "chat-export", "show-key", "graph-reset", "graph-import", "overlay-clear"].forEach(id => $(id).disabled = value);
     $("send-message").disabled = value;
     $("cancel-request").hidden = !value;
   }
@@ -136,7 +136,7 @@
     const data = await apiCall(
       "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(model) + ":generateContent",
       { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      { systemInstruction: { parts: [{ text: method }] }, contents: turns.map(turn => ({
+      { systemInstruction: { parts: [{ text: method }] }, generationConfig: { responseMimeType: "application/json" }, contents: turns.map(turn => ({
         role: turn.role === "assistant" ? "model" : "user",
         parts: [{ text: turn.text }]
       })) },
@@ -338,6 +338,7 @@
     const prior = apiHistory();
     const turns = prior.concat([{ role: "user", text: messageText }]);
     const providerAtSend = provider;
+    const graphRevisionAtSend = graphRevision;
     const userRecord = { role: "user", text: messageText, visible: prompt, contextLabel: context?.label || "" };
     const history = conversations.get(providerAtSend);
     const original = $("prompt").value;
@@ -355,7 +356,9 @@
       if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal, methodInstructions);
       else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal, methodInstructions);
       else answer = await sendToClaude(apiKey, model, turns, activeController.signal, methodInstructions);
-      const result = TriaMapProtocol.interpret(answer, doc, acceptedOverlay);
+      const result = graphRevisionAtSend === graphRevision
+        ? TriaMapProtocol.interpret(answer, doc, acceptedOverlay)
+        : { kind: "invalid", answer, patch: null, error: "La carte a changé pendant la requête : résultat cartographique écarté." };
       history.push(userRecord, { role: "assistant", text: answer, visible: result.answer, structured: result.kind });
       messageNode({ role: "assistant", text: answer, visible: result.answer });
       if (result.kind === "structured" && result.count > 0) {
@@ -580,6 +583,8 @@
   function validateDocument(candidate) {
     if (!candidate || typeof candidate !== "object" || !Array.isArray(candidate.objects) || !Array.isArray(candidate.relations))
       throw new Error("Le JSON doit être un document Analysis contenant objects[] et relations[].");
+    if (typeof candidate.analysis_id !== "string" || !candidate.analysis_id.trim() || candidate.analysis_id.length > 120)
+      throw new Error("Identifiant analysis_id manquant ou incorrect.");
     if (!candidate.objects.length || candidate.objects.length > 500 || candidate.relations.length > 1500)
       throw new Error("Limites de visualisation : 1 à 500 objets, 1500 relations maximum.");
     const objectIds = new Set();
