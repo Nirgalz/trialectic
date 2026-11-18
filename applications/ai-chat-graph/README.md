@@ -16,7 +16,8 @@ assessment is changed by this acceptance.
 | [map-response contract](../../protocols/tria/map-response-contract.md) | Experimental `tria-map-response-v2` response instructions |
 | [JSON Schema](../../schemas/transport/tria-map-response-v2.schema.json) | Context-free local shape of the experimental response |
 | [map-protocol.js](map-protocol.js) | Browser transport validation, source/overlay references, provisional constraints and turn-specific acknowledgement |
-| [app.js](app.js) | Browser UI state, OpenAI/Claude requests, first-turn prompt assembly and graph view |
+| [app.js](app.js) | Browser UI state, OpenAI/Claude requests, first-turn prompt assembly and graph interactions |
+| [graph-projection.js](graph-projection.js) | Pure conversion of the active Objects, relations and provisional overlay into Cytoscape elements; no Method or UI state |
 | [shared Gemini client](../shared/gemini-client.js) | Browser-only Gemini HTTP request/response transport reused by both chat prototypes, without conversation or Method state |
 | [normative Analysis schema](../../schemas/model/analysis.json) | **Different** contract for versioned Analysis documents |
 
