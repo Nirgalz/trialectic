@@ -49,8 +49,42 @@ This is an **operational collaboration convention**, not a new conceptual rule o
 - **Read only when necessary:** consult the repository when its exact current content materially affects the response; prefer the smallest set of directly relevant files, and avoid repeating reads when reliable context is already available.
 - **No automatic writes:** discussion, exploratory analysis, tests, and generic acknowledgements such as `ok`, `continue`, or `test it` do **not** authorize GitHub modifications. Require an explicit editing request or approval of a concrete proposal that specifies the intended file changes.
 - **Scoped changes after approval:** work only on the designated branch (use `dev` for development experiments unless otherwise directed), modify only the approved files and preserve unrelated content. Do not add reports, commits or tracking entries for every intermediate conversation.
-- **Relevant verification:** check changed material in proportion to impact; use appropriate tests for technical/model changes, but avoid repeated or unrelated regression runs. Report what was verified and what was not; never equate syntax/schema checks with functional or scientific validation.
+- **Relevant verification:** use the lightest check that addresses a concrete, material risk. Exploratory changes do **not** imply automatic new tests, regression suites, CI checks or repeated repository reads. Preserve targeted safeguards where security, permissions, data loss or interoperability risks make them necessary. Report what was verified and what was not; never equate syntax/schema checks with functional or scientific validation.
 - **Traceability without noise:** identify substantive changes, affected files and resulting commit(s) concisely. Preserve historical decisions and versioned records; do not silently rewrite normative models. New conceptual decisions require explicit author validation.
+
+### Exploration-first development policy (author-approved, 2026-11-18)
+
+This **operational choice for the current exploratory stage** supersedes any implied
+default of systematic regression testing or exhaustive technical documentation.
+It does not remove the existing tests, amend the Method, or certify prototypes.
+
+- **Priority:** explore the coherence of concepts, counterexamples, competing
+  models and architectural alternatives before hardening implementations. The
+  current code and interface behaviors are provisional and may be replaced.
+- **No automatic test creation:** do not introduce unit, integration,
+  non-regression or CI tests merely because code, documentation or a schema
+  has changed. First identify the concrete uncertainty or risk that a test
+  would resolve. Prefer a brief direct check or a targeted experiment when
+  sufficient; defer broad regression coverage until a contract is stabilized.
+- **Proportionate exceptions:** perform a narrowly scoped check when it is
+  materially necessary to avoid an immediate security, permission, data-loss,
+  execution or interoperability failure. Disclose any remaining unverified
+  behavior; do not promise compatibility without evidence.
+- **Conceptual stress tests remain valuable now:** use simulations,
+  contradictions, counterexamples and comparison with alternatives to reveal
+  what the Method should change, not to freeze its current interpretation.
+- **Minimize GitHub overhead:** read only files needed for the decision;
+  group coherent edits, avoid granular commits and successive status checks,
+  and write documentation only when it preserves a substantive decision,
+  clarifies a real boundary or supports immediate work.
+- **Stabilize deliberately later:** when the author judges a conceptual or
+  technical contract sufficiently stable, propose relevant automated tests and
+  regression guarantees **for that contract**, rather than retrofitting tests
+  throughout the exploratory phase.
+
+These principles refine the 2026-11-17 collaboration workflow; its explicit
+authorization requirement, branch scope, historical traceability and epistemic
+safeguards remain in force.
 
 ### Response and closure
 
