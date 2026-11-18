@@ -81,8 +81,8 @@ class MapResponseTransportSchemaTests(unittest.TestCase):
         item = example()
         item["map_patch"]["relations"][0]["origin_object_id"] = "NOT-IN-SOURCE"
         self.check.validate(item)
-        # The contextual JS validator rejects this when used with a real document.
-        self.assertIn("client", self.schema["description"].lower())
+        # Resolving source IDs requires a loaded Analysis; see the separate
+        # Node regression in applications/ai-chat-graph/test-map-protocol.cjs.
 
 
 if __name__ == "__main__":
