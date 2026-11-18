@@ -32,6 +32,11 @@
   let cy = null;
   let graphResizeObserver = null;
   let layoutIsGrid = false;
+  let methodInstructions = "";
+  let methodLoadError = "";
+  let graphRevision = 0;
+  let pendingProposal = null;
+  let acceptedOverlay = { objects: [], relations: [] };
 
   function status(message, error = false) {
     $("status").textContent = message;
@@ -127,11 +132,11 @@
     if (!response.ok) throw new Error(errorText(response.status, data));
     return data;
   }
-  async function sendToGemini(apiKey, model, turns, signal) {
+  async function sendToGemini(apiKey, model, turns, signal, method) {
     const data = await apiCall(
       "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(model) + ":generateContent",
       { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      { contents: turns.map(turn => ({
+      { systemInstruction: { parts: [{ text: method }] }, contents: turns.map(turn => ({
         role: turn.role === "assistant" ? "model" : "user",
         parts: [{ text: turn.text }]
       })) },
@@ -142,11 +147,11 @@
     if (!text) throw new Error("Aucun texte Gemini. Motif : " + (data.candidates?.[0]?.finishReason || data.promptFeedback?.blockReason || "indéterminé"));
     return text;
   }
-  async function sendToOpenAI(apiKey, model, turns, signal) {
+  async function sendToOpenAI(apiKey, model, turns, signal, method) {
     const data = await apiCall(
       "https://api.openai.com/v1/responses",
       { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
-      { model, store: false, input: turns.map(turn => ({
+      { model, store: false, instructions: method, input: turns.map(turn => ({
         role: turn.role, content: turn.text
       })) },
       signal
@@ -158,7 +163,7 @@
     if (!text || !text.trim()) throw new Error("L'API OpenAI a répondu sans texte exploitable (statut : " + (data.status || "inconnu") + ").");
     return text.trim();
   }
-  async function sendToClaude(apiKey, model, turns, signal) {
+  async function sendToClaude(apiKey, model, turns, signal, method) {
     const data = await apiCall(
       "https://api.anthropic.com/v1/messages",
       {
@@ -168,7 +173,7 @@
         "anthropic-dangerous-direct-browser-access": "true"
       },
       {
-        model, max_tokens: 2048,
+        model, max_tokens: 4096, system: method,
         messages: turns.map(turn => ({ role: turn.role, content: turn.text }))
       },
       signal
