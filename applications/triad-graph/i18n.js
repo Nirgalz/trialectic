@@ -1,6 +1,11 @@
 /* UI translations only. Source records, JSON, identifiers and form values stay intact. */
 (function(root){
  const pairs=[
+ ['Jeu d’exemple','Example dataset'],
+ ['Choisir un exemple…','Choose an example…'],
+ ['Charger l’exemple','Load example'],
+ ['Aucune analyse chargée. Choisis un jeu d’exemple ou importe une analyse.','No analysis loaded. Choose an example dataset or import an analysis.'],
+ ['Carte vide','Empty map'],
  ['Échange local avec ChatGPT Work','Local exchange with ChatGPT Work'],
  ['PONT DE FICHIERS LOCAL · SANS API NI MCP','LOCAL FILE BRIDGE · NO API OR MCP'],
  ['Approfondir avec ChatGPT Work','Deepen with ChatGPT Work'],
@@ -132,7 +137,7 @@
  }
  api.setLanguage=lang=>{
   language=lang==='en'?'en':'fr';
-  const url=new URL(location.href);url.searchParams.set('lang',language);history.replaceState(null,'',url);
+  const url=new URL(location.href);url.searchParams.set('lang',language);history.replaceState(history.state,'',url);
   apply();document.dispatchEvent(new CustomEvent('tria-language-changed',{detail:{language}}));
  };
  observer=new MutationObserver(()=>apply());

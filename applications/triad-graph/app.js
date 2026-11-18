@@ -1,10 +1,16 @@
 /* Display projection only. Source Analysis records are never mutated. */
 const $ = id => document.getElementById(id);
+const analysisPanels = document.querySelectorAll('.workspace, #d97-focus, #local-ai, .navigation-experiment, .bottom');
+const mapWorkspace = document.querySelector('.workspace');
+const analysisControls = ['map-depth','scenario','export','import-proposals'];
+analysisPanels.forEach(panel=>{panel.inert=true;});
+analysisControls.forEach(id=>{$(id).disabled=true;});
 let documentModel, cy, view = 'objects', selected = null, issues = [], records = new Map();
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null, scenarioFocus = null;
 let analysisRevision=0;
 let acceptedOverlay={objects:[],relations:[]}; // Propositions graphiques non normatives
+let previewOverlay=null;
 const viewTransitions=TriaViewTransitions.createTransitions(cytoscape,$('cy'));
 const objectTooltip=document.createElement('div');
 objectTooltip.id='object-tooltip';objectTooltip.setAttribute('role','tooltip');objectTooltip.setAttribute('data-source-text','');objectTooltip.hidden=true;document.body.append(objectTooltip);
@@ -40,7 +46,8 @@ const navigation = TriaFocusNavigation.createNavigationState();
 const graphHistory=TriaGraphHistory.createGraphHistory();
 let historyDepth=0,restoringGraph=false,renderedScenario=null;
 function graphSnapshot(){
- if(!cy||!documentModel)return null;
+ if(!documentModel)return {previewOverlay,zoom:cy?.zoom(),pan:cy?{...cy.pan()}:null};
+ if(!cy)return null;
  return {view,scenarioFocus,scenario:renderedScenario,selected,centeredNode,
   overview:[...overviewPositions],positions:cy.nodes().map(n=>[n.id(),{...n.position()}]),
   hidden:cy.elements('.outside-neighborhood').map(e=>e.id()),centers:cy.nodes('.layout-center').map(n=>n.id()),
@@ -49,6 +56,8 @@ function graphSnapshot(){
 }
 function updateGraphHistoryControls(){
  $('graph-back').disabled=!graphHistory.canBack;$('graph-forward').disabled=!graphHistory.canForward;
+ if(!documentModel)mapWorkspace.inert=!previewOverlay&&!graphHistory.canBack&&!graphHistory.canForward;
+ for(const id of ['objects','scenarios','entity','challenge'])$(id).disabled=!documentModel;
 }
 function visitGraph(action){
  if(restoringGraph||historyDepth||!cy||!documentModel)return action();
@@ -57,7 +66,15 @@ function visitGraph(action){
  finally{historyDepth--;}
 }
 function moveGraphHistory(direction){
- if(!cy||!documentModel)return;
+ if(!documentModel){
+  const saved=graphHistory.move(direction,graphSnapshot());if(!saved)return;
+  previewOverlay=saved.previewOverlay;
+  refreshProposalOverlay(saved.pan?{zoom:saved.zoom,pan:saved.pan}:null);
+  updateGraphHistoryControls();
+  notifyProposalPreview();
+  return;
+ }
+ if(!cy)return;
  const saved=graphHistory.move(direction,graphSnapshot());if(!saved)return;
  const visualBefore=viewTransitions.capture(cy);viewTransitions.finish();
  restoringGraph=true;
@@ -273,12 +290,21 @@ function render() {
   renderedScenario=$('scenario').value;
   centeredNode=null; overviewPositions=new Map();
   $('overview').disabled=true; $('scope').textContent='Tous les éléments';
-  const all=mapElements();
+  const discovery=!documentModel;
+  if(discovery)records=new Map();
+  const all=discovery?[]:mapElements();
   const baseElements=view==='objects'&&focusCycle?.mode==='simple'&&!focusCycle.refined?simpleMapElements(all):all;
-  const es=view==='objects'?baseElements.concat(TriaCandidateOverlay.elements(acceptedOverlay,records)):baseElements;
+  const proposals=view==='objects'?TriaCandidateOverlay.elements({
+    objects:[...acceptedOverlay.objects,...(previewOverlay?.objects??[])],
+    relations:[...acceptedOverlay.relations,...(previewOverlay?.relations??[])]
+  },records):[];
+  const baseIds=new Set(baseElements.map(element=>element.data.id));
+  const endpoints=new Set(proposals.flatMap(({data})=>data.source?[data.source,data.target]:[]));
+  const additionalObjects=all.filter(({data})=>!data.source&&endpoints.has(data.id)&&!baseIds.has(data.id));
+  const es=baseElements.concat(additionalObjects,proposals);
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
-  $('scope').textContent=view==='objects'?(focusCycle?.mode==='simple'&&!focusCycle.refined?'Carte simple · sélection non exhaustive':'Carte détaillée · Objets et relations'):scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
-  $('cy').setAttribute('aria-label',view==='objects'?'Carte des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Carte des scénarios');
+  $('scope').textContent=discovery?(previewOverlay?'Aperçu provisoire des propositions IA':'Carte vide'):view==='objects'?(focusCycle?.mode==='simple'&&!focusCycle.refined?'Carte simple · sélection non exhaustive':'Carte détaillée · Objets et relations'):scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
+  $('cy').setAttribute('aria-label',discovery?'Aperçu de la carte':view==='objects'?'Carte des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Carte des scénarios');
   $('view-guide').textContent=view==='objects'?'Branches CAN ↑ · Racines NEED ↓':scenarioFocus?'Contexte du scénario choisi':'Cliquer pour choisir un Focus';
   activeLayout?.stop(); activeLayout=null;
   if(cy)cy.destroy();
@@ -315,6 +341,13 @@ function render() {
     {selector:'.outside-neighborhood',style:{display:'none'}},
     {selector:':selected',style:{'border-width':3,'border-color':color('--can'),'line-color':color('--can'),'target-arrow-color':color('--can')}}
   ]});
+  if(discovery){
+    if(es.length){
+      cy.elements().layout({name:'grid',avoidOverlap:true,nodeDimensionsIncludeLabels:true,fit:false}).run();
+      routeVisibleEdges(cy.elements());frameGraph(cy.elements());
+    }
+    return;
+  }
   if(view==='objects'||scenarioFocus)cy.getElementById(key('object',documentModel.main_subject.id)).addClass('main-subject');
   organicLayout(cy.elements());
   cy.on('tap','node',e=>activateNode(e.target.id()));
@@ -408,7 +441,7 @@ function handoff(challenge=false){
 async function install(doc,reported){
   viewTransitions.finish();
   analysisRevision++;documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
-  acceptedOverlay={objects:[],relations:[]};$('clear-proposals').disabled=true;
+  acceptedOverlay={objects:[],relations:[]};previewOverlay=null;$('clear-proposals').disabled=true;
   const selectedDepth=$('map-depth').value||'detailed';
   focusCycle=TriaFocusCycle.createCycle(doc);focusCycle.setMode(selectedDepth);focusCycleReport=null;
   if(doc.analysis_id==='A-focus-six-ecoles-pilot'){navigation.setMode('persistent');navigation.select({family:'scenario',id:'S-02'});}
@@ -425,10 +458,13 @@ async function install(doc,reported){
     if(scenario){openScenario(id,false);return;}
     switchView('objects');const uid=key('object',id);inspect(uid);focusNode(uid);
   })});handoff();graphHistory.reset(graphSnapshot());updateGraphHistoryControls();
+  analysisPanels.forEach(panel=>{panel.inert=false;});
+  analysisControls.forEach(id=>{$(id).disabled=false;});
   document.dispatchEvent(new Event('tria-analysis-loaded'));
 }
-async function load(){try{
- const input=TriaMapExamples[$('dataset').value];
+async function loadExample(example){try{
+ if(typeof cytoscape==='undefined')throw Error('Cytoscape.js absent : vérifier la copie locale.');
+ const input=TriaMapExamples[example];
  if(!input)throw Error('Exemple introuvable');
  const parsed=TriaMapData.parseAnalysis(input);await install(parsed.document,parsed.issues);
  }catch(e){$('status').textContent=e.message;}}
@@ -478,7 +514,11 @@ $('pin-focus').onclick=()=>{
 };
 $('clear-focus').onclick=()=>{navigation.clear();window.focusPilot?.syncNavigation(null);refreshNavigationControls();handoff();};
 $('return-focus').onclick=returnToNavigationFocus;
-$('dataset').onchange=load;$('scenario').onchange=()=>{if(view==='scenarios')openScenario($('scenario').value);else{visitGraph(()=>{render();handoff();});}};
+$('dataset').onchange=event=>{
+ $('load-example').disabled=!event.target.value;
+};
+$('load-example').onclick=()=>loadExample($('dataset').value);
+$('scenario').onchange=()=>{if(view==='scenarios')openScenario($('scenario').value);else{visitGraph(()=>{render();handoff();});}};
 $('objects').onclick=()=>switchView('objects');$('scenarios').onclick=()=>switchView('scenarios');
 function switchView(v){return visitGraph(()=>{navigation.operation('vue '+v);view=v;scenarioFocus=null;$('objects').setAttribute('aria-pressed',v==='objects');$('scenarios').setAttribute('aria-pressed',v==='scenarios');render();});}
 $('fit').onclick=()=>frameGraph(cy.elements(':visible'),centeredNode?cy.getElementById(centeredNode):null);
@@ -489,20 +529,48 @@ $('entity').onchange=()=>activateNode($('entity').value);
 $('phase').onchange=()=>{navigation.operation('phase '+$('phase').value);refreshNavigationControls();handoff();};
 $('challenge').onclick=()=>{navigation.operation('préparer une question');handoff(true);refreshNavigationControls();};$('summary').onclick=()=>{navigation.operation('préparer un résumé');handoff();refreshNavigationControls();};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('handoff').value);$('copy').textContent='Copié';}catch{$('handoff').focus();$('handoff').select();$('copy').textContent='Sélectionné : Ctrl+C';}};
-function refreshProposalOverlay(){
-  if(!documentModel)return;
+function refreshProposalOverlay(viewport=null){
   const visualBefore=cy?viewTransitions.capture(cy):null;
   viewTransitions.finish();
   render();
+  if(viewport)cy.viewport(viewport);
   // Graphical proposals share the reference view's entrance/exit animation;
   // they never enter the source Analysis or effective-event history.
   if(visualBefore)viewTransitions.play(visualBefore,viewTransitions.capture(cy));
+}
+function previewCandidateEnvelope(envelope){
+ const source=documentModel??{analysis_id:envelope?.analysis_id};
+ const {map_patch:patch}=TriaMapProtocol.validate(source,envelope,acceptedOverlay);
+ if(!patch.objects.length&&!patch.relations.length)return false;
+ const before=documentModel?null:graphSnapshot();
+ previewOverlay=structuredClone(patch);
+ view='objects';scenarioFocus=null;
+ $('objects').setAttribute('aria-pressed','true');$('scenarios').setAttribute('aria-pressed','false');
+ refreshProposalOverlay();
+ if(before){graphHistory.commit(before,graphSnapshot());updateGraphHistoryControls();}
+ notifyProposalPreview();
+ return true;
+}
+function notifyProposalPreview(){
+ const detail=previewOverlay?{objects:previewOverlay.objects.length,relations:previewOverlay.relations.length}:null;
+ document.dispatchEvent(new CustomEvent('tria-proposal-preview-changed',{detail}));
+}
+function forgetProposalPreview(){
+ if(!previewOverlay)return false;
+ previewOverlay=null;
+ notifyProposalPreview();
+ return true;
+}
+function clearProposalPreview(){
+ if(forgetProposalPreview())refreshProposalOverlay();
+ if(!documentModel){graphHistory.reset(graphSnapshot());updateGraphHistoryControls();}
 }
 function stageCandidateEnvelope(envelope){
  if(!documentModel)throw Error('Aucune Analysis chargée.');
  TriaMapProtocol.validate(documentModel,envelope,acceptedOverlay);
  if(!envelope.map_patch.objects.length&&!envelope.map_patch.relations.length)
   throw Error('Aucune proposition à afficher.');
+ forgetProposalPreview();
  acceptedOverlay.objects.push(...envelope.map_patch.objects);
  acceptedOverlay.relations.push(...envelope.map_patch.relations);
  $('clear-proposals').disabled=false;
@@ -524,6 +592,7 @@ $('proposals-file').onchange=async()=>{
 };
 $('clear-proposals').onclick=()=>{
  acceptedOverlay={objects:[],relations:[]};$('clear-proposals').disabled=true;
+ forgetProposalPreview();
  refreshProposalOverlay();
  $('status').textContent='Propositions provisoires retirées. Analysis inchangée.';
 };
@@ -533,7 +602,7 @@ $('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;if(f.si
  }catch(e){$('status').textContent='Import refusé ; analyse conservée. '+e.message;}finally{$('file').value='';}};
 $('export').onclick=()=>{const blob=new Blob([pretty(documentModel)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='triad-analysis.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 new ResizeObserver(()=>{viewTransitions.finish();cy?.resize();}).observe($('cy'));
-if(typeof cytoscape==='undefined')$('status').textContent='Cytoscape.js absent : vérifier la copie locale.';else load();
+if(typeof cytoscape==='undefined')$('status').textContent='Cytoscape.js absent : vérifier la copie locale.';
 
 function setTheme(theme,remember=true){
  viewTransitions.finish();
@@ -542,7 +611,7 @@ function setTheme(theme,remember=true){
  $('theme-toggle').textContent=theme==='dark'?'☀ Clair':'☾ Sombre';
  $('theme-toggle').setAttribute('aria-label',theme==='dark'?'Activer le thème clair':'Activer le thème sombre');
  if(remember)try{localStorage.setItem('triad-theme',theme);}catch{}
- if(documentModel){render();if(oldCentered&&records.has(oldCentered))focusNode(oldCentered);if(oldSelected&&records.has(oldSelected))inspect(oldSelected);if(camera)cy.viewport(camera);}
+ if(documentModel||previewOverlay){render();if(oldCentered&&records.has(oldCentered))focusNode(oldCentered);if(oldSelected&&records.has(oldSelected))inspect(oldSelected);if(camera)cy.viewport(camera);}
 }
 $('theme-toggle').onclick=()=>setTheme(document.documentElement.dataset.theme==='light'?'dark':'light');
 let savedTheme='dark';try{savedTheme=localStorage.getItem('triad-theme')||'dark';}catch{}
@@ -584,5 +653,7 @@ window.TriaGraph=Object.freeze({
    note:$('note').value
   };
  },
- stageProposals:stageCandidateEnvelope
+ stageProposals:stageCandidateEnvelope,
+ previewProposals:previewCandidateEnvelope,
+ clearProposalPreview
 });

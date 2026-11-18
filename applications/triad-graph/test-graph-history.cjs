@@ -23,4 +23,19 @@ assert.deepEqual(moves,[-1]);
 for(const name of ['pointerdown','mousedown','pointerup','mouseup','auxclick'])assert(emit(name,4));
 assert.deepEqual(moves,[-1,1]);assert.equal(emit('mouseup',0),false);
 remove();emit('auxclick',3);assert.deepEqual(moves,[-1,1]);
+const documentTarget=new EventTarget(), retargeted=[];
+const map={ownerDocument:documentTarget,matches:()=>false,
+ getBoundingClientRect:()=>({left:10,right:110,top:10,bottom:110,width:100,height:100})};
+const removeRetargeted=bindGraphMouseHistory(map,n=>retargeted.push(n));
+function overDocument(type,button,clientX){
+ const e=Object.assign(new Event(type,{cancelable:true}),{button,clientX,clientY:50});
+ documentTarget.dispatchEvent(e);
+ return e.defaultPrevented;
+}
+assert(overDocument('mouseup',3,50));
+assert(overDocument('auxclick',3,50));
+assert(overDocument('auxclick',4,50));
+assert(!overDocument('mouseup',4,150));
+assert.deepEqual(retargeted,[-1,1]);
+removeRetargeted();
 console.log('Graph history: multi-step back/forward, exact zoom/pan, detached snapshots, branching, reset and one action per side-button gesture OK.');

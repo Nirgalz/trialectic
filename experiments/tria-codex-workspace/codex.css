@@ -1,8 +1,60 @@
+.codex-workspace {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(0, 2.2fr);
+  gap: 18px;
+  align-items: start;
+}
+.codex-map { min-width: 0; container-type: inline-size; position: relative; }
+.codex-workspace #local-codex {
+  position: sticky;
+  top: 12px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 16px;
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+}
+#codex-form { flex: none; }
+#codex-form > label { margin-top: 8px; }
+#codex-form > .button-row:last-child { margin-top: 8px; }
+#codex-context { overflow-wrap: anywhere; }
+.codex-note { margin: 10px 0 0; }
+@container (max-width: 760px) {
+  .codex-map .workspace { grid-template-columns: minmax(0, 1fr); }
+  .codex-map .workspace > aside { border-left: 0; border-top: 1px solid var(--line); max-height: 350px; }
+  .codex-map .bottom { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 800px) {
+  .codex-workspace { grid-template-columns: minmax(0, 1fr); }
+  .codex-workspace #local-codex { position: static; max-height: none; }
+}
 #codex-status{font-size:13px;padding:12px;background:var(--bg);border-left:2px solid var(--accent);border-radius:8px}
 #codex-status[data-error="true"]{border-left-color:var(--negative)}
+#codex-status strong{margin-right:6px}
+#codex-dev{flex:none}
 #codex-form label{display:block;font-size:13px}
 #codex-form textarea{display:block;width:100%;margin-top:6px}
-#codex-history{max-height:460px;overflow:auto;margin-top:14px}
+#codex-history{flex:1 1 auto;min-height:0;max-height:460px;overflow:auto;margin-bottom:10px}
 .codex-message{padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);margin:9px 0}
 .codex-message p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;margin:6px 0 0;font-size:13px}
 #codex-proposals{padding:12px;margin:12px 0;border:1px dashed var(--accent);border-radius:9px}
+#codex-instruction-hierarchy{flex:none;min-width:0;margin:14px 0 0;padding:8px 12px;border:1px solid var(--line);border-radius:9px}
+#codex-instruction-hierarchy p{margin:0 0 6px}
+#codex-instruction-list{max-height:220px;overflow:auto;margin:0;padding:0 4px 0 30px}
+#codex-instruction-list li{padding:2px}
+#codex-instruction-list button{width:100%;text-align:left;white-space:normal}
+#codex-map-views{margin:0 0 8px}
+#codex-map-views[hidden]{display:none}
+.codex-map .workspace[hidden]{position:absolute;inset-inline:0;visibility:hidden;pointer-events:none}
+#codex-instruction-map{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+#codex-instruction-map h3{margin:14px 16px 4px}
+.codex-map-legend{display:flex;gap:8px 18px;flex-wrap:wrap;margin:0 16px 10px}
+#codex-instruction-graph{width:100%;min-height:230px}
+#codex-debug{flex:none;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+#codex-debug h3{margin:0}
+#codex-test-verdict{margin:8px 0 0;padding:8px 10px;background:var(--bg);border-left:3px solid var(--muted);overflow-wrap:anywhere}
+#codex-test-verdict[data-outcome="pass"]{border-color:var(--positive);color:var(--positive)}
+#codex-test-verdict[data-outcome="fail"]{border-color:var(--negative);color:var(--negative)}
+#codex-map-data{max-height:180px;margin:8px 0 0}
+#codex-test-result{max-height:240px;margin:8px 0 0}

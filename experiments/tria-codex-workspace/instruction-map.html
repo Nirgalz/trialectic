@@ -1,0 +1,13 @@
+<div id="codex-map-views" class="button-row" role="group" aria-label="Map view" hidden>
+  <button id="codex-show-analysis-map" type="button" aria-pressed="true">Analysis map</button>
+  <button id="codex-show-instruction-map" type="button" aria-pressed="false">Instruction hierarchy</button>
+</div>
+<section id="codex-instruction-map" aria-labelledby="codex-instruction-map-title" hidden>
+  <h3 id="codex-instruction-map-title">Instruction hierarchy</h3>
+  <p class="muted codex-map-legend">
+    <span class="sign-positive">Green · Pass</span>
+    <span class="sign-negative">Red · Fail or Error</span>
+    <span>Gray · Not tested or deferred</span>
+  </p>
+  <div id="codex-instruction-graph" role="img"></div>
+</section>
