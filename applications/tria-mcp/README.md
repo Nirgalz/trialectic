@@ -1,4 +1,33 @@
-# trIA — Local MCP server (read-only transport prototype)
+# trIA MCP — distribution de ressources (0.3.0)
+
+La variante actuelle distribue les références publiques de la Méthode,
+les schémas assemblés et les consignes trIA. Les outils n'acceptent pas de
+données d'analyse. Leur traitement relève de l'hôte ou de l'interface.
+
+Depuis la racine du dépôt :
+
+```powershell
+python -m pip install -r applications/tria-mcp/requirements.txt
+cd applications/tria-mcp
+python -m tria_mcp.server
+```
+
+Le transport par défaut est stdio. En option, lancer
+`python -m tria_mcp.server --transport streamable-http` pour servir
+l'endpoint sur `http://127.0.0.1:8766/mcp`.
+
+`tria_open_probe` ouvre une sonde synthétique via la ressource
+`ui://tria/direct-channel-v1`. Le serveur charge directement
+`ui/probe.html`, livré avec les sources de la sonde. Celle-ci dépend
+de la prise en charge de WebMCP par l'hôte et doit être testée dans l'hôte
+visé. Utiliser uniquement un marqueur synthétique. La sonde ne constitue
+ni une intégration de la carte trIA ni une synchronisation des dossiers Analysis.
+
+## Variante historique — accès local en lecture seule
+
+Les instructions ci-dessous décrivent le point d'entrée historique
+`server.py` et ses options de lecture de fichiers. Elles restent
+disponibles pour les usages existants.
 
 **Status:** technical experiment on the `dev` branch. It does not prove scientific validity, correctness of inferred relations, suitability for all MCP clients, or live trIA/Cytoscape integration.
 

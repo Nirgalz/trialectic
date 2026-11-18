@@ -56,7 +56,9 @@ The two adapters use the same function:
 
 - `tools/validate_analysis.py` performs Draft 2020-12 validation and retains
   its public `load_schemas()` / `validator()` entry points.
-- `applications/tria-mcp/server.py` exposes assembled schema resources
+- The current MCP adapter in `applications/tria-mcp/tria_mcp/` exposes
+  public references and assembled schema resources. The historical entry
+  point `applications/tria-mcp/server.py` also exposes those resources
   while retaining its own allowlisted, size-limited `safe_read()` security
   boundary; optional user-approved Analysis reads remain separate.
 

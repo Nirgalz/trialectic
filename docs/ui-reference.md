@@ -60,7 +60,8 @@ CLI. Open the reference HTML directly for the provider-neutral map.
 ## Future host adapters
 
 - The current Work Local exchange is deliberately manual.
-- MCP exposes read-only sources and approved files. An MCP App rendering the
+- The current MCP server exposes public resources and a synthetic channel probe.
+  An MCP App rendering the
   reference interface requires **explicit host capability assessment and a
   safe packaged distribution**; a synthetic embedded graph is not that.
 - A future live bidirectional channel must specify trust, origin, permissions,
