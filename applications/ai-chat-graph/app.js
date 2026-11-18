@@ -48,6 +48,15 @@
   function graphStatus(message) {
     $("graph-status").textContent = message;
   }
+  function refreshSessionStatus() {
+    const session = sessions.get(provider);
+    const state = session.initialized
+      ? "trIA initialisée · respect autodéclaré, non vérifié"
+      : session.attempted
+        ? "initialisation échouée · nouvelle discussion requise"
+        : "trIA à initialiser au premier envoi";
+    $("conversation-hint").textContent = "Conversation " + PROVIDERS[provider].label + " · " + state;
+  }
   function selectProvider(value) {
     if (pending || !PROVIDERS[value] || provider === value) return;
     rememberedKeys.set(provider, $("api-key").value);
@@ -65,7 +74,7 @@
       $("model-list").append(option);
     });
     $("model-hint").textContent = PROVIDERS[value].hint;
-    $("conversation-hint").textContent = "Conversation " + PROVIDERS[value].label + " · locale à cet onglet";
+    refreshSessionStatus();
     renderConversation();
     status("Fournisseur actif : " + PROVIDERS[value].label + ". Les conversations restent séparées.");
   }
@@ -350,6 +359,7 @@
       sessions.set(provider, { initialized: false, attempted: false, model: "", apiKey: "" });
       session = sessions.get(provider);
       renderConversation();
+      refreshSessionStatus();
     }
     if (session.attempted && !session.initialized) {
       status("Erreur trIA : la première initialisation n'a pas été confirmée. Cliquez sur « Effacer » pour commencer une nouvelle discussion avant de réenvoyer les instructions.", true);
@@ -388,7 +398,10 @@
       // One transmission attempt per discussion, including network or format failures.
       // A failed initialization requires an explicit new discussion before retrying.
       const initialMethod = firstTurn ? methodInstructions : "";
-      if (firstTurn) session.attempted = true;
+      if (firstTurn) {
+        session.attempted = true;
+        refreshSessionStatus();
+      }
       if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal, initialMethod);
       else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal, initialMethod);
       else answer = await sendToClaude(apiKey, model, turns, activeController.signal, initialMethod);
@@ -407,6 +420,7 @@
         $("messages").scrollTop = $("messages").scrollHeight;
         optimisticNode.remove();
         $("prompt").value = original;
+        refreshSessionStatus();
         status(errorMessage, true);
         return;
       }
@@ -414,6 +428,7 @@
         session.initialized = true;
         session.model = model;
         session.apiKey = apiKey;
+        refreshSessionStatus();
       }
       const checkMessage = firstTurn
         ? "trIA · Accusé de compréhension (déclaration de l'IA) : " + result.check.message
@@ -439,7 +454,8 @@
       const detail = error.name === "AbortError" ? "Requête annulée ou délai dépassé."
         : error instanceof TypeError ? "Erreur réseau ou CORS. Consulte la console et les autorisations de l'API."
         : String(error.message || error);
-      status(detail, true);
+      status(detail + (firstTurn ? " Pour réinitialiser trIA, clique sur « Effacer »." : ""), true);
+      refreshSessionStatus();
       if (!history.length) renderConversation();
     } finally {
       clearTimeout(timeout);
@@ -453,7 +469,8 @@
     pendingProposal = null;
     showPendingProposal();
     conversations.set(provider, []);
-    sessions.set(provider, { initialized: false, model: "", apiKey: "" });
+    sessions.set(provider, { initialized: false, attempted: false, model: "", apiKey: "" });
+    refreshSessionStatus();
     renderConversation();
     status("Discussion effacée : les instructions trIA seront renvoyées uniquement lors de la prochaine initialisation.");
     $("prompt").focus();
@@ -762,6 +779,7 @@
       $("model-list").append(option);
     });
     $("model-hint").textContent = PROVIDERS.gemini.hint;
+    refreshSessionStatus();
     renderConversation();
     loadMethodInstructions();
     loadExample();
