@@ -411,25 +411,27 @@
 
   function objectKind(item) {
     if (item.id === doc.main_subject?.id) return "main";
-    if (/^C-/.test(item.id)) return "can";
-    if (/^N-/.test(item.id)) return "need";
+    if (item.concept_kind === "CAN" || /^C-/.test(item.id)) return "can";
+    if (item.concept_kind === "NEED" || /^N-/.test(item.id)) return "need";
     return "other";
   }
   function graphElements() {
-    const ids = new Set(doc.objects.map(item => item.id));
-    const nodes = doc.objects.map(item => ({
-      data: { id: "obj:" + item.id, label: item.label || item.id, kind: objectKind(item), family: "object", recordId: item.id }
+    const objects = allObjects();
+    const relations = allRelations();
+    const ids = new Set(objects.map(item => item.id));
+    const nodes = objects.map(item => ({
+      data: { id: "obj:" + item.id, label: item.label || item.id, kind: objectKind(item), family: "object", recordId: item.id, proposed: item.proposed ? "yes" : "no" }
     }));
     const edges = [];
     let i = 0;
-    for (const r of doc.relations) {
+    for (const r of relations) {
       if (!r.id || !ids.has(r.origin_object?.id) || !ids.has(r.represented_object?.id)) continue;
       nodes.push({ data: {
         id: "rel:" + r.id, label: (r.type || "Relation") + "\n" + r.id,
-        kind: "relation", family: "relation", recordId: r.id
+        kind: "relation", family: "relation", recordId: r.id, proposed: r.proposed ? "yes" : "no"
       }});
-      edges.push({ data: { id: "e:" + (++i), source: "obj:" + r.origin_object.id, target: "rel:" + r.id, kind: "origin" } });
-      edges.push({ data: { id: "e:" + (++i), source: "rel:" + r.id, target: "obj:" + r.represented_object.id, kind: "represented" } });
+      edges.push({ data: { id: "e:" + (++i), source: "obj:" + r.origin_object.id, target: "rel:" + r.id, kind: "origin", proposed: r.proposed ? "yes" : "no" } });
+      edges.push({ data: { id: "e:" + (++i), source: "rel:" + r.id, target: "obj:" + r.represented_object.id, kind: "represented", proposed: r.proposed ? "yes" : "no" } });
       const linked = [...(r.CANs || []), ...(r.NEEDs || [])];
       const seen = new Set();
       for (const ref of linked) {
@@ -439,7 +441,7 @@
         const roles = link?.roles || [];
         const kind = roles.includes("inhibitory") ? "inhibitory"
           : roles.includes("contributive") ? "contributive" : "linked";
-        edges.push({ data: { id: "e:" + (++i), source: "obj:" + ref.id, target: "rel:" + r.id, kind } });
+        edges.push({ data: { id: "e:" + (++i), source: "obj:" + ref.id, target: "rel:" + r.id, kind, proposed: r.proposed ? "yes" : "no" } });
       }
     }
     return nodes.concat(edges);
@@ -473,6 +475,8 @@
       "line-color": "#a6b7ce", "target-arrow-color": "#a6b7ce", "line-style": "dashed"
     }},
     { selector: 'edge[kind="linked"]', style: { "line-style": "dotted", "line-color": "#b9a7aa" }},
+    { selector: 'node[proposed="yes"]', style: { "border-style": "dashed", "border-color": "#e8d580", "border-width": 3 }},
+    { selector: 'edge[proposed="yes"]', style: { "line-style": "dashed", "line-color": "#e0c882", "target-arrow-color": "#e0c882" }},
     { selector: 'node.dim, edge.dim', style: { "opacity": 0.17 }},
     { selector: 'node.highlight', style: { "border-color": "#f5e9a9", "border-width": 4, "z-index": 100 }},
     { selector: 'edge.highlight', style: { "opacity": 1, "width": 2.5, "z-index": 50 }}
@@ -500,8 +504,8 @@
     cy.animate({ center: { eles: node }, duration: 180 });
     $("context-indicator").textContent = next.id + " · " + (next.family === "object" ? "objet" : "relation");
     const record = next.family === "object"
-      ? doc.objects.find(o => o.id === next.id)
-      : doc.relations.find(r => r.id === next.id);
+      ? allObjects().find(o => o.id === next.id)
+      : allRelations().find(r => r.id === next.id);
     $("selection-title").textContent = next.family === "object" ? (record?.label || next.id) : next.id + " · relation";
     const detail = $("selection-detail");
     detail.replaceChildren();
@@ -516,7 +520,9 @@
     field("ID", next.id);
     if (next.family === "object") {
       field("Catégorie", record?.category || "Non renseignée");
-      const refs = doc.relations.filter(r =>
+      if (record?.proposed) field("STATUT", "Proposition IA non validée");
+      if (record?.justification) field("Justification proposée", record.justification);
+      const refs = allRelations().filter(r =>
         r.origin_object?.id === next.id || r.represented_object?.id === next.id ||
         (r.CANs || []).some(x => x.id === next.id) || (r.NEEDs || []).some(x => x.id === next.id)
       ).map(r => r.id);
@@ -525,6 +531,8 @@
       if (def?.properties) field("Propriétés déclarées", Object.keys(def.properties).join(", ") || "Aucune");
     } else {
       field("Type", record?.type || "Non renseigné");
+      if (record?.proposed) field("STATUT", "Proposition IA non validée");
+      if (record?.justification) field("Justification proposée", record.justification);
       field("Origine", record?.origin_object?.id || "?");
       field("Objet représenté", record?.represented_object?.id || "?");
       field("CANs liés", (record?.CANs || []).map(x => x.id).join(", ") || "Aucun");
@@ -558,8 +566,8 @@
       if (evt.target === cy) setSelection(null);
     });
     setSelection(null);
-    $("graph-count").textContent = doc.objects.length + " objets · " + doc.relations.length + " relations";
-    graphStatus("Carte interactive, en lecture seule · " + elements.length + " éléments.");
+    $("graph-count").textContent = allObjects().length + " objets · " + allRelations().length + " relations";
+    graphStatus("Carte interactive · " + elements.length + " éléments, dont " + (acceptedOverlay.objects.length + acceptedOverlay.relations.length) + " propositions IA provisoires.");
     if (typeof ResizeObserver !== "undefined") {
       const parent = $("cy");
       graphResizeObserver = new ResizeObserver(() => { if (cy && cy.container() === parent) cy.resize(); });
