@@ -35,12 +35,17 @@
     return values;
   }
   function validate(document, response, accepted = { objects: [], relations: [] }) {
-    exactKeys(response, ["schema", "analysis_id", "answer", "map_patch"], "la réponse");
-    if (response.schema !== "tria-map-response-v1") fail("identifiant de protocole incompatible.");
+    exactKeys(response, ["schema", "analysis_id", "answer", "tria_instruction_check", "map_patch"], "la réponse");
+    if (response.schema !== "tria-map-response-v2") fail("identifiant de protocole incompatible.");
     if (!document || typeof document.analysis_id !== "string" || response.analysis_id !== document.analysis_id) {
       fail("analysis_id différent de celui du graphe chargé.");
     }
     boundedString(response.answer, "answer", 20000);
+    const compliance = response.tria_instruction_check;
+    exactKeys(compliance, ["status", "message"], "tria_instruction_check");
+    if (!["acknowledged", "confirmed", "non_compliant", "uncertain"].includes(compliance.status))
+      fail("tria_instruction_check.status inconnu ou manquant.");
+    boundedString(compliance.message, "tria_instruction_check.message", 1200);
     const patch = response.map_patch;
     exactKeys(patch, ["objects", "relations"], "map_patch");
     if (!Array.isArray(patch.objects) || patch.objects.length > 20) fail("objects doit contenir 20 entrées au plus.");
@@ -89,7 +94,7 @@
         fail("Un Objet représenté nouvellement créé doit avoir concept_kind=" + relation.type);
       pendingRelationIds.add(relation.id);
     }
-    return { schema: response.schema, analysis_id: response.analysis_id, answer: response.answer, map_patch: patch };
+    return { schema: response.schema, analysis_id: response.analysis_id, answer: response.answer, tria_instruction_check: compliance, map_patch: patch };
   }
   function decode(text) {
     if (typeof text !== "string" || text.length > 120000) return null;
@@ -107,13 +112,24 @@
     try { return JSON.parse(candidate); }
     catch { return null; }
   }
-  function interpret(raw, document, accepted) {
+  function interpret(raw, document, accepted, firstTurn = false) {
     const decoded = decode(raw);
     if (!decoded) return { kind: "plain", answer: raw, patch: null, error: "Réponse non structurée : aucune modification de la carte." };
     try {
       const result = validate(document, decoded, accepted);
+      const compliance = result.tria_instruction_check;
+      const expected = firstTurn ? "acknowledged" : "confirmed";
+      if (compliance.status !== expected) {
+        return {
+          kind: "non_compliant", answer: result.answer, patch: null, check: compliance,
+          error: (firstTurn
+            ? "L'IA n'a pas confirmé comprendre et suivre les instructions trIA."
+            : "L'IA ne confirme plus respecter les instructions trIA.")
+            + " Déclaration reçue : " + compliance.status + " — " + compliance.message
+        };
+      }
       const patch = result.map_patch;
-      return { kind: "structured", answer: result.answer, patch,
+      return { kind: "structured", answer: result.answer, patch, check: compliance,
         error: null, count: patch.objects.length + patch.relations.length };
     } catch (error) {
       // A machine-looking reply with invalid IDs must never silently update the view.
