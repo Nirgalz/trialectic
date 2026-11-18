@@ -100,7 +100,7 @@
         <label class="sr" for="prompt">Message à Gemini</label>
         <textarea id="prompt" rows="3" maxlength="15000" placeholder="Écris ton message… (Entrée : envoyer, Maj+Entrée : nouvelle ligne)" required></textarea>
         <div class="footer">
-          <p class="small">Les 20 derniers messages sont envoyés avec chaque demande. Aucune conservation après fermeture.</p>
+          <p class="small">Les échanges récents sont transmis avec chaque demande. Aucune conservation après fermeture.</p>
           <div class="actions">
             <button id="cancel" type="button" hidden>Annuler</button>
             <button class="primary" id="send" type="submit">Envoyer ↗</button>
@@ -183,7 +183,7 @@
     if (!apiKey) { setStatus("Saisis d'abord une clé API Gemini.", true); $("apiKey").focus(); return; }
     if (!/^[a-zA-Z0-9._-]+$/.test(model)) { setStatus("Identifiant de modèle invalide.", true); $("model").focus(); return; }
     if (!prompt) return;
-    const lastTurns = history.slice(-19);
+    const lastTurns = history.slice(-18);
     const contents = [...lastTurns, { role: "user", parts: [{ text: prompt }] }];
     const node = renderMessage("user", prompt);
     $("prompt").value = "";
