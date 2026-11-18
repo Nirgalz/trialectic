@@ -1,5 +1,5 @@
 const assert=require('node:assert/strict');
-const {objectPreview,previewDescription,tooltipPosition}=require('./object-preview.js');
+const {objectPreview,previewDescription,tooltipPosition}=require('../tria-map-data/object-preview.js');
 const doc={main_subject:{id:'A',version:'v1'},secondary_subjects:[],environment:[],
  objects:[{id:'A',category:'system',label:'System A'},{id:'N',category:'semantic_object',label:'Need'}],
  definitions:[{object_id:'A',version:'v1',properties:{ready:{}},notes:'Earlier definition.'},{object_id:'A',version:'v2',properties:{},notes:'Current scenario definition.'}],
@@ -16,7 +16,7 @@ for(const point of [{x:0,y:0},{x:635,y:470},{x:300,y:260}]){
  assert(pos.left>=12&&pos.top>=12);assert(pos.left+box.width<=screen.width-12);assert(pos.top+box.height<=screen.height-12);
 }
 console.log('Object preview: scenario version pins, contextual identity, FR/EN descriptions, missing Objects, source immutability and viewport bounds OK.');
-const {analystCard,conditionPreview}=require('./object-preview.js');
+const {analystCard,conditionPreview}=require('../tria-map-data/object-preview.js');
 const condition={id:'K',owner_relation:{id:'R',version:'v1'},target:'actionability',predicate:{object:{id:'A',version:'v1'},property:'ready',operator:'equals',value:true}};
 const conditionsDoc={...doc,relations:[{id:'R',version:'v1',type:'CAN',origin_object:{id:'A'},represented_object:{id:'N'},relation:{links:[]}}],conditions:[condition],
  condition_assessments:[{scenario_id:'S',condition:{id:'K',owner_id:'R',version:'v1'},status:'unsatisfied',evidence_ids:[]},
@@ -30,7 +30,7 @@ conditionsDoc.condition_assessments.push({scenario_id:'S',condition:{id:'K',owne
 assert.equal(conditionPreview(conditionsDoc,condition,{id:'S'}).status,'mixed');
 assert(analystCard(conditionsDoc,{family:'object',id:'A'},null,'fr').sections.some(s=>s.body.includes('Need')));
 console.log('Analyst cards: actionable questions, current-scenario condition status, conflicting assessments and strict owner/version matching OK.');
-const {contextualDescription}=require('./object-preview.js');
+const {contextualDescription}=require('../tria-map-data/object-preview.js');
 const narrative=contextualDescription(conditionsDoc,{family:'object',id:'N'},{view:'scenarios',scenario:{id:'S',object_heads:[{id:'N',version:'v1'}]},centerId:'A'},'fr');
 assert(narrative.includes('scénario S'));assert(narrative.includes('System A'));assert(narrative.includes('capacité potentielle'));
 const globalNarrative=contextualDescription(conditionsDoc,{family:'object',id:'A'},{view:'objects',scenario:{id:'S'}},'en');

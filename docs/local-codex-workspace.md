@@ -17,9 +17,9 @@ PowerShell, in the local repository checkout:
     codex login
     codex login status
     python -m pip install -r requirements-test.txt
-    python applications/triad-graph/server.py
+    python experiments/tria-codex-workspace/server.py
 
-Open http://127.0.0.1:8765. The **Cycle trIA avec Codex** panel shows
+Open http://127.0.0.1:8765 with the workspace launcher running. The Work Local server uses the same port, so stop it before starting the workspace. The **Cycle trIA avec Codex** panel shows
 the CLI authentication status. If it reports API-key auth, log out from
 Codex and sign back in using ChatGPT. The server explicitly strips
 OPENAI_API_KEY, CODEX_API_KEY, and OPENAI_BASE_URL from child processes.
@@ -47,7 +47,7 @@ Refreshing the page resets that history; loading another Analysis also resets it
 
 ## Architecture, authentication and safety
 
-    triad-graph in a local browser
+    workspace panel in the reused reference map
       -> loopback Python server /api/codex/turn
       -> local Codex CLI process (ChatGPT sign-in; read-only sandbox)
       -> Codex's authenticated remote model

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" data-discussion-language="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>trIAd · Atelier de cartes</title><link rel="stylesheet" href="style.css"><script src="cytoscape.min.js"></script><script src="hierarchy-layout.js"></script><script src="visual-semantics.js"></script><script src="focus-navigation.js"></script><script src="focus-cycle.js"></script><script src="graph-history.js"></script><script src="view-transitions.js"></script><script src="/shared/map-protocol.js"></script><script src="candidate-overlay.js"></script><script src="object-preview.js"></script><script defer src="i18n.js"></script><script defer src="app.js"></script><script defer src="ai-ui.js"></script><script defer src="codex-ui.js"></script></head>
+<html lang="fr" data-discussion-language="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>trIAd · Atelier de cartes</title><link rel="stylesheet" href="style.css"><script src="cytoscape.min.js"></script><script src="hierarchy-layout.js"></script><script src="../tria-map-data/semantics.js"></script><script src="focus-navigation.js"></script><script src="../tria-map-data/focus-cycle.js"></script><script src="graph-history.js"></script><script src="view-transitions.js"></script><script src="../shared/map-protocol.js"></script><script src="candidate-overlay.js"></script><script src="../tria-map-data/object-preview.js"></script><script defer src="i18n.js"></script><script src="../tria-map-data/schema-validator.js"></script><script src="../tria-map-data/analysis.js"></script><script src="../tria-map-data/projection.js"></script><script src="../tria-map-data/examples.js"></script><script src="../tria-ai-bridge/bridge.js"></script><script defer src="app.js"></script><script defer src="file-exchange-ui.js"></script></head>
 <body><header><div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><div><div class="eyebrow">L'atelier des possibles</div><h1>trIAd <span>Explorer. Relier. Comprendre.</span></h1></div></div><div class="button-row"><span class="badge">Prototype · mode exploratoire</span><button id="language-toggle" aria-label="Switch interface to English">EN</button><button id="theme-toggle" aria-label="Activer le thème clair">☀ Clair</button></div></header>
 <main><section class="session-bar" aria-label="Contexte de travail"><label>Terrain d’exploration<select id="dataset"><option value="focus-pilot">Pilote Focus · six écoles · fictif</option><option value="generator">Générateur · conditions et scénarios · 2.0</option><option value="affiliations">Capacités · affiliations CAN · 2.2</option><option value="identity">Identité et attribution · 2.1</option></select></label><label>Première réponse · carte<select id="map-depth" aria-label="Choisir une carte simple ou détaillée"><option value="simple">Carte simple · A (texte puis carte)</option><option value="detailed" selected>Carte détaillée · B (structure puis texte)</option></select></label><label>Scénario<select id="scenario"></select></label><details class="file-actions"><summary>Importer / exporter</summary><div class="button-row"><button id="import">Importer une analyse</button><input id="file" type="file" accept=".json,application/json" hidden><button id="export">Exporter l’analyse</button><button id="import-proposals">Importer propositions IA</button><input id="proposals-file" type="file" accept=".json,application/json" hidden><button id="clear-proposals" disabled>Retirer propositions</button></div></details></section>
 <div id="status" role="status"></div>
@@ -19,43 +19,13 @@
   <details><summary>Historique local D-97 (lecture seule)</summary><ol id="focus-cycle-history"></ol></details>
   <p class="muted">Les relations indirectes sont calculées depuis les enregistrements chargés. Les Scénarios signalés restent « à réexaminer », pas « réévalués ». Pour obtenir de nouvelles informations ou réviser l'analyse, transmettez la demande préparée à votre IA, puis importez un document Analysis validé.</p>
 </section>
-<section id="local-ai" class="focus-cycle-panel" aria-label="Échange local avec ChatGPT Work">
-  <div class="section-kicker">PONT DE FICHIERS LOCAL · SANS API NI MCP</div>
-  <h2>Approfondir avec ChatGPT Work</h2>
-  <p class="muted">Créer une demande enregistrée sur ton PC, puis demander explicitement à ChatGPT Work Local de la traiter. Le serveur Python ne peut pas déclencher lui-même GPT.</p>
-  <p id="local-ai-status" role="status" aria-live="polite">Préparation du pont local…</p>
-  <div class="button-row"><button id="ai-focus" disabled>Préparer le Focus pour Work</button><button id="ai-refine" disabled>Préparer C+ pour Work</button><button id="ai-check" disabled>Vérifier la réponse</button><button id="ai-copy" disabled>Copier les instructions Work</button></div>
-  <div id="local-ai-request" aria-live="polite"></div>
-  <div id="local-ai-results" aria-live="polite"></div>
-  <p class="muted">Work doit disposer d'un accès autorisé au dossier local du dépôt. L'échange est manuel côté Work et n'entraîne aucune modification automatique du document Analysis, des évaluations ou des Scénarios.</p>
+<section id="local-ai" class="focus-cycle-panel" aria-label="Échange avec l’IA par JSON">
+ <h2>Échanger avec l’IA</h2><p>Exporter une demande, la transmettre à l’IA de ton choix, puis importer sa réponse. Aucun envoi automatique ni serveur requis.</p>
+ <p id="local-ai-status" role="status" aria-live="polite"></p>
+ <div class="button-row"><button id="ai-focus">Exporter la demande Focus</button><button id="ai-refine">Exporter la demande C+</button><button id="ai-check">Importer une réponse JSON</button><button id="ai-copy">Copier la demande</button><button id="ai-apply" disabled>Adopter l’analyse révisée</button><input id="ai-response-file" type="file" accept=".json,application/json" hidden></div>
+ <div id="local-ai-request" aria-live="polite"></div><div id="local-ai-results" aria-live="polite"></div>
 </section>
 
-<section id="local-codex" class="focus-cycle-panel" aria-label="Laboratoire trIA avec Codex local">
-  <div class="section-kicker">LABORATOIRE LOCAL · CODEX CONNECTÉ À CHATGPT · SANS CLÉ API</div>
-  <h2>Cycle trIA avec Codex</h2>
-  <p class="muted">Comprendre → Explorer → Décider, avec retours possibles. La phase et le Focus restent sous contrôle de l'Analyste. Ce panneau ne synchronise pas cette conversation ChatGPT Web.</p>
-  <p id="codex-status" role="status" aria-live="polite">Vérification de Codex CLI local…</p>
-  <form id="codex-form">
-    <div class="button-row">
-      <label>Phase de dialogue <select id="codex-phase">
-        <option value="Comprendre">Comprendre</option><option value="Explorer">Explorer</option><option value="Décider">Décider</option>
-      </select></label>
-      <span id="codex-context" class="muted">Chargement du Focus…</span>
-    </div>
-    <label for="codex-question">Question, hypothèse ou contradiction à explorer</label>
-    <textarea id="codex-question" rows="3" maxlength="6000" placeholder="Quelles conditions, contradictions, alternatives ou décisions examiner ?" required></textarea>
-    <div class="button-row">
-      <button type="submit" class="primary" id="codex-send">Interroger Codex</button>
-      <button type="button" id="codex-reset">Nouvelle conversation locale</button>
-    </div>
-  </form>
-  <div id="codex-history" role="log" aria-label="Dialogue local trIA via Codex" aria-live="polite"></div>
-  <div id="codex-proposals" hidden>
-    <p id="codex-proposals-count"></p>
-    <button type="button" id="codex-stage">Afficher les propositions sur la carte (provisoire)</button>
-  </div>
-  <p class="muted">Les données de l'Analysis et la conversation sont transmises au modèle par le Codex CLI connecté à ton compte ChatGPT. Aucune écriture normative automatique. Les propositions demandent une action explicite.</p>
-</section>
 <details class="navigation-experiment"><summary>Ancien pilote de navigation A/B · indépendant des modes de carte</summary><section class="focus-workbench" aria-label="Comparaison expérimentale des modes de navigation">
  <div class="focus-heading"><div><h3>Pilote historique : inspection ou Focus de navigation conservé</h3><p class="muted">A : inspection ponctuelle, sans sélection conservée · B : sélection explicite conservée entre les opérations d'interface.</p></div>
  <label>Mode de navigation<select id="navigation-mode"><option value="simple">A · Inspection ponctuelle</option><option value="persistent">B · Focus de navigation</option></select></label></div>

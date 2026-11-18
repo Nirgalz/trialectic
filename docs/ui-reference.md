@@ -52,11 +52,10 @@ Focus is not `PowerEvaluation.Focus`.
 
 ## Local Codex cycle (exploratory)
 
-The same animated reference map includes a local dialogue bridge for the
-Comprendre → Explorer → Décider cycle, authenticated through Codex CLI
-with the ChatGPT account (not an API key).
-See [local workspace instructions](local-codex-workspace.md).
-This does not synchronize chatgpt.com and the local UI.
+The [Codex development workspace](local-codex-workspace.md) composes the
+same animated map with a dedicated panel, local CLI transport and routes.
+Its Comprendre → Explorer → Décider cycle uses ChatGPT sign-in through the
+CLI. Open the reference HTML directly for the provider-neutral map.
 
 ## Future host adapters
 
@@ -68,6 +67,6 @@ This does not synchronize chatgpt.com and the local UI.
   object IDs, snapshot identity, approval boundaries and failure handling.
   Do not imply it exists before implementation.
 
-**Stable entry point:** `python applications/triad-graph/server.py`,
-then `http://127.0.0.1:8765`. Internal file organization may evolve, but
-this entry point remains the graphical reference.
+**Reference entry point:** `applications/triad-graph/index.html`.
+For the optional Work Local queue, use `python applications/triad-graph/server.py`.
+The Codex workspace has its own launcher under `experiments/tria-codex-workspace/`.

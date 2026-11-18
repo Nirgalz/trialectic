@@ -12,13 +12,12 @@ fixture as the user's analysis. Keep the conceptual Object graph separate from
 the methodological process graph. Clicking a node centers its local relations;
 the Overview button returns to the full graph.
 
-When the environment supports local execution, start or reuse the prototype
-server and open its preview beside the conversation when possible. Verify the
-actual result; a queued request is not proof that a sidebar is visible. Do not
-promise automatic synchronization or persistence that the host does not expose.
-If interactive display is unavailable, explain the limitation and use the
-documented text/Mermaid fallback. Commands without `-c` retain their existing
-presentation convention.
+Open `applications/triad-graph/index.html` directly when the host supports
+local HTML. Show the preview alongside the conversation when possible and
+verify that it is visible. The reference map, data and AI exchange modules run
+without a server. Hosts that disallow local files may use an authorized static
+preview or the documented text/Mermaid fallback. Commands without `-c` retain
+their existing presentation convention.
 
 When opening the prototype, pass `?lang=fr` or `?lang=en` in its URL to match
 the current discussion language, unless the Analyst explicitly chooses another
@@ -47,6 +46,11 @@ the distinction between knowledge revisions and effective Actualization.
 - MCP integration depends on host capabilities and permissions; do not claim
   the standalone reference UI automatically runs inside ChatGPT/MCP.
 
+- The Codex development workspace in `experiments/tria-codex-workspace/`
+  consumes the reference map through its provider-neutral interface. Provider
+  clients, routes, authentication, and provider-specific panels belong to the
+  workspace that needs them.
+
 ## Collaboration workflow (author-approved, 2026-11-17)
 
 This is an **operational collaboration convention**, not a new conceptual rule of the Trialectic Method. Prefer **analysis first, formalization second**. Work efficiently, with proportional effort and without making GitHub activity the default response to conceptual discussions.
@@ -63,6 +67,7 @@ This is an **operational collaboration convention**, not a new conceptual rule o
 
 - **Read only when necessary:** consult the repository when its exact current content materially affects the response; prefer the smallest set of directly relevant files, and avoid repeating reads when reliable context is already available.
 - **No automatic writes:** discussion, exploratory analysis, tests, and generic acknowledgements such as `ok`, `continue`, or `test it` do **not** authorize GitHub modifications. Require an explicit editing request or approval of a concrete proposal that specifies the intended file changes.
+- **Integration scope:** before editing, state where the integration lives, which way dependencies point, and which entry points the approval covers. Approval for a development workspace covers that workspace. Promotion into the shared reference requires its own explicit decision.
 - **Scoped changes after approval:** work only on the designated branch (use `dev` for development experiments unless otherwise directed), modify only the approved files and preserve unrelated content. Do not add reports, commits or tracking entries for every intermediate conversation.
 - **Relevant verification:** use the lightest check that addresses a concrete, material risk. Exploratory changes do **not** imply automatic new tests, regression suites, CI checks or repeated repository reads. Preserve targeted safeguards where security, permissions, data loss or interoperability risks make them necessary. Report what was verified and what was not; never equate syntax/schema checks with functional or scientific validation.
 - **Traceability without noise:** identify substantive changes, affected files and resulting commit(s) concisely. Preserve historical decisions and versioned records; do not silently rewrite normative models. New conceptual decisions require explicit author validation.

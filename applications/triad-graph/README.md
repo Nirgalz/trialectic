@@ -17,22 +17,7 @@ The map can import temporary `tria-map-response-v2` JSON proposals via
 **Importer propositions IA** and discard them via **Retirer propositions**.
 These candidates are non-normative and never change the source Analysis.
 
-## Codex local development cycle — no API key
-
-With `codex` installed and signed into a **ChatGPT account** using
-`codex login`, start `python applications/triad-graph/server.py` and open
-`http://127.0.0.1:8765`. The **Cycle trIA avec Codex** panel sends
-Analyst-controlled Comprendre / Explorer / Décider turns to the local
-Codex CLI using `codex exec` in read-only mode. Recent in-page dialogue
-history is included with each new turn. It does not access or synchronize
-this existing ChatGPT Web conversation.
-
-Codex uses its own ChatGPT-plan authentication and limits, not a direct
-OpenAI API key. Codex can transmit supplied Analysis content to its model.
-Candidates require explicit user approval before display and the normal
-contextual map checks. No Analysis files or normative Scenarios are modified.
-
-See [local workspace guide](../../docs/local-codex-workspace.md).
+[Development workspace with Codex](../../docs/local-codex-workspace.md) uses this same map through a separate entry point.
 
 ## Invocation convention (D-90)
 
@@ -42,25 +27,13 @@ environment. `use trIA-dev-c` is the equivalent long form. The suffix changes
 presentation, not the Method. Unsuffixed commands keep their existing behavior,
 including D-88's temporary Mermaid convention where applicable.
 
-An assistant honoring these commands should load the current analysis into the
-prototype, reuse or start its server, and open the preview alongside the chat
-when supported. The bundled demos are clearly synthetic and must not stand in
-for the user's analysis. If execution/display is unavailable, report the limit
-and provide text/Mermaid fallback. Repository instructions make this convention
-discoverable in future sessions; they cannot configure unrelated chats that do
-not load the repository or these instructions.
-
-From the repository root, run:
-
-```powershell
-python -m pip install -r requirements-test.txt
-python applications/triad-graph/server.py
-```
-
-Open http://127.0.0.1:8765 in a browser. Requires Python and jsonschema /
-referencing (the existing `.test-deps` directory is supported). Cytoscape.js
-3.30.4 is bundled locally; no runtime CDN or external AI calls are required.
-Keep this local server running while using the prototype.
+Open `index.html` directly in a browser with `?lang=fr` or `?lang=en`.
+Load the current analytical records for an assisted-analysis request. The
+bundled examples are synthetic. Browser imports check the Analysis structure
+and map references. They cover a subset of the Python semantic validator.
+The AI exchange panel prepares and imports local JSON files for the Analyst to
+review. If the host cannot display local HTML, use an authorized static preview
+or the text/Mermaid fallback.
 
 ## Free Work Local bridge (no OpenAI API key and no MCP)
 
@@ -162,7 +135,7 @@ The author validated the following behavior on November 17, 2026. The current cl
 
 ### Experimental usage (implemented subset)
 
-1. Run the local server as above and load the six-schools fixture or another validated Analysis.
+1. Open `index.html` and load the six-schools fixture or another validated Analysis.
 2. Choose **Carte simple · A** or **Carte détaillée · B**. A currently projects the main Subject's directly attributed relation records and their referenced Objects, clearly labeled as **non-exhaustive**; B projects the full recorded graph.
 3. Inspect an Object in the graph or through **Accéder à un objet ou un lien**, then choose **Adopter l'Objet inspecté comme Focus**. Its Subject, direct/indirect Environment paths, recorded semantic Definitions and relevant conditions appear in the D-97 panel. **Inspection alone does not adopt Focus**.
 4. Use **Retour à la carte générale** to see Scenario candidates for reassessment. No source `Analysis` or `PowerEvaluation` changes.

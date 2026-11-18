@@ -120,26 +120,6 @@
       record('refine',{seed,candidates:candidates.length,unassessedConditions:missing.length});
       return report;
     }
-    function handoff(report) {
-      const body=local||explore(doc,doc.main_subject.id);
-      return [
-        'use trIAd-c',
-        `Analyse : ${doc.analysis_id}; mode carte : ${mode}; objet focal : ${body.subject.id}.`,
-        mode==='simple' ? 'Carte simple / A : réponds d’abord en langage naturel, puis représente une sélection fidèle des Objects et relations explicitement justifiés par ta réponse.' : 'Carte détaillée / B : expose d’abord les Objects, relations et qualifications pertinents à la question, puis rédige la réponse correspondante et sa carte détaillée.',
-        'Demande à l\'IA : approfondis explicitement ce Sujet Focal, son Environnement et sa Sémantique.',
-        'Évalue la pertinence locale ET pour le problème global et les autres Sujets affectés (D-89).',
-        `Sujet focal : ${JSON.stringify(body.subject)}.`,
-        `Environnement direct (enregistrements source) : ${JSON.stringify(body.direct)}.`,
-        `Connexions indirectes candidates : ${JSON.stringify(body.indirect)}.`,
-        `Sémantique déclarée dans les données : ${JSON.stringify(body.semantics)}.`,
-        `Conditions liées : ${JSON.stringify(body.conditions)}.`,
-        `Scénarios à examiner en cas de nouvelle connaissance pertinente : ${JSON.stringify(body.scenarios)}.`,
-        report?`Exploration C+ demandée : ${JSON.stringify(report)}.`:'',
-        'N\'invente ni fait, ni causalité, ni nouvelle Actualisation ; distingue hypothèses, omissions et confirmations.',
-        'Explique toute révision et ses liens avec le texte de la réponse ; conserve les identités, versions, résultats indépendants et historique.',
-        'L\'interface est une projection locale sans moteur IA ; propose les mises à jour justifiées à importer après contrôle.'
-      ].filter(Boolean).join('\n\n');
-    }
     return {
       get mode(){return mode;},get focus(){return focus;},get refined(){return refined;},
       get local(){return local?clone(local):null;},
@@ -150,7 +130,7 @@
         ({mode,focus,refined,local,review}=clone(state));
         record('view_restore',{mode,focus,refined});
       },
-      setMode,adopt,returnOverview,refine,handoff,
+      setMode,adopt,returnOverview,refine,
       reset(){mode='detailed';focus=null;refined=false;local=null;review=[];history=[];discovered.clear();}
     };
   }

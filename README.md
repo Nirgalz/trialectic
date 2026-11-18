@@ -101,7 +101,9 @@ synchronization engine.
 ## Working conventions
 
 The author-approved [Cytoscape.js prototype](applications/triad-graph/README.md)
-can inspect Objects, qualified relations and Scenarios. `use trIA-c` requests
+opens directly from its HTML file and can inspect Objects, qualified relations
+and Scenarios. Its [data and AI exchange modules](applications/README.md) are
+provider-neutral. `use trIA-c` requests
 standard trIA with this view; `use trIAd-c` (or `use trIA-dev-c`) requests
 trIA-dev with it. The `-c` suffix selects presentation only (D-90). An interactive
 preview beside the conversation depends on host capabilities; otherwise use the

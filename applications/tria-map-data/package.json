@@ -1,0 +1,6 @@
+{
+  "name": "tria-map-data",
+  "private": true,
+  "scripts": {"build": "node build.cjs", "test": "node test-map-data.cjs"},
+  "devDependencies": {"ajv": "^8.17.1", "esbuild": "^0.25.0"}
+}

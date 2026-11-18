@@ -1,4 +1,4 @@
-"""Loopback trIAd server with read-only Codex CLI and Work file bridge; no API keys."""
+"""Optional loopback trIAd server for the local Work file queue."""
 import json
 import copy
 import sys
@@ -14,10 +14,18 @@ sys.path.insert(0, str(ROOT.parents[1] / '.test-deps'))
 from tools.validate_analysis import validator
 from tools.validate_semantics import validate_semantics
 from work_bridge import create_request, request_status, WorkBridgeError
-from codex_bridge import CodexBridgeError, run_turn as run_codex_turn, status as codex_status
 
 CHECK = validator()
 ALLOWED_HOSTS = {'127.0.0.1:8765', 'localhost:8765'}
+ASSETS = {
+    '/shared/map-protocol.js': SOURCE / 'applications/shared/map-protocol.js',
+    '/tria-ai-bridge/bridge.js': SOURCE / 'applications/tria-ai-bridge/bridge.js',
+    **{
+        '/tria-map-data/' + name: SOURCE / 'applications/tria-map-data' / name
+        for name in ('analysis.js', 'examples.js', 'focus-cycle.js', 'object-preview.js',
+                     'projection.js', 'schema-validator.js', 'semantics.js')
+    },
+}
 FIXTURES = {'generator': 'analysis_v2.json', 'affiliations': 'can_affiliations_v22.json',
             'identity': 'identity_attribution_v21.json'}
 
@@ -82,26 +90,34 @@ class Handler(SimpleHTTPRequestHandler):
         # Avoid echoing user-controlled paths, prompts or headers to the console.
         return
 
+    def serve_asset(self, content, mime):
+        self.send_response(200)
+        self.send_header('Content-Type', mime + '; charset=utf-8')
+        self.send_header('Content-Length', str(len(content)))
+        self.send_header('Cache-Control', 'no-store')
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.end_headers()
+        self.wfile.write(content)
+
+    def render_page(self):
+        page = (ROOT / 'index.html').read_text(encoding='utf-8')
+        start = page.index('<section id="local-ai"')
+        end = page.index('</section>', start) + len('</section>')
+        panel = (ROOT / 'work-panel.html').read_text(encoding='utf-8').rstrip()
+        return (page[:start] + panel + page[end:]).replace(
+            'src="file-exchange-ui.js"', 'src="ai-ui.js"'
+        )
+
     def do_GET(self):
         if not self.trusted_request():
             return
         if self.secret_path():
             return self.reply({'error': 'Sensitive paths are not served'}, 403)
         path = urlsplit(self.path).path
-        if path == '/shared/map-protocol.js':
-            # Serve exactly one audited repository asset; do not broaden the
-            # local static root to unrelated files or private local data.
-            content = (SOURCE / 'applications/shared/map-protocol.js').read_bytes()
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/javascript; charset=utf-8')
-            self.send_header('Content-Length', str(len(content)))
-            self.send_header('Cache-Control', 'no-store')
-            self.send_header('X-Content-Type-Options', 'nosniff')
-            self.end_headers()
-            self.wfile.write(content)
-            return
-        if path == '/api/codex/status':
-            return self.reply(codex_status())
+        if path in ('/', '/index.html'):
+            return self.serve_asset(self.render_page().encode('utf-8'), 'text/html')
+        if path in ASSETS:
+            return self.serve_asset(ASSETS[path].read_bytes(), 'text/javascript')
         if path.startswith('/api/work/status/'):
             try:
                 return self.reply(request_status(path.removeprefix('/api/work/status/')))
@@ -118,7 +134,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if not self.trusted_request():
             return
-        if self.path not in ('/api/validate', '/api/work/request', '/api/codex/turn'):
+        if self.path not in ('/api/validate', '/api/work/request'):
             return self.reply({'error': 'Unknown endpoint'}, 404)
         if self.headers.get('Content-Type', '').split(';')[0].strip() != 'application/json':
             return self.reply({'error': 'JSON content type required'}, 415)
@@ -136,14 +152,10 @@ class Handler(SimpleHTTPRequestHandler):
             detected = validate(doc)
             if any(x.get('severity') == 'error' for x in detected):
                 return self.reply({'error': 'Document Analysis invalide.'}, 400)
-            if self.path == '/api/codex/turn':
-                return self.reply(run_codex_turn(body))
             queued = create_request(doc, body.get('action'), body.get('focus_id'),
                                     body.get('map_mode'), body.get('note', ''))
             return self.reply(queued, 201)
         except WorkBridgeError as exc:
-            return self.reply({'error': str(exc)}, exc.status)
-        except CodexBridgeError as exc:
             return self.reply({'error': str(exc)}, exc.status)
         except (ValueError, TypeError, KeyError):
             return self.reply({'error': 'Requête JSON invalide.'}, 400)
@@ -152,6 +164,11 @@ class Handler(SimpleHTTPRequestHandler):
             return self.reply({'error': 'Erreur locale ; aucune analyse modifiée.'}, 500)
 
 
+def serve(handler=Handler):
+    with ThreadingHTTPServer(('127.0.0.1', 8765), partial(handler, directory=str(ROOT))) as server:
+        print('trIAd: http://127.0.0.1:8765', flush=True)
+        server.serve_forever()
+
+
 if __name__ == '__main__':
-    print('trIAd: http://127.0.0.1:8765', flush=True)
-    ThreadingHTTPServer(('127.0.0.1', 8765), partial(Handler, directory=str(ROOT))).serve_forever()
+    serve()

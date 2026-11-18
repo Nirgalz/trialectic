@@ -1,0 +1,26 @@
+<section id="local-codex" class="focus-cycle-panel" aria-label="Laboratoire trIA avec Codex local">
+  <div class="section-kicker">LABORATOIRE LOCAL · CODEX CONNECTÉ À CHATGPT · SANS CLÉ API</div>
+  <h2>Cycle trIA avec Codex</h2>
+  <p class="muted">Comprendre → Explorer → Décider, avec retours possibles. La phase et le Focus restent sous contrôle de l'Analyste. Ce panneau ne synchronise pas cette conversation ChatGPT Web.</p>
+  <p id="codex-status" role="status" aria-live="polite">Vérification de Codex CLI local…</p>
+  <form id="codex-form">
+    <div class="button-row">
+      <label>Phase de dialogue <select id="codex-phase">
+        <option value="Comprendre">Comprendre</option><option value="Explorer">Explorer</option><option value="Décider">Décider</option>
+      </select></label>
+      <span id="codex-context" class="muted">Chargement du Focus…</span>
+    </div>
+    <label for="codex-question">Question, hypothèse ou contradiction à explorer</label>
+    <textarea id="codex-question" rows="3" maxlength="6000" placeholder="Quelles conditions, contradictions, alternatives ou décisions examiner ?" required></textarea>
+    <div class="button-row">
+      <button type="submit" class="primary" id="codex-send">Interroger Codex</button>
+      <button type="button" id="codex-reset">Nouvelle conversation locale</button>
+    </div>
+  </form>
+  <div id="codex-history" role="log" aria-label="Dialogue local trIA via Codex" aria-live="polite"></div>
+  <div id="codex-proposals" hidden>
+    <p id="codex-proposals-count"></p>
+    <button type="button" id="codex-stage">Afficher les propositions sur la carte (provisoire)</button>
+  </div>
+  <p class="muted">Les données de l'Analysis et la conversation sont transmises au modèle par le Codex CLI connecté à ton compte ChatGPT. Aucune écriture normative automatique. Les propositions demandent une action explicite.</p>
+</section>

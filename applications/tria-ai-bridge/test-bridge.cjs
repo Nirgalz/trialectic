@@ -1,0 +1,26 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const bridge=require('./bridge.js'),{parseAnalysis}=require('../tria-map-data/analysis.js');
+const source=require('../tria-map-data/examples.js')['focus-pilot'];
+(async()=>{
+ const frozen=JSON.stringify(source);
+ const request=await bridge.prepareRequest(source,{focusId:'O-eleves'});
+ const response={...request.response_contract,summary:'Propositions à vérifier.'};
+ assert.equal((await bridge.parseResponse(JSON.stringify(response),request,source)).summary,response.summary);
+ assert.equal(await bridge.fingerprint(source),await bridge.fingerprint(JSON.parse(frozen)));
+ for(const field of ['request_id','analysis_hash','analysis_id','schema'])await assert.rejects(()=>bridge.parseResponse({...response,[field]:'wrong'},request,source),/incompatible/);
+ const changed=JSON.parse(frozen);changed.objects[0].label='different';await assert.rejects(()=>bridge.parseResponse(response,request,changed),/changé/);
+ await assert.rejects(()=>bridge.parseResponse({...response,proposals:'wrong'},request,source));
+ await assert.rejects(()=>bridge.prepareRequest(source,{focusId:'missing'}));
+ await assert.rejects(()=>bridge.dispatch(request));
+ const returned=await bridge.dispatch(request,async sent=>{sent.document.objects[0].label='transport copy';return response;});
+ assert.equal(returned.summary,response.summary);assert.equal(JSON.stringify(source),frozen);assert.equal(JSON.stringify(request.document),frozen);
+ const revised=await bridge.parseResponse({...response,revised_analysis:changed},request,source);
+ assert.equal(parseAnalysis(revised.revised_analysis).document.objects[0].label,'different');
+ assert.equal(JSON.stringify(source),frozen,'A proposed revision must not be applied by the bridge.');
+ const text=bridge.formatHandoff({analysis:source,scenario:source.scenarios[0],phase:'Explorer',navigation:{mode:'simple'},language:'en'});
+ assert(text.includes('Analysis:'));assert(!text.includes('undefined'));
+ const context=vm.createContext({crypto:globalThis.crypto,TextEncoder});
+ vm.runInContext(fs.readFileSync(__dirname+'/bridge.js','utf8'),context);
+ context.input=JSON.parse(frozen);assert.equal((await vm.runInContext('TriaAIBridge.prepareRequest(input)',context)).schema,'tria-ai-request-v1');
+ console.log('AI bridge: no server/DOM, version matching, explicit transport, unchanged Analysis and reviewed revisions OK.');
+})().catch(error=>{console.error(error);process.exitCode=1;});

@@ -14,7 +14,7 @@ Read it alongside [the decision log](../DECISIONS.md), not in place of it.
 | Adopted v2 Analysis / PowerEvaluation exchange fields and local shape | [schemas/model/](../schemas/model/README.md), interpreted by [schemas/global-model.md](../schemas/global-model.md) | Executable schema definitions and human-readable exchange profile |
 | AI-assisted dialogue and steering behavior | [applications/ai-assisted-analysis/dialogue-protocol.md](../applications/ai-assisted-analysis/dialogue-protocol.md), with operational scope in [AGENTS.md](../AGENTS.md) and [applications/ai-assisted-analysis/AGENTS.md](../applications/ai-assisted-analysis/AGENTS.md) | Interaction design and operating instructions, not changes to the Method |
 | Experimental AI behavioral prompt | [reference/tria-ai-instructions.md](../reference/tria-ai-instructions.md) | Portable assistant behavior, not a duplicate dialogue specification or data schema |
-| Experimental map-response contract | [protocols/tria/map-response-contract.md](../protocols/tria/map-response-contract.md), [local-shape schema](../schemas/transport/tria-map-response-v2.schema.json), and contextual [browser validator](../applications/ai-chat-graph/map-protocol.js) | Human-readable transport format, structural checks and document-aware checks respectively; **provisional UI proposals** only |
+| Experimental map-response contract | [protocols/tria/map-response-contract.md](../protocols/tria/map-response-contract.md), [local-shape schema](../schemas/transport/tria-map-response-v2.schema.json), and contextual [browser validator](../applications/shared/map-protocol.js) | Human-readable transport format, structural checks and document-aware checks respectively; **provisional UI proposals** only |
 | Graphical presentation and navigation | [applications/triad-graph/](../applications/triad-graph/README.md) | **Sole reference animated Cytoscape interface**; no independent renderer in AI chat or MCP |
 | External AI and MCP communication | Provider-specific adapters in applications; [applications/tria-mcp/](../applications/tria-mcp/README.md) | Transport, permissions, and interoperability, **not** conceptual inference |
 | Structural and partial semantic verification | [tools/validate_analysis.py](../tools/validate_analysis.py), [tools/validate_semantics.py](../tools/validate_semantics.py), [tests/](../tests/README.md) | Implemented checks, not general causal or empirical validation |
@@ -75,6 +75,11 @@ file-reader delegation and separate Analysis/evaluation namespaces.
 - `applications/gemini-chat/`: earlier single-provider communication
   experiment. Do not remove it until its useful behavior/tests are compared
   with the multi-provider client.
+
+The [portable components](../applications/README.md) separate Analysis parsing
+and map projection, graphical presentation, and provider-neutral AI exchanges.
+The [Codex development workspace](local-codex-workspace.md) adds its provider
+panel, routes and CLI adapter around the shared map.
 
 Graphical display has one owner: the animated
 [reference interface](ui-reference.md). The AI chat and MCP remain transport

@@ -1,10 +1,10 @@
-/* trIA's reference map uses a local Codex CLI bridge (no API key).
+/* Development workspace adapter for the local Codex CLI (no API key).
    This page does not connect to, or mirror, the current chatgpt.com thread. */
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
   const messages = [];
-  let sourceDoc = null, pending = false, candidate = null;
+  let sourceRevision = null, pending = false, candidate = null;
 
   function state(text, error = false) {
     $("codex-status").textContent = text;
@@ -29,18 +29,17 @@
     state("Conversation locale réinitialisée ; aucune Analysis modifiée.");
   }
   function getContext() {
-    if (typeof documentModel === "undefined" || !documentModel) return null;
-    if (sourceDoc !== documentModel) {
-      sourceDoc = documentModel;
-      reset();
+    const { analysisRevision, focusId, inspectedObjectId, subjectId, scenarioId } = TriaGraph.getContext();
+    if (!analysisRevision) return null;
+    const targetId = focusId || inspectedObjectId || subjectId;
+    if (sourceRevision !== analysisRevision) {
+      const previousRevision = sourceRevision;
+      sourceRevision = analysisRevision;
+      if (previousRevision !== null) reset();
     }
-    const inspected = records.get(selected);
-    const focusId = focusCycle?.focus ||
-      (inspected?.family === "object" ? inspected.id : documentModel.main_subject.id);
-    const scenarioId = $("scenario").value || null;
-    $("codex-context").textContent = "Focus : " + focusId +
+    $("codex-context").textContent = "Focus : " + targetId +
       (scenarioId ? " · Scénario : " + scenarioId : "");
-    return { focusId, scenarioId };
+    return { analysisRevision, focusId: targetId, scenarioId };
   }
   async function connection() {
     try {
@@ -63,9 +62,9 @@
   });
   $("codex-reset").addEventListener("click", reset);
   $("codex-stage").addEventListener("click", () => {
-    if (!candidate || !documentModel) return;
+    if (!getContext() || !candidate) return;
     try {
-      window.triaStageCandidateEnvelope(candidate);
+      TriaGraph.stageProposals(candidate);
       candidate = null;
       $("codex-proposals").hidden = true;
       state("Propositions ajoutées provisoirement à la carte de référence. Analysis intacte.");
@@ -80,7 +79,7 @@
     if (!context) { state("Charge une Analysis avant de solliciter Codex.", true); return; }
     const question = $("codex-question").value.trim();
     if (!question) return;
-    const phase = $("codex-phase").value, originalDoc = documentModel;
+    const phase = $("codex-phase").value, originalDoc = TriaGraph.getAnalysis();
     pending = true;
     ["codex-send", "codex-reset", "codex-phase"].forEach(id => $(id).disabled = true);
     $("codex-proposals").hidden = true;
@@ -96,7 +95,7 @@
       });
       const data = await response.json();
       if (!response.ok) throw Error(data.error || "Échec du pont Codex.");
-      if (documentModel !== originalDoc)
+      if (TriaGraph.getContext().analysisRevision !== context.analysisRevision)
         throw Error("L'Analysis a changé pendant le tour : résultat écarté.");
       show("user", phase, question);
       show("assistant", phase, data.answer);
@@ -126,6 +125,7 @@
   for (const id of ["scenario", "entity", "dataset"]) {
     $(id).addEventListener("change", () => { if (!pending) getContext(); });
   }
+  document.addEventListener("tria-analysis-loaded", getContext);
   getContext();
   connection();
 })();

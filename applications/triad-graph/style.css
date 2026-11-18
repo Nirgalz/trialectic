@@ -55,11 +55,3 @@ body,.map{background:var(--bg)}.map{background:var(--panel)}button.primary:hover
 #local-ai-results li{margin:7px 0}
 
 /* Codex local cycle on the same animated reference map. */
-#codex-status{font-size:13px;padding:12px;background:var(--bg);border-left:2px solid var(--accent);border-radius:8px}
-#codex-status[data-error="true"]{border-left-color:var(--negative)}
-#codex-form label{display:block;font-size:13px}
-#codex-form textarea{display:block;width:100%;margin-top:6px}
-#codex-history{max-height:460px;overflow:auto;margin-top:14px}
-.codex-message{padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);margin:9px 0}
-.codex-message p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;margin:6px 0 0;font-size:13px}
-#codex-proposals{padding:12px;margin:12px 0;border:1px dashed var(--accent);border-radius:9px}

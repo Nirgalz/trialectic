@@ -3,6 +3,7 @@ const $ = id => document.getElementById(id);
 let documentModel, cy, view = 'objects', selected = null, issues = [], records = new Map();
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null, scenarioFocus = null;
+let analysisRevision=0;
 let acceptedOverlay={objects:[],relations:[]}; // Propositions graphiques non normatives
 const viewTransitions=TriaViewTransitions.createTransitions(cytoscape,$('cy'));
 const objectTooltip=document.createElement('div');
@@ -245,61 +246,11 @@ function organicLayout(elements, anchor=null) {
 const text = (parent, tag, value, cls) => { const e = document.createElement(tag); e.textContent = value; if(cls)e.className=cls; parent.append(e); return e; };
 const pretty = x => JSON.stringify(x, null, 2);
 const currentScenario = () => documentModel.scenarios.find(s => s.id === $('scenario').value);
-const key = (family, id, version='') => `${family}:${id}@${version}`;
-function addNode(elements, family, id, label, raw, kind=family, version='') {
-  const uid=key(family,id,version); records.set(uid,{family,id,raw});
-  const animationParent=family==='object'&&raw.parent_id?key('object',raw.parent_id):family==='scenario'&&raw.parent_scenario_id?key('scenario',raw.parent_scenario_id):family==='relation'?key('object',raw.origin_object.id):family==='condition'?key('relation',raw.condition.owner_relation.id,raw.condition.owner_relation.version):null;
-  elements.push({data:{id:uid,label,kind,animationParent}}); return uid;
-}
-function projection(a) {
-  records = new Map(); const es=[], obj = new Map();
-  a.objects.forEach(o=>{
-    obj.set(o.id,addNode(es,'object',o.id,o.label||o.id,o,o.concept_kind||'object'));
-    const roles=[...new Set(a.relations.filter(r=>r.represented_object.id===o.id).map(r=>r.type))];
-    es[es.length-1].data.visualKind=o.concept_kind||(roles.length===1?roles[0]:'object');
-  });
-  let edgeCount=0;
-  function edge(source,target,label,raw,kind='context',appearance={}) {
-    if(!source||!target)return;
-    const id='edge:'+(++edgeCount); records.set(id,{family:kind,id:raw.id||id,raw});
-    es.push({data:{id,source,target,label:UII18n.translate(label),sourceLabel:label,kind,...appearance}});
-  }
-  a.relations.forEach(r=>{
-    const uncertain=!r.attribution||r.attribution.status==='indeterminate';
-    const n=addNode(es,'relation',r.id,`${uncertain?'? ':''}${r.type} · ${r.id}`,r,'relation',r.version);
-    edge(obj.get(r.origin_object.id),n,'attribution'+(uncertain?' ?':''),r,'attribution');
-    edge(n,obj.get(r.represented_object.id),'Objet représenté',r,'representation');
-    r.relation.links.forEach(l=>{
-      const appearance=linkAppearance(l,r.type);
-      edge(n,obj.get(l.object_id),`${appearance.label}${uncertain?' ?':''}`,{...l,relation_record:{id:r.id,version:r.version}},'qualified',appearance);
-    });
-  });
-  (a.can_affiliations||[]).forEach(f=>edge(obj.get(f.parent_can.id),obj.get(f.child_can.id),`${f.kind}${f.qualification.status==='indeterminate'?' ?':''}`,f,'affiliation',{functionName:f.kind}));
-  a.definitions.forEach(d=>d.constituents.forEach(c=>edge(obj.get(d.object_id),obj.get(c.id),`constituant · ${d.version}`,d,'composition')));
-  const s=currentScenario();
-  a.conditions.forEach(c=>{ const assessments=a.condition_assessments.filter(x=>x.scenario_id===s?.id&&x.condition.id===c.id&&x.condition.owner_id===c.owner_relation.id); const mark=conditionSymbol(assessments); const n=addNode(es,'condition',`${c.owner_relation.id}/${c.id}`,`${mark} ${c.id}\n${assessments.map(x=>x.status).join(', ')||'non évaluée'}`,{condition:c,assessments}); es[es.length-1].data.statusTone=mark==='✓'?'positive':mark==='×'?'negative':'unknown'; edge(n,key('relation',c.owner_relation.id,c.owner_relation.version),c.target,c,'condition'); });
-  return es;
-}
-function scenariosProjection() {
-  records=new Map();const es=[];
-  documentModel.scenarios.forEach(s=>addNode(es,'scenario',s.id,`${s.id} · ${s.mode}\n${(s.assumptions?.find(t=>!t.startsWith('Tout le cas'))||s.notes||'').slice(0,90)}`,s));
-  documentModel.scenarios.forEach(s=>{if(s.parent_scenario_id&&documentModel.scenarios.some(p=>p.id===s.parent_scenario_id)){
-    const id='branch:'+s.id;records.set(id,{family:'scenario_branch',id,raw:s});
-    es.push({data:{id,source:key('scenario',s.parent_scenario_id),target:key('scenario',s.id),label:'branche',kind:'membership'}});
-  }});return es;
-}
-function scenarioProjection() {
-  const s=currentScenario();if(!s)return [];
-  const associated=scenarioAssociatedObjects(documentModel,s);
-  const pins=new Map(s.object_heads.map(h=>[h.id,h.version]));
-  const relations=documentModel.relations.filter(r=>associated.has(r.origin_object.id)&&associated.has(r.represented_object.id));
-  const relationPins=new Set(relations.map(r=>r.id+'@'+r.version));
-  const es=projection({...documentModel,objects:documentModel.objects.filter(o=>associated.has(o.id)),
-    definitions:documentModel.definitions.filter(d=>associated.has(d.object_id)&&(!pins.has(d.object_id)||pins.get(d.object_id)===d.version)),
-    relations,can_affiliations:(documentModel.can_affiliations||[]).filter(f=>associated.has(f.parent_can.id)&&associated.has(f.child_can.id)),
-    conditions:documentModel.conditions.filter(c=>relationPins.has(c.owner_relation.id+'@'+c.owner_relation.version))});
-  const nodes=new Set(es.filter(e=>!e.data.source).map(e=>e.data.id));
-  return es.filter(e=>!e.data.source||(nodes.has(e.data.source)&&nodes.has(e.data.target)));
+const key=TriaMapProjection.key;
+function mapElements(){
+ const map=TriaMapProjection.projectAnalysis(documentModel,{view:view==='objects'?'objects':scenarioFocus?'scenario':'scenarios',scenarioId:$('scenario').value,translate:UII18n.translate});
+ records=new Map(map.records);
+ return [...map.nodes,...map.edges].map(data=>({data}));
 }
 function openScenario(id,adopt=true){return visitGraph(()=>{
   if(!documentModel.scenarios.some(s=>s.id===id))return;
@@ -322,7 +273,7 @@ function render() {
   renderedScenario=$('scenario').value;
   centeredNode=null; overviewPositions=new Map();
   $('overview').disabled=true; $('scope').textContent='Tous les éléments';
-  const all=view==='objects'?projection(documentModel):scenarioFocus?scenarioProjection():scenariosProjection();
+  const all=mapElements();
   const baseElements=view==='objects'&&focusCycle?.mode==='simple'&&!focusCycle.refined?simpleMapElements(all):all;
   const es=view==='objects'?baseElements.concat(TriaCandidateOverlay.elements(acceptedOverlay,records)):baseElements;
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
@@ -450,26 +401,13 @@ function analyticalSummary(){
   if(!p.querySelector('.item'))text(p,'p','Aucune évaluation enregistrée dans ce contexte. Aucun score ni résultat causal calculé.');
 }
 function handoff(challenge=false){
-  const r=records.get(selected),s=currentScenario();
-  $('handoff').value=[`use trIAd-c`,`Analyse : ${documentModel.analysis_id} (profil ${documentModel.schema_version}).`,`Sujet : ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,`Phase de présentation : ${$('phase').value}. Focus source : ${pretty(documentModel.focus)}.`,`Scénario : ${s?.id||'aucun'} (${s?.mode||'non renseigné'}).`,r?`Inspection demandée : ${r.family} ${r.id}\n${pretty(r.raw)}`:'',`Mode de navigation : ${navigation.mode}. Focus choisi par l’Analyste : ${navigation.mode==='persistent'?navigationRefLabel(navigation.focus):'aucun'}.`,window.focusPilot?.summary(),focusCycle?focusCycle.handoff(focusCycleReport):'',scenarioFocus?`Contexte graphique : Scénario ${scenarioFocus}.`:'',challenge?'Examine les qualifications, les hypothèses et les informations manquantes de cette sélection.':'',`Question / correction utilisateur : ${$('note').value||'À préciser.'}`,`Conserver les IDs, versions et distinctions fait/hypothèse. Évaluer aussi les effets sur les autres Sujets et le problème global. Aucun événement effectif ne doit être déduit de cette interaction.`, `Source dev : 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} signalements du validateur (voir prototype).`].filter(Boolean).join('\n\n');
-  if(UII18n.language==='en'){
-    $('handoff').value=[`use trIAd-c`,`Analysis: ${documentModel.analysis_id} (profile ${documentModel.schema_version}).`,
-      `Subject: ${documentModel.main_subject.id}@${documentModel.main_subject.version}.`,
-      `Displayed phase: ${UII18n.translate($('phase').value)}. Source Focus: ${pretty(documentModel.focus)}.`,
-      `Scenario: ${s?.id||'none'} (${s?.mode||'unspecified'}).`,
-      r?`Requested inspection: ${r.family} ${r.id}\n${pretty(r.raw)}`:'',
-      `Navigation mode: ${navigation.mode}. Analyst Focus: ${navigation.mode==='persistent'?UII18n.translate(navigationRefLabel(navigation.focus)):'none'}.`,
-      window.focusPilot?.summaryEnglish(),focusCycle?focusCycle.handoff(focusCycleReport):'',scenarioFocus?`Graph context: Scenario ${scenarioFocus}.`:'',
-      challenge?'Examine the qualifications, assumptions and missing information for this selection.':'',
-      `User question / correction: ${$('note').value||'To be specified.'}`,
-      'Preserve IDs, versions and distinctions between facts and assumptions. Consider other Subjects and the overall problem. Do not infer an effective event from this interaction.',
-      `Source dev: 5449b52b49baf56f8e62b185d74b6e10b45a4abd. ${issues.length} validator findings (see prototype).`].filter(Boolean).join('\n\n');
-  }
-
+ $('handoff').value=TriaAIBridge.formatHandoff({analysis:documentModel,record:records.get(selected),scenario:currentScenario(),phase:$('phase').value,note:$('note').value,navigation,scenarioFocus,issues,language:UII18n.language,translate:UII18n.translate,challenge,
+  pilotSummary:window.focusPilot?.summary(),pilotSummaryEnglish:window.focusPilot?.summaryEnglish(),
+  focusContext:focusCycle?TriaAIBridge.formatFocusContext({analysis:documentModel,context:focusCycle.local||TriaFocusCycle.explore(documentModel,documentModel.main_subject.id),mode:focusCycle.mode,report:focusCycleReport}):''});
 }
 async function install(doc,reported){
   viewTransitions.finish();
-  documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
+  analysisRevision++;documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
   acceptedOverlay={objects:[],relations:[]};$('clear-proposals').disabled=true;
   const selectedDepth=$('map-depth').value||'detailed';
   focusCycle=TriaFocusCycle.createCycle(doc);focusCycle.setMode(selectedDepth);focusCycleReport=null;
@@ -487,15 +425,13 @@ async function install(doc,reported){
     if(scenario){openScenario(id,false);return;}
     switchView('objects');const uid=key('object',id);inspect(uid);focusNode(uid);
   })});handoff();graphHistory.reset(graphSnapshot());updateGraphHistoryControls();
+  document.dispatchEvent(new Event('tria-analysis-loaded'));
 }
 async function load(){try{
- const pilot=$('dataset').value==='focus-pilot';
- const r=await fetch(pilot?'/examples/focus-pilot.json':'/api/fixture/'+$('dataset').value);if(!r.ok)throw Error('Chargement impossible');
- let p=await r.json();
- if(pilot){const document=p;const check=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(document)});const result=await check.json();if(!check.ok)throw Error(result.error||'Validation impossible');p={document,issues:result.issues};}
- if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(p.document,p.issues);
+ const input=TriaMapExamples[$('dataset').value];
+ if(!input)throw Error('Exemple introuvable');
+ const parsed=TriaMapData.parseAnalysis(input);await install(parsed.document,parsed.issues);
  }catch(e){$('status').textContent=e.message;}}
-
 
 $('map-depth').onchange=()=>visitGraph(()=>{
   if(!focusCycle)return;
@@ -572,7 +508,6 @@ function stageCandidateEnvelope(envelope){
  $('clear-proposals').disabled=false;
  refreshProposalOverlay();
 }
-window.triaStageCandidateEnvelope=stageCandidateEnvelope;
 $('import-proposals').onclick=()=>$('proposals-file').click();
 $('proposals-file').onchange=async()=>{
  try {
@@ -593,7 +528,9 @@ $('clear-proposals').onclick=()=>{
  $('status').textContent='Propositions provisoires retirées. Analysis inchangée.';
 };
 $('import').onclick=()=>$('file').click();
-$('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;if(f.size>2000000)throw Error('Limite : 2 Mo');const doc=JSON.parse(await f.text());const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(doc)});const p=await r.json();if(!r.ok||p.error)throw Error(p.error||'Validation impossible');if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(doc,p.issues);}catch(e){$('status').textContent='Import refusé ; analyse conservée. '+e.message;}finally{$('file').value='';}};
+$('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;if(f.size>TriaMapData.MAX_BYTES)throw Error('Limite : 2 Mo');
+ const parsed=TriaMapData.parseAnalysis(await f.text());await install(parsed.document,parsed.issues);
+ }catch(e){$('status').textContent='Import refusé ; analyse conservée. '+e.message;}finally{$('file').value='';}};
 $('export').onclick=()=>{const blob=new Blob([pretty(documentModel)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='triad-analysis.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 new ResizeObserver(()=>{viewTransitions.finish();cy?.resize();}).observe($('cy'));
 if(typeof cytoscape==='undefined')$('status').textContent='Cytoscape.js absent : vérifier la copie locale.';else load();
@@ -627,3 +564,25 @@ document.addEventListener('tria-language-changed',()=>{
 $('graph-back').onclick=()=>moveGraphHistory(-1);
 $('graph-forward').onclick=()=>moveGraphHistory(1);
 TriaGraphHistory.bindGraphMouseHistory(document.querySelector('.map'),moveGraphHistory);
+
+window.TriaGraph=Object.freeze({
+ async loadAnalysis(input){
+  const parsed=TriaMapData.parseAnalysis(input);
+  await install(parsed.document,parsed.issues);
+  return {analysis_id:documentModel.analysis_id,issues:parsed.issues};
+ },
+ getAnalysis(){return documentModel?structuredClone(documentModel):null;},
+ getContext(){
+  const inspected=records.get(selected);
+  return {
+   analysisRevision,
+   focusId:focusCycle?.focus||null,
+   inspectedObjectId:inspected?.family==='object'&&!inspected.raw.proposed?inspected.id:null,
+   subjectId:documentModel?.main_subject.id,
+   scenarioId:$('scenario').value||null,
+   mapMode:focusCycle?.mode||'detailed',
+   note:$('note').value
+  };
+ },
+ stageProposals:stageCandidateEnvelope
+});

@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const {graph,explore,createCycle}=require('./focus-cycle.js');
+const {graph,explore,createCycle}=require('../tria-map-data/focus-cycle.js');
 const doc=JSON.parse(fs.readFileSync(path.join(__dirname,'examples/focus-pilot.json'),'utf8'));
 const frozen=JSON.stringify(doc);
 const ids=new Set(doc.objects.map(o=>o.id));
@@ -46,8 +46,10 @@ assert.equal(cycle.refined,true);
 assert(report.candidates.every(x=>ids.has(x.id)));
 assert(report.unassessedConditions.every(x=>doc.conditions.some(c=>c.id===x.id)));
 assert(report.disclaimer.includes('pas de nouvelles connaissances'));
-assert(cycle.handoff(report).includes('Environnement direct'));
-assert(cycle.handoff(report).includes('Exploration C+ demandée'));
+const {formatFocusContext}=require('../tria-ai-bridge/bridge.js');
+const handoff=formatFocusContext({analysis:doc,context:cycle.local,mode:cycle.mode,report});
+assert(handoff.includes('Environnement direct'));
+assert(handoff.includes('Exploration C+ demandée'));
 assert.equal(JSON.stringify(doc),frozen,'UI state must never mutate source Analysis');
 cycle.setMode('detailed');
 assert.equal(cycle.focus,null);
@@ -64,7 +66,7 @@ for(const id of ['map-depth','d97-focus','adopt-object-focus','return-object-ove
   assert(html.includes('id="'+id+'"'),'Missing D-97 HTML control: '+id);
   if(id!=='d97-focus')assert(app.includes("'"+id+"'"),'Missing D-97 JS wiring: '+id);
 }
-assert(html.includes('src="focus-cycle.js"'));
+assert(html.includes('src="../tria-map-data/focus-cycle.js"'));
 assert(app.includes('focusCycle=TriaFocusCycle.createCycle(doc)'));
 assert(app.includes('focusCycle.refine()'));
 assert(app.includes("r.family!=='object'"));

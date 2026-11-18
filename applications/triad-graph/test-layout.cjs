@@ -41,7 +41,7 @@ assert.notEqual(fan.get('f1').distance,fan.get('f2').distance);
 assert.deepEqual(separatedEdgeRoutes(routingPositions,parallel),routes);
 assert.equal(separatedEdgeRoutes(routingPositions,[{id:'missing',source:'a',target:'absent'}]).size,0);
 console.log('Routing: separated parallel/reverse links, junction fan-out and determinism OK.');
-const {conditionSymbol,linkAppearance}=require('./visual-semantics.js');
+const {conditionSymbol,linkAppearance}=require('../tria-map-data/semantics.js');
 assert.equal(conditionSymbol([{status:'satisfied'}]),'✓');
 assert.equal(conditionSymbol([{status:'unsatisfied'}]),'×');
 assert.equal(conditionSymbol([]),'?');
@@ -52,7 +52,7 @@ assert.equal(linkAppearance({roles:['contributive']},'CAN').arrowEnd,'target');
 assert.equal(linkAppearance({roles:['enabling','inhibitory']},'CAN').functionName,'qualified');
 assert.equal(linkAppearance({},'CAN').functionName,'qualified');
 console.log('Symbols: absent/conflicting assessments stay unknown; mixed roles keep qualifications.');
-const {scenarioAssociatedObjects}=require('./visual-semantics.js');
+const {scenarioAssociatedObjects}=require('../tria-map-data/semantics.js');
 const associated=scenarioAssociatedObjects({effects:[{scenario_id:'S-a',target_object:{id:'affected'}},{scenario_id:'S-b',target_object:{id:'other'}}]},
  {id:'S-a',object_heads:[{id:'a',version:'v1'}],states:[{object:{id:'b',version:'v1'}}]});
 assert.deepEqual([...associated].sort(),['a','affected','b']);
