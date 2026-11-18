@@ -258,8 +258,10 @@
     }
     try {
       // Revalidate immediately before modification, including previously accepted IDs.
-      const source = { schema: "tria-map-response-v1", analysis_id: doc.analysis_id,
-        answer: "Proposition locale confirmée pour affichage.", map_patch: pendingProposal.patch };
+      const source = { schema: "tria-map-response-v2", analysis_id: doc.analysis_id,
+        answer: "Proposition locale confirmée pour affichage.",
+        tria_instruction_check: pendingProposal.check,
+        map_patch: pendingProposal.patch };
       TriaMapProtocol.validate(doc, source, acceptedOverlay);
       acceptedOverlay.objects.push(...pendingProposal.patch.objects);
       acceptedOverlay.relations.push(...pendingProposal.patch.relations);
@@ -439,7 +441,7 @@
       });
       messageNode({ role: "assistant", text: answer, visible: result.answer, checkMessage });
       if (result.count > 0) {
-        pendingProposal = { patch: result.patch, revision: graphRevision,
+        pendingProposal = { patch: result.patch, check: result.check, revision: graphRevision,
           analysisId: doc.analysis_id, provider: PROVIDERS[providerAtSend].label };
         showPendingProposal();
         status((firstTurn ? "Instructions trIA reconnues. " : "Respect trIA déclaré. ")
