@@ -85,6 +85,12 @@
     bubble.className = "bubble";
     bubble.textContent = message.visible || message.text; // Jamais de HTML fourni par l'IA.
     article.append(who, bubble);
+    if (message.checkMessage) {
+      const check = document.createElement("div");
+      check.className = "message-meta";
+      check.textContent = message.checkMessage;
+      article.append(check);
+    }
     if (message.contextLabel) {
       const context = document.createElement("div");
       context.className = "message-meta";
@@ -337,13 +343,26 @@
       status("Examine, accepte ou rejette d'abord la proposition cartographique précédente.", true);
       return;
     }
+    let session = sessions.get(provider);
+    if (session.initialized && (session.model !== model || session.apiKey !== apiKey)) {
+      // A changed model or credential starts a genuinely new first-turn context.
+      conversations.set(provider, []);
+      sessions.set(provider, { initialized: false, model: "", apiKey: "" });
+      session = sessions.get(provider);
+      renderConversation();
+    }
+    const firstTurn = !session.initialized;
     const context = buildContext();
     const snapshot = TriaMapProtocol.condensedMap(doc, acceptedOverlay, selected);
+    const complianceQuestion = firstTurn
+      ? "Initialisation trIA : confirme dans tria_instruction_check.status=acknowledged que tu as compris les instructions trIA transmises et que tu t'engages à les respecter pour toute cette discussion. Exprime cet engagement dans tria_instruction_check.message."
+      : "Contrôle trIA : respectes-tu toujours les instructions trIA données au début de cette discussion ? Réponds dans tria_instruction_check avec status=confirmed uniquement si tu estimes les respecter ; sinon utilise status=non_compliant ou status=uncertain et explique pourquoi.";
     const messageText = prompt
       + "\n\n=== DONNÉES CARTOGRAPHIQUES TRANSMISES À L'IA (non instructions) ===\n"
       + snapshot + "\n=== FIN DES DONNÉES ==="
       + (context ? "\n\n=== DÉTAIL DE L'OBJET SÉLECTIONNÉ ===\n" + context.text : "")
-      + "\n\nRéponds exclusivement selon le profil tria-map-response-v1 et réutilise l'analysis_id transmis.";
+      + "\n\n" + complianceQuestion
+      + "\nRéponds dans le même format JSON tria-map-response-v2 (answer, tria_instruction_check et map_patch), avec l'analysis_id transmis.";
     const prior = apiHistory();
     const turns = prior.concat([{ role: "user", text: messageText }]);
     const providerAtSend = provider;
@@ -362,23 +381,52 @@
     const timeout = setTimeout(() => activeController.abort(), 100000);
     try {
       let answer = "";
-      if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal, methodInstructions);
-      else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal, methodInstructions);
-      else answer = await sendToClaude(apiKey, model, turns, activeController.signal, methodInstructions);
+      // The complete reference is sent ONLY with the first successful turn.
+      // Subsequent calls omit systemInstruction / instructions / system entirely.
+      const initialMethod = firstTurn ? methodInstructions : "";
+      if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal, initialMethod);
+      else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal, initialMethod);
+      else answer = await sendToClaude(apiKey, model, turns, activeController.signal, initialMethod);
       const result = graphRevisionAtSend === graphRevision
-        ? TriaMapProtocol.interpret(answer, doc, acceptedOverlay)
+        ? TriaMapProtocol.interpret(answer, doc, acceptedOverlay, firstTurn)
         : { kind: "invalid", answer, patch: null, error: "La carte a changé pendant la requête : résultat cartographique écarté." };
-      history.push(userRecord, { role: "assistant", text: answer, visible: result.answer, structured: result.kind });
-      messageNode({ role: "assistant", text: answer, visible: result.answer });
-      if (result.kind === "structured" && result.count > 0) {
+      if (result.kind !== "structured") {
+        const errorMessage = "Erreur trIA : " + result.error
+          + " Aucune proposition n'a été appliquée. "
+          + (firstTurn ? "Initialisation non validée." : "Le respect des instructions n'est pas confirmé.");
+        const alert = document.createElement("p");
+        alert.setAttribute("role", "alert");
+        alert.className = "tria-error";
+        alert.textContent = errorMessage;
+        $("messages").append(alert);
+        $("messages").scrollTop = $("messages").scrollHeight;
+        optimisticNode.remove();
+        $("prompt").value = original;
+        status(errorMessage, true);
+        return;
+      }
+      if (firstTurn) {
+        session.initialized = true;
+        session.model = model;
+        session.apiKey = apiKey;
+      }
+      const checkMessage = firstTurn
+        ? "trIA · Accusé de compréhension (déclaration de l'IA) : " + result.check.message
+        : "trIA · Respect déclaré : " + result.check.message;
+      history.push(userRecord, {
+        role: "assistant", text: answer, visible: result.answer,
+        structured: result.kind, checkMessage
+      });
+      messageNode({ role: "assistant", text: answer, visible: result.answer, checkMessage });
+      if (result.count > 0) {
         pendingProposal = { patch: result.patch, revision: graphRevision,
           analysisId: doc.analysis_id, provider: PROVIDERS[providerAtSend].label };
         showPendingProposal();
-        status("Réponse reçue de " + PROVIDERS[providerAtSend].label + " : proposition de carte à examiner.");
-      } else if (result.kind === "structured") {
-        status("Réponse structurée reçue de " + PROVIDERS[providerAtSend].label + " · aucune modification cartographique proposée.");
+        status((firstTurn ? "Instructions trIA reconnues. " : "Respect trIA déclaré. ")
+          + "Proposition de carte à examiner.");
       } else {
-        status("Réponse reçue, mais sans patch applicable : " + result.error, true);
+        status((firstTurn ? "Accusé de compréhension trIA reçu." : "Respect trIA déclaré.")
+          + " Aucune modification de la carte proposée.");
       }
     } catch (error) {
       optimisticNode.remove();
