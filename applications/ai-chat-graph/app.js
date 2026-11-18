@@ -21,6 +21,9 @@
   });
   const LIMIT_TURNS = 16;
   const conversations = new Map(Object.keys(PROVIDERS).map(key => [key, []]));
+  const sessions = new Map(Object.keys(PROVIDERS).map(key => [key, {
+    initialized: false, model: "", apiKey: ""
+  }]));
   const rememberedKeys = new Map(); // Mémoire volatile, jamais localStorage ni sessionStorage.
   const rememberedModels = new Map(Object.entries(PROVIDERS).map(pair => [pair[0], pair[1].model]));
   let provider = "gemini";
@@ -136,10 +139,14 @@
     const data = await apiCall(
       "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(model) + ":generateContent",
       { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      { systemInstruction: { parts: [{ text: method }] }, generationConfig: { responseMimeType: "application/json" }, contents: turns.map(turn => ({
-        role: turn.role === "assistant" ? "model" : "user",
-        parts: [{ text: turn.text }]
-      })) },
+      {
+        ...(method ? { systemInstruction: { parts: [{ text: method }] } } : {}),
+        generationConfig: { responseMimeType: "application/json" },
+        contents: turns.map(turn => ({
+          role: turn.role === "assistant" ? "model" : "user",
+          parts: [{ text: turn.text }]
+        }))
+      },
       signal
     );
     const text = (data.candidates?.[0]?.content?.parts || [])
@@ -151,9 +158,10 @@
     const data = await apiCall(
       "https://api.openai.com/v1/responses",
       { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
-      { model, store: false, instructions: method, input: turns.map(turn => ({
-        role: turn.role, content: turn.text
-      })) },
+      { model, store: false,
+        ...(method ? { instructions: method } : {}),
+        input: turns.map(turn => ({ role: turn.role, content: turn.text }))
+      },
       signal
     );
     const text = typeof data.output_text === "string" ? data.output_text :
@@ -173,7 +181,8 @@
         "anthropic-dangerous-direct-browser-access": "true"
       },
       {
-        model, max_tokens: 4096, system: method,
+        model, max_tokens: 4096,
+        ...(method ? { system: method } : {}),
         messages: turns.map(turn => ({ role: turn.role, content: turn.text }))
       },
       signal
@@ -190,7 +199,7 @@
       const response = await fetch("../../reference/tria-ai-instructions.md", { cache: "no-store" });
       if (!response.ok) throw new Error("HTTP " + response.status);
       const source = await response.text();
-      if (!source.includes("tria-map-response-v1") || !source.includes("Trialectic Method"))
+      if (!source.includes("tria-map-response-v2") || !source.includes("Trialectic Method"))
         throw new Error("Le contenu du référentiel ne correspond pas au protocole attendu.");
       methodInstructions = source;
       methodLoadError = "";
@@ -391,8 +400,9 @@
     pendingProposal = null;
     showPendingProposal();
     conversations.set(provider, []);
+    sessions.set(provider, { initialized: false, model: "", apiKey: "" });
     renderConversation();
-    status("Discussion " + PROVIDERS[provider].label + " effacée en mémoire.");
+    status("Discussion effacée : les instructions trIA seront renvoyées uniquement lors de la prochaine initialisation.");
     $("prompt").focus();
   }
   function exportChat() {
