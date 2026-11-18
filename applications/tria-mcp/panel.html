@@ -148,7 +148,7 @@ investigate.onclick=async()=>{
   investigate.disabled=true;
   try{
     // Explicit user action: never create a new model turn on node selection alone.
-    await request("ui/message",{role:"user",content:{type:"text",text:prompt()}});
+    await request("ui/message",{role:"user",content:[{type:"text",text:prompt()}]});
     status.textContent="Demande transmise à la conversation. La carte reste inchangée.";
   }catch(e){status.textContent="Envoi impossible : "+e.message;}
   finally{investigate.disabled=!connected;}
