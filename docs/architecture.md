@@ -78,7 +78,9 @@ file-reader delegation and separate Analysis/evaluation namespaces.
 
 The overlap is **not** authorization to merge applications: common graph
 projection, provider adapter and response-contract boundaries first need
-functional tests and explicit scope decisions.
+functional tests and explicit scope decisions. See the [component overlap
+inventory](component-inventory.md) for concrete candidates, differing trust
+boundaries and acceptance criteria.
 
 ## How to change things without drift
 
