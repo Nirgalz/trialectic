@@ -45,6 +45,57 @@ Example generic MCP client configuration (replace with your absolute paths):
 
 **Privacy warning:** granting access to a file means an MCP-connected AI client can request its contents and may send returned content to its model provider. The absence of a network call **from this server** is not a guarantee that data stay offline in the client. Only approve files you are willing to expose to that configured AI client. Review its privacy, confirmation and tool-call policies. Do not place private Analysis files in the public repository.
 
+## Experimental Conversation Panel (opt-in)
+
+Start the same read-only MCP server with an **optional** three-Object Cytoscape
+MCP Apps interface:
+
+```sh
+python applications/tria-mcp/server.py --enable-panel
+```
+
+With this flag, the server additionally advertises:
+
+- MCP resource `ui://tria/focus-panel` with MIME type
+  `text/html;profile=mcp-app`: **one self-contained HTML document** with the
+  repository's existing Cytoscape.js 3.30.4 library embedded at resource-read
+  time. No CDN, npm install, Node.js runtime, or separate HTML server is needed.
+- Tool `tria_open_focus_panel`, with an OpenAI MCP extension
+  `_meta["openai/ui"]["entrypoints"] = [{"type": "thread"}]`.
+  Supported clients may offer a conversation side-panel tab for this tool.
+  The tool accepts `{}` and returns a clearly labeled **synthetic** fixture.
+
+The prototype's graph contains only **Association**, **Mairie** and
+**Habitants**; dashed links are hypotheses. A click changes the *navigation*
+Focus locally and attempts `ui/update-model-context` after a successful MCP Apps
+handshake. Only clicking **Approfondir ce Focus dans ChatGPT** explicitly sends
+a `ui/message` request. This request asks for a qualified investigation,
+preserving the distinction between the navigation Focus and a typed
+PowerEvaluation Focus. **No response is automatically applied to the graph**.
+No user Analysis file is required or read for this demonstration. The existing
+six MCP tools and eight public resources are unchanged.
+
+The panel communicates over MCP Apps `postMessage` and requires a **compatible
+MCP Apps host** with the server correctly installed/connected. It cannot
+independently control ChatGPT's window layout, guarantee that the host enables
+its conversation-tab entrypoint or claim support in ordinary ChatGPT Web. In
+the current OpenAI MCP Extensions specification, Web support refers to the
+**Work browser**, not classic ChatGPT. Test in an eligible ChatGPT Desktop/Work
+environment; do not equate this protocol-level test with a real-client test.
+
+When the panel is disabled (the default), `tools/list` and `resources/list`
+continue to expose precisely the same items as v0.2.0, without a UI entrypoint.
+
+Run deterministic protocol and embedded JavaScript syntax checks with:
+
+```sh
+python -m unittest discover -s tests -p 'test_mcp*.py' -v
+```
+
+A future iteration may handle approved candidate proposals via an explicit
+host-to-app update contract, but must not silently conflate a candidate,
+epistemic assessment or simulated Scenario with an Actualization.
+
 ## Tools
 
 | Tool | Behavior |
