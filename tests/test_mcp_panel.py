@@ -99,7 +99,7 @@ class MCPPanelTests(unittest.TestCase):
         self.assertNotIn("https://cdn", html.lower())
         for piece in ("ui/initialize", "ui/message", "ui/update-model-context",
                       "window.parent.postMessage", "O-mairie", "O-habitants",
-                      "Aucune modification"):
+                      "aucune modification automatique"):
             self.assertIn(piece, html)
 
     def test_panel_tool_requires_explicit_enablement_and_no_arguments(self):
