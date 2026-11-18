@@ -81,16 +81,17 @@
       </section>
       <div class="chat-compose">
         <div class="context-row">
-          <label class="checkline"><input type="checkbox" id="include-graph"> Joindre le contexte de l'objet sélectionné</label>
+          <label class="checkline"><input type="checkbox" id="include-graph"> Joindre le détail du nœud sélectionné</label>
           <span id="context-indicator">Aucun objet sélectionné</span>
         </div>
         <div class="reference-line"><a href="../../reference/tria-ai-instructions.md" target="_blank" rel="noopener noreferrer">Instructions de la Méthode trIA ↗</a><span id="method-state" role="status">Chargement…</span></div>
+        <p class="context-disclosure">À chaque message, une synthèse de la carte est transmise à l’IA sélectionnée. La case ci-dessus ajoute le détail d’un nœud.</p>
         <div id="status" class="status" role="status" aria-live="polite">Prêt · aucun appel API effectué</div>
         <form id="chat-form">
           <label for="prompt" class="sr-only">Message à l'IA</label>
           <textarea id="prompt" rows="3" maxlength="16000" placeholder="Écris ta question… Entrée pour envoyer, Maj+Entrée pour aller à la ligne." required></textarea>
           <div class="composer-bottom">
-            <p>Les réponses n'actualisent pas automatiquement la carte.</p>
+            <p>Les propositions n’apparaissent sur la carte qu’après validation.</p>
             <div class="button-row">
               <button type="button" id="cancel-request" hidden>Annuler</button>
               <button class="primary" type="submit" id="send-message">Envoyer ↗</button>
