@@ -92,6 +92,12 @@ The [trIA MCP server](applications/tria-mcp/README.md) on `dev` exposes the curr
 
 See the [single reference map and graphical experimentation workflow](docs/ui-reference.md).
 
+The [multi-provider AI chat adapter](applications/ai-chat/README.md) no longer
+contains a separate Cytoscape renderer. Its provisional proposals can be
+imported into the **single animated reference map**. The former synthetic
+MCP graph was retired; MCP remains a read-only transport, not a live graph
+synchronization engine.
+
 ## Working conventions
 
 The author-approved [Cytoscape.js prototype](applications/triad-graph/README.md)

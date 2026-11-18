@@ -1,8 +1,7 @@
 """Read-only trIA MCP server (stdio, Python standard library only).
 
 Exposes public Method references, assembled schemas and optional, explicitly
-approved local Analysis snapshots. The optional --enable-panel flag exposes a
-synthetic Cytoscape MCP Apps conversation panel. The server never changes user
+approved local Analysis snapshots. The server never changes user
 Analysis files, runs language models or makes external AI requests.
 Supports MCP 2026-07-28 and the 2025-11-25 initialization protocol.
 """
@@ -13,7 +12,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from local_analysis import ApprovedAnalyses, AnalysisError
-from panel_ui import UI_URI, UI_MIME, PANEL_TOOL, panel_resource, panel_tool_result
 
 ROOT = Path(__file__).resolve().parents[2]
 # MCP can be launched from any working directory.
@@ -30,7 +28,6 @@ MAX_FRAME = 65536
 MAX_RESOURCE = 750000
 SERVER_INFO = {"name": "tria-reference", "version": "0.2.0"}
 APPROVED = ApprovedAnalyses()
-PANEL_ENABLED = False  # Opt-in; the default reference-only behavior is unchanged.
 INSTRUCTIONS = (
     "Only analyses selected at launch may be read. MCP clients may forward their content to an external AI. "
     "Proposed revisions are previews only, never applied or persisted. "
@@ -92,8 +89,6 @@ def assembled_schemas():
 
 
 def read_resource(uri):
-    if PANEL_ENABLED and uri == UI_URI:
-        return panel_resource(safe_read, ROOT)
     if not isinstance(uri, str) or uri not in ENTRIES:
         raise ProtocolError(-32602, "Unknown resource URI")
     _, rel, mime = ENTRIES[uri]
@@ -110,10 +105,6 @@ def resources():
     items = [{"uri": uri, "name": name, "mimeType": mime,
               "description": "Public read-only repository reference"}
              for uri, name, _, mime in CATALOG]
-    if PANEL_ENABLED:
-        items.append({"uri": UI_URI, "name": "trIA navigation Focus panel",
-                      "mimeType": UI_MIME,
-                      "description": "Self-contained experimental Cytoscape MCP App"})
     return items
 
 
@@ -286,12 +277,10 @@ def handle(message, state):
         elif method == "tools/list":
             if params.get("cursor") is not None:
                 raise ProtocolError(-32602, "Pagination is not supported")
-            payload = {"tools": TOOLS + ([PANEL_TOOL] if PANEL_ENABLED else [])}
+            payload = {"tools": TOOLS}
         elif method == "tools/call":
             name = params.get("name")
             arguments = require_object(params.get("arguments", {}), "arguments")
-            if PANEL_ENABLED and name == PANEL_TOOL["name"] and not arguments:
-                return response(identifier, result_for_era(panel_tool_result(), modern))
             if name == "tria_list_references" and not arguments:
                 text = json.dumps(resources(), ensure_ascii=False, indent=2)
             elif name == "tria_read_reference" and set(arguments) == {"uri"}:
@@ -350,8 +339,6 @@ def serve(stdin=None, stdout=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--enable-panel", action="store_true",
-                        help="Expose experimental trIA MCP Apps thread panel")
     parser.add_argument("--allow-analysis", action="append", default=[],
                         metavar="ABSOLUTE_FILE.json",
                         help="Explicitly authorize one local Analysis JSON file; repeat as needed")
@@ -362,5 +349,4 @@ if __name__ == "__main__":
         APPROVED = ApprovedAnalyses(args.allow_analysis)
     except AnalysisError as exc:
         parser.error(str(exc))
-    PANEL_ENABLED = args.enable_panel
     serve()

@@ -15,7 +15,7 @@ Read it alongside [the decision log](../DECISIONS.md), not in place of it.
 | AI-assisted dialogue and steering behavior | [applications/ai-assisted-analysis/dialogue-protocol.md](../applications/ai-assisted-analysis/dialogue-protocol.md), with operational scope in [AGENTS.md](../AGENTS.md) and [applications/ai-assisted-analysis/AGENTS.md](../applications/ai-assisted-analysis/AGENTS.md) | Interaction design and operating instructions, not changes to the Method |
 | Experimental AI behavioral prompt | [reference/tria-ai-instructions.md](../reference/tria-ai-instructions.md) | Portable assistant behavior, not a duplicate dialogue specification or data schema |
 | Experimental map-response contract | [protocols/tria/map-response-contract.md](../protocols/tria/map-response-contract.md), [local-shape schema](../schemas/transport/tria-map-response-v2.schema.json), and contextual [browser validator](../applications/ai-chat-graph/map-protocol.js) | Human-readable transport format, structural checks and document-aware checks respectively; **provisional UI proposals** only |
-| Graphical presentation and local navigation | [applications/triad-graph/](../applications/triad-graph/README.md) and [applications/ai-chat-graph/](../applications/ai-chat-graph/index.html) | Projections of records, display state and experimental user interaction |
+| Graphical presentation and navigation | [applications/triad-graph/](../applications/triad-graph/README.md) | **Sole reference animated Cytoscape interface**; no independent renderer in AI chat or MCP |
 | External AI and MCP communication | Provider-specific adapters in applications; [applications/tria-mcp/](../applications/tria-mcp/README.md) | Transport, permissions, and interoperability, **not** conceptual inference |
 | Structural and partial semantic verification | [tools/validate_analysis.py](../tools/validate_analysis.py), [tools/validate_semantics.py](../tools/validate_semantics.py), [tests/](../tests/README.md) | Implemented checks, not general causal or empirical validation |
 | Open tasks and experimental findings | [TODO.md](../TODO.md), [research/](../research/) | Work tracking and evidence qualified by scope and provenance |
@@ -68,10 +68,10 @@ file-reader delegation and separate Analysis/evaluation namespaces.
 
 - `applications/triad-graph/`: **sole reference Cytoscape interface** (author-approved 18 November 2026), experimental inspection,
   navigation, Focus-cycle pilot and local Work request bridge.
-- `applications/ai-chat-graph/`: experimental multi-provider browser client
-  with its own proposal-overlay transport; **not** an analytical truth engine.
-- `applications/tria-mcp/`: read-only MCP access and an optional synthetic
-  conversation panel, not automatic Cytoscape synchronization.
+- `applications/ai-chat/`: experimental multi-provider conversations and
+  provisional map-patch exports, **without an independent graph renderer**.
+- `applications/tria-mcp/`: read-only MCP transport without an embedded
+  synthetic panel; future graphical host adapter is still open.
 - `applications/gemini-chat/`: earlier single-provider communication
   experiment. Do not remove it until its useful behavior/tests are compared
   with the multi-provider client.

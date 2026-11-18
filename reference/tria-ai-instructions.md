@@ -1,6 +1,6 @@
 # trIA — Portable AI behavioral instructions (prototype)
 
-**Integration profile:** `tria-map-response-v2` — behavioral instruction component of the `applications/ai-chat-graph/` first-turn instruction bundle.  
+**Integration profile:** `tria-map-response-v2` — behavioral instruction component of the `applications/ai-chat/` first-turn instruction bundle.  
 **Status:** **Operational, non-normative** condensation of Trialectic Method decisions on `dev`. This text does not replace the [canonical reference](trialectic-method.md), the [data models](data-models.md), the [Analysis v2 schema](../schemas/model/analysis.json), the [PowerEvaluation schema](../schemas/model/power-evaluation.json), or the [dialogue protocol](../applications/ai-assisted-analysis/dialogue-protocol.md). The `map_patch` fields specified in the [separate response contract](../protocols/tria/map-response-contract.md) constitute an **experimental graphical proposal format**, **not** the normative schema of an Analysis. The analyst remains responsible for validation.
 
 ## 1. Instructions to the AI
