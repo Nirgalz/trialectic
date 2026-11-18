@@ -3,6 +3,24 @@
 "use strict";
 const assert = require("node:assert/strict");
 const { decode, interpret, validate, condensedMap } = require("./map-protocol.js");
+const uiSchema = require("../../schemas/transport/tria-map-response-v2.schema.json");
+const shape = uiSchema.properties.map_patch.properties;
+assert.equal(uiSchema.properties.schema.const, "tria-map-response-v2");
+assert.deepEqual(uiSchema.required, [
+  "schema", "analysis_id", "answer", "tria_instruction_check", "map_patch"
+]);
+assert.equal(uiSchema.additionalProperties, false);
+assert.equal(shape.objects.maxItems, 20);
+assert.equal(shape.relations.maxItems, 30);
+assert.equal(uiSchema.$defs.candidateObject.properties.id.maxLength, 90);
+assert.equal(uiSchema.$defs.candidateRelation.properties.id.maxLength, 90);
+assert.equal(uiSchema.$defs.candidateObject.properties.label.maxLength, 160);
+assert.equal(uiSchema.$defs.candidateRelation.properties.description.maxLength, 1600);
+assert.equal(uiSchema.properties.answer.maxLength, 20000);
+assert.deepEqual(uiSchema.properties.tria_instruction_check.properties.status.enum,
+  ["acknowledged", "confirmed", "non_compliant", "uncertain"]);
+assert.equal(uiSchema.properties.tria_instruction_check.properties.message.maxLength, 1200);
+
 
 const document = {
   analysis_id: "A-test",
