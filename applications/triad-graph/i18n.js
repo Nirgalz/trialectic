@@ -19,7 +19,7 @@
  ["Adopter l'Objet inspecté comme Focus",'Adopt the inspected Object as Focus'],['Retour à la carte générale','Return to the map overview'],['Améliorer la résolution de la carte · C+','Improve map resolution · C+'],["Préparer l'approfondissement pour l'IA",'Prepare further exploration for AI'],['Explorer un Sujet Focal','Explore a Focal Subject'],
 
  ['Survoler pour un aperçu · cliquer pour explorer les liens.','Hover for a preview · click to explore relationships.'],
- ["L'atelier des possibles",'The possibilities workshop'],['Explorer. Relier. Comprendre.','Explore. Connect. Understand.'],['Prototype · mode exploratoire','Prototype · exploratory mode'],
+ ["L'atelier des possibles",'The possibilities workshop'],['Explorer. Relier. Comprendre.','Explore. Connect. Understand.'],['Prototype · mode exploratoire','Prototype · exploratory mode'],['IA · aucune connexion (carte seule)','AI · no connection (map only)'],['Aucun adaptateur IA actif dans cette interface.','No AI adapter is active in this interface.'],
  ['Contexte de travail','Working context'],['Terrain d’exploration','Exploration case'],['Scénario','Scenario'],['Scénarios','Scenarios'],['Comprendre/Explorer','Understand/Explore'],
  ['Pilote Focus · six écoles · fictif','Focus pilot · six schools · fictional'],['Générateur · conditions et scénarios · 2.0','Generator · conditions and scenarios · 2.0'],['Capacités · affiliations CAN · 2.2','Capabilities · CAN affiliations · 2.2'],['Identité et attribution · 2.1','Identity and attribution · 2.1'],
  ['Importer / exporter','Import / export'],['Importer une analyse','Import analysis'],['Exporter l’analyse','Export analysis'],['Vues du graphe','Graph views'],['Piloter le Focus ↗','Steer the Focus ↗'],

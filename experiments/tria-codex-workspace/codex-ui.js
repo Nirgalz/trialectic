@@ -5,6 +5,42 @@
   const $ = id => document.getElementById(id);
   const messages = [];
   let sourceRevision = null, pending = false, candidate = null;
+  // This adapter alone knows Codex CLI. The reference map only displays a generic status.
+  const connectionLabels = {
+    checking: {
+      fr: ["Codex CLI · vérification…", "Vérification locale de Codex CLI en cours."],
+      en: ["Codex CLI · checking…", "Checking the local Codex CLI."]
+    },
+    authenticated: {
+      fr: ["Codex CLI · ChatGPT authentifié", "Codex CLI est authentifié avec ChatGPT. Aucun échange IA encore vérifié dans cette session."],
+      en: ["Codex CLI · ChatGPT authenticated", "Codex CLI is signed in with ChatGPT. No AI exchange has been verified in this session yet."]
+    },
+    verified: {
+      fr: ["Codex CLI · ChatGPT · échange réussi", "Un échange avec le modèle via Codex CLI a réussi dans cette session."],
+      en: ["Codex CLI · ChatGPT · exchange succeeded", "An exchange with the model via Codex CLI succeeded in this session."]
+    },
+    unavailable: {
+      fr: ["Codex CLI · non connecté", "Codex CLI absent, non authentifié ou statut indisponible. Consulter le panneau Codex."],
+      en: ["Codex CLI · not connected", "Codex CLI missing, not authenticated or status unavailable. See the Codex panel."]
+    },
+    failed: {
+      fr: ["Codex CLI · échec de l'échange", "Le dernier échange Codex CLI a échoué. Consulter le panneau Codex."],
+      en: ["Codex CLI · exchange failed", "The last Codex CLI exchange failed. See the Codex panel."]
+    }
+  };
+  let connectionKind = "checking";
+  function connectionIndicator(kind) {
+    connectionKind = kind;
+    const indicator = $("ai-connection"), label = $("ai-connection-label");
+    if (!indicator || !label) return;
+    indicator.dataset.status = kind === "authenticated" || kind === "verified" ? "ready"
+      : kind === "checking" ? "checking" : "unavailable";
+    const language = window.UII18n?.language === "en" ? "en" : "fr";
+    const [text, tooltip] = connectionLabels[kind][language];
+    label.textContent = text;
+    indicator.title = tooltip;
+  }
+  document.addEventListener("tria-language-changed", () => connectionIndicator(connectionKind));
 
   function state(text, error = false) {
     $("codex-status").textContent = text;
@@ -42,12 +78,15 @@
     return { analysisRevision, focusId: targetId, scenarioId };
   }
   async function connection() {
+    connectionIndicator("checking");
     try {
       const result = await fetch("/api/codex/status", { cache: "no-store" });
       if (!result.ok) throw Error("Connexion locale indisponible");
       const data = await result.json();
+      connectionIndicator(data.ready ? "authenticated" : "unavailable");
       state(data.message, !data.ready);
     } catch {
+      connectionIndicator("unavailable");
       state("Serveur trIA non connecté à Codex. Démarre le serveur local.", true);
     }
   }
@@ -94,7 +133,10 @@
         })
       });
       const data = await response.json();
-      if (!response.ok) throw Error(data.error || "Échec du pont Codex.");
+      if (!response.ok) {
+        if (response.status >= 500) connectionIndicator("failed");
+        throw Error(data.error || "Échec du pont Codex.");
+      }
       if (TriaGraph.getContext().analysisRevision !== context.analysisRevision)
         throw Error("L'Analysis a changé pendant le tour : résultat écarté.");
       show("user", phase, question);
@@ -111,10 +153,12 @@
           " relation(s) proposés ; ni confirmés ni intégrés.";
         $("codex-proposals").hidden = false;
       }
+      connectionIndicator("verified");
       state(data.structured
         ? "Réponse Codex structurée reçue. Les décisions restent à l'Analyste."
         : "Réponse libre reçue. Pas de propositions structurées à importer.");
     } catch (error) {
+      if (error instanceof TypeError) connectionIndicator("failed");
       state(String(error.message || error), true);
     } finally {
       pending = false;
@@ -128,4 +172,5 @@
   document.addEventListener("tria-analysis-loaded", getContext);
   getContext();
   connection();
+  window.addEventListener("focus", () => { if (!pending) connection(); });
 })();

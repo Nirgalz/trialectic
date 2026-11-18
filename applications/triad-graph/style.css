@@ -55,3 +55,11 @@ body,.map{background:var(--bg)}.map{background:var(--panel)}button.primary:hover
 #local-ai-results li{margin:7px 0}
 
 /* Codex local cycle on the same animated reference map. */
+
+/* Provider-neutral connection indicator. Provider adapters own status updates. */
+.ai-connection{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:30px;background:var(--panel);font-size:12px;line-height:1.5;color:var(--ink)}
+.ai-connection-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:var(--muted)}
+.ai-connection[data-status="checking"] .ai-connection-dot{background:var(--unknown)}
+.ai-connection[data-status="ready"] .ai-connection-dot{background:var(--positive)}
+.ai-connection[data-status="unavailable"] .ai-connection-dot{background:var(--negative)}
+#ai-connection-label{overflow-wrap:anywhere}
