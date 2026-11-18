@@ -461,7 +461,7 @@
         }
         if (data.envelope?.schema === TriaAnalysisDraft.schema) {
           if (!data.envelope.analysis_draft) return;
-          const analysis = TriaAnalysisDraft.build(data.envelope, TriaMapProtocol, "A-draft-" + crypto.randomUUID());
+          const analysis = TriaAnalysisDraft.build(data.envelope, TriaMapProtocol, "A-draft-" + crypto.randomUUID(), question);
           loadingDraft = true;
           try {
             await TriaGraph.loadAnalysis(analysis);
