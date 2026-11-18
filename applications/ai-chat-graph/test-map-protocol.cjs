@@ -19,9 +19,10 @@ const document = {
 };
 const empty = () => ({ objects: [], relations: [] });
 const response = {
-  schema: "tria-map-response-v1",
+  schema: "tria-map-response-v2",
   analysis_id: "A-test",
   answer: "Nouvelle hypothèse à discuter.",
+  tria_instruction_check: { status: "confirmed", message: "I am still following trIA." },
   map_patch: {
     objects: [{
       id: "AI-O-1", label: "CAN candidat", category: "semantic_object",
@@ -65,5 +66,23 @@ rejects(x => x.map_patch.relations[0].can_object_ids = ["C-1", "C-1"]);
 rejects(x => x.extra = "unexpected");
 rejects(x => x.map_patch.objects = Array.from({length:21},(_,i)=>({...x.map_patch.objects[0],id:"AI-O-"+(i+1)})));
 rejects(_ => {}, response.map_patch);
+// The first response must acknowledge the instructions and promise adherence.
+const first = fresh();
+first.tria_instruction_check = {
+  status: "acknowledged", message: "I understand and will follow the trIA instructions during this discussion."
+};
+assert.equal(interpret(JSON.stringify(first), document, empty(), true).kind, "structured");
+assert.equal(interpret(JSON.stringify(response), document, empty(), true).kind, "non_compliant");
+assert.equal(interpret(JSON.stringify(first), document, empty(), false).kind, "non_compliant");
+for (const status of ["non_compliant", "uncertain"]) {
+  const item = fresh();
+  item.tria_instruction_check = {status, message: "I cannot confirm compliance."};
+  const found = interpret(JSON.stringify(item), document, empty(), false);
+  assert.equal(found.kind, "non_compliant");
+  assert.equal(found.patch, null, "Non-compliant replies must not update Cytoscape.");
+}
+rejects(x => delete x.tria_instruction_check);
+rejects(x => x.tria_instruction_check = {status: "confirmed", message: ""});
+rejects(x => x.tria_instruction_check = {status: "invalid_status", message: "Wrong"});
 assert.equal(JSON.stringify(document), snapshot, "La validation ne doit pas modifier l'Analysis");
-console.log("trIA map transport: checks passed (schema transport only).");
+console.log("trIA map transport and first/follow-up compliance checks passed (self-report only).");
