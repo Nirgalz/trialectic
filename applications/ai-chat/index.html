@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com https://api.openai.com https://api.anthropic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <title>trIA · Discussion et propositions</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="../shared/map-protocol.js"></script>
+  <script defer src="../shared/gemini-client.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+<div class="shell">
+  <header class="header">
+    <div class="identity">
+      <div class="brand-mark" aria-hidden="true">⌁</div>
+      <div><div class="eyebrow">L'atelier des possibles</div><h1>tr<span>IA</span> <small>Discussion &amp; propositions</small></h1></div>
+    </div>
+    <div class="header-right">
+      <span class="chip">Prototype expérimental · V0.2</span>
+      <a href="https://github.com/Nirgalz/trialectic/tree/dev" target="_blank" rel="noopener noreferrer">Dépôt GitHub ↗</a>
+    </div>
+  </header>
+  <section class="connection" aria-label="Connexion à l'IA">
+    <div class="connection-title">
+      <div><strong>Connexion à l'IA</strong><span>Une clé API propre à chaque fournisseur, conservée uniquement en mémoire</span></div>
+      <button type="button" id="settings-toggle" aria-expanded="true" aria-controls="settings-content">Masquer les réglages</button>
+    </div>
+    <div class="settings-grid" id="settings-content">
+      <label>Fournisseur d'IA
+        <select id="provider">
+          <option value="gemini">Google Gemini</option>
+          <option value="openai">OpenAI (modèles GPT)</option>
+          <option value="anthropic">Anthropic (Claude)</option>
+        </select>
+      </label>
+      <label>Modèle
+        <input id="model" type="text" list="model-list" autocomplete="off" spellcheck="false" aria-describedby="model-hint">
+        <datalist id="model-list"></datalist>
+      </label>
+      <label>Clé API
+        <div class="secret-line">
+          <input id="api-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Saisir votre clé API">
+          <button type="button" id="show-key" aria-label="Afficher la clé">Voir</button>
+        </div>
+      </label>
+      <p id="model-hint" class="setting-note">Gemini propose une offre gratuite sous conditions. L'API OpenAI est indépendante de ChatGPT Plus.</p>
+    </div>
+    <p class="security-note"><strong>Prudence :</strong> les clés saisies dans un navigateur restent accessibles aux scripts et extensions ayant accès à la page. Ne les utilise que pour ce prototype personnel. Aucune clé n'est inscrite dans GitHub, sauvegardée localement ou incluse dans les exports.</p>
+  </section>
+  <main class="workspace" id="workspace">
+    <section class="chat-panel" aria-labelledby="chat-title">
+      <div class="panel-heading">
+        <div><span class="overline">ÉCHANGE AVEC L'IA</span><h2 id="chat-title">Discussion</h2><p id="conversation-hint">Conversation Gemini · locale à cet onglet</p></div>
+        <div class="button-row">
+          <button type="button" id="chat-export" title="Exporter la conversation sans la clé API">Exporter</button>
+          <button type="button" id="chat-reset">Effacer</button>
+        </div>
+      </div>
+      <div class="messages" id="messages" role="log" aria-label="Messages de discussion" aria-live="polite">
+        <div class="empty-chat" id="empty-chat">
+          <div class="empty-icon" aria-hidden="true">⌁</div>
+          <strong>Échanger avec une IA</strong>
+          <p>Sélectionne un fournisseur, saisis ta clé et envoie un message. Importe une Analysis et, si nécessaire, choisis un Objet à examiner.</p>
+        </div>
+      </div>
+      <section id="proposal-panel" class="proposal-panel" aria-label="Propositions de l'IA pour la carte" hidden>
+        <div class="proposal-heading"><strong>Propositions cartographiques à examiner</strong><span id="proposal-count"></span></div>
+        <p>Ces propositions ne sont pas validées et ne modifient pas l’Analysis source.</p>
+        <pre id="proposal-detail" class="proposal-detail"></pre>
+        <div class="button-row">
+          <button type="button" class="primary" id="proposal-accept">Exporter pour la carte de référence</button>
+          <button type="button" id="proposal-reject">Rejeter</button>
+        </div>
+      </section>
+      <div class="chat-compose">
+        <div class="context-row">
+          <button type="button" id="graph-import">Importer Analysis</button>
+          <input id="graph-file" type="file" accept=".json,application/json" hidden>
+          <button type="button" id="graph-reset">Exemple fictif</button>
+          <span id="graph-source">Analyse non chargée</span>
+        </div>
+        <p id="graph-status" class="context-disclosure"></p>
+        <div class="context-row">
+          <label>Objet ciblé <select id="object-select"><option value="">Choisir un Objet</option></select></label>
+          <label class="checkline"><input type="checkbox" id="include-graph"> Joindre le détail de l’Objet sélectionné</label>
+          <span id="context-indicator">Aucun objet sélectionné</span>
+        </div>
+        <div class="reference-line"><a href="../../reference/tria-ai-instructions.md" target="_blank" rel="noopener noreferrer">Instructions de l’IA ↗</a> · <a href="../../protocols/tria/map-response-contract.md" target="_blank" rel="noopener noreferrer">Format des réponses ↗</a><span id="method-state" role="status">Chargement…</span></div>
+        <p class="context-disclosure">À chaque message, une synthèse limitée de l’Analysis est transmise à l’IA. La carte reste dans triad-graph.</p><button type="button" id="overlay-clear">Effacer propositions locales</button> · <a href="../triad-graph/index.html">Ouvrir la carte de référence</a>
+        <div id="status" class="status" role="status" aria-live="polite">Prêt · aucun appel API effectué</div>
+        <form id="chat-form">
+          <label for="prompt" class="sr-only">Message à l'IA</label>
+          <textarea id="prompt" rows="3" maxlength="16000" placeholder="Écris ta question… Entrée pour envoyer, Maj+Entrée pour aller à la ligne." required></textarea>
+          <div class="composer-bottom">
+            <p>Exporte les propositions et importe-les dans la carte de référence.</p>
+            <div class="button-row">
+              <button type="button" id="cancel-request" hidden>Annuler</button>
+              <button class="primary" type="submit" id="send-message">Envoyer ↗</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer">Prototype sans serveur applicatif · Les propositions IA restent provisoires, sans écriture normative.</footer>
+</div>
+</body>
+</html>
