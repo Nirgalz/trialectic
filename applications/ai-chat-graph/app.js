@@ -22,7 +22,7 @@
   const LIMIT_TURNS = 16;
   const conversations = new Map(Object.keys(PROVIDERS).map(key => [key, []]));
   const sessions = new Map(Object.keys(PROVIDERS).map(key => [key, {
-    initialized: false, model: "", apiKey: ""
+    initialized: false, attempted: false, model: "", apiKey: ""
   }]));
   const rememberedKeys = new Map(); // Mémoire volatile, jamais localStorage ni sessionStorage.
   const rememberedModels = new Map(Object.entries(PROVIDERS).map(pair => [pair[0], pair[1].model]));
@@ -347,9 +347,13 @@
     if (session.initialized && (session.model !== model || session.apiKey !== apiKey)) {
       // A changed model or credential starts a genuinely new first-turn context.
       conversations.set(provider, []);
-      sessions.set(provider, { initialized: false, model: "", apiKey: "" });
+      sessions.set(provider, { initialized: false, attempted: false, model: "", apiKey: "" });
       session = sessions.get(provider);
       renderConversation();
+    }
+    if (session.attempted && !session.initialized) {
+      status("Erreur trIA : la première initialisation n'a pas été confirmée. Cliquez sur « Effacer » pour commencer une nouvelle discussion avant de réenvoyer les instructions.", true);
+      return;
     }
     const firstTurn = !session.initialized;
     const context = buildContext();
@@ -381,9 +385,10 @@
     const timeout = setTimeout(() => activeController.abort(), 100000);
     try {
       let answer = "";
-      // The complete reference is sent ONLY with the first successful turn.
-      // Subsequent calls omit systemInstruction / instructions / system entirely.
+      // One transmission attempt per discussion, including network or format failures.
+      // A failed initialization requires an explicit new discussion before retrying.
       const initialMethod = firstTurn ? methodInstructions : "";
+      if (firstTurn) session.attempted = true;
       if (providerAtSend === "gemini") answer = await sendToGemini(apiKey, model, turns, activeController.signal, initialMethod);
       else if (providerAtSend === "openai") answer = await sendToOpenAI(apiKey, model, turns, activeController.signal, initialMethod);
       else answer = await sendToClaude(apiKey, model, turns, activeController.signal, initialMethod);
