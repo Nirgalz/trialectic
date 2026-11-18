@@ -16,6 +16,11 @@ from local_analysis import ApprovedAnalyses, AnalysisError
 from panel_ui import UI_URI, UI_MIME, PANEL_TOOL, panel_resource, panel_tool_result
 
 ROOT = Path(__file__).resolve().parents[2]
+# MCP can be launched from any working directory.
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from core.schema_loader import assemble_schemas as _assemble_schemas, DuplicateSchemaDefinition
+
 MODEL = ROOT / "schemas" / "model"
 VERSION = "0.2.0"
 MODERN = "2026-07-28"
@@ -79,19 +84,11 @@ def safe_read(path):
 
 
 def assembled_schemas():
-    analysis = json.loads(safe_read(MODEL / "analysis.json"))
-    power = json.loads(safe_read(MODEL / "power-evaluation.json"))
-    power["properties"].update(json.loads(safe_read(MODEL / "evaluation-context.json")))
-    analysis_defs, evaluation_defs = {}, {}
-    for path in sorted((MODEL / "types").rglob("*.json")):
-        target = evaluation_defs if path.parent.name == "evaluation" else analysis_defs
-        for key, definition in json.loads(safe_read(path)).items():
-            if key in target:
-                raise ProtocolError(-32603, "Duplicate schema definition")
-            target[key] = definition
-    analysis["$defs"] = analysis_defs
-    power["$defs"] = evaluation_defs
-    return analysis, power
+    # Retain MCP's allowlist, file-size checks and error contract.
+    try:
+        return _assemble_schemas(MODEL, lambda path: json.loads(safe_read(path)))
+    except DuplicateSchemaDefinition as exc:
+        raise ProtocolError(-32603, "Duplicate schema definition") from exc
 
 
 def read_resource(uri):
