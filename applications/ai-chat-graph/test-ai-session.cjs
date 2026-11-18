@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const assert = require("node:assert/strict");
 const TriaMapProtocol = require("./map-protocol.js");
+const TriaGeminiClient = require("../shared/gemini-client.js");
 const source = fs.readFileSync(path.join(__dirname, "app.js"), "utf8");
 const behavior = fs.readFileSync(path.join(__dirname, "../../reference/tria-ai-instructions.md"), "utf8");
 const transport = fs.readFileSync(path.join(__dirname, "../../protocols/tria/map-response-contract.md"), "utf8");
@@ -88,9 +89,9 @@ async function verifyProvider(provider, instructionsField) {
     abort() {}
   }
   const initialize = new Function("document", "fetch", "TriaMapProtocol",
-    "cytoscape", "AbortController", "setTimeout", "clearTimeout",
+    "TriaGeminiClient", "cytoscape", "AbortController", "setTimeout", "clearTimeout",
     "requestAnimationFrame", source);
-  initialize(document, fetch, TriaMapProtocol, undefined, Controller,
+  initialize(document, fetch, TriaMapProtocol, TriaGeminiClient, undefined, Controller,
     setTimeout, clearTimeout, () => {});
   for (let i = 0; i < 10; i++) await Promise.resolve();
   if (provider !== "gemini") {

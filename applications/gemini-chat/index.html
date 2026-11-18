@@ -110,6 +110,7 @@
     </footer>
   </main>
 </div>
+<script src="../shared/gemini-client.js"></script>
 <script>
 (() => {
   "use strict";
@@ -117,7 +118,6 @@
   const history = [];
   let pending = false;
   let controller = null;
-  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/";
 
   function setStatus(message, isError = false) {
     $("status").textContent = message;
@@ -192,22 +192,16 @@
     controller = new AbortController();
     const timeout = setTimeout(() => controller?.abort(), 90000);
     try {
-      const response = await fetch(endpoint + encodeURIComponent(model) + ":generateContent", {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-        body: JSON.stringify({ contents }),
-        signal: controller.signal,
-        cache: "no-store"
+      const result = await TriaGeminiClient.request({
+        apiKey, model, contents, signal: controller.signal,
+        fetchImpl: fetch, onHttpError: parseError
       });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(parseError(response.status, data));
-      const answer = (data.candidates?.[0]?.content?.parts || [])
-        .filter(part => typeof part.text === "string").map(part => part.text).join("\n").trim();
+      const data = result.data;
+      const answer = result.text;
       if (!answer) throw new Error("Gemini n'a renvoyé aucun texte. Motif : " + (data.candidates?.[0]?.finishReason || data.promptFeedback?.blockReason || "inconnu"));
       history.push({ role: "user", parts: [{ text: prompt }] }, { role: "model", parts: [{ text: answer }] });
       renderMessage("model", answer);
-      setStatus("Réponse reçue · HTTP " + response.status + " · modèle " + model);
+      setStatus("Réponse reçue · HTTP " + result.status + " · modèle " + model);
     } catch (error) {
       node.remove();
       $("prompt").value = prompt;

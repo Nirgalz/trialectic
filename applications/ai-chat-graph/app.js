@@ -151,21 +151,14 @@
     return data;
   }
   async function sendToGemini(apiKey, model, turns, signal, method) {
-    const data = await apiCall(
-      "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(model) + ":generateContent",
-      { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      {
-        ...(method ? { systemInstruction: { parts: [{ text: method }] } } : {}),
-        generationConfig: { responseMimeType: "application/json" },
-        contents: turns.map(turn => ({
-          role: turn.role === "assistant" ? "model" : "user",
-          parts: [{ text: turn.text }]
-        }))
-      },
-      signal
-    );
-    const text = (data.candidates?.[0]?.content?.parts || [])
-      .filter(part => typeof part.text === "string").map(part => part.text).join("\n").trim();
+    const { data, text } = await TriaGeminiClient.request({
+      apiKey, model, signal, fetchImpl: fetch, onHttpError: errorText,
+      systemInstruction: method, responseMimeType: "application/json",
+      contents: turns.map(turn => ({
+        role: turn.role === "assistant" ? "model" : "user",
+        parts: [{ text: turn.text }]
+      }))
+    });
     if (!text) throw new Error("Aucun texte Gemini. Motif : " + (data.candidates?.[0]?.finishReason || data.promptFeedback?.blockReason || "indéterminé"));
     return text;
   }
