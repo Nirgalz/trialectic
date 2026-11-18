@@ -6,7 +6,9 @@ const path = require("node:path");
 const assert = require("node:assert/strict");
 const TriaMapProtocol = require("./map-protocol.js");
 const source = fs.readFileSync(path.join(__dirname, "app.js"), "utf8");
-const method = fs.readFileSync(path.join(__dirname, "../../reference/tria-ai-instructions.md"), "utf8");
+const behavior = fs.readFileSync(path.join(__dirname, "../../reference/tria-ai-instructions.md"), "utf8");
+const transport = fs.readFileSync(path.join(__dirname, "../../protocols/tria/map-response-contract.md"), "utf8");
+const method = behavior + "\n\n" + transport;
 
 class Element {
   constructor(id) {
@@ -47,7 +49,9 @@ async function verifyProvider(provider, instructionsField) {
   };
   const fetch = async (url, options) => {
     if (url.endsWith("tria-ai-instructions.md"))
-      return { ok: true, text: async () => method };
+      return { ok: true, text: async () => behavior };
+    if (url.endsWith("map-response-contract.md"))
+      return { ok: true, text: async () => transport };
     if (url.endsWith("focus-pilot.json"))
       return { ok: true, json: async () => fixture };
     assert.ok(url.includes("generativelanguage.googleapis.com") ||
@@ -105,7 +109,7 @@ async function verifyProvider(provider, instructionsField) {
   const instructionPayload = provider === "gemini"
     ? sent[0].systemInstruction.parts[0].text
     : sent[0][instructionsField];
-  assert.equal(instructionPayload, method, provider + ": first request must send the full method");
+  assert.equal(instructionPayload, method, provider + ": first request must bundle behavioral instructions and transport contract");
   assert.match(byId("status").textContent, /Instructions trIA reconnues/);
   byId("proposal-accept").handlers.click();
   assert.match(byId("status").textContent, /Propositions ajoutées/);
