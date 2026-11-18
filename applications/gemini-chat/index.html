@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>trIA · Conversation Gemini</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b121b;--panel:#121e2a;--panel2:#172735;--line:#29404c;--fg:#e7f2f3;--muted:#9fb3bc;--accent:#68d5ba;--danger:#ffb4a5;--radius:14px}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg)}
+    body{min-height:100vh}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer;border-radius:9px;padding:9px 13px;border:1px solid var(--line);color:var(--fg);background:#1d3441}
+    button:hover:not(:disabled){filter:brightness(1.15)}
+    button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    button.primary{background:var(--accent);color:#09241f;border-color:var(--accent);font-weight:700}
+    a{color:var(--accent)}
+    .app{display:grid;grid-template-columns:minmax(268px,318px) minmax(0,1fr);min-height:100vh}
+    aside{padding:25px 22px;border-right:1px solid var(--line);background:var(--panel)}
+    .brand{font-size:27px;font-weight:780;letter-spacing:-1.3px}.brand span{color:var(--accent)}
+    .tag{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    h1,h2,p{margin-top:0}h1{font-size:21px;margin-bottom:4px}h2{font-size:16px}
+    .intro,.small{color:var(--muted);font-size:13px}
+    .settings{margin-top:34px}
+    label{display:block;font-size:13px;font-weight:650;margin:16px 0 7px}
+    input,textarea{width:100%;border:1px solid var(--line);border-radius:9px;background:#0c1924;color:var(--fg);padding:11px 12px;outline:none}
+    input::placeholder,textarea::placeholder{color:#839da7}
+    .keyrow{display:flex;gap:6px}.keyrow input{min-width:0}.keyrow button{white-space:nowrap}
+    .hint{color:var(--muted);font-size:12px;margin:7px 0 0}
+    .note{border:1px solid #58623f;border-radius:10px;background:#2a3027;color:#e3dfc5;padding:12px;font-size:12px;margin-top:25px}
+    .note strong{display:block;margin-bottom:4px}
+    .chat{min-width:0;display:flex;flex-direction:column;height:100dvh;min-height:520px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 28px;border-bottom:1px solid var(--line)}
+    .topbar p{margin:0;color:var(--muted);font-size:13px}
+    .top-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .messages{flex:1;overflow:auto;padding:25px max(24px,calc((100% - 790px)/2));scrollbar-color:#43606c transparent}
+    .welcome{margin:34px auto 0;max-width:610px;text-align:center;color:var(--muted)}
+    .welcome strong{display:block;color:var(--fg);font-size:22px;margin-bottom:10px}
+    .message{margin:0 0 21px;display:flex;flex-direction:column;gap:7px}
+    .message.user{align-items:flex-end}.message.model{align-items:flex-start}
+    .who{font-size:12px;color:var(--muted)}
+    .bubble{max-width:min(100%,760px);border:1px solid var(--line);background:var(--panel);padding:15px 17px;border-radius:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+    .message.user .bubble{background:var(--panel2);border-color:#3c6870}
+    .message.model .bubble{width:100%}
+    .composer{border-top:1px solid var(--line);padding:17px 28px 24px}
+    .composer form,.composer .footer,.status{max-width:790px;margin:auto}
+    #prompt{min-height:84px;max-height:220px;resize:vertical}
+    .footer{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:10px!important}
+    .footer .small{margin:0}
+    .status{margin-bottom:10px;font-size:12px;color:var(--muted);min-height:18px;overflow-wrap:anywhere}
+    .status.error{color:var(--danger)}
+    .actions{display:flex;gap:8px}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+    @media(max-width:740px){.app{display:block}aside{padding:16px;border-right:0;border-bottom:1px solid var(--line)}.settings{margin-top:12px}.note{margin-top:14px}.chat{height:76dvh;min-height:510px}.topbar,.composer{padding:13px 16px}.messages{padding:18px 16px}.footer{align-items:flex-start}.topbar{flex-wrap:wrap}}
+    @media(prefers-reduced-motion:no-preference){.bubble{animation:arrive .12s ease-out}@keyframes arrive{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside aria-label="Configuration de Gemini">
+    <div class="brand">tr<span>IA</span></div>
+    <div class="tag">Laboratoire · conversation Gemini</div>
+    <div class="settings">
+      <h2>Connexion API</h2>
+      <label for="apiKey">Clé API Google Gemini</label>
+      <div class="keyrow">
+        <input id="apiKey" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Saisir votre clé" aria-describedby="keyHint">
+        <button id="toggleKey" type="button" aria-label="Afficher la clé">Voir</button>
+      </div>
+      <p id="keyHint" class="hint">La clé reste en mémoire dans cet onglet. Elle n'est ni enregistrée, ni incluse dans l'export.</p>
+      <label for="model">Modèle Gemini</label>
+      <input id="model" type="text" value="gemini-2.5-flash" list="models" autocomplete="off" spellcheck="false" aria-describedby="modelHint">
+      <datalist id="models"><option value="gemini-2.5-flash"><option value="gemini-2.5-flash-lite"></datalist>
+      <p id="modelHint" class="hint">Modifie ce nom si ton projet donne accès à un autre modèle.</p>
+    </div>
+    <div class="note"><strong>Prototype avec clé dans le navigateur</strong>
+      Ce mode direct est réservé aux expérimentations personnelles. Des scripts ou extensions malveillants peuvent accéder à la clé. Google recommande un serveur pour un usage sécurisé. Ne colle pas de données confidentielles dans le chat.
+    </div>
+    <p class="small" style="margin-top:20px">Aucune conversation n'est transmise à ChatGPT. Les requêtes partent directement de ton navigateur vers <code>generativelanguage.googleapis.com</code>.</p>
+    <p class="small"><a href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener noreferrer">Documentation Gemini API</a> · <a href="https://github.com/Nirgalz/trialectic" target="_blank" rel="noopener noreferrer">Dépôt trIA</a></p>
+  </aside>
+  <main class="chat">
+    <header class="topbar">
+      <div><h1>Discussion avec Gemini</h1><p>trIA V0.1 · test d'échanges bidirectionnels</p></div>
+      <div class="top-actions">
+        <button id="export" type="button" title="Exporter les messages, sans la clé">Exporter</button>
+        <button id="reset" type="button">Nouvelle discussion</button>
+      </div>
+    </header>
+    <section id="messages" class="messages" aria-label="Messages de la conversation" aria-live="polite">
+      <div class="welcome" id="welcome"><strong>Une conversation directe avec Gemini</strong>
+        Entre ta clé API, puis envoie un message. Les réponses s'afficheront ici. L'historique reste uniquement dans la mémoire de cet onglet.
+      </div>
+    </section>
+    <footer class="composer">
+      <div id="status" class="status" role="status" aria-live="polite">Prêt · aucun appel API effectué</div>
+      <form id="chatForm">
+        <label class="sr" for="prompt">Message à Gemini</label>
+        <textarea id="prompt" rows="3" maxlength="15000" placeholder="Écris ton message… (Entrée : envoyer, Maj+Entrée : nouvelle ligne)" required></textarea>
+        <div class="footer">
+          <p class="small">Les 20 derniers messages sont envoyés avec chaque demande. Aucune conservation après fermeture.</p>
+          <div class="actions">
+            <button id="cancel" type="button" hidden>Annuler</button>
+            <button class="primary" id="send" type="submit">Envoyer ↗</button>
+          </div>
+        </div>
+      </form>
+    </footer>
+  </main>
+</div>
+<script>
+(() => {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const history = [];
+  let pending = false;
+  let controller = null;
+  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/";
+
+  function setStatus(message, isError = false) {
+    $("status").textContent = message;
+    $("status").classList.toggle("error", isError);
+  }
+  function setPending(value) {
+    pending = value;
+    $("send").disabled = value;
+    $("cancel").hidden = !value;
+    $("reset").disabled = value;
+    $("export").disabled = value;
+    $("apiKey").disabled = value;
+    $("model").disabled = value;
+    $("toggleKey").disabled = value;
+  }
+  function scrollDown() {
+    const area = $("messages");
+    area.scrollTop = area.scrollHeight;
+  }
+  function renderMessage(role, value) {
+    $("welcome")?.remove();
+    const outer = document.createElement("article");
+    outer.className = "message " + (role === "user" ? "user" : "model");
+    const name = document.createElement("span");
+    name.className = "who";
+    name.textContent = role === "user" ? "Vous" : "Gemini";
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = value; // Aucun HTML distant n'est exécuté.
+    outer.append(name, bubble);
+    $("messages").append(outer);
+    scrollDown();
+    return outer;
+  }
+  function reset() {
+    history.length = 0;
+    $("messages").replaceChildren();
+    const welcome = document.createElement("div");
+    welcome.id = "welcome";
+    welcome.className = "welcome";
+    const strong = document.createElement("strong");
+    strong.textContent = "Nouvelle discussion";
+    welcome.append(strong, document.createTextNode("Envoie un message pour commencer."));
+    $("messages").append(welcome);
+    setStatus("Discussion effacée de la mémoire de l'onglet.");
+    $("prompt").focus();
+  }
+  function parseError(status, data) {
+    const raw = data?.error?.message || data?.message || "";
+    const detail = typeof raw === "string" ? raw.slice(0, 350) : "";
+    if (status === 400) return "Requête incorrecte (400). " + detail;
+    if (status === 401 || status === 403) return "Clé refusée ou accès interdit (" + status + "). Vérifie la clé, le projet et ses restrictions. " + detail;
+    if (status === 404) return "Modèle indisponible (404). Vérifie son identifiant et ton accès. " + detail;
+    if (status === 429) return "Quota ou limite de fréquence atteinte (429). " + detail;
+    return "Erreur HTTP " + status + ". " + detail;
+  }
+  async function sendMessage(event) {
+    event.preventDefault();
+    if (pending) return;
+    const apiKey = $("apiKey").value.trim();
+    const model = $("model").value.trim();
+    const prompt = $("prompt").value.trim();
+    if (!apiKey) { setStatus("Saisis d'abord une clé API Gemini.", true); $("apiKey").focus(); return; }
+    if (!/^[a-zA-Z0-9._-]+$/.test(model)) { setStatus("Identifiant de modèle invalide.", true); $("model").focus(); return; }
+    if (!prompt) return;
+    const lastTurns = history.slice(-19);
+    const contents = [...lastTurns, { role: "user", parts: [{ text: prompt }] }];
+    const node = renderMessage("user", prompt);
+    $("prompt").value = "";
+    setPending(true);
+    setStatus("Envoi de la requête à Gemini…");
+    controller = new AbortController();
+    const timeout = setTimeout(() => controller?.abort(), 90000);
+    try {
+      const response = await fetch(endpoint + encodeURIComponent(model) + ":generateContent", {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+        body: JSON.stringify({ contents }),
+        signal: controller.signal,
+        cache: "no-store"
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(parseError(response.status, data));
+      const answer = (data.candidates?.[0]?.content?.parts || [])
+        .filter(part => typeof part.text === "string").map(part => part.text).join("\n").trim();
+      if (!answer) throw new Error("Gemini n'a renvoyé aucun texte. Motif : " + (data.candidates?.[0]?.finishReason || data.promptFeedback?.blockReason || "inconnu"));
+      history.push({ role: "user", parts: [{ text: prompt }] }, { role: "model", parts: [{ text: answer }] });
+      renderMessage("model", answer);
+      setStatus("Réponse reçue · HTTP " + response.status + " · modèle " + model);
+    } catch (error) {
+      node.remove();
+      $("prompt").value = prompt;
+      const message = error.name === "AbortError"
+        ? "Requête annulée ou délai dépassé."
+        : error instanceof TypeError
+          ? "Échec réseau ou CORS. Vérifie la console du navigateur et les autorisations de l'API Gemini."
+          : error.message;
+      setStatus(message, true);
+    } finally {
+      clearTimeout(timeout);
+      controller = null;
+      setPending(false);
+      $("prompt").focus();
+    }
+  }
+  $("chatForm").addEventListener("submit", sendMessage);
+  $("prompt").addEventListener("keydown", event => {
+    if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+      event.preventDefault();
+      $("chatForm").requestSubmit();
+    }
+  });
+  $("cancel").addEventListener("click", () => controller?.abort());
+  $("reset").addEventListener("click", reset);
+  $("toggleKey").addEventListener("click", () => {
+    const key = $("apiKey");
+    const visible = key.type === "text";
+    key.type = visible ? "password" : "text";
+    $("toggleKey").textContent = visible ? "Voir" : "Masquer";
+    $("toggleKey").setAttribute("aria-label", visible ? "Afficher la clé" : "Masquer la clé");
+  });
+  $("export").addEventListener("click", () => {
+    if (!history.length) { setStatus("Aucun message à exporter."); return; }
+    const content = JSON.stringify({ schema: "tria-gemini-chat-v1", model: $("model").value.trim(), exportedAt: new Date().toISOString(), messages: history }, null, 2);
+    const url = URL.createObjectURL(new Blob([content], { type: "application/json" }));
+    const link = document.createElement("a");
+    link.href = url; link.download = "tria-gemini-chat.json"; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setStatus("Export JSON créé (sans clé API).");
+  });
+})();
+</script>
+</body>
+</html>
