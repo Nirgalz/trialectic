@@ -90,6 +90,8 @@ These are **potential applications, not validated use cases**. Comparative value
 
 The [trIA MCP server](applications/tria-mcp/README.md) on `dev` exposes the current reference, assembled v2 exchange schemas and, **only when the operator explicitly lists local files at launch**, version-pinned Analysis snapshots, Object Focus context and non-persistent proposal previews. This is an interoperability prototype, not autonomous AI reasoning, a live Cytoscape synchronization service or a scientific validation of the Method. It never modifies Analysis records; an MCP host may nevertheless transmit returned Analysis content to an external model.
 
+See the [single reference map and graphical experimentation workflow](docs/ui-reference.md).
+
 ## Working conventions
 
 The author-approved [Cytoscape.js prototype](applications/triad-graph/README.md)

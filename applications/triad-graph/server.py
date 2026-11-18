@@ -87,6 +87,18 @@ class Handler(SimpleHTTPRequestHandler):
         if self.secret_path():
             return self.reply({'error': 'Sensitive paths are not served'}, 403)
         path = urlsplit(self.path).path
+        if path == '/shared/map-protocol.js':
+            # Serve exactly one audited repository asset; do not broaden the
+            # local static root to unrelated files or private local data.
+            content = (SOURCE / 'applications/shared/map-protocol.js').read_bytes()
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/javascript; charset=utf-8')
+            self.send_header('Content-Length', str(len(content)))
+            self.send_header('Cache-Control', 'no-store')
+            self.send_header('X-Content-Type-Options', 'nosniff')
+            self.end_headers()
+            self.wfile.write(content)
+            return
         if path.startswith('/api/work/status/'):
             try:
                 return self.reply(request_status(path.removeprefix('/api/work/status/')))

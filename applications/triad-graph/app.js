@@ -3,6 +3,7 @@ const $ = id => document.getElementById(id);
 let documentModel, cy, view = 'objects', selected = null, issues = [], records = new Map();
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null, scenarioFocus = null;
+let acceptedOverlay={objects:[],relations:[]}; // Propositions graphiques non normatives
 const viewTransitions=TriaViewTransitions.createTransitions(cytoscape,$('cy'));
 const objectTooltip=document.createElement('div');
 objectTooltip.id='object-tooltip';objectTooltip.setAttribute('role','tooltip');objectTooltip.setAttribute('data-source-text','');objectTooltip.hidden=true;document.body.append(objectTooltip);
@@ -322,7 +323,8 @@ function render() {
   centeredNode=null; overviewPositions=new Map();
   $('overview').disabled=true; $('scope').textContent='Tous les éléments';
   const all=view==='objects'?projection(documentModel):scenarioFocus?scenarioProjection():scenariosProjection();
-  const es=view==='objects'&&focusCycle?.mode==='simple'&&!focusCycle.refined?simpleMapElements(all):all;
+  const baseElements=view==='objects'&&focusCycle?.mode==='simple'&&!focusCycle.refined?simpleMapElements(all):all;
+  const es=view==='objects'?baseElements.concat(TriaCandidateOverlay.elements(acceptedOverlay,records)):baseElements;
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
   $('scope').textContent=view==='objects'?(focusCycle?.mode==='simple'&&!focusCycle.refined?'Carte simple · sélection non exhaustive':'Carte détaillée · Objets et relations'):scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
   $('cy').setAttribute('aria-label',view==='objects'?'Carte des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Carte des scénarios');
@@ -355,6 +357,8 @@ function render() {
     {selector:'node.nav-focus',style:{'border-width':5,'border-color':color('--unknown'),'border-style':'dashed'}},
     {selector:'node.analytic-focus',style:{'border-width':6,'border-color':color('--positive'),'border-style':'double'}},
     {selector:'node.context-candidate',style:{'border-width':3,'border-color':color('--unknown'),'border-style':'dotted'}},
+    {selector:'node[proposed="yes"]',style:{'border-width':4,'border-color':color('--unknown'),'border-style':'dashed'}},
+    {selector:'edge[proposed="yes"]',style:{'line-style':'dashed','line-color':color('--unknown'),'line-opacity':.9}},
     {selector:'node.main-subject',style:{shape:'ellipse','border-style':'double','border-width':6,'border-color':color('--accent'),width:48,height:48}},
     {selector:'edge:selected',style:{label:'data(label)','text-background-opacity':1}},
     {selector:'.outside-neighborhood',style:{display:'none'}},
@@ -466,6 +470,7 @@ function handoff(challenge=false){
 async function install(doc,reported){
   viewTransitions.finish();
   documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
+  acceptedOverlay={objects:[],relations:[]};$('clear-proposals').disabled=true;
   const selectedDepth=$('map-depth').value||'detailed';
   focusCycle=TriaFocusCycle.createCycle(doc);focusCycle.setMode(selectedDepth);focusCycleReport=null;
   if(doc.analysis_id==='A-focus-six-ecoles-pilot'){navigation.setMode('persistent');navigation.select({family:'scenario',id:'S-02'});}
@@ -548,6 +553,31 @@ $('entity').onchange=()=>activateNode($('entity').value);
 $('phase').onchange=()=>{navigation.operation('phase '+$('phase').value);refreshNavigationControls();handoff();};
 $('challenge').onclick=()=>{navigation.operation('préparer une question');handoff(true);refreshNavigationControls();};$('summary').onclick=()=>{navigation.operation('préparer un résumé');handoff();refreshNavigationControls();};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('handoff').value);$('copy').textContent='Copié';}catch{$('handoff').focus();$('handoff').select();$('copy').textContent='Sélectionné : Ctrl+C';}};
+$('import-proposals').onclick=()=>$('proposals-file').click();
+$('proposals-file').onchange=async()=>{
+ try {
+  const file=$('proposals-file').files?.[0];
+  if(!file)return;
+  if(file.size>200000)throw Error('Fichier de propositions supérieur à 200 Ko.');
+  if(!documentModel)throw Error('Importer une Analysis avant ses propositions.');
+  const envelope=JSON.parse(await file.text());
+  TriaMapProtocol.validate(documentModel,envelope,acceptedOverlay);
+  if(!envelope.map_patch.objects.length&&!envelope.map_patch.relations.length)
+   throw Error('Aucune proposition à afficher.');
+  acceptedOverlay.objects.push(...envelope.map_patch.objects);
+  acceptedOverlay.relations.push(...envelope.map_patch.relations);
+  $('clear-proposals').disabled=false;
+  render();
+  $('status').textContent='Propositions IA importées pour inspection uniquement. Ni l’Analysis ni les évaluations n’ont été modifiées.';
+ } catch(e){
+  $('status').textContent='Import des propositions refusé : '+String(e.message||e);
+ } finally {$('proposals-file').value='';}
+};
+$('clear-proposals').onclick=()=>{
+ acceptedOverlay={objects:[],relations:[]};$('clear-proposals').disabled=true;
+ if(documentModel)render();
+ $('status').textContent='Propositions provisoires retirées. Analysis inchangée.';
+};
 $('import').onclick=()=>$('file').click();
 $('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;if(f.size>2000000)throw Error('Limite : 2 Mo');const doc=JSON.parse(await f.text());const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(doc)});const p=await r.json();if(!r.ok||p.error)throw Error(p.error||'Validation impossible');if(p.issues.some(x=>x.severity==='error'))throw Error(pretty(p.issues));await install(doc,p.issues);}catch(e){$('status').textContent='Import refusé ; analyse conservée. '+e.message;}finally{$('file').value='';}};
 $('export').onclick=()=>{const blob=new Blob([pretty(documentModel)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='triad-analysis.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};

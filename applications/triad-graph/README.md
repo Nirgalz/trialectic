@@ -8,6 +8,15 @@ and synthetic fixtures; no duplicate repository snapshot is shipped.
 Approval covers the interface and invocation convention, not new methodological
 rules or empirical validation. Existing normative schemas remain unchanged.
 
+**Graphical reference (author-approved 18 November 2026):** this is the
+sole supported Cytoscape implementation. Other experiments provide data
+or proposals instead of maintaining a competing map. See
+[UI reference and workflow](../../docs/ui-reference.md).
+
+The map can import temporary `tria-map-response-v2` JSON proposals via
+**Importer propositions IA** and discard them via **Retirer propositions**.
+These candidates are non-normative and never change the source Analysis.
+
 ## Invocation convention (D-90)
 
 `use trIA-c` invokes standard trIA with this interactive Cytoscape presentation.

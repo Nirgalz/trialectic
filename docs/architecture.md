@@ -66,7 +66,7 @@ file-reader delegation and separate Analysis/evaluation namespaces.
 
 ## Application boundaries and maturity
 
-- `applications/triad-graph/`: approved experimental Cytoscape inspection,
+- `applications/triad-graph/`: **sole reference Cytoscape interface** (author-approved 18 November 2026), experimental inspection,
   navigation, Focus-cycle pilot and local Work request bridge.
 - `applications/ai-chat-graph/`: experimental multi-provider browser client
   with its own proposal-overlay transport; **not** an analytical truth engine.
@@ -92,8 +92,8 @@ boundaries and acceptance criteria.
    different audiences are acceptable when clearly derivative.
 4. Change shared pure utilities once; adapters remain responsible for their
    transport security, lifecycle and error contracts.
-5. Run affected regression tests, explicitly separate passing structural tests
-   from empirical validation, and check links/versions after documentation edits.
+5. Use focused checks when concrete technical risks justify them; do not add or
+   run broad regression tests by default during the exploratory phase.
 6. Move or archive prototypes only after inventorying imports, entry points,
    compatibility needs and preserved tests. The Git history records former paths.
 

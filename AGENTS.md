@@ -32,6 +32,21 @@ not unrequested changes to normative models, automated causal inference, or
 empirical validation. Preserve unknowns, provenance, scenario isolation, and
 the distinction between knowledge revisions and effective Actualization.
 
+## Reference graphical interface and experiments (approved 2026-11-18)
+
+- The **only** reference graphical/Cytoscape application is
+  `applications/triad-graph/` (retaining its animated transitions).
+  Other transports and experiments must consume it rather than own a second
+  permanent map. Follow [docs/ui-reference.md](docs/ui-reference.md).
+- All new graphical experimentation belongs in isolated `experiments/`
+  adapters or reference UI extensions. Integrate only explicitly approved
+  improvements, then remove redundant prototypes. Git history preserves
+  prior versions.
+- A UI import of `tria-map-response-v2` is a temporary, human-controlled
+  **proposal display**, never a normative Analysis write or a truth verdict.
+- MCP integration depends on host capabilities and permissions; do not claim
+  the standalone reference UI automatically runs inside ChatGPT/MCP.
+
 ## Collaboration workflow (author-approved, 2026-11-17)
 
 This is an **operational collaboration convention**, not a new conceptual rule of the Trialectic Method. Prefer **analysis first, formalization second**. Work efficiently, with proportional effort and without making GitHub activity the default response to conceptual discussions.
