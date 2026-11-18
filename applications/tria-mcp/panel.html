@@ -36,6 +36,8 @@ button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
 <div class="controls">
   <button id="investigate" class="primary" disabled>Approfondir ce Focus dans ChatGPT</button>
   <button id="copy">Copier la demande</button>
+  <button id="preview">Simuler un CAN candidat</button>
+  <button id="dismiss" disabled>Effacer la proposition</button>
   <button id="reset">Recentrer</button>
 </div>
 <div id="status" role="status">Initialisation de la carte…</div>
@@ -57,6 +59,7 @@ const desc=document.getElementById("focus-desc");
 const focusId=document.getElementById("focus-id");
 const investigate=document.getElementById("investigate");
 let focus="O-association", connected=false, hostCaps={};
+const candidateLabels={"O-association":"Coordonner la création du lieu","O-mairie":"Mettre un local à disposition","O-habitants":"Participer à la gouvernance"};
 let nextId=1;
 const pending=new Map();
 function request(method,params){
@@ -81,8 +84,13 @@ window.addEventListener("message",(event)=>{
     else p.resolve(m.result);
   }
   if(m.method==="ui/notifications/tool-result"){
-    // This first prototype deliberately does not apply arbitrary tool results.
-    status.textContent="Résultat reçu ; aucune modification automatique de la carte.";
+    const result=m.params&&m.params.result||m.params;
+    const proposal=result&&result.structuredContent;
+    if(proposal&&proposal.source==="tria-candidate-preview"&&proposal.requires_human_review===true&&proposal.epistemic_status==="hypothesis"&&byId[proposal.origin_object]&&typeof proposal.label==="string"&&proposal.label.length>0&&proposal.label.length<=120){
+      showPreview(proposal.origin_object,proposal.label);
+    }else{
+      status.textContent="Résultat reçu ; aucune modification automatique de l’analyse.";
+    }
   }
 });
 function prompt(){
@@ -102,6 +110,28 @@ async function publishContext(){
       structuredContent:{source:"synthetic-demo",navigation_focus:focus,analysis_modified:false}
     });
   }catch(e){status.textContent="Focus local sélectionné ; synchronisation du contexte non disponible : "+e.message;}
+}
+function clearPreview(){
+  if(window.triaCy){
+    const node=window.triaCy.getElementById("candidate-CAN");
+    if(node.length)node.remove();
+    window.triaCy.fit(undefined,25);
+  }
+  document.getElementById("dismiss").disabled=true;
+  status.textContent="Proposition retirée de la carte. Aucune analyse n’a été modifiée.";
+}
+function showPreview(origin,label){
+  const cy=window.triaCy;
+  if(!cy||!byId[origin])return;
+  const existing=cy.getElementById("candidate-CAN");
+  if(existing.length)existing.remove();
+  cy.add([
+    {data:{id:"candidate-CAN",label:"CAN candidat : "+label},position:{x:140,y:315},classes:"candidate"},
+    {data:{id:"candidate-link",source:origin,target:"candidate-CAN"},classes:"candidate-link"}
+  ]);
+  cy.fit(undefined,22);
+  document.getElementById("dismiss").disabled=false;
+  status.textContent="CAN candidat affiché pour examen : hypothèse non validée, aucune écriture.";
 }
 function select(id){
   if(!byId[id])return;
@@ -129,6 +159,8 @@ if(typeof window.cytoscape==="function"){
     style:[
       {selector:"node",style:{label:"data(label)","background-color":"#64748b",color:"#ffffff","text-valign":"center","text-halign":"center","font-size":12,"text-wrap":"wrap",width:90,height:43,shape:"round-rectangle"}},
       {selector:"node.focused",style:{"background-color":"#2563eb","border-width":2,"border-color":"#93c5fd"}},
+      {selector:"node.candidate",style:{"background-color":"#0f766e","border-width":2,"border-color":"#5eead4",width:170,height:52,"font-size":11}},
+      {selector:"edge.candidate-link",style:{"line-color":"#0d9488","line-style":"dashed","target-arrow-shape":"triangle","target-arrow-color":"#0d9488"}},
       {selector:"edge",style:{"line-style":"dashed","line-color":"#94a3b8",width:2,"curve-style":"bezier"}}
     ]
   });
@@ -140,6 +172,8 @@ if(typeof window.cytoscape==="function"){
 }else{
   status.textContent="Cytoscape indisponible. Vérifier la ressource HTML fournie par le serveur.";
 }
+document.getElementById("preview").onclick=()=>showPreview(focus,candidateLabels[focus]);
+document.getElementById("dismiss").onclick=clearPreview;
 document.getElementById("copy").onclick=async()=>{
   try{await navigator.clipboard.writeText(prompt());status.textContent="Demande copiée ; colle-la dans la conversation.";}
   catch(e){status.textContent="Copie indisponible : "+e.message;}
