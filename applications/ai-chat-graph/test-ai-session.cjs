@@ -62,6 +62,15 @@ async function verifyProvider(provider, instructionsField) {
       },
       map_patch: { objects: [], relations: [] }
     };
+    if (replyIndex === 1) {
+      response.map_patch = {
+        objects: [{ id: "AI-O-1", label: "Candidate", category: "semantic_object",
+          concept_kind: "CAN", justification: "Candidate requiring review." }],
+        relations: [{ id: "AI-R-1", type: "CAN", origin_object_id: "O-main",
+          represented_object_id: "AI-O-1", can_object_ids: [], need_object_ids: [],
+          description: "Candidate relation", justification: "Unverified mechanism." }]
+      };
+    }
     const responseText = JSON.stringify(response);
     const result = provider === "gemini"
       ? { candidates: [{ content: { parts: [{ text: responseText }] } }] }
@@ -97,7 +106,9 @@ async function verifyProvider(provider, instructionsField) {
     ? sent[0].systemInstruction.parts[0].text
     : sent[0][instructionsField];
   assert.equal(instructionPayload, method, provider + ": first request must send the full method");
-  assert.match(byId("status").textContent, /Accusé de compréhension trIA reçu/);
+  assert.match(byId("status").textContent, /Instructions trIA reconnues/);
+  byId("proposal-accept").handlers.click();
+  assert.match(byId("status").textContent, /Propositions ajoutées/);
   await submit("Second request");
   assert.equal(sent.length, 2);
   assert.equal(Object.hasOwn(sent[1], instructionsField), false,
