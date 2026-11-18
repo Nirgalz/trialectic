@@ -76,11 +76,11 @@ file-reader delegation and separate Analysis/evaluation namespaces.
   experiment. Do not remove it until its useful behavior/tests are compared
   with the multi-provider client.
 
-The overlap is **not** authorization to merge applications: common graph
-projection, provider adapter and response-contract boundaries first need
-functional tests and explicit scope decisions. See the [component overlap
-inventory](component-inventory.md) for concrete candidates, differing trust
-boundaries and acceptance criteria.
+Graphical display has one owner: the animated
+[reference interface](ui-reference.md). The AI chat and MCP remain transport
+adapters, with no competing graph implementation. Integrate experimental
+behavior only after an explicit author choice; checks are targeted to actual
+risks during this exploratory stage.
 
 ## How to change things without drift
 

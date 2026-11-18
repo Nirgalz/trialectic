@@ -10,7 +10,7 @@ This directory does **not** replace or reapprove that design.
 
 [map-response-contract.md](map-response-contract.md) describes the
 `tria-map-response-v2` JSON envelope for **provisional map patches** sent to
-[ai-chat-graph](../../applications/ai-chat/README.md). The
+[ai-chat](../../applications/ai-chat/README.md). The
 [companion local-shape schema](../../schemas/transport/tria-map-response-v2.schema.json)
 captures its structural constraints. Contextual checks (ID conflicts, source
 references, proposed concept kind, first-turn acknowledgement and continuation

@@ -553,6 +553,15 @@ $('entity').onchange=()=>activateNode($('entity').value);
 $('phase').onchange=()=>{navigation.operation('phase '+$('phase').value);refreshNavigationControls();handoff();};
 $('challenge').onclick=()=>{navigation.operation('préparer une question');handoff(true);refreshNavigationControls();};$('summary').onclick=()=>{navigation.operation('préparer un résumé');handoff();refreshNavigationControls();};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('handoff').value);$('copy').textContent='Copié';}catch{$('handoff').focus();$('handoff').select();$('copy').textContent='Sélectionné : Ctrl+C';}};
+function refreshProposalOverlay(){
+  if(!documentModel)return;
+  const visualBefore=cy?viewTransitions.capture(cy):null;
+  viewTransitions.finish();
+  render();
+  // Graphical proposals share the reference view's entrance/exit animation;
+  // they never enter the source Analysis or effective-event history.
+  if(visualBefore)viewTransitions.play(visualBefore,viewTransitions.capture(cy));
+}
 $('import-proposals').onclick=()=>$('proposals-file').click();
 $('proposals-file').onchange=async()=>{
  try {
@@ -567,7 +576,7 @@ $('proposals-file').onchange=async()=>{
   acceptedOverlay.objects.push(...envelope.map_patch.objects);
   acceptedOverlay.relations.push(...envelope.map_patch.relations);
   $('clear-proposals').disabled=false;
-  render();
+  refreshProposalOverlay();
   $('status').textContent='Propositions IA importées pour inspection uniquement. Ni l’Analysis ni les évaluations n’ont été modifiées.';
  } catch(e){
   $('status').textContent='Import des propositions refusé : '+String(e.message||e);
@@ -575,7 +584,7 @@ $('proposals-file').onchange=async()=>{
 };
 $('clear-proposals').onclick=()=>{
  acceptedOverlay={objects:[],relations:[]};$('clear-proposals').disabled=true;
- if(documentModel)render();
+ refreshProposalOverlay();
  $('status').textContent='Propositions provisoires retirées. Analysis inchangée.';
 };
 $('import').onclick=()=>$('file').click();
