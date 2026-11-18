@@ -28,4 +28,6 @@ causal correctness, evidence adequacy or completeness.
 The earlier [proposal-v0](https://github.com/Nirgalz/trialectic/blob/05c17bb6936ef1bc063eec56caed361f41f56f31/schemas/proposal-v0/README.md)
 and [normalized-v1](https://github.com/Nirgalz/trialectic/blob/7fc676586a85be504bf145d313b19fefadfb9761/schemas/normalized-v1/README.md)
 documents remain historical design records, not competing current contracts.
+**Separate experimental UI transport:** [tria-map-response-v2](transport/tria-map-response-v2.schema.json) specifies only the local shape of provisional graph proposals. It is **not** an Analysis or PowerEvaluation schema; see the [separate transport contract](../protocols/tria/map-response-contract.md).
+
 See [repository responsibilities](../docs/architecture.md).
