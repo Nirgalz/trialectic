@@ -1,6 +1,7 @@
 """Serve the reference map with the development-only Codex adapter."""
 
 from hashlib import sha256
+from html import escape
 import json
 from pathlib import Path
 import re
@@ -11,6 +12,8 @@ from codex_bridge import CodexBridgeError, run_turn, status
 
 WORKSPACE = Path(__file__).resolve().parent
 REFERENCE = WORKSPACE.parents[1] / 'applications/triad-graph'
+DEFAULT_INSTRUCTION_VERSION = 'tria-instructions-v0.1'
+INSTRUCTION_VERSION = re.compile(r'tria-instructions-v[0-9]+(?:\.[0-9]+)+')
 sys.path.insert(0, str(REFERENCE))
 from server import ASSETS, Handler, serve, validate
 
@@ -93,9 +96,30 @@ def method_bundle(instructions, instruction_ids):
     )
 
 
+def instruction_files():
+    return {
+        path.stem: path for path in sorted(WORKSPACE.glob('tria-instructions-v*.md'))
+        if INSTRUCTION_VERSION.fullmatch(path.stem) and path.is_file() and not path.is_symlink()
+    }
+
+
+def discussion_instructions(version):
+    path = instruction_files().get(version) if isinstance(version, str) else None
+    if path is None:
+        raise MethodCatalogError('Version des instructions trIA inconnue ou indisponible.')
+    try:
+        text = path.read_text(encoding='utf-8').strip()
+    except (OSError, UnicodeError) as exc:
+        raise MethodCatalogError(f'Impossible de lire les instructions trIA : {version}.') from exc
+    if not text:
+        raise MethodCatalogError(f'Le fichier d’instructions trIA est vide : {version}.')
+    return text
+
+
 def ui_revision():
     files = set(ASSETS.values())
     files.update(WORKSPACE / name for name in ('trIA-prompts.json', 'trIA-instructions.md'))
+    files.update(instruction_files().values())
     for directory in (REFERENCE, WORKSPACE):
         files.update(path for path in directory.iterdir()
                      if path.suffix in {'.html', '.css', '.js'} and path.is_file())
@@ -121,6 +145,12 @@ class WorkspaceHandler(Handler):
             '<script defer src="/workspace/live-reload.js"></script>'
         )
         panel = (WORKSPACE / 'panel.html').read_text(encoding='utf-8')
+        options = []
+        for version in instruction_files():
+            label = escape(version)
+            selected = ' selected' if version == DEFAULT_INSTRUCTION_VERSION else ''
+            options.append(f'<option value="{label}"{selected}>{label}</option>')
+        panel = panel.replace('<!-- instruction-version-options -->', '\n'.join(options), 1)
         instruction_map = (WORKSPACE / 'instruction-map.html').read_text(encoding='utf-8')
         page = (
             page.replace('</head>', head + '</head>', 1)
@@ -166,7 +196,9 @@ class WorkspaceHandler(Handler):
                 return self.reply({'error': 'Request too large or empty'}, 413)
             body = json.loads(self.rfile.read(size))
             if self.path == '/api/codex/instructions':
-                return self.acknowledge_method()
+                if not isinstance(body, dict):
+                    return self.reply({'error': 'Invalid JSON request.'}, 400)
+                return self.acknowledge_method(body.get('instruction_version', DEFAULT_INSTRUCTION_VERSION))
             if self.path == '/api/codex/test':
                 return self.run_method_test(body)
             if not isinstance(body, dict) or 'document' not in body:
@@ -177,9 +209,8 @@ class WorkspaceHandler(Handler):
             if document is not None and any(issue.get('severity') == 'error' for issue in validate(document)):
                 return self.reply({'error': 'Invalid Analysis document.'}, 400)
             instruction = ''
-            if body.get('use_method_instructions') is True:
-                instructions = load_method_instructions()
-                instruction = method_bundle(instructions, instructions)
+            if 'instruction_version' in body or body.get('use_method_instructions') is True:
+                instruction = discussion_instructions(body.get('instruction_version', DEFAULT_INSTRUCTION_VERSION))
             return self.reply(run_turn(body, instruction=instruction))
         except CodexBridgeError as exc:
             return self.reply({'error': str(exc)}, exc.status)
@@ -190,19 +221,19 @@ class WorkspaceHandler(Handler):
         except Exception:
             return self.reply({'error': 'Local server error. The Analysis was unchanged.'}, 500)
 
-    def acknowledge_method(self):
-        instructions = load_method_instructions()
+    def acknowledge_method(self, version):
+        instruction = discussion_instructions(version)
         result = run_turn({
             'document': None, 'focus_id': None, 'scenario_id': None, 'history': [],
             'phase': 'Comprendre',
             'question': 'Acknowledge receipt of the supplied trIA Method instructions. '
                         'Set tria_instruction_check.status to acknowledged, briefly confirm receipt, '
                         'and return empty objects and relations arrays.',
-        }, instruction=method_bundle(instructions, instructions))
+        }, instruction=instruction)
         report = (result.get('envelope') or {}).get('tria_instruction_check')
         if not isinstance(report, dict) or report.get('status') != 'acknowledged':
             return self.reply({'error': 'Codex did not acknowledge the trIA instructions.'}, 502)
-        return self.reply({'acknowledged': True})
+        return self.reply({'acknowledged': True, 'instruction_version': version})
 
     def run_method_test(self, body):
         catalog, instructions = load_method_catalog()

@@ -6,6 +6,8 @@
   const messages = [];
   let sourceRevision = null, pending = false;
   let methodAcknowledged = null;
+  let activeInstructionVersion = null;
+  const instructionSelection = $("instruction-version-selection");
   // This adapter alone knows Codex CLI. The reference map only displays a generic status.
   const connectionLabels = {
     checking: {
@@ -45,7 +47,7 @@
 
   function state(text, error = false) {
     $("codex-status-text").textContent = text ?? (
-      methodAcknowledged ? "trIA instructions acknowledged"
+      methodAcknowledged ? `Instructions trIA confirmées · ${activeInstructionVersion}`
         : methodAcknowledged === false ? "Start a new discussion to retry instruction transmission." : "Ready"
     );
     $("codex-status").dataset.error = String(error);
@@ -130,6 +132,8 @@
       "codex-test-three-objects", "codex-test-instruction-memory", "codex-ask-instructions"]) {
       $(id).disabled = value;
     }
+    instructionSelection.disabled = value || !instructionSelection.options.length;
+    $("codex-reset").disabled = value || !instructionSelection.value;
     $("codex-method-case").disabled = value || methodCases.length === 0;
     $("codex-run-method-case").disabled = value || !$("codex-method-case").value;
     $("codex-run-all-tests").disabled = value || methodCases.length === 0;
@@ -148,15 +152,19 @@
     return data;
   }
   $("codex-reset").addEventListener("click", async () => {
-    if (pending) return;
+    const version = instructionSelection.value;
+    if (pending || !version) return;
     reset();
     $("codex-question").value = "";
     methodAcknowledged = false;
+    activeInstructionVersion = null;
     setPending(true);
-    state("Transmission of trIA instructions");
+    state(`Transmission des instructions trIA · ${version}`);
     try {
-      const data = await requestTurn({}, "/api/codex/instructions");
-      if (data.acknowledged !== true) throw Error("Codex did not acknowledge the trIA instructions.");
+      const data = await requestTurn({ instruction_version: version }, "/api/codex/instructions");
+      if (data.acknowledged !== true || data.instruction_version !== version)
+        throw Error("Codex n’a pas confirmé la version d’instructions sélectionnée.");
+      activeInstructionVersion = version;
       methodAcknowledged = true;
       connectionIndicator("verified");
       state();
@@ -179,7 +187,7 @@
       const data = await requestTurn({
         document: null, focus_id: null, scenario_id: null,
         phase: $("phase").value, history: messages.slice(-12),
-        use_method_instructions: methodAcknowledged === true,
+        ...(activeInstructionVersion && { instruction_version: activeInstructionVersion }),
         question: "Which explicitly supplied Trialectic Method instructions can you identify in this conversation? " +
           "Briefly report those instructions and which you applied. Exclude the exchange format and execution rules. " +
           "If you recognize none, say so. Leave the map data empty."
@@ -188,7 +196,7 @@
       const report = data.envelope?.tria_instruction_check?.message;
       const summary = typeof report === "string" ? report.trim() : "";
       const source = methodAcknowledged
-        ? "This request included the trIA Method instructions."
+        ? `Instructions trIA transmises · ${activeInstructionVersion}.`
         : data.project_instructions_enabled
           ? "Codex project guidance is enabled. trIA sent the exchange contract."
           : "trIA sent the exchange contract.";
@@ -424,7 +432,7 @@
       const data = await requestTurn({
         document: originalDoc, phase, focus_id: context.focusId,
         scenario_id: context.scenarioId, question, history: messages.slice(-12),
-        use_method_instructions: methodAcknowledged === true
+        ...(activeInstructionVersion && { instruction_version: activeInstructionVersion })
       });
       if (TriaGraph.getContext().analysisRevision !== context.analysisRevision)
         throw Error("L'Analysis a changé pendant le tour : résultat écarté.");
