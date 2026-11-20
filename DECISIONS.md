@@ -1824,3 +1824,21 @@ Related decisions: D-17, D-28, D-80, D-85, D-89–D-95. Related tasks: T-03, T-0
 
 ## Rule for new entries
 Each entry must state the date, decision, status (proposed / validated / modified / abandoned), rationale where available, and related tasks. Do not silently rewrite earlier decisions; record a new corrective entry.
+
+## D-98 · Analytical effort, semantic sets, progressive trIA and dual terminology research
+Date: November 20, 2026 | Status: **AUTHOR-VALIDATED conceptual/pedagogical directions and working definition; relationships, schemas and usefulness OPEN** | Branch: `dev`
+
+**Two approved principles (original French wording):**
+> Ne pas demander davantage d'effort à l'utilisateur avant de lui avoir rendu intelligible ce que cet effort pourrait lui apporter.
+
+> Ne pas supprimer les efforts qui contribuent effectivement à développer sa compréhension et son autonomie.
+
+Their purpose is to make the value of additional analysis understandable **without suppressing intellectually productive effort**. They do not approve a universal numerical effort/effect equivalence, an automatic exploration-ranking algorithm, or the replacement of D-89/D-93 global safeguards.
+
+**Semantic grouping, provisional name `ensemble sémantique` / `nœud sémantique` — author-approved working definition:** A contextual grouping of Objects, relations and possibly other groups, whose organization expresses an identifiable, summarizable Meaning; an abstraction for representing, exploring and deepening a coherent part of an analysis while retaining its components and internal relations. The author approves examining a **possible function of the existing Semantic Object** as an intelligible unit of Meaning that simplifies interpretation and allows expansion through levels of granularity. The current Semantic Object's Meaning/Expressions/Conceptual Network characterization is preserved. A UI grouping **does not automatically create an Object**; exact identity and criteria remain OPEN.
+
+**Relations between semantic units are OPEN:** investigate a *semantic relation* distinct from NEED/CAN where justified, including meaning and qualification. Collapsing Objects cannot silently establish a NEED/CAN, causal, sufficiency or attribution relation between their groups. Retain inspectable underlying Object IDs and qualifications. Research and optional trIA prototype experimentation are approved; no new mandatory schema or independent renderer is approved.
+
+**New transversal RD axes:** RD-01 analytical relevance/effort, RD-02 semantic granularity, RD-03 progressive/pedagogical/immediately useful interaction, RD-04 distinct human-facing and machine-facing terminology. Research is centralized under `research/` with sources, limits and status. Investigate accessible everyday UI language (e.g. **Potentialité** rather than technical **CAN**) while retaining machine-level precision, contextual conditions, stable identities and exact data contracts. Specific mappings, translations and UI effects require testing.
+
+**Boundaries:** This author validation concerns principles, a working definition and research/development direction—not measured utility, generalized group-to-group relation semantics, automatic inference, permanent Semantic Object IDs for presentation groups or changes to Analysis/PowerEvaluation schemas. Existing conceptual decisions D-04, D-50, D-84, D-85, D-89, D-93, D-95 and D-97 remain applicable. See `research/README.md` and tasks T-31–T-34.

@@ -58,6 +58,30 @@
 
 This file specifies **what remains to do**. It does **not** introduce or validate concepts: validated decisions remain in [`DECISIONS.md`](DECISIONS.md), and the canonical Method definitions remain in the reference. Historical IDs T-01–T-30 are stable even when two tasks share a research workstream; none has been closed.
 
+## Cross-cutting RD — author-approved directions, operational and empirical work OPEN (2026-11-20)
+
+Central index: [research/README.md](research/README.md). These tasks **extend** existing T-03/T-04/T-20/T-21/T-26/T-27; they do not make research stages mandatory or replace validated conceptual distinctions.
+
+### T-31 · Assess analytical relevance and justifiable effort (RD-01)
+**Type:** Conceptual / comparative | **Priority:** P1 | **Status:** To investigate
+**Scope:** Compare Sperber/Wilson relevance, bounded rationality, value of information and resource-rational reasoning with D-89/D-93. Test qualitative prioritization of analytical operations by expected benefit, analyst/AI/external effort, uncertainty and affected Subjects. Distinguish immediate from delayed learning value and preserve rare major risks.
+**Closure criterion:** On fixed counterexamples, justify continuation/deferral without hidden omissions or fictitious numerical relevance scores. [Research](research/methodology/analytical-relevance-and-effort.md).
+
+### T-32 · Explore Semantic Objects/sets and hierarchical map granularity (RD-02)
+**Type:** Conceptual / UI experiment | **Priority:** P1 | **Status:** To experiment
+**Scope:** Test author-approved working definition, potential Semantic Object function, and reversible group/expand views in the **single reference Cytoscape renderer**. Preserve source IDs and qualifications. Compare set-to-set semantic relations versus display-only aggregation; do not infer NEED/CAN between sets. Test overlap, nesting, misleading summaries and user understanding; whether a grouping becomes an independently identifiable Object remains OPEN.
+**Closure criterion:** A documented, scoped prototype plus at least one falsifying case; distinguish visual usefulness from conceptual identity and verified semantics. [Research](research/representation/semantic-objects-and-sets.md).
+
+### T-33 · Test progressive, pedagogical, immediate-value interactions (RD-03)
+**Type:** Interaction / experimental | **Priority:** P1 | **Status:** To experiment
+**Scope:** Explain anticipated benefit before inviting additional analyst effort while retaining productive reasoning. Compare technical-first and value-explained prompts; observe comprehension, omissions, autonomy and reasons to continue/stop. Keep the two author-approved French principles visible and preserve D-85/D-89 safeguards.
+**Closure criterion:** Comparative scenarios distinguish reduced unproductive effort from loss of useful thought; report negative cases. [Research](research/interaction/progressive-analyst-experience.md).
+
+### T-34 · Separate human-facing and technical trIA terminology (RD-04)
+**Type:** Terminology / interaction | **Priority:** P1 | **Status:** To develop
+**Scope:** Experiment with ordinary language in human UI (notably « Potentialité » for the established CAN concept) alongside stable technical AI/data identities and precise constraints; assess confusion risks for NEED, Power, Focus and Semantic Object. No schema enum changes or universal equivalence assumptions.
+**Closure criterion:** Reversible example mappings and a small comprehension comparison, with context-sensitive ambiguous terms documented. [Research](research/interaction/human-and-technical-terminology.md).
+
 ## Tracking rules
 
 1. Each entry records **Type / Priority / Status / Dependencies / Scope / Closure criterion**. `Scope` describes the durable objective and principal unresolved questions, **not** the chronological history of tests.

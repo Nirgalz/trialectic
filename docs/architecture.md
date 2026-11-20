@@ -18,7 +18,7 @@ Read it alongside [the decision log](../DECISIONS.md), not in place of it.
 | Graphical presentation and navigation | [applications/triad-graph/](../applications/triad-graph/README.md) | **Sole reference animated Cytoscape interface**; no independent renderer in AI chat or MCP |
 | External AI and MCP communication | Provider-specific adapters in applications; [applications/tria-mcp/](../applications/tria-mcp/README.md) | Transport, permissions, and interoperability, **not** conceptual inference |
 | Structural and partial semantic verification | [tools/validate_analysis.py](../tools/validate_analysis.py), [tools/validate_semantics.py](../tools/validate_semantics.py), [tests/](../tests/README.md) | Implemented checks, not general causal or empirical validation |
-| Open tasks and experimental findings | [TODO.md](../TODO.md), [research/](../research/) | Work tracking and evidence qualified by scope and provenance |
+| Open tasks and experimental findings | [TODO.md](../TODO.md), [research/](../research/README.md) | RD axes, work tracking and evidence qualified by scope and provenance; exploratory group views never become normative Objects merely by being displayed |
 | Educational exposition and translation | [docs/en/](en/), [docs/fr/](fr/), [terminology/](../terminology/) | Accessible guides and vocabulary; no independent normative definitions |
 
 A decision and the current reference can legitimately repeat a definition for

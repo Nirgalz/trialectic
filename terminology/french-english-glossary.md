@@ -153,6 +153,14 @@
 6. **Do not introduce new conceptual commitments through translation.** If an English expression has no clear French equivalent, flag it for review instead of silently changing the definition.
 7. **Source of truth:** the current English GitHub reference, `reference/trialectic-method.md`, is primary for future edits; Git tags are used to identify versioned snapshots. French versions are translations, not independent divergent references.
 
+## 3.5. Human-facing vocabulary vs technical trIA language (D-98; research program)
+
+**Author-approved direction (2026-11-20):** distinguish the **human interface's familiar terms** from the **technical/AI exchange identifiers and constrained field vocabulary**. The same Method and conceptual identities apply in both; do not redefine CAN/NEED/Power or change any normative schema merely to simplify a displayed label.
+
+**Example explicitly supplied by author:** display **Potentialité** where the underlying technical concept is **CAN**. This is consistent with the existing validated correspondence CAN = Potentiality, but does not imply actionability or autonomous agency. Other candidates such as `NEED` → « besoin » / « condition nécessaire » depend on context and remain OPEN for comprehension tests; they are not silently canonical translations.
+
+See the [RD-04 research design](../research/interaction/human-and-technical-terminology.md) for provisional mappings and precautions. This new interface-language dimension is **not** a second French–English reference glossary.
+
 ## 4. Maintenance
 
 Update this file when the author explicitly approves a new terminological equivalence. Record changes in `DECISIONS.md` and `CHANGELOG.md` as appropriate. Keep existing author-approved pairs stable unless explicitly revised.

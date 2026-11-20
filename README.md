@@ -74,13 +74,14 @@ These are **potential applications, not validated use cases**. Comparative value
 ## Repository documents
 
 - [Repository architecture and sources of truth](docs/architecture.md) — responsibilities, document ownership, implementation boundaries and duplication policy.
+- [Research and Development index](research/README.md) — analytical relevance, Semantic Object/set abstraction, progressive/pedagogical interaction, and human-vs-technical terminology; retain approved/OPEN statuses.
 - [Canonical reference](reference/trialectic-method.md) — current working document; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements. Version snapshots are managed with Git tags rather than numbered filenames; prior revisions can be recovered from Git history.
 - [Data models and rationale](reference/data-models.md) — comprehensive cross-reference of current conceptual and data models, why each is distinct, their validation status, and open serialization questions. An explanatory catalogue, **not a new normative schema**.
 - [AI-assisted dialogue protocol](applications/ai-assisted-analysis/dialogue-protocol.md) — approved AI interaction design aligned with the current Method and normative data models; implementation and empirical evaluation remain open.
 - [trIA response transport](protocols/tria/README.md) — distinct behavioral instructions and experimental map-response contract, not the normative Analysis schema.
 - [Application overlap inventory](docs/component-inventory.md) — shared-code candidates and boundaries that should remain separate.
 - [AI collaboration workflow](AGENTS.md#collaboration-workflow-author-approved-2026-11-17) — approved working convention for discussing, testing, concluding, proposing and authorizing scoped GitHub updates; not a conceptual Method rule.
-- [TODO](TODO.md) — 30 research and development tasks and their statuses.
+- [TODO](TODO.md) — research and development tasks and their statuses.
 - [Decision log](DECISIONS.md) — decisions and validation history.
 - [Contribution guidelines](CONTRIBUTING.md) — how to propose changes, submit pull requests, and document decisions.
 - [License](LICENSE) — Creative Commons Attribution 4.0 International (CC BY 4.0).
