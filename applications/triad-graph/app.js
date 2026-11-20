@@ -1,6 +1,6 @@
 /* Display projection only. Source Analysis records are never mutated. */
 const $ = id => document.getElementById(id);
-const analysisPanels = document.querySelectorAll('.workspace, #d97-focus, #local-ai, .navigation-experiment, .bottom');
+const analysisPanels = document.querySelectorAll('.workspace, #semantic-groups, #d97-focus, #local-ai, .navigation-experiment, .bottom');
 const mapWorkspace = document.querySelector('.workspace');
 const analysisControls = ['map-depth','scenario','export','import-proposals'];
 analysisPanels.forEach(panel=>{panel.inert=true;});
@@ -9,6 +9,7 @@ let documentModel, cy, view = 'objects', selected = null, issues = [], records =
 let centeredNode = null, overviewPositions = new Map();
 let activeLayout = null, scenarioFocus = null;
 let analysisRevision=0;
+let semanticGroups=[],nextSemanticGroupNumber=1; // reversible, presentation-only RD-02 pilot
 let acceptedOverlay={objects:[],relations:[]}; // Propositions graphiques non normatives
 let previewOverlay=null;
 const viewTransitions=TriaViewTransitions.createTransitions(cytoscape,$('cy'));
@@ -49,7 +50,7 @@ function graphSnapshot(){
  if(!documentModel)return {previewOverlay,zoom:cy?.zoom(),pan:cy?{...cy.pan()}:null};
  if(!cy)return null;
  return {view,scenarioFocus,scenario:renderedScenario,selected,centeredNode,
-  overview:[...overviewPositions],positions:cy.nodes().map(n=>[n.id(),{...n.position()}]),
+  overview:[...overviewPositions],semanticGroups:structuredClone(semanticGroups),positions:cy.nodes().map(n=>[n.id(),{...n.position()}]),
   hidden:cy.elements('.outside-neighborhood').map(e=>e.id()),centers:cy.nodes('.layout-center').map(n=>n.id()),
   zoom:cy.zoom(),pan:{...cy.pan()},focus:navigation.focus,mode:navigation.mode,
   focusCycle:focusCycle?.snapshotPresentation(),focusCycleReport:structuredClone(focusCycleReport)};
@@ -87,6 +88,7 @@ function moveGraphHistory(direction){
   }
   navigation.operation(direction<0?'vue précédente':'vue suivante');
   if(saved.focusCycle)focusCycle.restorePresentation(saved.focusCycle);focusCycleReport=structuredClone(saved.focusCycleReport);
+  semanticGroups=structuredClone(saved.semanticGroups||[]);
   render();
   cy.batch(()=>{
    saved.positions.forEach(([id,p])=>cy.getElementById(id).position(p));
@@ -282,7 +284,13 @@ function openScenario(id,adopt=true){return visitGraph(()=>{
   $('raw').textContent=pretty(scenario);refreshNavigationControls();handoff();
 });}
 function activateNode(uid){return visitGraph(()=>{
-  const r=records.get(uid);if(r?.family==='scenario'){openScenario(r.id);return;}
+  const r=records.get(uid);
+  if(r?.family==='semantic-group'){
+    const g=semanticGroups.find(x=>x.id===r.id);
+    if(g){g.collapsed=false;render();$('semantic-status').textContent='Ensemble ouvert : '+g.label+' · tous les détails source redeviennent inspectables.';}
+    return;
+  }
+  if(r?.family==='scenario'){openScenario(r.id);return;}
   inspect(uid);if(cy.getElementById(uid).isNode())focusNode(uid);
 });}
 function render() {
@@ -301,7 +309,9 @@ function render() {
   const baseIds=new Set(baseElements.map(element=>element.data.id));
   const endpoints=new Set(proposals.flatMap(({data})=>data.source?[data.source,data.target]:[]));
   const additionalObjects=all.filter(({data})=>!data.source&&endpoints.has(data.id)&&!baseIds.has(data.id));
-  const es=baseElements.concat(additionalObjects,proposals);
+  let es=baseElements.concat(additionalObjects,proposals);
+  const semanticProjection=!discovery&&view==='objects'?TriaSemanticGroups.project(es,documentModel.relations,semanticGroups,key):null;
+  if(semanticProjection){es=semanticProjection.elements;for(const [uid,rec] of semanticProjection.records)records.set(uid,rec);}
   $('overview').disabled=!(view==='scenarios'&&scenarioFocus);
   $('scope').textContent=discovery?(previewOverlay?'Aperçu provisoire des propositions IA':'Carte vide'):view==='objects'?(focusCycle?.mode==='simple'&&!focusCycle.refined?'Carte simple · sélection non exhaustive':'Carte détaillée · Objets et relations'):scenarioFocus?`Scénario : ${scenarioFocus} · ${es.filter(e=>!e.data.source&&records.get(e.data.id)?.family==='object').length} Objets dans le périmètre`:`${documentModel.scenarios.length} scénarios · cliquer pour explorer`;
   $('cy').setAttribute('aria-label',discovery?'Aperçu de la carte':view==='objects'?'Carte des Objets et relations':scenarioFocus?'Objets associés au scénario choisi':'Carte des scénarios');
@@ -315,6 +325,8 @@ function render() {
     {selector:'node[visualKind="CAN"]',style:{shape:'polygon','shape-polygon-points':'-1 -1 1 -1 0 1',width:36,height:38,'background-color':color('--can')}},
     {selector:'node[kind="relation"]',style:{shape:'ellipse',width:12,height:12,'background-color':color('--muted')}},
     {selector:'node[kind="scenario"]',style:{shape:'round-rectangle',width:190,height:115,'text-valign':'center','text-margin-y':0,'text-max-width':170,'background-color':color('--raised'),'border-width':1,'border-color':color('--accent')}},
+    {selector:'node[kind="semantic-set"]',style:{shape:'round-rectangle',width:158,height:76,'text-valign':'center','text-margin-y':0,'text-max-width':142,'background-color':color('--raised'),'border-width':3,'border-style':'dashed','border-color':color('--accent'),'font-weight':'bold'}},
+    {selector:'edge[kind="semantic-summary"]',style:{'line-style':'dotted','source-arrow-shape':'none','target-arrow-shape':'none','line-width':2,'line-opacity':.85,'label':'data(label)'}},
     {selector:'node[kind="condition"]',style:{shape:'diamond',width:28,height:32,'background-color':color('--need')}},
     {selector:'node[statusTone="positive"]',style:{color:color('--positive')}},
     {selector:'node[statusTone="negative"]',style:{color:color('--negative')}},
@@ -349,7 +361,11 @@ function render() {
     return;
   }
   if(view==='objects'||scenarioFocus)cy.getElementById(key('object',documentModel.main_subject.id)).addClass('main-subject');
-  organicLayout(cy.elements());
+  if(semanticProjection?.activeIds.length){
+    cy.elements().layout({name:'cose',animate:false,fit:false,nodeDimensionsIncludeLabels:true,padding:48}).run();
+    routeVisibleEdges(cy.elements());frameGraph(cy.elements());
+    $('scope').textContent+=' · '+semanticProjection.activeIds.length+' ensemble(s) réduit(s) · liens résumés';
+  }else organicLayout(cy.elements());
   cy.on('tap','node',e=>activateNode(e.target.id()));
   cy.on('mouseover','node',hoverObject);
   cy.on('mouseout','node',hideObjectTooltip);
@@ -359,7 +375,7 @@ function render() {
   cy.on('dragfree','node',()=>routeVisibleEdges(cy.elements(':visible')));
   $('entity').replaceChildren(new Option('Choisir une entité…',''));
   for(const [id,r] of records)if(cy.getElementById(id).length)$('entity').add(new Option(`${r.family} · ${r.id}`,id));
-  selected=null; orientation(); analyticalSummary();refreshNavigationControls();renderFocusCycle();
+  selected=null; orientation(); analyticalSummary();refreshNavigationControls();renderFocusCycle();renderSemanticGroupsControls();
 }
 function focusNode(uid) {
   const node=cy.getElementById(uid); if(!node.isNode())return;
@@ -441,6 +457,7 @@ function handoff(challenge=false){
 async function install(doc,reported){
   viewTransitions.finish();
   analysisRevision++;documentModel=doc;issues=reported;view='objects';scenarioFocus=null;navigation.reset();
+  semanticGroups=[];nextSemanticGroupNumber=1;
   acceptedOverlay={objects:[],relations:[]};previewOverlay=null;$('clear-proposals').disabled=true;
   const selectedDepth=$('map-depth').value||'detailed';
   focusCycle=TriaFocusCycle.createCycle(doc);focusCycle.setMode(selectedDepth);focusCycleReport=null;
@@ -468,6 +485,58 @@ async function loadExample(example){try{
  if(!input)throw Error('Exemple introuvable');
  const parsed=TriaMapData.parseAnalysis(input);await install(parsed.document,parsed.issues);
  }catch(e){$('status').textContent=e.message;}}
+
+
+// RD-02 local experiment: manually assigned meanings, not source Object creation.
+function renderSemanticGroupsControls(){
+  const select=$('semantic-members'),list=$('semantic-list');
+  select.replaceChildren();list.replaceChildren();
+  if(!documentModel)return;
+  const groupedObjectIds=new Set(semanticGroups.flatMap(g=>g.members.filter(m=>m.type==='object').map(m=>m.id)));
+  const childSets=new Set(semanticGroups.flatMap(g=>g.members.filter(m=>m.type==='set').map(m=>m.id)));
+  for(const obj of documentModel.objects.filter(o=>!groupedObjectIds.has(o.id)))
+    select.add(new Option((obj.label||obj.id)+' ['+obj.id+']','object:'+obj.id));
+  for(const group of semanticGroups.filter(g=>!childSets.has(g.id)))
+    select.add(new Option('Ensemble : '+group.label+' ['+group.id+']','set:'+group.id));
+  function show(g,depth=0){
+    const item=document.createElement('div');item.className='semantic-list-item';item.style.marginLeft=Math.min(depth*16,48)+'px';
+    const title=text(item,'strong',g.label+' · '+(g.collapsed?'réduit':'développé'));
+    text(item,'p',g.meaning,'muted');
+    const actions=text(item,'div','','button-row');
+    const toggle=text(actions,'button',g.collapsed?'Ouvrir':'Réduire');
+    toggle.onclick=()=>visitGraph(()=>{g.collapsed=!g.collapsed;render();});
+    const remove=text(actions,'button','Retirer le regroupement');
+    remove.onclick=()=>visitGraph(()=>{semanticGroups=semanticGroups.filter(x=>x.id!==g.id);render();});
+    list.append(item);
+    for(const member of g.members||[])if(member.type==='set'){
+      const child=semanticGroups.find(x=>x.id===member.id);
+      if(child)show(child,depth+1);
+    }
+  }
+  semanticGroups.filter(g=>!childSets.has(g.id)).forEach(g=>show(g));
+  $('semantic-status').textContent=semanticGroups.length
+    ?semanticGroups.length+' ensemble(s) local(aux) · cliquer sur un ensemble dans la carte pour développer. Les relations regroupées restent à inspecter.'
+    :'Aucun ensemble créé. Choisir au moins deux éléments, puis écrire leur signification en une phrase.';
+}
+$('semantic-create').onclick=()=>{
+  if(!documentModel)return;
+  const label=$('semantic-title').value.trim(),meaning=$('semantic-meaning').value.trim();
+  const members=[...$('semantic-members').selectedOptions].map(o=>{
+    const [type,...parts]=o.value.split(':');return {type,id:parts.join(':')};
+  });
+  if(!label||meaning.length<12||members.length<2){
+    $('semantic-status').textContent='Indiquer un nom, une phrase de signification (12 caractères minimum) et au moins deux éléments.';return;
+  }
+  if(semanticGroups.length>=30){$('semantic-status').textContent='Pilote limité à 30 ensembles.';return;}
+  visitGraph(()=>{
+    const id='SG-'+String(nextSemanticGroupNumber++).padStart(3,'0');
+    semanticGroups.push({id,label,meaning,members,collapsed:true});
+    $('semantic-title').value='';$('semantic-meaning').value='';
+    if(view!=='objects'){view='objects';scenarioFocus=null;$('objects').setAttribute('aria-pressed','true');$('scenarios').setAttribute('aria-pressed','false');}
+    render();
+    $('semantic-status').textContent='Ensemble créé : '+label+' · représentation locale non normative.';
+  });
+};
 
 $('map-depth').onchange=()=>visitGraph(()=>{
   if(!focusCycle)return;

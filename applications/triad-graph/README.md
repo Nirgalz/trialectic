@@ -389,3 +389,14 @@ Visibility snapshots read current `display` and `visibility` styles explicitly:
 the bundled Cytoscape can retain a stale `:visible` result after filtering.
 The regression test uses the bundled library to check that excluded nodes
 remain in the outgoing animation and never remain in its target snapshot.
+
+## RD-02 experimental semantic sets (November 20, 2026)
+
+The single existing Cytoscape map now includes **Regrouper des éléments en ensembles de sens**, a **local, non-normative UI pilot**, following the author-approved possible Semantic Object function and provisional semantic-set definition (D-98). Read [RD-02 research](../../research/representation/semantic-objects-and-sets.md).
+
+1. Load an existing synthetic or imported Analysis, then select at least **two Objects or already-created root sets** with Ctrl/Cmd + click. Add a short label and a one-sentence Meaning; click **Créer un ensemble**.
+2. A collapsed semantic-set visual node replaces the selected visible Objects in the **Object map only**; click it or use **Ouvrir** to recover its detailed constituents and original links. Previously created groups may be nested in a new parent group. The grouping is temporary; it is not serialized as an Object or an addition to Analysis.
+3. When source links cross set boundaries, the map draws **undirected dotted summary links** labeled `liens à examiner`. Inspect them to see source relation IDs; this **does not** assert a semantic, NEED/CAN, causal or sufficiency link between the aggregate sets. Ordinary direct links can also be summarized, with source edge identifiers. Original records and the original full map are available by expanding the sets.
+4. Use **Retirer le regroupement** to remove only the view abstraction. Switching between simple/detailed maps or Scenarios does not edit source data; importing a different Analysis resets the local group definitions. Local grouping is not exported with source Analysis.
+
+**Limits:** Group meanings and members are entered by the analyst; AI has not inferred meanings or verified grouping quality. Sharing/overlapping memberships are deliberately deferred, as are independent Semantic Object identity, semantic relation typing, cross-Scenario version semantics, durable persistence, controlled human-comprehension evaluation and interoperability with a future AI-side grouping protocol. This is a visualization experiment, **not** validation of cognitive benefit or a schema migration.

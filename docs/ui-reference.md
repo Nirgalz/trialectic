@@ -71,3 +71,7 @@ CLI. Open the reference HTML directly for the provider-neutral map.
 **Reference entry point:** `applications/triad-graph/index.html`.
 For the optional Work Local queue, use `python applications/triad-graph/server.py`.
 The Codex workspace has its own launcher under `experiments/tria-codex-workspace/`.
+
+## RD-02 local grouping pilot (non-normative)
+
+The reference map's optional semantic-set experiment is implemented **in the same renderer**, through `applications/triad-graph/semantic-groups.js` and its existing `app.js` controller. Its groups are presentation-only local analyst input. Collapsed inter-group links show **references to inspect**, not asserted NEED/CAN relationships or newly inferred facts. Expand to recover source Objects and qualified relations. See [RD-02](../research/representation/semantic-objects-and-sets.md).

@@ -63,3 +63,16 @@ body,.map{background:var(--bg)}.map{background:var(--panel)}button.primary:hover
 .ai-connection[data-status="ready"] .ai-connection-dot{background:var(--positive)}
 .ai-connection[data-status="unavailable"] .ai-connection-dot{background:var(--negative)}
 #ai-connection-label{overflow-wrap:anywhere}
+
+/* RD-02 reversible Semantic Objects/sets presentation experiment. */
+.semantic-group-editor{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;align-items:end}
+.semantic-group-editor label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:7px;min-width:0}
+.semantic-group-editor label:nth-child(3){grid-column:1/3}
+.semantic-group-editor label select{min-height:145px}
+.semantic-group-editor button{justify-self:start}
+#semantic-status{font-size:12px;color:var(--muted);padding:9px;border-left:2px solid var(--accent)}
+.semantic-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px}
+.semantic-list-item{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px}
+.semantic-list-item strong{font-size:13px}.semantic-list-item p{overflow-wrap:anywhere;margin:7px 0}
+.semantic-list-item button{font-size:11px;padding:6px 9px}
+@media(max-width:760px){.semantic-group-editor{grid-template-columns:1fr}.semantic-group-editor label:nth-child(3){grid-column:auto}}
