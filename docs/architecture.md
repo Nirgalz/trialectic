@@ -89,6 +89,25 @@ adapters, with no competing graph implementation. Integrate experimental
 behavior only after an explicit author choice; checks are targeted to actual
 risks during this exploratory stage.
 
+## Separation of concerns: architectural inventory and proposed migration
+
+**Planning status (2026-11-20):** The author requested an inventory of
+responsibilities **before** choosing final UI terminology or moving files.
+This approves the inventory activity, **not** the proposed target paths as
+a new repository contract. The existing authority table above and current
+entry points remain effective.
+
+See [Separation of concerns — responsibilities, dependencies and proposed
+destinations](separation-of-concerns.md) for the evidence-based component
+matrix, provisional layered architecture, migration order, compatibility risks,
+and questions to settle.
+
+The proposed organizing distinction is **Method (conceptual authority) →
+reusable computational formalization (specific versioned representations) →
+presentation/adapters → applications**. Research and governance cut across
+layers, while changing UI wording never rewrites source IDs or the Method.
+No file has been relocated by this documentation change.
+
 ## How to change things without drift
 
 1. Identify the concern and consult **its** authority before editing.
