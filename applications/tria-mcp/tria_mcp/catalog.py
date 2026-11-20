@@ -16,8 +16,8 @@ Language = Literal['fr', 'en']
 MapMode = Literal['simple', 'detailed']
 REFERENCES = {
     'method': 'reference/trialectic-method.md',
-    'dialogue-protocol': 'applications/ai-assisted-analysis/dialogue-protocol.md',
-    'operational-guidance': 'applications/ai-assisted-analysis/AGENTS.md',
+    'dialogue-protocol': 'applications/tria/ai/dialogue-protocol.md',
+    'operational-guidance': 'applications/tria/ai/AGENTS.md',
 }
 LIMITS = [
     'Resource distribution only: no analytical input, validation endpoint or storage.',

@@ -204,7 +204,7 @@
     // Preserve the existing first-turn payload: send both together only once.
     try {
       const paths = [
-        "../../reference/tria-ai-instructions.md",
+        "../tria/ai/portable-instructions.md",
         "../../protocols/tria/map-response-contract.md"
       ];
       const responses = await Promise.all(paths.map(path => fetch(path, { cache: "no-store" })));
