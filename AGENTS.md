@@ -53,6 +53,8 @@ the distinction between knowledge revisions and effective Actualization.
 
 ## Collaboration workflow (author-approved, 2026-11-17)
 
+**Terminology — RD:** In French project discussions, `RD` means **Recherche et Développement** (Research and Development). It denotes exploratory work, not a validated conceptual decision or a requirement to change normative models.
+
 This is an **operational collaboration convention**, not a new conceptual rule of the Trialectic Method. Prefer **analysis first, formalization second**. Work efficiently, with proportional effort and without making GitHub activity the default response to conceptual discussions.
 
 ### Working on a topic
