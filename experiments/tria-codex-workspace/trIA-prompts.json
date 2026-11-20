@@ -76,7 +76,7 @@
       "id": "preserve-object-identity-case",
       "name": "Preserve Object identity",
       "instruction_id": "preserve-object-identity",
-      "reference": "reference/trialectic-method.md §2.1.1; applications/ai-assisted-analysis/dialogue-protocol.md §7",
+      "reference": "reference/trialectic-method.md §2.1.1; applications/tria/ai/dialogue-protocol.md §7",
       "message": "At the library, a librarian checks a notebook.",
       "follow_up": {
         "name": "Preserve Object identity",
@@ -186,7 +186,7 @@
       "id": "identify-contextual-can-case",
       "name": "Identify a contextual CAN",
       "instruction_id": "identify-contextual-can",
-      "reference": "reference/trialectic-method.md §§3.2, 3.5 (T-01-G–H); applications/ai-assisted-analysis/dialogue-protocol.md §9.3",
+      "reference": "reference/trialectic-method.md §§3.2, 3.5 (T-01-G–H); applications/tria/ai/dialogue-protocol.md §9.3",
       "message": "A library can use a trained volunteer to deliver books. The volunteer has offered to drive, but the library still needs permission to use the vehicle. What ability should we examine?",
       "expected": {
         "schema": "tria-codex-discovery-v1",
@@ -212,7 +212,7 @@
       "id": "separate-object-from-attribution-case",
       "name": "Separate conceptual identity from attribution",
       "instruction_id": "separate-object-from-attribution",
-      "reference": "reference/trialectic-method.md §§3.5–3.6 (T-01-J–K, D-83); applications/ai-assisted-analysis/dialogue-protocol.md §2.4",
+      "reference": "reference/trialectic-method.md §§3.5–3.6 (T-01-J–K, D-83); applications/tria/ai/dialogue-protocol.md §2.4",
       "message": "A community hall regularly holds seated events. A separate neighborhood association has demonstrated that it can also organize seated events there. Make a map showing what can be attributed to each.",
       "expected": {
         "schema": "tria-codex-discovery-v1",
@@ -374,7 +374,7 @@
       "id": "qualify-epistemic-status-case",
       "name": "Qualify facts and hypotheses",
       "instruction_id": "qualify-epistemic-status",
-      "reference": "applications/ai-assisted-analysis/dialogue-protocol.md §3.1; reference/trialectic-method.md §2.1.12 (D-46)",
+      "reference": "applications/tria/ai/dialogue-protocol.md §3.1; reference/trialectic-method.md §2.1.12 (D-46)",
       "message": "Staff say fewer people visited after the library changed its hours. Nobody compared attendance records or checked for other changes. Did the new hours cause the drop?",
       "reasoning_question": "Judge whether the answer separates a reported observation from a causal hypothesis and proposes a meaningful verification."
     },
@@ -382,7 +382,7 @@
       "id": "frame-the-library-situation",
       "name": "Frame the Subject and Environment",
       "instruction_id": "frame-the-situation",
-      "reference": "applications/ai-assisted-analysis/dialogue-protocol.md §3.1; reference/trialectic-method.md §§1.1–2.3 (D-89); dialogue protocol D-97",
+      "reference": "applications/tria/ai/dialogue-protocol.md §3.1; reference/trialectic-method.md §§1.1–2.3 (D-89); dialogue protocol D-97",
       "message": "A neighborhood library wants visitors to enter safely on rainy days. The entrance steps are the immediate concern. A wider ramp might help people enter, but it could send rainwater toward the shop next door. Where should the library start?",
       "reasoning_question": "Judge the proposed Main Subject, Focus and Environment. The presence of a library Object does not show that these analytical roles were assigned."
     },
@@ -390,7 +390,7 @@
       "id": "clarify-relevant-meaning-case",
       "name": "Clarify a consequential ambiguity",
       "instruction_id": "clarify-relevant-meaning",
-      "reference": "reference/trialectic-method.md §8; applications/ai-assisted-analysis/dialogue-protocol.md D-97",
+      "reference": "reference/trialectic-method.md §8; applications/tria/ai/dialogue-protocol.md D-97",
       "message": "The library manager says the study room must remain accessible. They haven't said whether this is about wheelchair access or whether people can enter outside staffed hours. What should we clarify before assessing this?",
       "reasoning_question": "Judge whether the answer identifies materially different interpretations and explains how they change the assessment."
     },
@@ -398,7 +398,7 @@
       "id": "preserve-inventory-limits-case",
       "name": "Preserve inventory limits",
       "instruction_id": "preserve-inventory-limits",
-      "reference": "reference/trialectic-method.md §§2.1.9, 3.5 (T-01-E); applications/ai-assisted-analysis/dialogue-protocol.md §9.4",
+      "reference": "reference/trialectic-method.md §§2.1.9, 3.5 (T-01-E); applications/tria/ai/dialogue-protocol.md §9.4",
       "message": "We checked only the equipment cabinet for a way to show a film. We found no projector. We have not checked nearby organizations or rental options. What can we conclude?",
       "reasoning_question": "Judge whether the answer respects the searched scope and distinguishes unknown options from impossibility."
     },
@@ -406,7 +406,7 @@
       "id": "assess-an-already-satisfied-need-case",
       "name": "Recognize an already satisfied NEED",
       "instruction_id": "assess-an-already-satisfied-need",
-      "reference": "reference/trialectic-method.md §3.1; applications/ai-assisted-analysis/dialogue-protocol.md §9.2",
+      "reference": "reference/trialectic-method.md §3.1; applications/tria/ai/dialogue-protocol.md §9.2",
       "message": "The archive needs its paper collection to stay dry. The room is already dry, and the stored records are dry. Must staff start a new intervention now?",
       "reasoning_question": "Judge whether the existing state satisfies the specified NEED and whether maintenance or no intervention follows."
     },
@@ -414,7 +414,7 @@
       "id": "separate-satisfaction-from-temporal-compliance-case",
       "name": "Assess temporal compliance separately",
       "instruction_id": "separate-satisfaction-from-temporal-compliance",
-      "reference": "reference/trialectic-method.md §3.2.2; reference/power-evaluation.md §§5.3–5.4; applications/ai-assisted-analysis/dialogue-protocol.md §9.7",
+      "reference": "reference/trialectic-method.md §3.2.2; reference/power-evaluation.md §§5.3–5.4; applications/tria/ai/dialogue-protocol.md §9.7",
       "message": "A reading room had to be open continuously from 9 a.m. to noon. It was locked from 10:00 to 10:15 and open again at noon. There were no authorized exceptions. Did it meet the requirement?",
       "reasoning_question": "Judge satisfaction and compliance at different times, including the effect of any interruption or authorized exception."
     },
@@ -422,7 +422,7 @@
       "id": "assess-conditional-actualizability-case",
       "name": "Assess conditional CAN actualizability",
       "instruction_id": "assess-conditional-actualizability",
-      "reference": "reference/power-evaluation.md §§2.2, 5.6–5.8; applications/ai-assisted-analysis/dialogue-protocol.md §9.5",
+      "reference": "reference/power-evaluation.md §§2.2, 5.6–5.8; applications/tria/ai/dialogue-protocol.md §9.5",
       "message": "A hall can host an evening talk if an authorized keyholder is available. Nobody has checked whether one is available on Friday. Can the hall host the talk this Friday?",
       "reasoning_question": "Judge prerequisites, uncertainty and actualizability in the stated context."
     },
@@ -430,7 +430,7 @@
       "id": "generate-distinct-scenarios-case",
       "name": "Generate and isolate Resolution Scenarios",
       "instruction_id": "generate-distinct-scenarios",
-      "reference": "reference/trialectic-method.md §§6.1–6.1.1; applications/ai-assisted-analysis/dialogue-protocol.md §3.2(D); reference/trialectic-method.md §§2.1.10, 5.2; dialogue protocol §9.6",
+      "reference": "reference/trialectic-method.md §§6.1–6.1.1; applications/tria/ai/dialogue-protocol.md §3.2(D); reference/trialectic-method.md §§2.1.10, 5.2; dialogue protocol §9.6",
       "message": "A library wants a quiet place for evening study. Its quiet room currently closes at six. It could extend the room’s hours if staff are available, or use a nearby school room if access is agreed and keep the library room’s existing hours. No plan has been selected or implemented. What possibilities should we describe?",
       "reasoning_question": "Judge whether the proposed pathways are materially different and whether their assumptions and projected states remain separate."
     },
@@ -446,7 +446,7 @@
       "id": "distinguish-effect-path-and-timing-case",
       "name": "Distinguish effect pathways and timing",
       "instruction_id": "distinguish-effect-path-and-timing",
-      "reference": "reference/trialectic-method.md §7; applications/ai-assisted-analysis/dialogue-protocol.md §2.11",
+      "reference": "reference/trialectic-method.md §7; applications/tria/ai/dialogue-protocol.md §2.11",
       "message": "If a library installs a door closer, its direct effect on door movement may only become measurable after a few weeks of adjustment. It may also change how often visitors ask staff for help through the door becoming harder to open. How should those effects be described?",
       "reasoning_question": "Judge whether the answer separates causal pathway, timing and evidential status."
     },
@@ -454,7 +454,7 @@
       "id": "compare-scenarios-by-dimension-case",
       "name": "Compare Scenarios by independent dimensions",
       "instruction_id": "compare-scenarios-by-dimension",
-      "reference": "reference/trialectic-method.md §6.2; reference/power-evaluation.md §2.3; applications/ai-assisted-analysis/dialogue-protocol.md §3.2(E)",
+      "reference": "reference/trialectic-method.md §6.2; reference/power-evaluation.md §2.3; applications/tria/ai/dialogue-protocol.md §3.2(E)",
       "message": "Compare keeping the library room open late with using a school room. The school room is free but needs a keyholder. Late opening requires paid staff, and their rates are unknown. Compare the options without choosing one.",
       "reasoning_question": "Judge the independence and justification of the Scenario comparisons and the handling of unknowns."
     },
@@ -470,7 +470,7 @@
       "id": "review-competing-evidence-case",
       "name": "Review supporting and contradicting evidence",
       "instruction_id": "review-competing-evidence",
-      "reference": "reference/trialectic-method.md §§2.1.12–2.1.15 (D-46–D-47, D-93–D-94); applications/ai-assisted-analysis/dialogue-protocol.md §9.8",
+      "reference": "reference/trialectic-method.md §§2.1.12–2.1.15 (D-46–D-47, D-93–D-94); applications/tria/ai/dialogue-protocol.md §9.8",
       "message": "A sign-in register shows 25 workshop attendees. The organizer claims 40 attended, but gives no source. The register may omit people who did not sign in. How well supported is the claim that 40 attended?",
       "reasoning_question": "Judge the treatment of evidence, competing interpretations and limits of the conclusion."
     },
@@ -478,7 +478,7 @@
       "id": "revise-only-dependent-conclusions-case",
       "name": "Apply a correction as a knowledge revision",
       "instruction_id": "revise-only-dependent-conclusions",
-      "reference": "reference/power-evaluation.md §3; applications/ai-assisted-analysis/dialogue-protocol.md D-97 and §9.9",
+      "reference": "reference/power-evaluation.md §3; applications/tria/ai/dialogue-protocol.md D-97 and §9.9",
       "message": "Yesterday I told you the school room closes at six and used that to rule out a 7 p.m. session. I checked the schedule today and the correct closing time was always eight. The separate finding that the room has 20 seats still stands. What should we update?",
       "reasoning_question": "Judge whether the correction changes dependent conclusions while preserving independent findings."
     },
@@ -494,7 +494,7 @@
       "id": "stop-with-explicit-limits-case",
       "name": "Stop with explicit relevance limits",
       "instruction_id": "stop-with-explicit-limits",
-      "reference": "reference/trialectic-method.md §§6.3, 7; applications/ai-assisted-analysis/dialogue-protocol.md §9.12",
+      "reference": "reference/trialectic-method.md §§6.3, 7; applications/tria/ai/dialogue-protocol.md §9.12",
       "message": "We've compared two reading rooms for a small meeting. Both meet the access and seating requirements. Fire occupancy for an adjacent room is unknown, but we will not use that room. One selected room will have a new partition next month that could change its usable capacity. When should we stop checking, and what would reopen the analysis?",
       "reasoning_question": "Judge whether the stopping point is justified and the conditions for revisiting it are clear."
     }

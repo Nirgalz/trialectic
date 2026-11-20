@@ -4,6 +4,13 @@
 
 The Method is **an analytical framework, not a universal ontology**. Its **default Advanced Mode explores and compares multiple relevant Resolution Scenarios** where warranted; decisions are supported by transparent reasons, **not** prescribed as uniquely best solutions. The computer/data model serves to **formalize the Method's operations**, not to dictate its purpose. The working reference is maintained at the stable path **`reference/trialectic-method.md`**, with **Git tags** intended to identify versioned snapshots. The Method has **not been scientifically validated**; previous versions remain recoverable through Git history.
 
+**Separation of concerns (current dev):** [Method conceptual entry point](method/README.md),
+[reusable formalization](formalization/README.md),
+[trIA AI instructions](applications/tria/ai/README.md), and
+[architectural migration plan](docs/separation-of-concerns.md).
+The working Method reference retains its stable historical path during this
+migration.
+
 ## Start here / Commencer ici
 
 The public-facing documentation is available in **English and French**. The overview introduces the framework; the practical guide offers a proposed, step-by-step way to use it. Both are educational adaptations of the [working reference](reference/trialectic-method.md), not separate authoritative specifications or evidence of scientific validation.
@@ -76,8 +83,8 @@ These are **potential applications, not validated use cases**. Comparative value
 - [Repository architecture and sources of truth](docs/architecture.md) — responsibilities, document ownership, implementation boundaries and duplication policy.
 - [Research and Development index](research/README.md) — analytical relevance, Semantic Object/set abstraction, progressive/pedagogical interaction, and human-vs-technical terminology; retain approved/OPEN statuses.
 - [Canonical reference](reference/trialectic-method.md) — current working document; distinguishes **VALIDATED**, **FORMALIZATION**, and **OPEN** statements. Version snapshots are managed with Git tags rather than numbered filenames; prior revisions can be recovered from Git history.
-- [Data models and rationale](reference/data-models.md) — comprehensive cross-reference of current conceptual and data models, why each is distinct, their validation status, and open serialization questions. An explanatory catalogue, **not a new normative schema**.
-- [AI-assisted dialogue protocol](applications/ai-assisted-analysis/dialogue-protocol.md) — approved AI interaction design aligned with the current Method and normative data models; implementation and empirical evaluation remain open.
+- [Data models and rationale](formalization/docs/data-models.md) — comprehensive cross-reference of current conceptual and data models, why each is distinct, their validation status, and open serialization questions. An explanatory catalogue, **not a new normative schema**.
+- [AI-assisted dialogue protocol](applications/tria/ai/dialogue-protocol.md) — approved AI interaction design aligned with the current Method and normative data models; implementation and empirical evaluation remain open.
 - [trIA response transport](protocols/tria/README.md) — distinct behavioral instructions and experimental map-response contract, not the normative Analysis schema.
 - [Application overlap inventory](docs/component-inventory.md) — shared-code candidates and boundaries that should remain separate.
 - [AI collaboration workflow](AGENTS.md#collaboration-workflow-author-approved-2026-11-17) — approved working convention for discussing, testing, concluding, proposing and authorizing scoped GitHub updates; not a conceptual Method rule.

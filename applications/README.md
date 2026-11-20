@@ -13,3 +13,13 @@ The optional Work Local file queue uses `triad-graph/server.py`.
 The [Codex development workspace](../docs/local-codex-workspace.md) uses
 the same map with a workspace-specific panel and CLI adapter. MCP is a
 separate, read-only transport.
+
+## Ownership separation (partial migration)
+
+The shared [computational formalization](../formalization/README.md) is distinct
+from any application. The [trIA AI instructions](tria/ai/README.md) and
+[approved dialogue design](tria/ai/dialogue-protocol.md) belong to the trIA
+application, not the Method or a generic exchange schema. The [Method](../method/README.md)
+retains independent conceptual authority. `tria-map-data` remains a mixed
+parser/projection module pending the planned, reviewed split; no second graph
+renderer is introduced.

@@ -1,10 +1,12 @@
 # Separation of concerns — repository responsibilities and migration plan
 
-**Branch:** `dev` · **Inventory date:** 2026-11-20 · **Status:** RESEARCH/ARCHITECTURE PROPOSAL.
+**Branch:** `dev` · **Inventory date:** 2026-11-20 · **Status:** Wave 1 documentation/instruction ownership migration IMPLEMENTED; remaining target layout PROPOSED.
 Author-approved scope: **inventory and planning before any file move or
 terminological standardization**. The target tree and placements below are
-candidates, **not author-validated restructuring decisions**. No code, schema,
-conceptual definition or invocation path is changed by this document.
+candidates, **not author-validated restructuring decisions**. The inventory below records the **pre-migration** paths. Subsequent scoped
+commits relocated documentation and trIA instructions, updated application
+loader/MCP paths and retained legacy pointers; see the implementation log
+below. No normative schema or conceptual definition was changed.
 
 Related: [current architectural authority map](architecture.md),
 [existing graphical consolidation inventory](component-inventory.md),
@@ -70,7 +72,7 @@ explanations, but **must not replace** the formalization's authoritative
 identifiers with translated labels. Application-specific transport schemas
 are not automatically reusable domain schemas.
 
-## 2. Inventory: current paths and proposed ownership
+## 2. Baseline inventory (before Wave 1): source paths and proposed ownership
 
 Current path descriptions derive from inspected `dev` files, entry points,
 documentation and import references. **Target destinations are proposed,
@@ -111,6 +113,31 @@ rule. Some pure transformations are **display projections** (therefore
 Presentation), whereas a JSON parser or identity/reference validator can be
 a reusable domain component (Formalization). Ownership depends on the
 **meaning of an operation**, not whether it has a DOM or a network call.
+
+## 2a. Applied Wave 1 changes and remaining boundaries
+
+**Implemented on `dev` (2026-11-20):**
+
+| Concern | Canonical file after migration | Compatibility |
+| --- | --- | --- |
+| Conceptual Method entry point | [`method/README.md`](../method/README.md) | Full canonical Method remains at stable [`reference/trialectic-method.md`](../reference/trialectic-method.md), **not** duplicated |
+| Explanatory model catalogue | [`formalization/docs/data-models.md`](../formalization/docs/data-models.md) | `reference/data-models.md` retained as pointer |
+| Explanatory PowerEvaluation specification | [`formalization/docs/power-evaluation.md`](../formalization/docs/power-evaluation.md) | `reference/power-evaluation.md` retained as pointer |
+| trIA portable AI prompt | [`applications/tria/ai/portable-instructions.md`](../applications/tria/ai/portable-instructions.md) | `reference/tria-ai-instructions.md` retained as pointer; client fetch now reads full new path |
+| trIA approved dialogue design | [`applications/tria/ai/dialogue-protocol.md`](../applications/tria/ai/dialogue-protocol.md) | Old dialogue file is pointer; both MCP implementations load new full file |
+| trIA scoped operational guidance | [`applications/tria/ai/AGENTS.md`](../applications/tria/ai/AGENTS.md) | Old AGENTS file is a scoped pointer; current `tria_mcp/catalog.py` loads new full file |
+
+**Not moved yet:** executable `schemas/model/`, `core/schema_loader.py`,
+validators, `tria-map-data/`, the reference Cytoscape app, experimental
+Codex prompts and Method working reference itself. These preserve versioned
+contract, import, test and public-reference compatibility.
+
+**Path compatibility caveat:** old Markdown document URLs remain navigable
+but **return a pointer rather than the full previous content**. Consumers
+that require complete raw text must switch to the new owner paths. The
+known browser AI client and both MCP implementations have been adjusted.
+An exhaustive audit of external links, third-party raw-file clients and
+host-specific behavior is not yet established.
 
 ## 3. Verified current coupling / migration risk points
 
@@ -174,8 +201,8 @@ validated concept names simply to match UI words.
 
 | Wave | Purpose / smallest change | Gate before promotion |
 | --- | --- | --- |
-| 0 — **Now: map only** | Create this inventory; cross-link it from the current architecture. Leave every source path as it is. | Identify significant mixed owners and real consumers. **No code tests required** for documentation-only change. |
-| 1 — Clarify conceptual vs technical prose | Review `reference/data-models.md`, `reference/power-evaluation.md`, `reference/tria-ai-instructions.md` and bilingual glossaries; decide authoritative conceptual vs contract vs UI passages. | Author approves **specific** ownership and content moves; preserve conceptual and historic sources. |
+| 0 — **Completed: map only** | Initial inventory and cross-linking completed before the migration. | Identify significant mixed owners and real consumers. **No code tests required** for documentation-only change. |
+| 1 — **Partially implemented**: clarify conceptual vs technical prose | Review `reference/data-models.md`, `reference/power-evaluation.md`, `reference/tria-ai-instructions.md` and bilingual glossaries; decide authoritative conceptual vs contract vs UI passages. | Author approves **specific** ownership and content moves; preserve conceptual and historic sources. |
 | 2 — Extract reusable formalization | Establish `formalization/` only after deciding its supported APIs; migrate schema sources, pure assembly and appropriate validators, with path-compatible wrappers/redirects where possible. | Versioned schema IDs, Python CLI/import behavior, MCP schema resources and existing Analysis examples still work; run targeted checks related to changed paths. |
 | 3 — Untangle data processing and presentation | Split `tria-map-data/` by purpose: model parser/neutral checks vs projection, descriptions and Focus UI exploration; separate generated browser bundles and source contracts. | Check intended consumers, browser globals, source record immutability, referenced versions and map IDs; do not implement a second renderer. |
 | 4 — Collect trIA-specific integrations | Move AI instructions, dialogue protocol, map proposal transport and adapters under an application-specific boundary *only if* paths/host contracts can migrate safely. | Check provider first-turn fetch, map patch review, Work Local endpoints, MCP resource URIs and Codex workspace integration. |

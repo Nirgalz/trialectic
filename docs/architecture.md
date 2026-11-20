@@ -10,10 +10,10 @@ Read it alongside [the decision log](../DECISIONS.md), not in place of it.
 | Concern | Authoritative source | Other material is for |
 | --- | --- | --- |
 | Author-validated conceptual and methodological decisions | [DECISIONS.md](../DECISIONS.md), with the consolidated current definitions in [reference/trialectic-method.md](../reference/trialectic-method.md) | Historical trace and maintained explanation, respectively |
-| Data-model roles and distinctions | [reference/data-models.md](../reference/data-models.md); focused [PowerEvaluation explanation](../reference/power-evaluation.md) | Explanation and cross-references, **not** alternative field contracts |
+| Data-model roles and distinctions | [formalization/docs/data-models.md](../formalization/docs/data-models.md); focused [PowerEvaluation explanation](../formalization/docs/power-evaluation.md) | Explanation and cross-references, **not** alternative field contracts |
 | Adopted v2 Analysis / PowerEvaluation exchange fields and local shape | [schemas/model/](../schemas/model/README.md), interpreted by [schemas/global-model.md](../schemas/global-model.md) | Executable schema definitions and human-readable exchange profile |
-| AI-assisted dialogue and steering behavior | [applications/ai-assisted-analysis/dialogue-protocol.md](../applications/ai-assisted-analysis/dialogue-protocol.md), with operational scope in [AGENTS.md](../AGENTS.md) and [applications/ai-assisted-analysis/AGENTS.md](../applications/ai-assisted-analysis/AGENTS.md) | Interaction design and operating instructions, not changes to the Method |
-| Experimental AI behavioral prompt | [reference/tria-ai-instructions.md](../reference/tria-ai-instructions.md) | Portable assistant behavior, not a duplicate dialogue specification or data schema |
+| AI-assisted dialogue and steering behavior | [applications/tria/ai/dialogue-protocol.md](../applications/tria/ai/dialogue-protocol.md), with operational scope in [AGENTS.md](../AGENTS.md) and [applications/tria/ai/AGENTS.md](../applications/tria/ai/AGENTS.md) | Interaction design and operating instructions, not changes to the Method |
+| Experimental AI behavioral prompt | [applications/tria/ai/portable-instructions.md](../applications/tria/ai/portable-instructions.md) | Portable assistant behavior, not a duplicate dialogue specification or data schema |
 | Experimental map-response contract | [protocols/tria/map-response-contract.md](../protocols/tria/map-response-contract.md), [local-shape schema](../schemas/transport/tria-map-response-v2.schema.json), and contextual [browser validator](../applications/shared/map-protocol.js) | Human-readable transport format, structural checks and document-aware checks respectively; **provisional UI proposals** only |
 | Graphical presentation and navigation | [applications/triad-graph/](../applications/triad-graph/README.md) | **Sole reference animated Cytoscape interface**; no independent renderer in AI chat or MCP |
 | External AI and MCP communication | Provider-specific adapters in applications; [applications/tria-mcp/](../applications/tria-mcp/README.md) | Transport, permissions, and interoperability, **not** conceptual inference |
@@ -107,6 +107,28 @@ reusable computational formalization (specific versioned representations) →
 presentation/adapters → applications**. Research and governance cut across
 layers, while changing UI wording never rewrites source IDs or the Method.
 No file has been relocated by this documentation change.
+
+## Implementation status of the first documentation split (2026-11-20)
+
+The [conceptual Method entry point](../method/README.md) and
+[computational formalization entry point](../formalization/README.md) now
+separate the **ownership** of explanations. Full data-model documents live in
+`formalization/docs/`, while trIA operational AI instructions and its
+approved dialogue design live in `applications/tria/ai/`.
+
+The canonical Method itself deliberately remains at
+`reference/trialectic-method.md` to preserve a stable historical/public
+path; its new `method/` index is a pointer, **not a second definition**.
+Old data-model and trIA instruction file paths are human-readable pointers.
+Legacy code expecting raw instruction text must use the new paths. The browser
+AI chat and both MCP server implementations were updated to do so; public MCP
+resource URIs remain unchanged (including older `tria://method/...` names,
+whose names are **not** a claim that trIA dialogue design belongs to the
+Method). Other application code, schema modules and test entry points remain
+where they were; no versioned JSON schema was redefined.
+
+This is a **partial, path-sensitive migration**, not a completed package split.
+See [migration plan](separation-of-concerns.md).
 
 ## How to change things without drift
 

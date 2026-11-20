@@ -1,9 +1,9 @@
 # trIA protocol boundaries
 
 The **approved adaptive conversation design** remains in
-[applications/ai-assisted-analysis/dialogue-protocol.md](../../applications/ai-assisted-analysis/dialogue-protocol.md),
+[applications/tria/ai/dialogue-protocol.md](../../applications/tria/ai/dialogue-protocol.md),
 with operational assistant instructions in
-[applications/ai-assisted-analysis/AGENTS.md](../../applications/ai-assisted-analysis/AGENTS.md).
+[applications/tria/ai/AGENTS.md](../../applications/tria/ai/AGENTS.md).
 This directory does **not** replace or reapprove that design.
 
 ## Experimental map-response transport
@@ -24,7 +24,7 @@ normative records.
 
 ## Portable first-turn instruction assembly
 
-The [behavioral instructions](../../reference/tria-ai-instructions.md)
+The [behavioral instructions](../../applications/tria/ai/portable-instructions.md)
 describe what an AI should do. The multi-provider browser client fetches
 those instructions **plus** the map-response contract and joins them, in that
 order, for the first request of a provider conversation. Its existing

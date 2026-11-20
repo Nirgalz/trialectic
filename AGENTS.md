@@ -6,7 +6,7 @@ For requests using `use trIA-c` or `use trIAd-c`, apply the corresponding
 presentation; it does not change the Method, normative schemas, or evidence
 standards. `use trIA-dev-c` is the long-form equivalent of `use trIAd-c`.
 
-Read the prototype README and the AI-assisted dialogue protocol. Use the
+Read the prototype README and [trIA's AI-assisted dialogue protocol](applications/tria/ai/dialogue-protocol.md). Operational guidance for trIA-specific AI instructions now belongs to [applications/tria/ai/](applications/tria/ai/README.md), not to the Method reference. Use the
 current analysis records as the graph's data, rather than presenting a demo
 fixture as the user's analysis. Keep the conceptual Object graph separate from
 the methodological process graph. Clicking a node centers its local relations;
