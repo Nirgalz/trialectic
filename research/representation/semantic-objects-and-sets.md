@@ -48,6 +48,8 @@ Example failure: If a single constituent of A has an attributed NEED involving o
 - How should uncertainty, temporal context, Scenario branches and alternative interpretations be retained?
 - What important meanings or adverse effects become obscured when details are collapsed?
 
+**Implementation status (2026-11-20):** a first [reversible grouping pilot](semantic-group-prototype-pilot.md) is present in the single reference UI, with manual set creation, nested group membership, open/collapse actions and qualified source-link summaries. It is NOT an independent semantic Object identity or an empirical evaluation. The research questions below remain OPEN.
+
 ## Pilot for trIA
 
 Use the sole existing Cytoscape reference renderer; experiment with **optional, local, reversible semantic groupings**. Do not amend normative Analysis/PowerEvaluation JSON Schema or introduce an independent permanent map.

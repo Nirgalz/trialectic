@@ -21,6 +21,8 @@ RD means **Recherche et Développement** (Research and Development). This direct
 
 The second prevents a simplistic optimization for the shortest interaction. Both are design principles, not empirical findings or a fixed quantitative utility ratio.
 
+**New optional UI pilot:** [semantic-set grouping in trIA (2026-11-20)](representation/semantic-group-prototype-pilot.md) — implemented source-only renderer experiment, structural safeguards checked; interactive browser usability and independent comprehension evaluation still OPEN.
+
 ## Existing research retained in place
 
 The 2026-11-17 [relevance/Focus pilot](tria-dev-relevance-focus-pilot-2026-11-17.md) and the [navigation](tria-dev-focus-navigation-control-pilot-2026-11-17.md), [Focus vs Stage](tria-dev-focus-vs-stage-2026-11-17.md), [three-mode](tria-dev-focus-three-mode-pilot-2026-11-17.md) and [Cytoscape A/B](tria-dev-focus-cytoscape-ab-2026-11-17.md) pilots remain historical, limited, synthetic observations. None demonstrates cognitive benefit or empirical validity.

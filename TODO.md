@@ -68,7 +68,7 @@ Central index: [research/README.md](research/README.md). These tasks **extend** 
 **Closure criterion:** On fixed counterexamples, justify continuation/deferral without hidden omissions or fictitious numerical relevance scores. [Research](research/methodology/analytical-relevance-and-effort.md).
 
 ### T-32 · Explore Semantic Objects/sets and hierarchical map granularity (RD-02)
-**Type:** Conceptual / UI experiment | **Priority:** P1 | **Status:** To experiment
+**Type:** Conceptual / UI experiment | **Priority:** P1 | **Status:** In progress — source-only grouping pilot committed; actual browser and analyst-value evaluation OPEN
 **Scope:** Test author-approved working definition, potential Semantic Object function, and reversible group/expand views in the **single reference Cytoscape renderer**. Preserve source IDs and qualifications. Compare set-to-set semantic relations versus display-only aggregation; do not infer NEED/CAN between sets. Test overlap, nesting, misleading summaries and user understanding; whether a grouping becomes an independently identifiable Object remains OPEN.
 **Closure criterion:** A documented, scoped prototype plus at least one falsifying case; distinguish visual usefulness from conceptual identity and verified semantics. [Research](research/representation/semantic-objects-and-sets.md).
 
