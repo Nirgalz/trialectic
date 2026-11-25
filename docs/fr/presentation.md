@@ -24,6 +24,14 @@ Cette démarche peut être utile, mais elle devient insuffisante lorsque les dif
 
 Son objectif est de rendre plus explicites et révisables la compréhension de la problématique, l'exploration des possibilités et la prise de décisions éclairées, sans prescrire automatiquement une solution universellement optimale.
 
+## L’Observateur, la Trame et la Carte
+
+**La trialectique part du choix, par un Observateur, d’un Sujet qu’il considère dans son Environnement.** L’Observateur peut se choisir lui-même comme Sujet, choisir un Sujet qui fait partie de son propre Environnement ou choisir un Sujet extérieur à celui-ci. L’Observateur, le Sujet et l’Environnement du Sujet composent la **Trame**. La Sémantique en est une dimension.
+
+**Une Carte est l’interprétation qu’un Observateur élabore, à un moment donné, en analysant la Trame pour l’instant ou la période qu’il étudie.** Elle porte la marque de son point de vue, des questions qu’il pose et des éléments auxquels il a accès. Plusieurs Observateurs peuvent ainsi établir des Cartes différentes d’une même situation pour une même période.
+
+L’observation peut faire évoluer la compréhension que l’Observateur a du Sujet, de son Environnement ou de leurs relations. Il peut alors réviser sa Carte, même si la situation étudiée est restée identique. Une différence entre deux Cartes peut donc tenir aux perspectives adoptées, à l’évolution des connaissances ou à une transformation effective de la situation.
+
 ## Trois phases — Comprendre, Explorer, Décider (D-85)
 
 La Méthode complète repose sur **trois phases essentielles et récursives**, sans imposer leur réalisation intégrale à chaque usage :
